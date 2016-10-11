@@ -1,0 +1,122 @@
+fileFormatVersion: 2
+guid: 0ed9c9db015124547966aaca8f5e3414
+timeCreated: 1473105168
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: barrel
+    100002: barrel_catch
+    100004: barrel_catch_spring
+    100006: body
+    100008: cartridge-webley_mkII__445_000
+    100010: cartridge_controller
+    100012: cylinder
+    100014: cylinder_marker_000
+    100016: cylinder_marker_001
+    100018: cylinder_marker_002
+    100020: cylinder_marker_003
+    100022: cylinder_marker_004
+    100024: cylinder_marker_005
+    100026: extractor
+    100028: hammer
+    100030: revolver-webley_mkii
+    100032: revolver-webley_mkii_armature
+    100034: //RootNode
+    100036: shell_casing-webley_mkII__445_000
+    100038: trigger
+    400000: barrel
+    400002: barrel_catch
+    400004: barrel_catch_spring
+    400006: body
+    400008: cartridge-webley_mkII__445_000
+    400010: cartridge_controller
+    400012: cylinder
+    400014: cylinder_marker_000
+    400016: cylinder_marker_001
+    400018: cylinder_marker_002
+    400020: cylinder_marker_003
+    400022: cylinder_marker_004
+    400024: cylinder_marker_005
+    400026: extractor
+    400028: hammer
+    400030: revolver-webley_mkii
+    400032: revolver-webley_mkii_armature
+    400034: //RootNode
+    400036: shell_casing-webley_mkII__445_000
+    400038: trigger
+    2300000: cartridge-webley_mkII__445_000
+    2300002: shell_casing-webley_mkII__445_000
+    3300000: cartridge-webley_mkII__445_000
+    3300002: shell_casing-webley_mkII__445_000
+    4300000: cartridge-webley_mkII__445_000
+    4300002: shell_casing-webley_mkII__445_000
+    4300004: revolver-webley_mkii
+    7400000: Default Take
+    7400002: revolver-webley_mkii_armatureAction
+    9500000: //RootNode
+    13700000: revolver-webley_mkii
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
