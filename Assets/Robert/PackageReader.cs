@@ -51,7 +51,7 @@ public class PackageReader : MonoBehaviour {
 		}
 		catch (Exception e)
 		{
-			Debug.Log("Error" + e.ToString());
+			//Debug.Log("Error" + e.ToString());
 		}
 	}
 	//Message Management
