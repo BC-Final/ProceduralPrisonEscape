@@ -70,6 +70,10 @@ public class Weapon_M9 : MonoBehaviour, IWeapon {
 		//TODO Spawn a shell
 	}
 
+	public void SpawnMag() {
+		//TODO Spawn a magazine
+	}
+
 	public void SpawnBullet() {
 		_audio.PlayOneShot(Resources.Load<AudioClip>("Sounds/sfx_weapon_pistol_shoot"));
 		GetComponentInChildren<ParticleSystem>().Play();
@@ -86,10 +90,6 @@ public class Weapon_M9 : MonoBehaviour, IWeapon {
 				hit.rigidbody.GetComponent<IShootable>().ReceiveDamage(cam.forward, hit.point, _shotDamage);
 			}
 		}
-	}
-
-	public void SpawnMag() {
-		//TODO Spawn a magazine
 	}
 
 	public void MakeMeleeDamage() {
