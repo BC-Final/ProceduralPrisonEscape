@@ -23,7 +23,7 @@ public class WeaponController : MonoBehaviour, IMecanimNotifiable {
 	private IWeapon _equipedWeapon;
 
 	private void Start() {
-		GameObject weapon = Instantiate(Resources.Load("pfb_weapon_m9"), transform.position, transform.rotation) as GameObject;
+		GameObject weapon = Instantiate(Resources.Load("Prefabs/pfb_weapon_m9"), transform.position, transform.rotation) as GameObject;
 		_equipedWeaponTransform = weapon.transform;
 		weapon.transform.parent = this.transform;
 		_equipedWeapon = weapon.GetComponentInChildren<IWeapon>();

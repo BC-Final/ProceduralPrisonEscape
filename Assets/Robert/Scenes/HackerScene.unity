@@ -1755,7 +1755,6 @@ GameObject:
   - 20: {fileID: 1792941490}
   - 124: {fileID: 1792941489}
   - 92: {fileID: 1792941488}
-  - 81: {fileID: 1792941487}
   - 114: {fileID: 1792941492}
   m_Layer: 0
   m_Name: MinimapCamera
@@ -1764,13 +1763,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1792941487
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1792941486}
-  m_Enabled: 1
 --- !u!92 &1792941488
 Behaviour:
   m_ObjectHideFlags: 0
