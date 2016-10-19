@@ -161,7 +161,7 @@ public class PackageReader : MonoBehaviour {
 				Debug.Log("-Door does not exists");
 				Debug.Log(DU.rotationY);
 				GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, new Vector3(DU.x/_minimapScale.x, 0, DU.z/_minimapScale.y), Quaternion.EulerRotation(0, Mathf.Deg2Rad*DU.rotationY, 0));
-				Door door = gameObject.GetComponent<Door>();
+				HackerDoor door = gameObject.GetComponent<HackerDoor>();
 				door.Id = DU.ID;
 				
 				_doorManager.AddDoor(door);

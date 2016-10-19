@@ -134,8 +134,8 @@ class TCPMBTesterServer : MonoBehaviour
 	private void ClientInitialize(TcpClient pClient)
 	{
 		SendResponse(new CustomCommands.SendMinimapUpdate(GetMinimapData()), pClient);
-		List<Door> doors = _doorManager.GetDoorList();
-		foreach(Door d in doors)
+		List<HackerDoor> doors = _doorManager.GetDoorList();
+		foreach(HackerDoor d in doors)
 		{
 			Debug.Log(d.transform.rotation.y);
 			SendResponse(new CustomCommands.DoorUpdate(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y), pClient);

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class DoorManager : MonoBehaviour {
 
 
-	public List<Door> _doors;
+	public List<HackerDoor> _doors;
 	public int doorIndex = 0;
 	// Use this for initialization
 	void Start () {
@@ -17,10 +17,10 @@ public class DoorManager : MonoBehaviour {
 	
 	}
 
-	private List<Door> InitGetAllDoorsInLevel()
+	private List<HackerDoor> InitGetAllDoorsInLevel()
 	{
-		List<Door> allDoors = new List<Door>();
-		Door[] doorArray = FindObjectsOfType<Door>();
+		List<HackerDoor> allDoors = new List<HackerDoor>();
+		HackerDoor[] doorArray = FindObjectsOfType<HackerDoor>();
 		for(int i = 0; i < doorArray.Length; i++)
 		{
 			doorArray[i].Id = doorIndex;
@@ -30,25 +30,25 @@ public class DoorManager : MonoBehaviour {
 		return allDoors;
 	}
 
-	public List<Door> GetDoorList()
+	public List<HackerDoor> GetDoorList()
 	{
 		return _doors;
 	}
 
-	public void AddDoor(Door nDoor)
+	public void AddDoor(HackerDoor nDoor)
 	{
 		_doors.Add(nDoor);
 	}
 
 	public void UpdateDoor(CustomCommands.DoorUpdate update)
 	{
-		Door door = GetDoorByID(update.ID);
+		HackerDoor door = GetDoorByID(update.ID);
 		door.transform.position = new Vector3(update.x, door.transform.position.y, update.z);
 	}
 		
-	public Door GetDoorByID(int ID)
+	public HackerDoor GetDoorByID(int ID)
 	{
-		foreach(Door d in _doors)
+		foreach(HackerDoor d in _doors)
 		{
 			if(d.Id == ID)
 			{
@@ -65,7 +65,7 @@ public class DoorManager : MonoBehaviour {
 			Debug.Log("DoorAlreadyExists : false");
 			return false;
 		}
-		foreach(Door d in _doors)
+		foreach(HackerDoor d in _doors)
 		{
 			if(d.Id == ID)
 			{

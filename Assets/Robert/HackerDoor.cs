@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Door : MonoBehaviour {
+public class HackerDoor : MonoBehaviour {
 
 	public int Id;
 

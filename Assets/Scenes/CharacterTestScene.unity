@@ -459,7 +459,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &967148961 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 185888, guid: f8658650b013e4c4c95415e599841772, type: 2}

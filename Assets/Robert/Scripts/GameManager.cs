@@ -8,7 +8,7 @@ using System.Net.Sockets;
 
 public class GameManager : MonoBehaviour {
 
-	List<Door> doors;
+	List<HackerDoor> doors;
 	NetworkPlayer connectedClient;
 	TcpListener listener;
 	
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
 		//}
 	}
 
-	public List<Door> GetDoorList()
+	public List<HackerDoor> GetDoorList()
 	{
 		return doors;
 	}
