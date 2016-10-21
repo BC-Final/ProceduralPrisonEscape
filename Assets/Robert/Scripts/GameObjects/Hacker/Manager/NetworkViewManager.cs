@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HackerGameManager : MonoBehaviour {
+public class NetworkViewManager : HackerMapManager {
 
-	// Use this for initialization
-	void Start () {
-	
+	protected override void Start()
+	{
+		base.Start();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	

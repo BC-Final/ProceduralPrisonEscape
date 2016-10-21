@@ -21,13 +21,15 @@ namespace CustomCommands
 		public float x;
 		public float z;
 		public float rotationY;
+		public string state;
 
-		public DoorUpdate(int nID, float nX, float nZ, float nRotationY)
+		public DoorUpdate(int nID, float nX, float nZ, float nRotationY, string nState)
 		{
 			ID = nID;
 			x = nX;
 			z = nZ;
 			rotationY = nRotationY;
+			state = nState;
 		}
 	}
 	[System.Serializable]

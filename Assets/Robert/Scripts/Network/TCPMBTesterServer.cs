@@ -138,7 +138,7 @@ class TCPMBTesterServer : MonoBehaviour
 		foreach(Door d in doors)
 		{
 			Debug.Log(d.transform.rotation.y);
-			SendResponse(new CustomCommands.DoorUpdate(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y), pClient);
+			SendResponse(new CustomCommands.DoorUpdate(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
 	}
 	/// <summary>

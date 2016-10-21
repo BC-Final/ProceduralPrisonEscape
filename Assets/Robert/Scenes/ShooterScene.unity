@@ -333,6 +333,10 @@ Prefab:
       propertyPath: m_Name
       value: Door (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 11475522, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
+      propertyPath: currentDoorStatus
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
   m_IsPrefabParent: 0
@@ -2482,6 +2486,10 @@ Prefab:
       propertyPath: m_Name
       value: Door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 11475522, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
+      propertyPath: currentDoorStatus
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
   m_IsPrefabParent: 0
@@ -3077,6 +3085,10 @@ Prefab:
     - target: {fileID: 425748, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11475522, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
+      propertyPath: currentDoorStatus
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 075e7249187a17744814a81dffd59c4c, type: 2}
@@ -7438,6 +7450,10 @@ Prefab:
     - target: {fileID: 442856, guid: bf7f0afcece604440a60e574696915b2, type: 2}
       propertyPath: m_RootOrder
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: m_Depth
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}

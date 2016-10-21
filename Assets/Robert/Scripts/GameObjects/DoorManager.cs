@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class DoorManager : MonoBehaviour {
 
-
 	public List<Door> _doors;
 	public int doorIndex = 0;
 	// Use this for initialization

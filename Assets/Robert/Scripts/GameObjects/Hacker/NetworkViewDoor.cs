@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NetworkViewManager : MonoBehaviour {
+public class NetworkViewDoor : HackerDoorAsset
+{
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start()
+	{
+
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+	{
+
 	}
 }

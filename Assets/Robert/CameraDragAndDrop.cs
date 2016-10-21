@@ -6,16 +6,18 @@ public class CameraDragAndDrop : MonoBehaviour {
 	[SerializeField]
 	int mouseRegion;
 
-	bool _dragging = false;
-	Camera _camera;
+	private bool _dragging = false;
+	private Camera _camera;
 
-	Vector3 _startPos;
-	Vector3 _newPos;
-	Vector3 _startTransformPos;
+	private Vector3 _targetPos;
+	private Vector3 _startPos;
+	private Vector3 _newPos;
+	private Vector3 _startTransformPos;
 
 	// Use this for initialization
 	void Start () {
 		_camera = GetComponent<Camera>();
+		_targetPos = this.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -37,9 +39,16 @@ public class CameraDragAndDrop : MonoBehaviour {
 		if (_dragging)
 		{
 			_newPos = _startPos - Input.mousePosition;
-			this.transform.position = new Vector3(_startTransformPos.x + _newPos.x*scrollPos/50, 1, _startTransformPos.z + _newPos.y*scrollPos/50);
+			_targetPos = new Vector3(_startTransformPos.x + _newPos.x*scrollPos/50, 1, _startTransformPos.z + _newPos.y*scrollPos/50);		
 		}
+		this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, Time.deltaTime * 0.985f);
 	}
+	public void SetTargetPos(Vector3 targetPosition)
+	{
+		_targetPos = targetPosition;
+		_targetPos.y = 1;
+	}
+
 	/// <summary>
 	/// Returns true if mouse is in given part of the screen. 
 	/// Each part is a quarter of the screen in width and height starting from bottom left, then bottom right, then top left and top right.
@@ -90,6 +99,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 
 	void StopDragging()
 	{
+		_targetPos = this.transform.position;
 		_dragging = false;
 	}
 }
