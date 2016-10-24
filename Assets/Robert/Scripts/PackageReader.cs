@@ -12,7 +12,9 @@ using UnityEngine;
 public class PackageReader : MonoBehaviour {
 
 	Vector2 _minimapScale;
-	private DoorManager _doorManager;
+	private HackerDoorManager _doorManager;
+	private MinimapManager _minimapManager;
+	private NetworkViewManager _networkViewManager;
 	private TcpChatClient _networkManager;
 	private ChatBoxScreen _chatBoxScreen;
 	[SerializeField]
@@ -22,20 +24,20 @@ public class PackageReader : MonoBehaviour {
 	private NetworkStream _stream;
 	private BinaryFormatter _formatter;
 	private MinimapPlayer _player;
-	[SerializeField]
-	private GameObject _playerPrefab;
-	[SerializeField]
-	private GameObject _minimapDoorPrefab;
 
 	// Use this for initialization
 	void Start () {
-		_minimapScale = new Vector2(4, 4);
 		_networkManager = FindObjectOfType<TcpChatClient>();
+		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
+		_minimapManager.SetScale(4);
+		_minimapManager.SetSender(_networkManager);
+		_minimapScale = new Vector2(4, 4);
+		_networkViewManager = GameObject.FindObjectOfType<NetworkViewManager>();
 		_chatBoxScreen = _networkManager.GetChatBoxScreen();
 		_client = _networkManager.GetClient();
 		_stream = _networkManager.GetStream();
 		_formatter = _networkManager.GetFormatter();
-		_doorManager = GameObject.FindObjectOfType<DoorManager>();
+		_doorManager = GameObject.FindObjectOfType<HackerDoorManager>();
 	}
 	
 	// Update is called once per frame
@@ -51,7 +53,7 @@ public class PackageReader : MonoBehaviour {
 		}
 		catch (Exception e)
 		{
-			//Debug.Log("Error" + e.ToString());
+			Debug.Log("Error" + e.ToString());
 		}
 	}
 	//Message Management
@@ -136,40 +138,34 @@ public class PackageReader : MonoBehaviour {
 			Texture2D tex = new Texture2D(2, 2);
 			tex.LoadImage(MU.bytes);
 			_minimap.GetComponent<Renderer>().material.mainTexture = tex;
-			Debug.Log("Minimap Updated");
-			_chatBoxScreen.AddChatLine("Minimap Update");
+			//Debug.Log("Minimap Updated");
+			//_chatBoxScreen.AddChatLine("Minimap Update");
 		}
 		if (response is CustomCommands.PlayerPositionUpdate)
 		{
-			Debug.Log("Updating Player Position");
+			//Debug.Log("Updating Player Position");
 			CustomCommands.PlayerPositionUpdate PPU = response as CustomCommands.PlayerPositionUpdate;
-			if(_player == null){
-				GameObject gameObject = (GameObject)Instantiate(_playerPrefab, new Vector3(PPU.x,0,PPU.z), Quaternion.identity);
-				_player = gameObject.GetComponent<MinimapPlayer>();
-			}else
-			{
-				_player.SetNewPos(new Vector3(PPU.x/_minimapScale.x, 0, PPU.z/_minimapScale.y));
-			}
+			_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z));
 		}
 		if (response is CustomCommands.DoorUpdate)
 		{
-			Debug.Log("Updating Door");
+			//Debug.Log("Updating Door");
 			CustomCommands.DoorUpdate DU = response as CustomCommands.DoorUpdate;
-			Debug.Log("Update for Door : " + DU.ID);
+			//Debug.Log("Update for Door : " + DU.ID);
 			if (!_doorManager.DoorAlreadyExists(DU.ID))
 			{
-				Debug.Log("-Door does not exists");
-				Debug.Log(DU.rotationY);
-				GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, new Vector3(DU.x/_minimapScale.x, 0, DU.z/_minimapScale.y), Quaternion.EulerRotation(0, Mathf.Deg2Rad*DU.rotationY, 0));
-				HackerDoor door = gameObject.GetComponent<HackerDoor>();
-				door.Id = DU.ID;
-				
-				_doorManager.AddDoor(door);
+				//Debug.Log("-Door does not exists");
+				_doorManager.CreateDoor(new Vector3(DU.x/_minimapScale.x, 0, DU.z/_minimapScale.y), DU.rotationY, DU.state, DU.ID);
 			}else
 			{
-				Debug.Log("-Door exists");
+				//Debug.Log("-Door exists");
 				_doorManager.UpdateDoor(DU);
 			}
+		}
+		if(response is CustomCommands.DoorChangeState)
+		{
+			CustomCommands.DoorChangeState DCS = response as CustomCommands.DoorChangeState;
+			_doorManager.UpdateDoorState(DCS);
 		}
 	}
 

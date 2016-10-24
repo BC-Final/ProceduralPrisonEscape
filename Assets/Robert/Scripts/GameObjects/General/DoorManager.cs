@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class DoorManager : MonoBehaviour {
 
 
-	public List<HackerDoor> _doors;
+	private TCPMBTesterServer _sender;
+	public List<Door> _doors;
+
 	public int doorIndex = 0;
 	// Use this for initialization
 	void Start () {
@@ -26,6 +28,7 @@ public class DoorManager : MonoBehaviour {
 			doorArray[i].Id = doorIndex;
 			doorIndex++;
 			allDoors.Add(doorArray[i]);
+			doorArray[i].SetManager(this);
 		}
 		return allDoors;
 	}
@@ -44,9 +47,25 @@ public class DoorManager : MonoBehaviour {
 	{
 		HackerDoor door = GetDoorByID(update.ID);
 		door.transform.position = new Vector3(update.x, door.transform.position.y, update.z);
+		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(update.state));
 	}
 		
+<<<<<<< HEAD:Assets/Robert/DoorManager.cs
 	public HackerDoor GetDoorByID(int ID)
+=======
+	public void UpdateDoorState(CustomCommands.DoorChangeState update)
+	{
+		Door door = GetDoorByID(update.ID);
+		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(update.state));
+	}
+
+	public void SendDoorStateUpdate(Door door)
+	{
+		_sender.SendDoorUpdate(door);
+	}
+
+	public Door GetDoorByID(int ID)
+>>>>>>> robert:Assets/Robert/Scripts/GameObjects/General/DoorManager.cs
 	{
 		foreach(HackerDoor d in _doors)
 		{
@@ -75,5 +94,10 @@ public class DoorManager : MonoBehaviour {
 		}
 		Debug.Log("DoorAlreadyExists : false");
 		return false;
+	}
+
+	public void SetSender(TCPMBTesterServer sender)
+	{
+		_sender = sender;
 	}
 }

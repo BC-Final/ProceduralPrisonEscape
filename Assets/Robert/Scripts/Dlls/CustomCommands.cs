@@ -21,15 +21,31 @@ namespace CustomCommands
 		public float x;
 		public float z;
 		public float rotationY;
+		public string state;
 
-		public DoorUpdate(int nID, float nX, float nZ, float nRotationY)
+		public DoorUpdate(int nID, float nX, float nZ, float nRotationY, string nState)
 		{
 			ID = nID;
 			x = nX;
 			z = nZ;
 			rotationY = nRotationY;
+			state = nState;
 		}
 	}
+
+	[System.Serializable]
+	public class DoorChangeState : AbstractPackage
+	{
+		public int ID;
+		public string state;
+
+		public DoorChangeState(int nID, string nState)
+		{
+			ID = nID;
+			state = nState;
+		}
+	}
+
 	[System.Serializable]
 	public class SendMinimapUpdate : AbstractPackage
 	{
