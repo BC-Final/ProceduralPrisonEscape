@@ -2,8 +2,11 @@
 using StateFramework;
 
 
-public class Door : MonoBehaviour {
+public class Door : MonoBehaviour, IInteractable {
 	private StateMachine<AbstractDoorState> _fsm = null;
+
+	public Transform LeftDoor;
+	public Transform RightDoor;
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractDoorState>();
@@ -15,5 +18,14 @@ public class Door : MonoBehaviour {
 		_fsm.AddState(new DoorObstructedState(this, _fsm));
 
 		//TODO Determine Starting state
+		_fsm.SetState<DoorClosedState>();
+	}
+
+	private void Update () {
+		_fsm.Step();
+	}
+
+	public void Interact () {
+		_fsm.GetState().Interact();
 	}
 }

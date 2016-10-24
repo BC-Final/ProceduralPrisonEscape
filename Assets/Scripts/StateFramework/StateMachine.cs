@@ -21,6 +21,10 @@ namespace StateFramework {
 			_state.Enter();
 		}
 
+		public T GetState () {
+			return _state;
+		}
+
 		public void Step () {
 			_state.Step();
 		}
