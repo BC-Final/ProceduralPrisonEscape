@@ -4,7 +4,7 @@ using DG.Tweening;
 
 namespace StateFramework {
 	public class DoorOpenState : AbstractDoorState {
-		public DoorOpenState (Door pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) { }
+		public DoorOpenState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) { }
 
 		public override void Enter () {
 			_door.RightDoor.DOLocalMove(new Vector3(1.25f, 1.25f, 0.0f), 1.0f);
@@ -19,6 +19,7 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
+			_door.SetDoorState(Door.DoorStatus.Closed);
 			_fsm.SetState<DoorClosedState>();
 		}
 	}

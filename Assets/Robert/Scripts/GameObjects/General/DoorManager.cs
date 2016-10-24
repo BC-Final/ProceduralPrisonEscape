@@ -19,10 +19,10 @@ public class DoorManager : MonoBehaviour {
 	
 	}
 
-	private List<HackerDoor> InitGetAllDoorsInLevel()
+	private List<Door> InitGetAllDoorsInLevel()
 	{
-		List<HackerDoor> allDoors = new List<HackerDoor>();
-		HackerDoor[] doorArray = FindObjectsOfType<HackerDoor>();
+		List<Door> allDoors = new List<Door>();
+		Door[] doorArray = FindObjectsOfType<Door>();
 		for(int i = 0; i < doorArray.Length; i++)
 		{
 			doorArray[i].Id = doorIndex;
@@ -33,26 +33,24 @@ public class DoorManager : MonoBehaviour {
 		return allDoors;
 	}
 
-	public List<HackerDoor> GetDoorList()
+	public List<Door> GetDoorList()
 	{
 		return _doors;
 	}
 
-	public void AddDoor(HackerDoor nDoor)
+	public void AddDoor(Door nDoor)
 	{
 		_doors.Add(nDoor);
 	}
 
 	public void UpdateDoor(CustomCommands.DoorUpdate update)
 	{
-		HackerDoor door = GetDoorByID(update.ID);
+		Door door = GetDoorByID(update.ID);
 		door.transform.position = new Vector3(update.x, door.transform.position.y, update.z);
 		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(update.state));
 	}
 		
-<<<<<<< HEAD:Assets/Robert/DoorManager.cs
-	public HackerDoor GetDoorByID(int ID)
-=======
+
 	public void UpdateDoorState(CustomCommands.DoorChangeState update)
 	{
 		Door door = GetDoorByID(update.ID);
@@ -65,9 +63,8 @@ public class DoorManager : MonoBehaviour {
 	}
 
 	public Door GetDoorByID(int ID)
->>>>>>> robert:Assets/Robert/Scripts/GameObjects/General/DoorManager.cs
 	{
-		foreach(HackerDoor d in _doors)
+		foreach(Door d in _doors)
 		{
 			if(d.Id == ID)
 			{
@@ -84,7 +81,7 @@ public class DoorManager : MonoBehaviour {
 			Debug.Log("DoorAlreadyExists : false");
 			return false;
 		}
-		foreach(HackerDoor d in _doors)
+		foreach(Door d in _doors)
 		{
 			if(d.Id == ID)
 			{
