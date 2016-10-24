@@ -3,8 +3,8 @@ using System;
 
 namespace StateFramework {
 	public class AbstractDoorState : AbstractState {
-		protected Door _door;
 		protected StateMachine<AbstractDoorState> _fsm = null;
+		protected Door _door;
 
 		public AbstractDoorState (Door pDoor, StateMachine<AbstractDoorState> pFsm) {
 			_door = pDoor;
@@ -14,5 +14,8 @@ namespace StateFramework {
 		public override void Enter () { }
 		public override void Step () { }
 		public override void Exit () { }
+
+		public virtual void Interact() { }
+		public virtual void Lock () { }
 	}
 }
