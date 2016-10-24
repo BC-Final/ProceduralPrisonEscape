@@ -6,6 +6,7 @@ namespace StateFramework {
 		protected StateMachine<AbstractDoorState> _fsm = null;
 		protected ShooterDoor _door;
 
+
 		public AbstractDoorState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) {
 			_door = pDoor;
 			_fsm = pFsm;
