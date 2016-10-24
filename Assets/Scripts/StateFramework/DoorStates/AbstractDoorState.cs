@@ -4,9 +4,9 @@ using System;
 namespace StateFramework {
 	public class AbstractDoorState : AbstractState {
 		protected StateMachine<AbstractDoorState> _fsm = null;
-		protected Door _door;
+		protected ShooterDoor _door;
 
-		public AbstractDoorState (Door pDoor, StateMachine<AbstractDoorState> pFsm) {
+		public AbstractDoorState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) {
 			_door = pDoor;
 			_fsm = pFsm;
 		}

@@ -6,6 +6,7 @@ public class PlayerInteract : MonoBehaviour {
 	private float _range;
 
 	void Update () {
+		//TODO can interact through walls
 		if (Input.GetKeyDown(KeyCode.E)) {
 			Transform cam = Camera.main.transform;
 			RaycastHit[] hits;

@@ -1,22 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
+using StateFramework;
 
-public class ShooterDoor : Door {
+public class ShooterDoor : Door, IInteractable {
+	private StateMachine<AbstractDoorState> _fsm = null;
 
-	//Prototype
-	Collider _boxCollider;
-	Renderer _renderer;
-	//
+	public Transform LeftDoor;
+	public Transform RightDoor;
 
-	void Start () {
+	private void Start() {
+		_fsm = new StateMachine<AbstractDoorState>();
 
-		_boxCollider = GetComponent<BoxCollider>();
-		_renderer = GetComponent<Renderer>();
-		if(GetDoorState() == DoorStatus.Open)
-		{
-			_boxCollider.enabled = false;
-			_renderer.enabled = false;
-		}
+		_fsm.AddState(new DoorOpenState(this, _fsm));
+		_fsm.AddState(new DoorClosedState(this, _fsm));
+		_fsm.AddState(new DoorLockedState(this, _fsm));
+		_fsm.AddState(new DoorProtectedState(this, _fsm));
+		_fsm.AddState(new DoorObstructedState(this, _fsm));
+
+		//TODO Determine Starting state
+		if (_currentDoorState == DoorStatus.Open) {
+			_fsm.SetState<DoorOpenState>();
+		} else if (_currentDoorState == DoorStatus.Closed) {
+			_fsm.SetState<DoorClosedState>();
+		};
+	}
+
+	private void Update() {
+		_fsm.Step();
+	}
+
+	public void Interact() {
+		_fsm.GetState().Interact();
+		SendDoorUpdate();
 	}
 
 	public override void ChangeState(DoorStatus status)
@@ -24,37 +39,11 @@ public class ShooterDoor : Door {
 		base.ChangeState(status);
 		if(status == DoorStatus.Open)
 		{
-			_boxCollider.enabled = false;
-			_renderer.enabled = false;
+			_fsm.SetState<DoorOpenState>();
 		}
 		else if(status == DoorStatus.Closed)
 		{
-			_boxCollider.enabled = true;
-			_renderer.enabled = true;
+			_fsm.SetState<DoorClosedState>();
 		}
 	}
-
-	//Example
-
-	void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.E))
-		{
-			if (_currentDoorState == DoorStatus.Open)
-			{
-				ChangeState(DoorStatus.Closed);
-			}
-			else if (_currentDoorState == DoorStatus.Closed)
-			{
-				ChangeState(DoorStatus.Open);
-			}
-			OnUse();
-		}
-	}
-
-	public void OnUse()
-	{
-		SendDoorUpdate();
-	}
-	//
 }
