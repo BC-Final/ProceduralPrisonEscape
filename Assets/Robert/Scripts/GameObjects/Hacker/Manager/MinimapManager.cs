@@ -22,12 +22,36 @@ public class MinimapManager : HackerMapManager {
 		{
 			CameraGoToPosition(_player.transform.position);
 		}
-	}
+			if (Input.GetMouseButtonDown(0))
+			{
+			RaycastHit hit;
+			Ray ray = _camera.GetCamera().ScreenPointToRay(Input.mousePosition);
+
+				if (Physics.Raycast(ray, out hit))
+				{
+					Debug.Log("My ray is created");
+				if (hit.transform.GetComponent<MinimapDoor>())
+				{
+					Debug.Log("My object is clicked by mouse");
+					MinimapDoor door = hit.transform.GetComponent<MinimapDoor>();
+					door.OnMouseClick();
+				}
+				Debug.Log(hit.transform.name);
+				}
+			}
+		}
 
 	public MinimapDoor CreateMinimapDoor(Vector3 pos, float rotation, int ID)
 	{
 		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos, Quaternion.Euler(0, rotation, 0));
-		return gameObject.GetComponent<MinimapDoor>();
+		MinimapDoor miniDoor = gameObject.GetComponent<MinimapDoor>();
+		miniDoor.SetManger(this);
+		return miniDoor;
+	}
+	
+	public void SendDoorUpdate(Door door)
+	{
+		_sender.SendDoorUpdate(door);
 	}
 
 	public void UpdateMinimapPlayer(Vector3 pos)

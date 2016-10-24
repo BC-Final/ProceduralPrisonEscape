@@ -31,9 +31,8 @@ public class HackerDoorManager : DoorManager {
 
 		//Adding Door
 		AddDoor(door);
+
 		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(state));
-
-
 	}
 
 

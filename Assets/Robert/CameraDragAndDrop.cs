@@ -49,6 +49,11 @@ public class CameraDragAndDrop : MonoBehaviour {
 		_targetPos.y = 1;
 	}
 
+	public Camera GetCamera()
+	{
+		return _camera;
+	}
+
 	/// <summary>
 	/// Returns true if mouse is in given part of the screen. 
 	/// Each part is a quarter of the screen in width and height starting from bottom left, then bottom right, then top left and top right.

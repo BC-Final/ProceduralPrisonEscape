@@ -13,6 +13,8 @@ public class MinimapDoor : HackerDoorAsset {
 	[SerializeField]
 	SpriteRenderer _renderer;
 
+	MinimapManager _manager;
+
 	// Use this for initialization
 	public override void Start()
 	{
@@ -47,6 +49,29 @@ public class MinimapDoor : HackerDoorAsset {
 				}
 		}
 	}
+	public override void OnMouseClick()
+	{
+		if(_mainDoor.GetDoorState() == Door.DoorStatus.Closed)
+		{
+			Debug.Log("opening door");
+			_mainDoor.ChangeState(Door.DoorStatus.Open);
+			_manager.SendDoorUpdate(_mainDoor);
+			
+		}
+		else if(_mainDoor.GetDoorState() == Door.DoorStatus.Open)
+		{
+			Debug.Log("closing door");
+			_mainDoor.ChangeState(Door.DoorStatus.Closed);
+			_manager.SendDoorUpdate(_mainDoor);
+		}
+		base.OnMouseClick();
+	}
+
+	public void SetManger( MinimapManager manager)
+	{
+		_manager = manager;
+	}
+
 	private void GetRenderer()
 	{
 		Debug.Log("Getting Renderer");

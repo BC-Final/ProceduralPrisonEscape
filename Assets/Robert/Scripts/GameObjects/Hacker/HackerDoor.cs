@@ -18,7 +18,6 @@ public class HackerDoor : Door {
 
 	public override void ChangeState(DoorStatus status)
 	{
-		Debug.Log("Changing to : " + status.ToString());
 		base.ChangeState(status);
 		_minimapDoor.ChangeState(status);
 	}

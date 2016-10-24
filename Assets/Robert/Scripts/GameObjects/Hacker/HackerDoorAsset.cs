@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HackerDoorAsset : MonoBehaviour {
 
-	private HackerDoor _mainDoor;
+	protected HackerDoor _mainDoor;
 	private Door.DoorStatus _doorStatus;
 
 	public virtual void Start()
@@ -24,7 +24,7 @@ public class HackerDoorAsset : MonoBehaviour {
 	{
 
 	}
-	public virtual void OnClick()
+	public virtual void OnMouseClick()
 	{
 
 	}

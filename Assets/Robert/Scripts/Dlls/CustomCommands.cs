@@ -32,6 +32,20 @@ namespace CustomCommands
 			state = nState;
 		}
 	}
+
+	[System.Serializable]
+	public class DoorChangeState : AbstractPackage
+	{
+		public int ID;
+		public string state;
+
+		public DoorChangeState(int nID, string nState)
+		{
+			ID = nID;
+			state = nState;
+		}
+	}
+
 	[System.Serializable]
 	public class SendMinimapUpdate : AbstractPackage
 	{

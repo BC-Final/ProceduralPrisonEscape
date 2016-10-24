@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuManager : MonoBehaviour {
@@ -14,10 +15,10 @@ public class MenuManager : MonoBehaviour {
 	}
 	public void UIOnPlayShooter()
 	{
-		Application.LoadLevel("ShooterScene");
+		SceneManager.LoadScene("ShooterScene");
 	}
 	public void UIOnPlayHacker()
 	{
-		Application.LoadLevel("HackerScene");
+		SceneManager.LoadScene("HackerScene");
 	}
 }

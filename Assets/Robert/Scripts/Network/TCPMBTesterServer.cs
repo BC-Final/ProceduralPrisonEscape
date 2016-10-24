@@ -9,7 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-class TCPMBTesterServer : MonoBehaviour
+public class TCPMBTesterServer : MonoBehaviour
 {
 	private DoorManager _doorManager;
 	[SerializeField]
@@ -38,6 +38,7 @@ class TCPMBTesterServer : MonoBehaviour
 	private static List<TcpClient> conncectedClients = new List<TcpClient>();
 	private static List<TcpClient> clientsToBeDeleted = new List<TcpClient>();
 	private static BinaryFormatter formatter = new BinaryFormatter();
+	private static ShooterPackageReader _reader;
 	private static CustomCommands.AbstractPackage response;
 	private TcpListener _listener;
 	[SerializeField]
@@ -52,6 +53,8 @@ class TCPMBTesterServer : MonoBehaviour
 		commandDictionary.Add("!List", "Gets a list of the players and their highest score");
 
 		_doorManager = GameObject.FindObjectOfType<DoorManager>();
+		_doorManager.SetSender(this);
+		_reader = GameObject.FindObjectOfType<ShooterPackageReader>();
 		_listener = new TcpListener(IPAddress.Any, 55556);
 		_listener.Start(5);
 	}
@@ -82,40 +85,6 @@ class TCPMBTesterServer : MonoBehaviour
 				continue;
 			}
 
-			Console.WriteLine(" - Getting Stream");
-			NetworkStream stream = client.GetStream();
-			Console.WriteLine(" - Got Stream");
-			string messageReceived;
-
-			//Receiving Message and check if everything is legit
-			try
-			{
-				BinaryFormatter formatter = new BinaryFormatter();
-
-				Console.WriteLine(" - Deserializing");
-				CustomCommands.AbstractPackage req = formatter.Deserialize(stream) as CustomCommands.AbstractPackage;
-
-				Console.WriteLine("typeof Request : " + req.GetType());
-				response = GetResponse(req, client);
-			}
-			catch (SerializationException e)
-			{
-				Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
-				break;
-			}
-
-			//Sending response
-			try
-			{
-				SendResponse(response, client);
-				//SendString(response, Encoding.ASCII, client);
-			}
-			catch
-			{
-				Debug.Log("Error");
-				//SendResponse(response, client);
-				//SendString("Invalid Command! Did you type something wrong or input wrong parameters?", Encoding.ASCII, client);
-			}
 		}
 
 		//delete all clients that need to be deleted
@@ -134,6 +103,7 @@ class TCPMBTesterServer : MonoBehaviour
 	private void ClientInitialize(TcpClient pClient)
 	{
 		SendResponse(new CustomCommands.SendMinimapUpdate(GetMinimapData()), pClient);
+		_reader.SetClient(pClient);
 		List<Door> doors = _doorManager.GetDoorList();
 		foreach(Door d in doors)
 		{
@@ -141,54 +111,62 @@ class TCPMBTesterServer : MonoBehaviour
 			SendResponse(new CustomCommands.DoorUpdate(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
 	}
+
+	public void SendDoorUpdate(Door door)
+	{
+		foreach(TcpClient client in conncectedClients)
+		{
+		SendResponse(new CustomCommands.DoorChangeState(door.Id, door.GetDoorState().ToString()), client);
+		}
+	}
 	/// <summary>
 	/// Sorts Players by their highscore.
 	/// </summary>
 	/// <returns>Returns highscore list in string format</returns>
-	private static Dictionary<string, int> ReturnHighscore()
-	{
-		string stringList = "\nHighscore\n";
-
-		List<Player> sortedList = new List<Player>();
-		List<Player> tempList = new List<Player>(highscore);
-		Dictionary<string, int> playerHighscore = new Dictionary<string, int>();
-
-		for (int i = 0; i < tempList.Count; i++)
-		{
-			Player p = new Player(tempList[i].name, GetPlayer(tempList[i].name));
-			if (!sortedList.Contains(p))
-			{
-				sortedList.Add(p);
-			}
-		}
-		//while (tempList.Count > 0)
-		//{
-		//	int highestScore = 0;
-		//	int highestIndex = 0;
-		//	for (int i = 0; i < tempList.Count; i++)
-		//	{
-		//		Console.WriteLine(tempList[i].score + " > " + highestScore + " ?");
-		//		if (tempList[i].score > highestScore)
-		//		{
-		//			Console.WriteLine(tempList[i].score + " is now highest");
-		//			highestScore = tempList[i].score;
-		//			highestIndex = i;
-		//		}
-		//	}
-		//	sortedList.Add(tempList[highestIndex]);
-		//	tempList.RemoveAt(highestIndex);
-		//}
-		for (int i = 0; i < sortedList.Count; i++)
-		{
-			stringList += sortedList[i].name + "\t\t\t\t" + sortedList[i].score;
-			stringList += "\n";
-			playerHighscore.Add(sortedList[i].name, sortedList[i].score);
-		}
-		return playerHighscore;
-	}
+	//private static Dictionary<string, int> ReturnHighscore()
+	//{
+	//	string stringList = "\nHighscore\n";
+	//
+	//	List<Player> sortedList = new List<Player>();
+	//	List<Player> tempList = new List<Player>(highscore);
+	//	Dictionary<string, int> playerHighscore = new Dictionary<string, int>();
+	//
+	//	for (int i = 0; i < tempList.Count; i++)
+	//	{
+	//		Player p = new Player(tempList[i].name, GetPlayer(tempList[i].name));
+	//		if (!sortedList.Contains(p))
+	//		{
+	//			sortedList.Add(p);
+	//		}
+	//	}
+	//	//while (tempList.Count > 0)
+	//	//{
+	//	//	int highestScore = 0;
+	//	//	int highestIndex = 0;
+	//	//	for (int i = 0; i < tempList.Count; i++)
+	//	//	{
+	//	//		Console.WriteLine(tempList[i].score + " > " + highestScore + " ?");
+	//	//		if (tempList[i].score > highestScore)
+	//	//		{
+	//	//			Console.WriteLine(tempList[i].score + " is now highest");
+	//	//			highestScore = tempList[i].score;
+	//	//			highestIndex = i;
+	//	//		}
+	//	//	}
+	//	//	sortedList.Add(tempList[highestIndex]);
+	//	//	tempList.RemoveAt(highestIndex);
+	//	//}
+	//	for (int i = 0; i < sortedList.Count; i++)
+	//	{
+	//		stringList += sortedList[i].name + "\t\t\t\t" + sortedList[i].score;
+	//		stringList += "\n";
+	//		playerHighscore.Add(sortedList[i].name, sortedList[i].score);
+	//	}
+	//	return playerHighscore;
+	//}
 
 	//Adds player to player List
-	private static void AddPLayer(string pName, int pScore) { highscore.Add(new Player(pName, pScore)); }
+	//private static void AddPLayer(string pName, int pScore) { highscore.Add(new Player(pName, pScore)); }
 
 	/// <summary>
 	/// Creates a list of all entries with "pName". 
@@ -196,29 +174,29 @@ class TCPMBTesterServer : MonoBehaviour
 	/// </summary>
 	/// <param name="pName">Name of player you want to get the highest score of</param>
 	/// <returns>Player "pName"s highest score</returns>
-	private static int GetPlayer(string pName)
-	{
-		List<int> tempPlayerIndexList = new List<int>();
-		for (int i = 0; i < highscore.Count; i++)
-		{
-			if (highscore[i].name == pName)
-			{
-				tempPlayerIndexList.Add(i);
-			}
-		}
-		int highestScore = 0;
-		for (int i = 0; i < tempPlayerIndexList.Count; i++)
-		{
-			Console.WriteLine(highscore[i].score + " > " + highestScore + " ?");
-			if (highscore[tempPlayerIndexList[i]].score > highestScore)
-			{
-				Console.WriteLine("new highest : " + highscore[tempPlayerIndexList[i]].score);
-				highestScore = highscore[tempPlayerIndexList[i]].score;
-
-			}
-		}
-		return highestScore;
-	}
+	//private static int GetPlayer(string pName)
+	//{
+	//	List<int> tempPlayerIndexList = new List<int>();
+	//	for (int i = 0; i < highscore.Count; i++)
+	//	{
+	//		if (highscore[i].name == pName)
+	//		{
+	//			tempPlayerIndexList.Add(i);
+	//		}
+	//	}
+	//	int highestScore = 0;
+	//	for (int i = 0; i < tempPlayerIndexList.Count; i++)
+	//	{
+	//		Console.WriteLine(highscore[i].score + " > " + highestScore + " ?");
+	//		if (highscore[tempPlayerIndexList[i]].score > highestScore)
+	//		{
+	//			Console.WriteLine("new highest : " + highscore[tempPlayerIndexList[i]].score);
+	//			highestScore = highscore[tempPlayerIndexList[i]].score;
+	//
+	//		}
+	//	}
+	//	return highestScore;
+	//}
 
 	//Message Management
 
@@ -236,63 +214,63 @@ class TCPMBTesterServer : MonoBehaviour
 		return new CustomCommands.NotImplementedMessage();
 	}
 
-	//Read incoming bytes and returns them when finished
-	private static byte[] ReadBytes(int pByteCount, TcpClient client)
-	{
-		byte[] bytes = new byte[pByteCount];
-		int bytesRead = 0;
-		int totalBytesRead = 0;
-
-		try
-		{
-			//while not finished reading continiue reading. If GetStream().Read() returns 0 there are no bytes to read.
-			while (totalBytesRead != pByteCount && (bytesRead = client.GetStream().Read(bytes, totalBytesRead, pByteCount - totalBytesRead)) > 0)
-			{
-				Debug.Log("Total Bytes Read : " + totalBytesRead);
-				totalBytesRead += bytesRead;
-			}
-		}
-		catch
-		{
-			//If sending failes disconnect client
-			clientsToBeDeleted.Add(client);
-			return null;
-		}
-		return (totalBytesRead == pByteCount) ? bytes : null;
-	}
+	////Read incoming bytes and returns them when finished
+	//private static byte[] ReadBytes(int pByteCount, TcpClient client)
+	//{
+	//	byte[] bytes = new byte[pByteCount];
+	//	int bytesRead = 0;
+	//	int totalBytesRead = 0;
+	//
+	//	try
+	//	{
+	//		//while not finished reading continiue reading. If GetStream().Read() returns 0 there are no bytes to read.
+	//		while (totalBytesRead != pByteCount && (bytesRead = client.GetStream().Read(bytes, totalBytesRead, pByteCount - totalBytesRead)) > 0)
+	//		{
+	//			Debug.Log("Total Bytes Read : " + totalBytesRead);
+	//			totalBytesRead += bytesRead;
+	//		}
+	//	}
+	//	catch
+	//	{
+	//		//If sending failes disconnect client
+	//		clientsToBeDeleted.Add(client);
+	//		return null;
+	//	}
+	//	return (totalBytesRead == pByteCount) ? bytes : null;
+	//}
 
 	//First gets Message size in bytes then gets Message in bytes itself.
-	private static byte[] ReceiveMessage(TcpClient client)
-	{
-		int byteCountToRead = BitConverter.ToInt32(ReadBytes(8, client), 0);
-		return ReadBytes(byteCountToRead, client);
-	}
-
-	//Starts listening to Message with ReceiveMessage(). When finished listening returns message.
-	private static string ReceiveString(Encoding pEncoding, TcpClient client)
-	{
-		return pEncoding.GetString(ReceiveMessage(client));
-	}
-
-	//Starts sending Message size then sends Message itself
-	private static void SendMessage(byte[] pMessage, TcpClient client)
-	{
-		try
-		{
-			client.GetStream().Write(BitConverter.GetBytes(pMessage.Length), 0, 4);
-			client.GetStream().Write(pMessage, 0, pMessage.Length);
-		}
-		catch
-		{
-			clientsToBeDeleted.Add(client);
-		}
-	}
-
-	//Starts sending a string Message 
-	private static void SendString(string pMessage, Encoding pEncoding, TcpClient client)
-	{
-		SendMessage(pEncoding.GetBytes(pMessage), client);
-	}
+	//private static byte[] ReceiveMessage(TcpClient client)
+	//{
+	//	int byteCountToRead = BitConverter.ToInt32(ReadBytes(8, client), 0);
+	//	return ReadBytes(byteCountToRead, client);
+	//}
+	//
+	////Starts listening to Message with ReceiveMessage(). When finished listening returns message.
+	//private static string ReceiveString(Encoding pEncoding, TcpClient client)
+	//{
+	//	return pEncoding.GetString(ReceiveMessage(client));
+	//}
+	//
+	////Starts sending Message size then sends Message itself
+	//private static void SendMessage(byte[] pMessage, TcpClient client)
+	//{
+	//	try
+	//	{
+	//		client.GetStream().Write(BitConverter.GetBytes(pMessage.Length), 0, 4);
+	//		client.GetStream().Write(pMessage, 0, pMessage.Length);
+	//	}
+	//	catch
+	//	{
+	//		clientsToBeDeleted.Add(client);
+	//	}
+	//}
+	//
+	////Starts sending a string Message 
+	//private static void SendString(string pMessage, Encoding pEncoding, TcpClient client)
+	//{
+	//	SendMessage(pEncoding.GetBytes(pMessage), client);
+	//}
 
 	//Starts sending a response
 	private static void SendResponse(CustomCommands.AbstractPackage response, TcpClient client)

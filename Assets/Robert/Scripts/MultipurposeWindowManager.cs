@@ -12,4 +12,9 @@ public class MultipurposeWindowManager : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void ShowMultipurposeInformation(Door door)
+	{
+
+	}
 }
