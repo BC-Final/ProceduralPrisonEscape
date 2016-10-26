@@ -15,6 +15,11 @@ public class FireWall : MonoBehaviour {
 		_doors = new List<Door>();
 	}
 
+	public void AddDoor(Door door)
+	{
+		_doors.Add(door);
+	}
+
 	public bool GetPermission()
 	{
 		if (destroyed)

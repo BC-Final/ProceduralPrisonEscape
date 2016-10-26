@@ -192,7 +192,7 @@ public class TcpChatClient : MonoBehaviour
 
 	public void SendDoorUpdate(Door door)
 	{
-		SendRequest(new CustomCommands.DoorChangeState(door.Id, door.GetDoorState().ToString()));
+		SendRequest(new CustomCommands.Update.DoorUpdate(door.Id, door.GetDoorState().ToString()));
 	}
 	//NOT USED! TO BE DELETED
 	//private void ReadResponse(CustomCommands.AbstractPackage response)

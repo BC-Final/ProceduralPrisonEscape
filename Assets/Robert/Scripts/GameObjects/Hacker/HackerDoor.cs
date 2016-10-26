@@ -6,11 +6,11 @@ public class HackerDoor : Door {
 	NetworkViewDoor _networkviewDoor;
 	MinimapDoor _minimapDoor;
 
-	// Use this for initialization
-	void Start () {
-	
+	public override void Start()
+	{
+		base.Start();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
@@ -18,8 +18,11 @@ public class HackerDoor : Door {
 
 	public override void ChangeState(DoorStatus status)
 	{
-		base.ChangeState(status);
-		_minimapDoor.ChangeState(status);
+		if (firewall.GetPermission())
+		{
+			base.ChangeState(status);
+			_minimapDoor.ChangeState(status);
+		}
 	}
 
 	public void SetMinimapDoor(MinimapDoor door)

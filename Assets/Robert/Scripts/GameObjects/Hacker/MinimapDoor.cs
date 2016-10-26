@@ -39,12 +39,13 @@ public class MinimapDoor : HackerDoorAsset {
 				}
 			case Door.DoorStatus.Closed:
 				{
-					_renderer.sprite = closedSprite;
-					break;
-				}
-			case Door.DoorStatus.Locked:
-				{
-					_renderer.sprite = lockedSprite;
+					if(_mainDoor.GetFireWall() != null)
+					{
+						_renderer.sprite = closedSprite;
+					}else
+					{
+						_renderer.sprite = lockedSprite;
+					}
 					break;
 				}
 		}

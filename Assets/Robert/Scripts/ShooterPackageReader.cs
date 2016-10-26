@@ -51,7 +51,7 @@ public class ShooterPackageReader : MonoBehaviour
 			CustomCommands.NotImplementedMessage NIM = response as CustomCommands.NotImplementedMessage;
 			Debug.Log("NotImplemented");
 		}
-		if (response is CustomCommands.SendMinimapUpdate)
+		if (response is CustomCommands.Update.MinimapUpdate)
 		{
 			//CustomCommands.SendMinimapUpdate MU = response as CustomCommands.SendMinimapUpdate;
 			//Texture2D tex = new Texture2D(2, 2);
@@ -60,16 +60,16 @@ public class ShooterPackageReader : MonoBehaviour
 			//Debug.Log("Minimap Updated");
 			//_chatBoxScreen.AddChatLine("Minimap Update");
 		}
-		if (response is CustomCommands.PlayerPositionUpdate)
+		if (response is CustomCommands.Update.PlayerPositionUpdate)
 		{
 			//Debug.Log("Updating Player Position");
 			//CustomCommands.PlayerPositionUpdate PPU = response as CustomCommands.PlayerPositionUpdate;
 			//_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z));
 		}
-		if (response is CustomCommands.DoorUpdate)
+		if (response is CustomCommands.Creation.DoorCreation)
 		{
 			//Debug.Log("Updating Door");
-			CustomCommands.DoorUpdate DU = response as CustomCommands.DoorUpdate;
+			CustomCommands.Creation.DoorCreation DU = response as CustomCommands.Creation.DoorCreation;
 			//Debug.Log("Update for Door : " + DU.ID);
 			if (!_doorManager.DoorAlreadyExists(DU.ID))
 			{
@@ -82,10 +82,10 @@ public class ShooterPackageReader : MonoBehaviour
 				_doorManager.UpdateDoor(DU);
 			}
 		}
-		if (response is CustomCommands.DoorChangeState)
+		if (response is CustomCommands.Update.DoorUpdate)
 		{
 			//Debug.Log("Updating Door");
-			CustomCommands.DoorChangeState DU = response as CustomCommands.DoorChangeState;
+			CustomCommands.Update.DoorUpdate DU = response as CustomCommands.Update.DoorUpdate;
 			//Debug.Log("Update for Door : " + DU.ID);
 			if (!_doorManager.DoorAlreadyExists(DU.ID))
 			{

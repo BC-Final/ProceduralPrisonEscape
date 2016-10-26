@@ -77,7 +77,7 @@ public class TCPMBTesterServer : MonoBehaviour
 			if(_playerPosUpdateTimer > _playerPosUpdateInterval)
 			{
 				_playerPosUpdateTimer -= _playerPosUpdateInterval;
-				SendResponse(new CustomCommands.PlayerPositionUpdate(_player.position), client);
+				SendResponse(new CustomCommands.Update.PlayerPositionUpdate(_player.position), client);
 			}
 			//Check if client has anything to say before blocking else go to next client
 			if (client.Available == 0)
@@ -102,13 +102,13 @@ public class TCPMBTesterServer : MonoBehaviour
 
 	private void ClientInitialize(TcpClient pClient)
 	{
-		SendResponse(new CustomCommands.SendMinimapUpdate(GetMinimapData()), pClient);
+		SendResponse(new CustomCommands.Update.MinimapUpdate(GetMinimapData()), pClient);
 		_reader.SetClient(pClient);
 		List<Door> doors = _doorManager.GetDoorList();
 		foreach(Door d in doors)
 		{
 			Debug.Log(d.transform.rotation.y);
-			SendResponse(new CustomCommands.DoorUpdate(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
+			SendResponse(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
 	}
 
@@ -116,7 +116,7 @@ public class TCPMBTesterServer : MonoBehaviour
 	{
 		foreach(TcpClient client in conncectedClients)
 		{
-		SendResponse(new CustomCommands.DoorChangeState(door.Id, door.GetDoorState().ToString()), client);
+		SendResponse(new CustomCommands.Update.DoorUpdate(door.Id, door.GetDoorState().ToString()), client);
 		}
 	}
 	/// <summary>
@@ -205,11 +205,11 @@ public class TCPMBTesterServer : MonoBehaviour
 	{
 		if(request is CustomCommands.MinimapUpdateRequest)
 		{
-			return new CustomCommands.SendMinimapUpdate(GetMinimapData());
+			return new CustomCommands.Update.MinimapUpdate(GetMinimapData());
 		}
 		if(request is CustomCommands.PlayerPositionUpdateRequest)
 		{
-			return new CustomCommands.PlayerPositionUpdate(_player.position);
+			return new CustomCommands.Update.PlayerPositionUpdate(_player.position);
 		}
 		return new CustomCommands.NotImplementedMessage();
 	}

@@ -41,14 +41,14 @@ public class DoorManager : MonoBehaviour {
 		_doors.Add(nDoor);
 	}
 
-	public void UpdateDoor(CustomCommands.DoorUpdate update)
+	public void UpdateDoor(CustomCommands.Creation.DoorCreation update)
 	{
 		Door door = GetDoorByID(update.ID);
 		door.transform.position = new Vector3(update.x, door.transform.position.y, update.z);
 		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(update.state));
 	}
 		
-	public void UpdateDoorState(CustomCommands.DoorChangeState update)
+	public void UpdateDoorState(CustomCommands.Update.DoorUpdate update)
 	{
 		Door door = GetDoorByID(update.ID);
 		door.ChangeState(Door.ParseEnum<Door.DoorStatus>(update.state));

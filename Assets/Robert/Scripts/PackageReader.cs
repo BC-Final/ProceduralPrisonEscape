@@ -132,25 +132,25 @@ public class PackageReader : MonoBehaviour {
 			CustomCommands.NotImplementedMessage NIM = response as CustomCommands.NotImplementedMessage;
 			_chatBoxScreen.AddChatLine(NIM.message);
 		}
-		if (response is CustomCommands.SendMinimapUpdate)
+		if (response is CustomCommands.Update.MinimapUpdate)
 		{
-			CustomCommands.SendMinimapUpdate MU = response as CustomCommands.SendMinimapUpdate;
+			CustomCommands.Update.MinimapUpdate MU = response as CustomCommands.Update.MinimapUpdate;
 			Texture2D tex = new Texture2D(2, 2);
 			tex.LoadImage(MU.bytes);
 			_minimap.GetComponent<Renderer>().material.mainTexture = tex;
 			//Debug.Log("Minimap Updated");
 			//_chatBoxScreen.AddChatLine("Minimap Update");
 		}
-		if (response is CustomCommands.PlayerPositionUpdate)
+		if (response is CustomCommands.Update.PlayerPositionUpdate)
 		{
 			//Debug.Log("Updating Player Position");
-			CustomCommands.PlayerPositionUpdate PPU = response as CustomCommands.PlayerPositionUpdate;
+			CustomCommands.Update.PlayerPositionUpdate PPU = response as CustomCommands.Update.PlayerPositionUpdate;
 			_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z));
 		}
-		if (response is CustomCommands.DoorUpdate)
+		if (response is CustomCommands.Creation.DoorCreation)
 		{
 			//Debug.Log("Updating Door");
-			CustomCommands.DoorUpdate DU = response as CustomCommands.DoorUpdate;
+			CustomCommands.Creation.DoorCreation DU = response as CustomCommands.Creation.DoorCreation;
 			//Debug.Log("Update for Door : " + DU.ID);
 			if (!_doorManager.DoorAlreadyExists(DU.ID))
 			{
@@ -162,10 +162,14 @@ public class PackageReader : MonoBehaviour {
 				_doorManager.UpdateDoor(DU);
 			}
 		}
-		if(response is CustomCommands.DoorChangeState)
+		if(response is CustomCommands.Update.DoorUpdate)
 		{
-			CustomCommands.DoorChangeState DCS = response as CustomCommands.DoorChangeState;
+			CustomCommands.Update.DoorUpdate DCS = response as CustomCommands.Update.DoorUpdate;
 			_doorManager.UpdateDoorState(DCS);
+		}
+		if(response is CustomCommands.Update.FireWallUpdate)
+		{
+			Debug.Log("Firewall Update");
 		}
 	}
 

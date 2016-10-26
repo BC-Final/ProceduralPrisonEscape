@@ -7,14 +7,19 @@ public class Door : MonoBehaviour {
 	{
 		Open,
 		Closed,
-		Locked
 	};
+
+	public virtual void Start()
+	{
+		if(firewall != null)
+		{
+			firewall.AddDoor(this);
+		}
+	}
 
 	public virtual void ChangeState(Door.DoorStatus status)
 	{
-		//if(firewall != null && firewall.GetPermission())
 		_currentDoorState = status;
-
 	}
 
 
