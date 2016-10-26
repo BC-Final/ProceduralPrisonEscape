@@ -26,8 +26,6 @@ public class GameManager : MonoBehaviour {
 	}
 	void OnPlayerConnected(NetworkPlayer player)
 	{
-		Debug.Log("Player " + " connected from " + player.ipAddress + ":" + player.port);
-		
 	}
 
 

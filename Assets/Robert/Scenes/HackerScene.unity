@@ -117,7 +117,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11505ab8515e7d04eb694a72151c86ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scale: 0
   _camera: {fileID: 0}
+  _sender: {fileID: 0}
 --- !u!4 &414735
 Transform:
   m_ObjectHideFlags: 0
@@ -402,7 +404,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261219266bb4e174e81534d1f6e6a7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scale: 0
   _camera: {fileID: 0}
+  _sender: {fileID: 0}
 --- !u!1 &207925118
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,9 +926,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f19ee241e4467d14b8d9124ec23d3cf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scale: 0
   _camera: {fileID: 0}
+  _sender: {fileID: 0}
   _playerPrefab: {fileID: 150788, guid: b6ec244a9e3f33649b4b96c9fc2110b3, type: 2}
   _minimapDoorPrefab: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
+  _minimapFirewallPrefab: {fileID: 140550, guid: 5e6f61cc9e8425245882f6250470af96,
+    type: 2}
 --- !u!1 &672769840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1351,7 +1359,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1926207044}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1402,6 +1410,7 @@ GameObject:
   - 114: {fileID: 940310377}
   - 114: {fileID: 940310379}
   - 114: {fileID: 940310380}
+  - 114: {fileID: 940310381}
   m_Layer: 0
   m_Name: HackerNetworkManager
   m_TagString: Untagged
@@ -1460,6 +1469,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doors: []
   doorIndex: 0
+--- !u!114 &940310381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 940310376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc961966fec92cd4c9a2ff819263db2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fireWalls: []
+  fireWallIndex: 0
 --- !u!1 &1007632285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3350,4 +3372,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 261219266bb4e174e81534d1f6e6a7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scale: 0
   _camera: {fileID: 0}
+  _sender: {fileID: 0}

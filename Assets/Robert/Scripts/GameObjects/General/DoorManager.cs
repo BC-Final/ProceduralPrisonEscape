@@ -77,18 +77,18 @@ public class DoorManager : MonoBehaviour {
 	{
 		if (_doors.Count == 0)
 		{
-			Debug.Log("DoorAlreadyExists : false");
+			//Debug.Log("DoorAlreadyExists : false");
 			return false;
 		}
 		foreach(Door d in _doors)
 		{
 			if(d.Id == ID)
 			{
-				Debug.Log("DoorAlreadyExists : true");
+				//Debug.Log("DoorAlreadyExists : true");
 				return true;
 			}
 		}
-		Debug.Log("DoorAlreadyExists : false");
+		//Debug.Log("DoorAlreadyExists : false");
 		return false;
 	}
 

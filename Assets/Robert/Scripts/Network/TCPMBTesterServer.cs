@@ -12,6 +12,7 @@ using UnityEngine;
 public class TCPMBTesterServer : MonoBehaviour
 {
 	private DoorManager _doorManager;
+	private FireWallManager _fireWallManager;
 	[SerializeField]
 	public Camera _camera;
 	float _playerPosUpdateTimer = 0;
@@ -54,6 +55,8 @@ public class TCPMBTesterServer : MonoBehaviour
 
 		_doorManager = GameObject.FindObjectOfType<DoorManager>();
 		_doorManager.SetSender(this);
+		_fireWallManager = GameObject.FindObjectOfType<FireWallManager>();
+		_fireWallManager.SetSender(this);
 		_reader = GameObject.FindObjectOfType<ShooterPackageReader>();
 		_listener = new TcpListener(IPAddress.Any, 55556);
 		_listener.Start(5);
@@ -107,8 +110,18 @@ public class TCPMBTesterServer : MonoBehaviour
 		List<Door> doors = _doorManager.GetDoorList();
 		foreach(Door d in doors)
 		{
-			Debug.Log(d.transform.rotation.y);
 			SendResponse(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
+		}
+		List<FireWall> fireWalls = _fireWallManager._fireWalls;
+		foreach(FireWall f in fireWalls)
+		{
+			List<int> IDs = new List<int>();
+			foreach(Door d in f.doors)
+			{
+				IDs.Add(d.Id);
+			}
+			int[] doorIDs = IDs.ToArray();
+			SendResponse(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.destroyed, doorIDs), pClient);
 		}
 	}
 
@@ -117,6 +130,13 @@ public class TCPMBTesterServer : MonoBehaviour
 		foreach(TcpClient client in conncectedClients)
 		{
 		SendResponse(new CustomCommands.Update.DoorUpdate(door.Id, door.GetDoorState().ToString()), client);
+		}
+	}
+	public void SendFireWallUpdate(FireWall firewall)
+	{
+		foreach (TcpClient client in conncectedClients)
+		{
+			SendResponse(new CustomCommands.Update.FireWallUpdate(firewall.ID, firewall.destroyed), client);
 		}
 	}
 	/// <summary>

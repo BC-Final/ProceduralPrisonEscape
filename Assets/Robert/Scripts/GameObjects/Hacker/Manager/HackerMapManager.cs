@@ -3,7 +3,7 @@ using System.Collections;
 
 public class HackerMapManager : MonoBehaviour {
 	
-	protected float _scale;
+	public float scale;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
 	[SerializeField]
@@ -15,7 +15,7 @@ public class HackerMapManager : MonoBehaviour {
 	
 	public void SetScale(float scale)
 	{
-		_scale = scale;
+		this.scale = scale;
 	}
 
 	public void SetSender(TcpChatClient sender)

@@ -9,22 +9,11 @@ public class Door : MonoBehaviour {
 		Closed,
 	};
 
-	public virtual void Start()
-	{
-		if(firewall != null)
-		{
-			firewall.AddDoor(this);
-		}
-	}
-
-	public virtual void ChangeState(Door.DoorStatus status)
-	{
-		_currentDoorState = status;
-	}
+	
 
 
 	[SerializeField]
-	protected FireWall firewall;
+	protected FireWall _firewall;
 	[SerializeField]
 	protected KeyCard keycard;
 	[SerializeField]
@@ -32,7 +21,25 @@ public class Door : MonoBehaviour {
 	protected DoorManager _manager;
 	public int Id;
 
+	public virtual void Start()
+	{
+		if (_firewall != null)
+		{
+			_firewall.AddDoor(this);
+		}
+	}
 
+	public virtual void ChangeState(Door.DoorStatus status)
+	{
+		if (_firewall == null || _firewall.GetPermission())
+		{
+			_currentDoorState = status;
+		}
+		else
+		{
+			Debug.Log("Access Denied");
+		}
+	}
 
 	public DoorStatus GetDoorState()
 	{
@@ -49,9 +56,12 @@ public class Door : MonoBehaviour {
 	}
 	public FireWall GetFireWall()
 	{
-		return firewall;
+		return _firewall;
 	}
-
+	public void SetFireWall(FireWall firewall)
+	{
+		_firewall = firewall;
+	}
 	public void SendDoorUpdate()
 	{
 		_manager.SendDoorStateUpdate(this);

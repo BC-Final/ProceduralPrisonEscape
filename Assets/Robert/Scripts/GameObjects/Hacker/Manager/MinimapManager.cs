@@ -7,6 +7,8 @@ public class MinimapManager : HackerMapManager {
 	private GameObject _playerPrefab;
 	[SerializeField]
 	private GameObject _minimapDoorPrefab;
+	[SerializeField]
+	private GameObject _minimapFirewallPrefab;
 
 	MinimapPlayer _player;
 
@@ -29,14 +31,14 @@ public class MinimapManager : HackerMapManager {
 
 				if (Physics.Raycast(ray, out hit))
 				{
-					Debug.Log("My ray is created");
+					//Debug.Log("My ray is created");
 				if (hit.transform.GetComponent<MinimapDoor>())
 				{
-					Debug.Log("My object is clicked by mouse");
+					//Debug.Log("My object is clicked by mouse");
 					MinimapDoor door = hit.transform.GetComponent<MinimapDoor>();
 					door.OnMouseClick();
 				}
-				Debug.Log(hit.transform.name);
+				//Debug.Log(hit.transform.name);
 				}
 			}
 		}
@@ -49,6 +51,13 @@ public class MinimapManager : HackerMapManager {
 		return miniDoor;
 	}
 	
+	public MinimapFirewall CreateMinimapFirewall(Vector3 pos, int ID)
+	{
+		GameObject gameObject = (GameObject)Instantiate(_minimapFirewallPrefab, pos, Quaternion.Euler(0, 0, 0));
+		MinimapFirewall miniWall = gameObject.GetComponent<MinimapFirewall>();
+		return miniWall;
+	}
+
 	public void SendDoorUpdate(Door door)
 	{
 		_sender.SendDoorUpdate(door);
@@ -58,12 +67,12 @@ public class MinimapManager : HackerMapManager {
 	{
 		if (_player == null)
 		{
-			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/_scale, Quaternion.identity);
+			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/scale, Quaternion.identity);
 			_player = gameObject.GetComponent<MinimapPlayer>();
 		}
 		else
 		{
-			_player.SetNewPos(pos/_scale);
+			_player.SetNewPos(pos/scale);
 		}
 	}
 }

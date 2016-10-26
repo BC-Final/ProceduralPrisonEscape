@@ -11,7 +11,8 @@ using UnityEngine;
 
 public class PackageReader : MonoBehaviour {
 
-	Vector2 _minimapScale;
+	private Vector2 _minimapScale;
+	private HackerFireWallManager _fireWallManager;
 	private HackerDoorManager _doorManager;
 	private MinimapManager _minimapManager;
 	private NetworkViewManager _networkViewManager;
@@ -38,6 +39,7 @@ public class PackageReader : MonoBehaviour {
 		_stream = _networkManager.GetStream();
 		_formatter = _networkManager.GetFormatter();
 		_doorManager = GameObject.FindObjectOfType<HackerDoorManager>();
+		_fireWallManager = GameObject.FindObjectOfType<HackerFireWallManager>();
 	}
 	
 	// Update is called once per frame
@@ -167,9 +169,16 @@ public class PackageReader : MonoBehaviour {
 			CustomCommands.Update.DoorUpdate DCS = response as CustomCommands.Update.DoorUpdate;
 			_doorManager.UpdateDoorState(DCS);
 		}
+		if(response is CustomCommands.Creation.FireWallCreation)
+		{
+			Debug.Log("Firewall creation request came in");
+			CustomCommands.Creation.FireWallCreation FWC = response as CustomCommands.Creation.FireWallCreation;
+			_fireWallManager.CreateFireWall(FWC);
+		}
 		if(response is CustomCommands.Update.FireWallUpdate)
 		{
-			Debug.Log("Firewall Update");
+			CustomCommands.Update.FireWallUpdate FWU = response as CustomCommands.Update.FireWallUpdate;
+			_fireWallManager.UpdateFireWallState(FWU);
 		}
 	}
 

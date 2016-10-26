@@ -18,13 +18,15 @@ public class HackerDoor : Door {
 
 	public override void ChangeState(DoorStatus status)
 	{
-		if (firewall.GetPermission())
+		if (_firewall == null || _firewall.GetPermission())
 		{
 			base.ChangeState(status);
 			_minimapDoor.ChangeState(status);
 		}
+		else
+		{
+		}
 	}
-
 	public void SetMinimapDoor(MinimapDoor door)
 	{
 		_minimapDoor = door;

@@ -32,38 +32,43 @@ public class MinimapDoor : HackerDoorAsset {
 		GetRenderer();
 		switch (state)
 		{
-			case Door.DoorStatus.Open:
+		case Door.DoorStatus.Open:
+			{
+				_renderer.sprite = openSprite;
+				break;
+			}
+		case Door.DoorStatus.Closed:
+			{
+				if(_mainDoor.GetFireWall() == null)
 				{
-					_renderer.sprite = openSprite;
-					break;
-				}
-			case Door.DoorStatus.Closed:
+					_renderer.sprite = closedSprite;
+				}else
 				{
-					if(_mainDoor.GetFireWall() != null)
-					{
-						_renderer.sprite = closedSprite;
-					}else
-					{
-						_renderer.sprite = lockedSprite;
-					}
-					break;
+					_renderer.sprite = lockedSprite;
 				}
+				break;
+			}
 		}
 	}
 	public override void OnMouseClick()
 	{
 		if(_mainDoor.GetDoorState() == Door.DoorStatus.Closed)
 		{
-			Debug.Log("opening door");
-			_mainDoor.ChangeState(Door.DoorStatus.Open);
-			_manager.SendDoorUpdate(_mainDoor);
-			
+			if (_mainDoor.GetFireWall() == null || _mainDoor.GetFireWall().GetPermission())
+			{
+				Debug.Log("opening door");
+				_mainDoor.ChangeState(Door.DoorStatus.Open);
+				_manager.SendDoorUpdate(_mainDoor);
+			}
 		}
 		else if(_mainDoor.GetDoorState() == Door.DoorStatus.Open)
 		{
-			Debug.Log("closing door");
-			_mainDoor.ChangeState(Door.DoorStatus.Closed);
-			_manager.SendDoorUpdate(_mainDoor);
+			if (_mainDoor.GetFireWall() == null || _mainDoor.GetFireWall().GetPermission())
+			{
+				Debug.Log("closing door");
+				_mainDoor.ChangeState(Door.DoorStatus.Closed);
+				_manager.SendDoorUpdate(_mainDoor);
+			}
 		}
 		base.OnMouseClick();
 	}

@@ -22,7 +22,17 @@ namespace CustomCommands
 		}
 
 		[System.Serializable]
-		public class FireWallUpdate { }
+		public class FireWallUpdate : AbstractPackage
+		{
+			public int ID;
+			public bool destroyed;
+
+			public FireWallUpdate(int nID, bool nDestroyed)
+			{
+				ID = nID;
+				destroyed = nDestroyed;
+			}
+		}
 
 		[System.Serializable]
 		public class MinimapUpdate : AbstractPackage
@@ -79,13 +89,15 @@ namespace CustomCommands
 			public float x;
 			public float z;
 			public bool state;
+			public int[] doorIDs;
 
-			public FireWallCreation(int nID, float nX, float nZ, bool nState)
+			public FireWallCreation(int nID, float nX, float nZ, bool nState, int[] nDoorIDs)
 			{
 				ID = nID;
 				x = nX;
 				z = nZ;
 				state = nState;
+				doorIDs = nDoorIDs;
 			}
 		}
 	}
