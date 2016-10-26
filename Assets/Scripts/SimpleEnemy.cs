@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class SimpleEnemy : MonoBehaviour, IShootable {
+public class SimpleEnemy : MonoBehaviour, IDamageable {
 	[SerializeField]
 	private float _health;
 

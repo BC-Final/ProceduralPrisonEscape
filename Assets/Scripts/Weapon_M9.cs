@@ -81,13 +81,14 @@ public class Weapon_M9 : MonoBehaviour, IWeapon {
 		Transform cam = Camera.main.transform;
 		RaycastHit hit;
 
+		//TODO This still hits trigger!
 		if (Physics.Raycast(cam.position, cam.forward, out hit, _shotRange)) {
 			GameObject decal = Instantiate(Resources.Load("Prefabs/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
 			decal.transform.parent = hit.collider.transform;
 			Destroy(decal, 10);
 
-			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IShootable>() != null) {
-				hit.rigidbody.GetComponent<IShootable>().ReceiveDamage(cam.forward, hit.point, _shotDamage);
+			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
+				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(cam.forward, hit.point, _shotDamage);
 			}
 		}
 	}
@@ -101,8 +102,8 @@ public class Weapon_M9 : MonoBehaviour, IWeapon {
 			//decal.transform.parent = hit.collider.transform;
 			//Destroy(decal, 10);
 
-			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IShootable>() != null) {
-				hit.rigidbody.GetComponent<IShootable>().ReceiveDamage(cam.forward, hit.point, _meleeDamage);
+			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
+				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(cam.forward, hit.point, _meleeDamage);
 			}
 		}
 	}

@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class DoorManager : MonoBehaviour {
 
+
 	private TCPMBTesterServer _sender;
 	public List<Door> _doors;
+
 	public int doorIndex = 0;
 	// Use this for initialization
 	void Start () {

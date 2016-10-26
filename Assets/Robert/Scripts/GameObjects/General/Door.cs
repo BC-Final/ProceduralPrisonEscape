@@ -38,6 +38,11 @@ public class Door : MonoBehaviour {
 	{
 		return _currentDoorState;
 	}
+
+	public void SetDoorState(Door.DoorStatus pStatus) {
+		_currentDoorState = pStatus;
+	}
+
 	public KeyCard GetKeyCard()
 	{
 		return keycard;
