@@ -30,11 +30,9 @@ public class FireWall : MonoBehaviour, IDamageable {
 	void Awake()
 	{
 		_particleSystem = GetComponentInChildren<ParticleSystem>();
-		_particleSystem.enableEmission = false;
-		if(doors == null)
-		{
-			doors = new List<Door>();
-		}
+
+		ParticleSystem.EmissionModule em = _particleSystem.emission;
+		em.enabled = false;
 	}
 
 	public void AddDoor(Door door)
@@ -70,7 +68,8 @@ public class FireWall : MonoBehaviour, IDamageable {
 	private void OnDeath()
 	{
 		destroyed = true;
-		_particleSystem.enableEmission = true;
+		ParticleSystem.EmissionModule em = _particleSystem.emission;
+		em.enabled = true;
 		_manager.SendFireWallUpdate(this);
 		//Tell all doors im dead
 		foreach(Door d in doors)

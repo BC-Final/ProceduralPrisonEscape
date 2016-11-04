@@ -62,6 +62,7 @@ public class Door : MonoBehaviour {
 	{
 		_firewall = firewall;
 	}
+
 	public void SendDoorUpdate()
 	{
 		_manager.SendDoorStateUpdate(this);
