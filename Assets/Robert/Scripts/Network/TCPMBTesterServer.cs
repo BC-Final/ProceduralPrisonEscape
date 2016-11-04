@@ -80,7 +80,8 @@ public class TCPMBTesterServer : MonoBehaviour
 			if(_playerPosUpdateTimer > _playerPosUpdateInterval)
 			{
 				_playerPosUpdateTimer -= _playerPosUpdateInterval;
-				SendResponse(new CustomCommands.Update.PlayerPositionUpdate(_player.position), client);
+				Debug.Log("PlayerRotation " + _player.transform.rotation.y);
+				SendResponse(new CustomCommands.Update.PlayerPositionUpdate(_player.position,_player.transform.rotation.eulerAngles.y), client);
 			}
 			//Check if client has anything to say before blocking else go to next client
 			if (client.Available == 0)
@@ -110,6 +111,7 @@ public class TCPMBTesterServer : MonoBehaviour
 		List<Door> doors = _doorManager.GetDoorList();
 		foreach(Door d in doors)
 		{
+			Debug.Log(d.transform.rotation.eulerAngles.y);
 			SendResponse(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
 		List<FireWall> fireWalls = _fireWallManager._fireWalls;
@@ -119,6 +121,7 @@ public class TCPMBTesterServer : MonoBehaviour
 			foreach(Door d in f.doors)
 			{
 				IDs.Add(d.Id);
+				Debug.Log(d.Id);
 			}
 			int[] doorIDs = IDs.ToArray();
 			SendResponse(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.destroyed, doorIDs), pClient);
@@ -229,7 +232,7 @@ public class TCPMBTesterServer : MonoBehaviour
 		}
 		if(request is CustomCommands.PlayerPositionUpdateRequest)
 		{
-			return new CustomCommands.Update.PlayerPositionUpdate(_player.position);
+			return new CustomCommands.Update.PlayerPositionUpdate(_player.position, _player.rotation.eulerAngles.y);
 		}
 		return new CustomCommands.NotImplementedMessage();
 	}

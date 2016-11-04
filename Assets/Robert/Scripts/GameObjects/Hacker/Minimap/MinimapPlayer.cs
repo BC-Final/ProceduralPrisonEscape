@@ -29,4 +29,8 @@ public class MinimapPlayer : MonoBehaviour {
 		oldPos = newPos;
 		newPos = nPos;
 	}
+	public void SetNewRotation(float rotation)
+	{
+		transform.rotation = Quaternion.Euler(0, rotation, 0);
+	}
 }

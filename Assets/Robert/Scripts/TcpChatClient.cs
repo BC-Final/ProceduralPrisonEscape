@@ -179,7 +179,6 @@ public class TcpChatClient : MonoBehaviour
 		try
 		{
 			BinaryFormatter formatter = new BinaryFormatter();
-			Debug.Log(req.ToString());
 			formatter.Serialize(stream, req);
 		}
 		catch (SerializationException e)

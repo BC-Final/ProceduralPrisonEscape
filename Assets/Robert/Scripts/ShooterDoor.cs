@@ -8,8 +8,11 @@ public class ShooterDoor : Door, IInteractable {
 	public Transform LeftDoor;
 	public Transform RightDoor;
 
-	private void Start() {
-		_fsm = new StateMachine<AbstractDoorState>();
+	public override void Start()
+	{
+		base.Start();
+	
+	_fsm = new StateMachine<AbstractDoorState>();
 
 		_fsm.AddState(new DoorOpenState(this, _fsm));
 		_fsm.AddState(new DoorClosedState(this, _fsm));

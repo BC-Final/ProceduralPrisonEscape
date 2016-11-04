@@ -147,7 +147,7 @@ public class PackageReader : MonoBehaviour {
 		{
 			//Debug.Log("Updating Player Position");
 			CustomCommands.Update.PlayerPositionUpdate PPU = response as CustomCommands.Update.PlayerPositionUpdate;
-			_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z));
+			_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z), PPU.rotation);
 		}
 		if (response is CustomCommands.Creation.DoorCreation)
 		{
@@ -173,6 +173,7 @@ public class PackageReader : MonoBehaviour {
 		{
 			Debug.Log("Firewall creation request came in");
 			CustomCommands.Creation.FireWallCreation FWC = response as CustomCommands.Creation.FireWallCreation;
+			Debug.Log("ID array : " + FWC.doorIDs.ToString());
 			_fireWallManager.CreateFireWall(FWC);
 		}
 		if(response is CustomCommands.Update.FireWallUpdate)

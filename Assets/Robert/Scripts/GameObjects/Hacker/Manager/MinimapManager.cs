@@ -45,6 +45,7 @@ public class MinimapManager : HackerMapManager {
 
 	public MinimapDoor CreateMinimapDoor(Vector3 pos, float rotation, int ID)
 	{
+		Debug.Log("Doorrotaion" + rotation);
 		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos, Quaternion.Euler(0, rotation, 0));
 		MinimapDoor miniDoor = gameObject.GetComponent<MinimapDoor>();
 		miniDoor.SetManger(this);
@@ -63,16 +64,17 @@ public class MinimapManager : HackerMapManager {
 		_sender.SendDoorUpdate(door);
 	}
 
-	public void UpdateMinimapPlayer(Vector3 pos)
+	public void UpdateMinimapPlayer(Vector3 pos, float rotation)
 	{
 		if (_player == null)
 		{
-			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/scale, Quaternion.identity);
+			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/scale, Quaternion.Euler(rotation, 0, 0));
 			_player = gameObject.GetComponent<MinimapPlayer>();
 		}
 		else
 		{
 			_player.SetNewPos(pos/scale);
+			_player.SetNewRotation(rotation);
 		}
 	}
 }

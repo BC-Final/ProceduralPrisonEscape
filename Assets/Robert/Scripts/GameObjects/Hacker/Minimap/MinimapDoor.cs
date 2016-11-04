@@ -54,18 +54,18 @@ public class MinimapDoor : HackerDoorAsset {
 	{
 		if(_mainDoor.GetDoorState() == Door.DoorStatus.Closed)
 		{
-			if (_mainDoor.GetFireWall() == null || _mainDoor.GetFireWall().GetPermission())
+			Debug.Log("Main door firewall : " + _mainDoor.GetFireWall());
+			Debug.Log("Main door firewallID : " + _mainDoor.GetFireWall().ID);
+			if (!_mainDoor.GetFireWall() is  HackerFireWall || _mainDoor.GetFireWall().GetPermission())
 			{
-				Debug.Log("opening door");
 				_mainDoor.ChangeState(Door.DoorStatus.Open);
 				_manager.SendDoorUpdate(_mainDoor);
 			}
 		}
 		else if(_mainDoor.GetDoorState() == Door.DoorStatus.Open)
 		{
-			if (_mainDoor.GetFireWall() == null || _mainDoor.GetFireWall().GetPermission())
+			if (!_mainDoor.GetFireWall() is HackerFireWall || _mainDoor.GetFireWall().GetPermission())
 			{
-				Debug.Log("closing door");
 				_mainDoor.ChangeState(Door.DoorStatus.Closed);
 				_manager.SendDoorUpdate(_mainDoor);
 			}
@@ -80,7 +80,6 @@ public class MinimapDoor : HackerDoorAsset {
 
 	private void GetRenderer()
 	{
-		Debug.Log("Getting Renderer");
 		if(_renderer == null)
 		{
 			_renderer = GetComponentInChildren<SpriteRenderer>();

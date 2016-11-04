@@ -65,10 +65,14 @@ public class DoorManager : MonoBehaviour {
 	{
 		foreach(Door d in _doors)
 		{
+			Debug.Log("Searching for door" + d.Id);
 			if(d.Id == ID)
 			{
+				Debug.Log("Door found : " + d.Id + " = " + ID);
+				Debug.Log("returning : " + d);
 				return d;
 			}
+			Debug.Log("Door NOT found : " + d.Id + " != " + ID);
 		}
 		return null;
 	}

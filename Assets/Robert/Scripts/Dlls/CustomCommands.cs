@@ -49,11 +49,13 @@ namespace CustomCommands
 		{
 			public float x;
 			public float z;
+			public float rotation;
 
-			public PlayerPositionUpdate(Vector3 pos)
+			public PlayerPositionUpdate(Vector3 pos,float nRotation)
 			{
 				x = pos.x;
 				z = pos.z;
+				rotation = nRotation;
 			}
 		}
 	}

@@ -27,14 +27,23 @@ public class FireWall : MonoBehaviour, IDamageable {
 		}
 	}
 
-	void Start()
+	void Awake()
 	{
 		_particleSystem = GetComponentInChildren<ParticleSystem>();
 		_particleSystem.enableEmission = false;
+		if(doors == null)
+		{
+			doors = new List<Door>();
+		}
 	}
 
 	public void AddDoor(Door door)
 	{
+		if(doors == null)
+		{
+			Debug.Log("list is null");
+			doors = new List<Door>();
+		}
 		doors.Add(door);
 	}
 

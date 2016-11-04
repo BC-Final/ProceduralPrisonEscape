@@ -22,17 +22,15 @@ public class HackerFireWallManager : FireWallManager {
 		Debug.Log("Creating Firewall");
 		HackerFireWall firewall = new HackerFireWall();
 		firewall.ID = firewallCreation.ID;
+		_fireWalls.Add(firewall);
+		Debug.Log(firewallCreation.doorIDs[0] + "  " + firewallCreation.doorIDs[1]);
 
-		Debug.Log(firewallCreation.doorIDs.ToString());
-
-		foreach(int i in firewallCreation.doorIDs)
+		for(int i = 0; i<firewallCreation.doorIDs.Length;i++)
 		{
-			Door door = _hackerDoorManager.GetDoorByID(i);
-			Debug.Log("Found Door : " + door.ToString());
-			door.SetFireWall(firewall);
-			Debug.Log("Firewall set : " + firewall.ToString());
+			Debug.Log("Firewall creation. doorIDs["+i+"] = "+firewallCreation.doorIDs[i]);
+			Door door = _hackerDoorManager.GetDoorByID(firewallCreation.doorIDs[i]);
+			door.SetFireWall(GetFireWallByID(firewallCreation.ID));
 			firewall.AddDoor(door);
-			Debug.Log("Door added : " + door);
 		}
 
 		Vector3 pos = new Vector3(firewallCreation.x, 0, firewallCreation.z);
@@ -41,6 +39,6 @@ public class HackerFireWallManager : FireWallManager {
 
 		firewall.SetMinimapIcon(minimapFirewall);
 
-		_fireWalls.Add(firewall);
+		
 	}
 }

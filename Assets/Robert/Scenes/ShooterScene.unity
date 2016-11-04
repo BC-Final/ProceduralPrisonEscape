@@ -3334,6 +3334,11 @@ Prefab:
       propertyPath: m_Name
       value: pfb_door (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011899917216, guid: 95d9db65da4b2594f82d89a09987c534,
+        type: 2}
+      propertyPath: _firewall
+      value: 
+      objectReference: {fileID: 774011891}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95d9db65da4b2594f82d89a09987c534, type: 2}
   m_IsPrefabParent: 0
