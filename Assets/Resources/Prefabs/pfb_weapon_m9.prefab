@@ -510,6 +510,7 @@ MonoBehaviour:
   _meleeRange: 1
   _spreadConeLength: 10
   _spreadConeRadius: 0.25
+  _visualizeSpreadCone: 1
 --- !u!198 &19896440
 ParticleSystem:
   m_ObjectHideFlags: 1

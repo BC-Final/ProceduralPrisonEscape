@@ -40,6 +40,9 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	[SerializeField]
 	private float _spreadConeRadius;
 
+	[SerializeField]
+	private bool _visualizeSpreadCone;
+
 	private Animator _animator;
 	private AudioSource _audio;
 
@@ -130,6 +133,13 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
 				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(cam.forward, hit.point, _meleeDamage);
 			}
+		}
+	}
+
+	private void OnDrawGizmos() {
+		if (_visualizeSpreadCone) {
+			UnityEditor.Handles.color = Color.white;
+			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
 		}
 	}
 }
