@@ -31,16 +31,14 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	private float _meleeRange;
 
 
-	//TODO Map walkspeed to accuracy
-	//TODO Add Aimed accurracy bonus
+	//TODO Make accuracy increase when aiming down sight
+	//TODO Make accuracy decrease when walking
+	//TODO Make accuracy decrease after lengthy fire
 	[SerializeField]
 	private float _spreadConeLength;
 
 	[SerializeField]
-	private float _minSpreadConeRadius;
-
-	[SerializeField]
-	private float _maxSpreadConeRadius;
+	private float _spreadConeRadius;
 
 	private Animator _animator;
 	private AudioSource _audio;
@@ -94,7 +92,7 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		RaycastHit hit;
 
 		//TODO Modify with walkspeed
-		float randomRadius = UnityEngine.Random.Range(0, _minSpreadConeRadius);
+		float randomRadius = UnityEngine.Random.Range(0, _spreadConeRadius);
 		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
 
 		Vector3 rayDir = new Vector3(

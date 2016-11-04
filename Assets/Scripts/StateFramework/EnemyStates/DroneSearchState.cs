@@ -15,6 +15,7 @@ namespace StateFramework {
 			_searchCounter = _drone.SearchCount;
 		}
 
+		//TODO Make the direction to choose more intelligent
 		public override void Step() {
 			if (!_agent.hasPath || _agent.remainingDistance <= _agent.stoppingDistance) {
 				if (_searchCounter > 0) {
@@ -33,6 +34,10 @@ namespace StateFramework {
 
 		public override void Exit() {
 
+		}
+
+		public override void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			_fsm.SetState<DroneFollowState>();
 		}
 	}
 }
