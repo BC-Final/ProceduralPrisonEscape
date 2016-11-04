@@ -508,6 +508,9 @@ MonoBehaviour:
   _shotRange: 100
   _meleeDamage: 10
   _meleeRange: 1
+  _spreadConeLength: 10
+  _minSpreadConeRadius: 0.5
+  _maxSpreadConeRadius: 2.5
 --- !u!198 &19896440
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -30,6 +30,18 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	[SerializeField]
 	private float _meleeRange;
 
+
+	//TODO Map walkspeed to accuracy
+	//TODO Add Aimed accurracy bonus
+	[SerializeField]
+	private float _spreadConeLength;
+
+	[SerializeField]
+	private float _minSpreadConeRadius;
+
+	[SerializeField]
+	private float _maxSpreadConeRadius;
+
 	private Animator _animator;
 	private AudioSource _audio;
 
@@ -81,8 +93,23 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		Transform cam = Camera.main.transform;
 		RaycastHit hit;
 
-		//TODO This still hits trigger!
-		if (Physics.Raycast(cam.position, cam.forward, out hit, _shotRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+		//TODO Modify with walkspeed
+		float randomRadius = UnityEngine.Random.Range(0, _minSpreadConeRadius);
+		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+
+		Vector3 rayDir = new Vector3(
+			randomRadius * Mathf.Cos(randomAngle),
+			randomRadius * Mathf.Sin(randomAngle),
+			_spreadConeLength
+			);
+
+		rayDir = cam.transform.TransformDirection(rayDir.normalized);
+
+		if (Physics.Raycast(cam.position, rayDir, out hit, _shotRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+			GameObject laser = Instantiate(Resources.Load("Prefabs/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
+			laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(transform.GetComponentInChildren<ParticleSystem>().transform.position));
+			GameObject.Destroy(laser, 0.05f);
+
 			GameObject decal = Instantiate(Resources.Load("Prefabs/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
 			decal.transform.parent = hit.collider.transform;
 			Destroy(decal, 10);
