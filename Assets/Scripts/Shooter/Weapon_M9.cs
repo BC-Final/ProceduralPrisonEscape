@@ -118,6 +118,10 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
 				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(cam.forward, hit.point, _shotDamage);
 			}
+		} else {
+			GameObject laser = Instantiate(Resources.Load("Prefabs/pfb_laser"), Camera.main.transform.forward * _shotRange, Quaternion.identity) as GameObject;
+			laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(transform.GetComponentInChildren<ParticleSystem>().transform.position));
+			GameObject.Destroy(laser, 0.05f);
 		}
 	}
 
