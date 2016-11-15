@@ -49,4 +49,17 @@ public class ShooterDoor : Door, IInteractable {
 			_fsm.SetState<DoorClosedState>();
 		}
 	}
+
+	private void OnTriggerEnter(Collider pOther) {
+		//TODO Activate only when door is not locked or protected
+		if (pOther.GetComponent<Enemy_Drone>() != null) {
+			ChangeState(DoorStatus.Open);
+		}
+	}
+
+	private void OnTriggerExit(Collider pOther) {
+		if (pOther.GetComponent<Enemy_Drone>() != null) {
+			ChangeState(DoorStatus.Closed);
+		}
+	}
 }

@@ -35,7 +35,12 @@ namespace StateFramework {
 				float finalAngle = sign * angle;
 
 				if (finalAngle <= _drone.SeeAngle / 2f && finalAngle >= -_drone.SeeAngle) {
-					return true;
+					RaycastHit hit;
+					if(Physics.Raycast(_drone.transform.position, (pObject.transform.position - _drone.transform.position).normalized, out hit, _drone.SeeRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+						if (hit.collider.GetComponent<PlayerMotor>() != null) {
+							return true;
+						}
+					}
 				}
 			}
 

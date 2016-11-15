@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class Weapon_M9 : MonoBehaviour, IDamaging {
 	[SerializeField]
@@ -46,10 +47,13 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	private Animator _animator;
 	private AudioSource _audio;
 
+	private Text _ammobar;
+
 	private void Start() {
 		_animator = GetComponent<Animator>();
 		_audio = GetComponent<AudioSource>();
 		_animator.SetInteger("Ammo", _magazineContent);
+		_ammobar = GameObject.FindGameObjectWithTag("ammobar").GetComponent<Text>();
 	}
 
 	public void Shoot() {
@@ -75,6 +79,10 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		return false;
 	}
 
+	public void AddAmmo(int pAmount) {
+		_currentReserveAmmo = Mathf.Min(_maxReserveAmmo, _currentReserveAmmo + pAmount);
+	}
+
 	public void Melee() {
 		_animator.SetTrigger("Melee");
 	}
@@ -88,7 +96,7 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	}
 
 	public void SpawnBullet() {
-		_audio.PlayOneShot(Resources.Load<AudioClip>("Sounds/sfx_weapon_pistol_shoot"));
+		_audio.PlayOneShot(Resources.Load<AudioClip>("sounds/sfx_weapon_pistol_shoot"));
 		GetComponentInChildren<ParticleSystem>().Play();
 
 		Transform cam = Camera.main.transform;
@@ -107,11 +115,11 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		rayDir = cam.transform.TransformDirection(rayDir.normalized);
 
 		if (Physics.Raycast(cam.position, rayDir, out hit, _shotRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-			GameObject laser = Instantiate(Resources.Load("Prefabs/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
+			GameObject laser = Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
 			laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(transform.GetComponentInChildren<ParticleSystem>().transform.position));
 			GameObject.Destroy(laser, 0.05f);
 
-			GameObject decal = Instantiate(Resources.Load("Prefabs/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
+			GameObject decal = Instantiate(Resources.Load("prefabs/shooter/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
 			decal.transform.parent = hit.collider.transform;
 			Destroy(decal, 10);
 
@@ -119,7 +127,7 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(cam.forward, hit.point, _shotDamage);
 			}
 		} else {
-			GameObject laser = Instantiate(Resources.Load("Prefabs/pfb_laser"), Camera.main.transform.forward * _shotRange, Quaternion.identity) as GameObject;
+			GameObject laser = Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), Camera.main.transform.forward * _shotRange, Quaternion.identity) as GameObject;
 			laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(transform.GetComponentInChildren<ParticleSystem>().transform.position));
 			GameObject.Destroy(laser, 0.05f);
 		}
@@ -145,5 +153,9 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 			UnityEditor.Handles.color = Color.white;
 			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
 		}
+	}
+
+	private void OnGUI() {
+		_ammobar.text = _magazineContent + "/" + _magazineCapacity + "  R:" + _currentReserveAmmo;
 	}
 }

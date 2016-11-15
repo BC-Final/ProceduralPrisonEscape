@@ -16,7 +16,7 @@ namespace StateFramework {
 		}
 
 		public override void Enter() {
-
+			_nextPathTick = 0.0f;
 		}
 
 		public override void Step() {
@@ -28,11 +28,12 @@ namespace StateFramework {
 				_agent.SetDestination(_player.transform.position);
 			}
 
-			if (Vector3.Distance(_player.transform.position, _drone.transform.position) < _drone.AttackRange) {
-				//TODO Add Attack State
+			if (canSeeObject(_player, _drone.AttackRange)) {
+				_fsm.SetState<DroneAttackState>();
 			}
 
-			if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
+			if(!canSeeObject(_player, _drone.SeeRange)) {
+			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
 				_fsm.SetState<DroneFollowState>();
 			}
 		}

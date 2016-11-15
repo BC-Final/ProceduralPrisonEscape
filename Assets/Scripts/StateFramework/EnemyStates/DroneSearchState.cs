@@ -19,7 +19,6 @@ namespace StateFramework {
 		public override void Step() {
 			if (!_agent.hasPath || _agent.remainingDistance <= _agent.stoppingDistance) {
 				if (_searchCounter > 0) {
-					Debug.Log("Search!");
 					_searchCounter--;
 					Vector3 randomDir = Random.insideUnitSphere * _drone.SearchRadius;
 					randomDir += _drone.transform.position;

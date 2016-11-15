@@ -1,15 +1,79 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MeleeDroneAttackState : MonoBehaviour {
+namespace StateFramework {
+	public class DroneAttackState : AbstractDroneState {
+		private GameObject _player;
+		private GameObject _droneModel;
+		private NavMeshAgent _agent;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		private float _nextAttackTime;
+
+		public DroneAttackState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+			_player = GameObject.FindGameObjectWithTag("Player");
+			_droneModel = _drone.transform.GetChild(0).gameObject;
+			_agent = _drone.GetComponent<NavMeshAgent>();
+		}
+
+		public override void Enter() {
+			_agent.Stop();
+			_agent.ResetPath();
+			_nextAttackTime = 0.0f;
+		}
+
+		public override void Step() {
+			//TODO Also rotate _drone without y axis (so he player is in attack range) (maybe only in attack state??)
+			rotateTowards(_droneModel, _player.transform);
+
+			if (_nextAttackTime - Time.time <= 0.0f) {
+				_nextAttackTime = Time.time + _drone.AttackRate;
+
+				if (_drone.AttackType == Enemy_Drone.eAttackType.Ranged) {
+					RaycastHit hit;
+
+					float randomRadius = UnityEngine.Random.Range(0, _drone.SpreadConeRadius);
+					float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+
+					Vector3 rayDir = new Vector3(
+						randomRadius * Mathf.Cos(randomAngle),
+						randomRadius * Mathf.Sin(randomAngle),
+						_drone.SpreadConeLength
+						);
+
+					rayDir = _drone.transform.GetChild(0).TransformDirection(rayDir.normalized);
+
+					if (Physics.Raycast(_drone.transform.GetChild(0).GetChild(1).position, rayDir, out hit, _drone.AttackRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
+						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
+						GameObject.Destroy(laser, 0.05f);
+
+						GameObject decal = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
+						decal.transform.parent = hit.collider.transform;
+						GameObject.Destroy(decal, 10);
+
+						if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null && hit.rigidbody.GetComponent<IDamageable>() is PlayerHealth) {
+							hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage((_drone.transform.position - _player.transform.position).normalized, hit.point, _drone.AttackDamage);
+						}
+					} else {
+						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
+						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
+						GameObject.Destroy(laser, 0.05f);
+					}
+				} else if (_drone.AttackType == Enemy_Drone.eAttackType.Melee) {
+					_player.GetComponent<IDamageable>().ReceiveDamage((_drone.transform.position - _player.transform.position).normalized, _player.transform.position, _drone.AttackDamage);
+					//TODO play attack animation
+				}
+			}
+
+
+			if(!canSeeObject(_player, _drone.AttackRange)) { 
+			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.AttackRange) {
+				_fsm.SetState<DroneEngangeState>();
+			}
+		}
+
+		public override void Exit() {
+			_agent.Resume();
+		}
 	}
 }
