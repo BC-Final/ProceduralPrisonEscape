@@ -3,7 +3,7 @@ using System.Collections;
 using StateFramework;
 
 public class Phaser : Weapon {
-	private void Start() {
+	private void Awake() {
 		_fsm = new StateMachine<AbstractWeaponState>();
 
 		_fsm.AddState(new PhaserIdleState(this, _fsm));

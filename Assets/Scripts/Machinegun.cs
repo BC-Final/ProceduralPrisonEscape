@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Machinegun : MonoBehaviour {
+public class Machinegun : Weapon {
 
 	// Use this for initialization
 	void Start () {

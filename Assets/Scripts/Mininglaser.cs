@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mininglaser : MonoBehaviour {
+public class Mininglaser : Weapon {
 
 	// Use this for initialization
 	void Start () {

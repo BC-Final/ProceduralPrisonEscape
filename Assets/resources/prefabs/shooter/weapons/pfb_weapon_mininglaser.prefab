@@ -35,7 +35,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011715076860}
   - 33: {fileID: 33000010678126390}
-  - 65: {fileID: 65000011831833488}
   - 23: {fileID: 23000013447297050}
   m_Layer: 0
   m_Name: Cube
@@ -53,7 +52,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011641884174}
   - 33: {fileID: 33000013227924408}
-  - 65: {fileID: 65000011603215044}
   - 23: {fileID: 23000012001319772}
   m_Layer: 0
   m_Name: Cube (1)
@@ -71,7 +69,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010926499036}
   - 33: {fileID: 33000011332517846}
-  - 65: {fileID: 65000010851930596}
   - 23: {fileID: 23000011963602204}
   m_Layer: 0
   m_Name: Cube (2)
@@ -88,6 +85,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011564071450}
+  - 114: {fileID: 114000012703303026}
   m_Layer: 0
   m_Name: pfb_weapon_mininglaser
   m_TagString: Untagged
@@ -272,39 +270,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013396717306}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65000010851930596
-BoxCollider:
+--- !u!114 &114000012703303026
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014136860904}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1000014200418934}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011603215044
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013396717306}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011831833488
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013167103394}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5904b3559c908c409fea0019ba9ea79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootDamage: 0
+  _shootRange: 0
+  _shootRate: 0
+  _spreadConeRadius: 0
+  _spreadConeLength: 0
+  _magazineCapacity: 0
+  _maxReserveAmmo: 0

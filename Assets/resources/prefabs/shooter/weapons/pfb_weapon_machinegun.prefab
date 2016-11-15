@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010776029674}
   - 33: {fileID: 33000010726478922}
-  - 65: {fileID: 65000012325614576}
   - 23: {fileID: 23000013750038644}
   m_Layer: 0
   m_Name: Cube (2)
@@ -53,7 +52,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011441869852}
   - 33: {fileID: 33000010438076896}
-  - 65: {fileID: 65000013226210986}
   - 23: {fileID: 23000012331635708}
   m_Layer: 0
   m_Name: Cube (1)
@@ -70,6 +68,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012994897422}
+  - 114: {fileID: 114000012205596900}
   m_Layer: 0
   m_Name: pfb_weapon_machinegun
   m_TagString: Untagged
@@ -86,7 +85,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012019398056}
   - 33: {fileID: 33000011040698722}
-  - 65: {fileID: 65000013855170074}
   - 23: {fileID: 23000012711547536}
   m_Layer: 0
   m_Name: Cube
@@ -272,39 +270,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013841047484}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65000012325614576
-BoxCollider:
+--- !u!114 &114000012205596900
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010558816010}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1000012247468190}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000013226210986
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011772266390}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000013855170074
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013841047484}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 370dd77c0596bc943bda16f35f6e95c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _shootDamage: 0
+  _shootRange: 0
+  _shootRate: 0
+  _spreadConeRadius: 0
+  _spreadConeLength: 0
+  _magazineCapacity: 0
+  _maxReserveAmmo: 0
