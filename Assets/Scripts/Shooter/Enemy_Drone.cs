@@ -113,10 +113,11 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 
 
 
-
+	
 	private Vector3 _lastShootPos = Vector3.zero;
 	private Vector3 _lastFlyDirection = Vector3.zero;
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		if (_visualizeHits) {
 			if (_lastShootPos != Vector3.zero) {
@@ -147,4 +148,5 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 			}
 		}
 	}
+#endif
 }
