@@ -11,42 +11,39 @@ using UnityEngine;
 
 public class ShooterPackageSender : MonoBehaviour
 {
-	private DoorManager _doorManager;
-	private FireWallManager _fireWallManager;
+	private static ShooterPackageSender _instance;
+	public static ShooterPackageSender GetInstance()
+	{
+		if (_instance == null)
+		{
+			_instance = FindObjectOfType<ShooterPackageSender>();
+			if (_instance == null)
+			{
+				Debug.Log("ERROR!!! PACKAGE SENDER NOT FOUND");
+			}
+		}
+		return _instance;
+	}
+
 	[SerializeField]
 	public Camera _camera;
-	float _playerPosUpdateTimer = 0;
-	float _playerPosUpdateInterval = 0.5f;
-	//Player struct with basic player information
-	private struct Player
-	{
-		public Player(string pName, int pScore)
-		{
-			this.name = pName;
-			this.score = pScore;
-		}
-		public string name;
-		public int score;
-	}
-	//Networking Variables
-	private static List<TcpClient> conncectedClients = new List<TcpClient>();
-	private static List<TcpClient> clientsToBeDeleted = new List<TcpClient>();
-	private static BinaryFormatter formatter = new BinaryFormatter();
-	private static ShooterPackageReader _reader;
-	private static CustomCommands.AbstractPackage response;
-	private TcpListener _listener;
+	private float _playerPosUpdateTimer = 0;
+	[SerializeField]
+	private float _playerPosUpdateInterval = 0.5f;
 	[SerializeField]
 	private Transform _player;
+
+	//Networking Variables
+	private static List<TcpClient> _clients = new List<TcpClient>();
+	private static List<TcpClient> clientsToBeDeleted = new List<TcpClient>();
+	private static BinaryFormatter formatter = new BinaryFormatter();
+
+	private TcpListener _listener;
+
 
 	public void Start()
 	{
 		Application.runInBackground = true;
-
-		_doorManager = GameObject.FindObjectOfType<DoorManager>();
-		_doorManager.SetSender(this);
-		_fireWallManager = GameObject.FindObjectOfType<FireWallManager>();
-		_fireWallManager.SetSender(this);
-		_reader = GameObject.FindObjectOfType<ShooterPackageReader>();
 		_listener = new TcpListener(IPAddress.Any, 55556);
 		_listener.Start(5);
 	}
@@ -64,21 +61,25 @@ public class ShooterPackageSender : MonoBehaviour
 		{
 			//Add new Client
 			TcpClient connectingClient = _listener.AcceptTcpClient();
-			conncectedClients.Add(connectingClient);
+			_clients.Add(connectingClient);
+			ShooterPackageReader.SetClients(_clients);
 			Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 			ClientInitialize(connectingClient);
-		}
+			
+        }
 	}
+
+	//Updates Player Position. To be moved to own class
 	private void UpdateClients()
 	{
 		_playerPosUpdateTimer += Time.deltaTime;
 		if (_playerPosUpdateTimer > _playerPosUpdateInterval)
 		{
-			foreach (TcpClient client in conncectedClients)
+			foreach (TcpClient client in _clients)
 			{
 
 				_playerPosUpdateTimer -= _playerPosUpdateInterval;
-				SendResponse(new CustomCommands.Update.PlayerPositionUpdate(_player.position, _player.transform.rotation.eulerAngles.y), client);
+				SendPackage(new CustomCommands.Update.PlayerPositionUpdate(_player.position, _player.transform.rotation.eulerAngles.y), client);
 			}
 		}
 	}
@@ -87,7 +88,7 @@ public class ShooterPackageSender : MonoBehaviour
 		foreach (TcpClient client in clientsToBeDeleted)
 		{
 			Debug.Log("Deleting Client");
-			conncectedClients.Remove(client);
+			_clients.Remove(client);
 			DisconnectClient(client);
 		}
 		clientsToBeDeleted.Clear();
@@ -97,63 +98,60 @@ public class ShooterPackageSender : MonoBehaviour
 
 	private void ClientInitialize(TcpClient pClient)
 	{
-		SendResponse(new CustomCommands.Update.MinimapUpdate(GetMinimapData()), pClient);
-		_reader.SetClient(pClient);
-		List<Door> doors = _doorManager.GetDoorList();
+		SendPackage(new CustomCommands.Update.MinimapUpdate(GetMinimapData()), pClient);
+		//_reader.SetClients(pClient);
+		List<Door> doors = Door.GetDoorList();
 		foreach(Door d in doors)
 		{
-			SendResponse(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
+			Debug.Log("Sending Door " + d.transform.position.x); ;
+			SendPackage(new CustomCommands.Creation.DoorCreation(d.doorID, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
-		List<Firewall> fireWalls = _fireWallManager._fireWalls;
+		List<Firewall> fireWalls = Firewall.GetFirewallList();
 		foreach(Firewall f in fireWalls)
 		{
 			List<int> IDs = new List<int>();
-			foreach(Door d in f.doors)
+			foreach(Door d in f.GetDoorList())
 			{
-				IDs.Add(d.Id);
+				IDs.Add(d.doorID);
 			}
 			int[] doorIDs = IDs.ToArray();
-			SendResponse(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.destroyed, doorIDs), pClient);
+			SendPackage(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.GetState(), doorIDs), pClient);
 		}
 	}
 
-	public void SendDoorUpdate(Door door)
-	{
-		foreach(TcpClient client in conncectedClients)
-		{
-		SendResponse(new CustomCommands.Update.DoorUpdate(door.Id, door.GetDoorState().ToString()), client);
-		}
-	}
 	public void SendFireWallUpdate(Firewall firewall)
 	{
-		foreach (TcpClient client in conncectedClients)
+		foreach (TcpClient client in _clients)
 		{
-			SendResponse(new CustomCommands.Update.FireWallUpdate(firewall.ID, firewall.destroyed), client);
+			SendPackage(new CustomCommands.Update.FireWallUpdate(firewall.ID, firewall.GetState()), client);
 		}
-	}
-	//Processes the request and returns a response
-	private CustomCommands.AbstractPackage GetResponse(CustomCommands.AbstractPackage request, TcpClient client)
-	{
-		if(request is CustomCommands.MinimapUpdateRequest)
-		{
-			return new CustomCommands.Update.MinimapUpdate(GetMinimapData());
-		}
-		if(request is CustomCommands.PlayerPositionUpdateRequest)
-		{
-			return new CustomCommands.Update.PlayerPositionUpdate(_player.position, _player.rotation.eulerAngles.y);
-		}
-		return new CustomCommands.NotImplementedMessage();
 	}
 
-	//Starts sending a response
-	private static void SendResponse(CustomCommands.AbstractPackage response, TcpClient client)
+
+	/// <summary>
+	/// Sends a package to all known clients
+	/// </summary>
+	/// <param name="package"></param>
+	public static void SendPackage(CustomCommands.AbstractPackage package)
+	{
+		foreach (TcpClient client in _clients)
+		{
+			SendPackage(package, client);
+		}
+	}
+	/// <summary>
+	/// Sends a pckage to a specific client
+	/// </summary>
+	/// <param name="package"></param>
+	/// <param name="client"></param>
+	private static void SendPackage(CustomCommands.AbstractPackage package, TcpClient client)
 	{
 		try
 		{
 			if (client.Client.Connected)
 			{
 				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(client.GetStream(), response);
+				formatter.Serialize(client.GetStream(), package);
 			}
 			else
 			{
@@ -196,13 +194,13 @@ public class ShooterPackageSender : MonoBehaviour
 	private static void DisconnectClient(TcpClient client)
 	{
 		Console.WriteLine("Client Disconnected");
-		conncectedClients.Remove(client);
+		_clients.Remove(client);
 		client.GetStream().Close();
 		client.Close();
 	}
 	private static void DisconnectAllClients()
 	{
-		foreach (TcpClient client in conncectedClients)
+		foreach (TcpClient client in _clients)
 		{
 			DisconnectClient(client);
 		}

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class HackerMapManager : MonoBehaviour {
 	
+	[SerializeField]
 	public float scale;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;

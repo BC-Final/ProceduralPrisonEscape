@@ -21,9 +21,9 @@ public class ShooterDoor : Door, IInteractable {
 		_fsm.AddState(new DoorObstructedState(this, _fsm));
 
 		//TODO Determine Starting state
-		if (_currentDoorState == DoorStatus.Open) {
+		if (_currentDoorState == DoorState.Open) {
 			_fsm.SetState<DoorOpenState>();
-		} else if (_currentDoorState == DoorStatus.Closed) {
+		} else if (_currentDoorState == DoorState.Closed) {
 			_fsm.SetState<DoorClosedState>();
 		};
 	}
@@ -37,14 +37,14 @@ public class ShooterDoor : Door, IInteractable {
 		SendDoorUpdate();
 	}
 
-	public override void ChangeState(DoorStatus status)
+	public override void ChangeState(DoorState status)
 	{
 		base.ChangeState(status);
-		if(status == DoorStatus.Open)
+		if(status == DoorState.Open)
 		{
 			_fsm.SetState<DoorOpenState>();
 		}
-		else if(status == DoorStatus.Closed)
+		else if(status == DoorState.Closed)
 		{
 			_fsm.SetState<DoorClosedState>();
 		}

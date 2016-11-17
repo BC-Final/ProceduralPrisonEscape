@@ -2902,9 +2902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a258cbfd96dbbcb4b861b35fcd47a401, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyed: 0
   ID: 0
-  doors: []
 --- !u!54 &774011895
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3911,6 +3909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _camera: {fileID: 360161386}
+  _playerPosUpdateInterval: 0.5
   _player: {fileID: 1381985797}
 --- !u!4 &1009237479
 Transform:
@@ -3936,8 +3935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b600594323d9f449b5b9c306c20293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _doors: []
-  doorIndex: 0
 --- !u!114 &1009237481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3960,8 +3957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9978f5605c2bea4287986ec3b9020d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireWalls: []
-  fireWallIndex: 0
 --- !u!1001 &1012505902
 Prefab:
   m_ObjectHideFlags: 0
@@ -9700,6 +9695,14 @@ Prefab:
     - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
       propertyPath: m_Depth
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _smoothing.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _smoothing.y
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}

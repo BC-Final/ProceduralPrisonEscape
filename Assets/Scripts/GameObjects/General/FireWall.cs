@@ -4,16 +4,21 @@ using System.Collections.Generic;
 
 public class Firewall : MonoBehaviour, IDamageable {
 
-	public bool destroyed;
-	public int ID;
+	private static List<Firewall> _firewalls;
+	private static int _firewallIndex = 0;
 
-	public List<Door> doors;
+
+
+
+	public int ID;
+	private bool destroyed;
+	private List<Door> _doors; 
+
+	//Graphical Stuff
 	protected float health = 10;
-	protected FireWallManager _manager;
 	private ParticleSystem _particleSystem;
 
-
-	public virtual void ChangeState(bool nDestroyed)
+	public void ChangeState(bool nDestroyed)
 	{
 		destroyed = nDestroyed;
 	}
@@ -37,15 +42,14 @@ public class Firewall : MonoBehaviour, IDamageable {
 
 	public void AddDoor(Door door)
 	{
-		if(doors == null)
+		if(_doors == null)
 		{
-			Debug.Log("list is null");
-			doors = new List<Door>();
+			_doors = new List<Door>();
 		}
-		doors.Add(door);
+		_doors.Add(door);
 	}
 
-	public bool GetPermission()
+	public bool GetState()
 	{
 		if (destroyed)
 		{
@@ -54,15 +58,9 @@ public class Firewall : MonoBehaviour, IDamageable {
 		return false;
 	}
 
-	public void GetDmg(int dmg = 10)
+	public List<Door> GetDoorList()
 	{
-		destroyed = true;
-		OnDeath();
-	}
-
-	public void SetManager(FireWallManager manager)
-	{
-		_manager = manager;
+		return _doors;
 	}
 
 	private void OnDeath()
@@ -70,12 +68,48 @@ public class Firewall : MonoBehaviour, IDamageable {
 		destroyed = true;
 		ParticleSystem.EmissionModule em = _particleSystem.emission;
 		em.enabled = true;
-		_manager.SendFireWallUpdate(this);
+		ShooterPackageSender.GetInstance().SendFireWallUpdate(this);
 		//Tell all doors im dead
-		foreach(Door d in doors)
+		foreach(Door d in _doors)
 		{
-			d.ChangeState(Door.DoorStatus.Closed);
+			d.ChangeState(Door.DoorState.Closed);
 		}
+	}
+
+	//Static methods
+
+	private static Firewall GetFireWallByID(int ID)
+	{
+		foreach (Firewall f in _firewalls)
+		{
+			if (f.ID == ID)
+			{
+				return f;
+			}
+		}
+		return null;
+	}
+
+	private static List<Firewall> InitGetAllFireWallsInLevel()
+	{
+		List<Firewall> allFireWalls = new List<Firewall>();
+		Firewall[] fireWallArray = FindObjectsOfType<Firewall>();
+		for (int i = 0; i < fireWallArray.Length; i++)
+		{
+			fireWallArray[i].ID = _firewallIndex;
+			_firewallIndex++;
+			allFireWalls.Add(fireWallArray[i]);
+		}
+		return allFireWalls;
+	}
+
+	public static List<Firewall> GetFirewallList()
+	{
+		if (_firewalls == null)
+		{
+			_firewalls = InitGetAllFireWallsInLevel();
+		}
+		return _firewalls;
 	}
 
 }

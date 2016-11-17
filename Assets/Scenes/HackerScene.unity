@@ -440,7 +440,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000012904406, y: -0.000010021031}
+  m_AnchoredPosition: {x: -0.00003287196, y: -0.000010021031}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &207925120
@@ -933,6 +933,7 @@ MonoBehaviour:
   _minimapDoorPrefab: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
   _minimapFirewallPrefab: {fileID: 140550, guid: 5e6f61cc9e8425245882f6250470af96,
     type: 2}
+  _iconHeight: 1
 --- !u!1 &672769840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,8 +1410,6 @@ GameObject:
   - 4: {fileID: 940310378}
   - 114: {fileID: 940310377}
   - 114: {fileID: 940310379}
-  - 114: {fileID: 940310380}
-  - 114: {fileID: 940310381}
   m_Layer: 0
   m_Name: HackerNetworkManager
   m_TagString: Untagged
@@ -1456,32 +1455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _minimap: {fileID: 420252495}
---- !u!114 &940310380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 940310376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7c08ff7774db8949a5502a446c11787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _doors: []
-  doorIndex: 0
---- !u!114 &940310381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 940310376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc961966fec92cd4c9a2ff819263db2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fireWalls: []
-  fireWallIndex: 0
 --- !u!1 &1007632285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2806,6 +2779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseRegion: 2
+  _mouseSensitivity: 50
+  _lerpTime: 0.2
 --- !u!1 &1926207043
 GameObject:
   m_ObjectHideFlags: 0
@@ -3299,6 +3274,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseRegion: 1
+  _mouseSensitivity: 50
+  _lerpTime: 0.2
 --- !u!92 &2108043474
 Behaviour:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ namespace StateFramework {
 		public DoorOpenState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) { }
 
 		public override void Enter () {
-			_door.SetDoorState(Door.DoorStatus.Open);
+			_door.SetDoorState(Door.DoorState.Open);
 
 			_door.RightDoor.DOLocalMove(new Vector3(1.25f, 1.25f, 0.0f), 1.0f);
 			_door.LeftDoor.DOLocalMove(new Vector3(-1.25f, 1.25f, 0.0f), 1.0f);
@@ -21,7 +21,7 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
-			if (_door.GetFireWall() == null || _door.GetFireWall().GetPermission()) {
+			if (_door.GetFireWall() == null || _door.GetFireWall().GetState()) {
 				_fsm.SetState<DoorClosedState>();
 			}
 		}

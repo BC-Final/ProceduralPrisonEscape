@@ -4,7 +4,7 @@ using System.Collections;
 public class HackerDoorAsset : MonoBehaviour {
 
 	protected HackerDoor _mainDoor;
-	private Door.DoorStatus _doorStatus;
+	private Door.DoorState _doorStatus;
 
 	public virtual void Start()
 	{
@@ -15,7 +15,7 @@ public class HackerDoorAsset : MonoBehaviour {
 	{
 		_mainDoor = door;
 	}
-	public void SetState(Door.DoorStatus state)
+	public void SetState(Door.DoorState state)
 	{
 		_doorStatus = state;
 		OnStateChange();
