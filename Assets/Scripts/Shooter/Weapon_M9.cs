@@ -140,6 +140,7 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		}
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos() {
 		#if (UNITY_EDITOR)
 		if (_visualizeSpreadCone) {
@@ -148,4 +149,5 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		}
 		#endif
 	}
+#endif
 }
