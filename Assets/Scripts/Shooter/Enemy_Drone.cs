@@ -55,6 +55,12 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 	public float RotationSpeed { get { return _rotationSpeed; } }
 
 	[SerializeField]
+	private float _quitHearRadius;
+
+	[SerializeField]
+	private float _loadHearRadius;
+
+	[SerializeField]
 	private eAttackType _attackType;
 	public eAttackType AttackType { get { return _attackType; } }
 	public enum eAttackType {

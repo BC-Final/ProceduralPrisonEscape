@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010776029674}
   - 33: {fileID: 33000010726478922}
   - 23: {fileID: 23000013750038644}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011824089910}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mdl_weapon_machinegun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - 4: {fileID: 4000011737203746}
   - 33: {fileID: 33000014255058144}
   - 23: {fileID: 23000011506002666}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012347117206}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: muzzleposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   - 4: {fileID: 4000013481874080}
   - 33: {fileID: 33000012450935186}
   - 23: {fileID: 23000013205097648}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - 4: {fileID: 4000011441869852}
   - 33: {fileID: 33000010438076896}
   - 23: {fileID: 23000012331635708}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - 4: {fileID: 4000010767401742}
   - 198: {fileID: 198000010891647004}
   - 199: {fileID: 199000010674630844}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012994897422}
   - 114: {fileID: 114000012205596900}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pfb_weapon_machinegun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -152,7 +152,7 @@ GameObject:
   - 4: {fileID: 4000011091536754}
   - 33: {fileID: 33000010234061548}
   - 23: {fileID: 23000011446819348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013570196990}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: aimposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,7 +184,7 @@ GameObject:
   - 4: {fileID: 4000012019398056}
   - 33: {fileID: 33000011040698722}
   - 23: {fileID: 23000012711547536}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

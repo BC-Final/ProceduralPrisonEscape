@@ -2085,43 +2085,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 474348, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 446412, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 407354, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 119446, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_ClearFlags
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: orthographic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2071576, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_Depth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: _lockCursor
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 81000010497791864, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &261173539

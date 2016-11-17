@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011691038358}
   - 33: {fileID: 33000010712470336}
   - 23: {fileID: 23000010481225626}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - 4: {fileID: 4000010941319690}
   - 33: {fileID: 33000014058821428}
   - 23: {fileID: 23000013761025036}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012394843754}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: mdl_weapon_mininglaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ GameObject:
   - 4: {fileID: 4000011392265040}
   - 33: {fileID: 33000012498929552}
   - 23: {fileID: 23000013826802060}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - 4: {fileID: 4000011715076860}
   - 33: {fileID: 33000010678126390}
   - 23: {fileID: 23000013447297050}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010135323798}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: aimposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - 4: {fileID: 4000011641884174}
   - 33: {fileID: 33000013227924408}
   - 23: {fileID: 23000012001319772}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011162098440}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: muzzleposition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   - 4: {fileID: 4000010926499036}
   - 33: {fileID: 33000011332517846}
   - 23: {fileID: 23000011963602204}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011564071450}
   - 114: {fileID: 114000012703303026}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: pfb_weapon_mininglaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
