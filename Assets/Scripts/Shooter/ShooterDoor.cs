@@ -53,13 +53,13 @@ public class ShooterDoor : Door, IInteractable {
 	private void OnTriggerEnter(Collider pOther) {
 		//TODO Activate only when door is not locked or protected
 		if (pOther.GetComponent<Enemy_Drone>() != null) {
-			ChangeState(DoorStatus.Open);
+			ChangeState(DoorState.Open);
 		}
 	}
 
 	private void OnTriggerExit(Collider pOther) {
 		if (pOther.GetComponent<Enemy_Drone>() != null) {
-			ChangeState(DoorStatus.Closed);
+			ChangeState(DoorState.Closed);
 		}
 	}
 }

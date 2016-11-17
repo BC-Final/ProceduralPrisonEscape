@@ -244,7 +244,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010915261142}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8408632, y: -0.8017216, z: 6.5506124}
+  m_LocalPosition: {x: -24.060863, y: -0.8017216, z: 6.5506124}
   m_LocalScale: {x: 1.4770509, y: 1.4770507, z: 1.4770511}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children:
@@ -554,9 +554,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _firewall: {fileID: 0}
-  keycard: {fileID: 0}
+  _keycard: {fileID: 0}
   _currentDoorState: 1
-  Id: 0
+  doorID: 0
   LeftDoor: {fileID: 4000014183410348}
   RightDoor: {fileID: 4000011949382656}
 --- !u!208 &208000010585491546
