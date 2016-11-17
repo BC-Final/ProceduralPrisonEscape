@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class DoorManager : MonoBehaviour {
 
-
-	private TCPMBTesterServer _sender;
+	//TO BE REMADE
+	private ShooterPackageSender _sender;
 	public List<Door> _doors;
 
 	public int doorIndex = 0;
@@ -65,14 +65,10 @@ public class DoorManager : MonoBehaviour {
 	{
 		foreach(Door d in _doors)
 		{
-			Debug.Log("Searching for door" + d.Id);
 			if(d.Id == ID)
 			{
-				Debug.Log("Door found : " + d.Id + " = " + ID);
-				Debug.Log("returning : " + d);
 				return d;
 			}
-			Debug.Log("Door NOT found : " + d.Id + " != " + ID);
 		}
 		return null;
 	}
@@ -96,7 +92,7 @@ public class DoorManager : MonoBehaviour {
 		return false;
 	}
 
-	public void SetSender(TCPMBTesterServer sender)
+	public void SetSender(ShooterPackageSender sender)
 	{
 		_sender = sender;
 	}

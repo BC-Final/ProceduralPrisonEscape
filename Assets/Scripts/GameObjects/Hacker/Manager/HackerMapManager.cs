@@ -7,7 +7,7 @@ public class HackerMapManager : MonoBehaviour {
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
 	[SerializeField]
-	protected TcpChatClient _sender;
+	protected HackerPackageSender _sender;
 	// Use this for initialization
 	protected virtual void Start () {
 		_camera = GetComponentInChildren<CameraDragAndDrop>();
@@ -18,7 +18,7 @@ public class HackerMapManager : MonoBehaviour {
 		this.scale = scale;
 	}
 
-	public void SetSender(TcpChatClient sender)
+	public void SetSender(HackerPackageSender sender)
 	{
 		_sender = sender;
 	}

@@ -132,6 +132,8 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 		}
 
 		if (_visualizeView) {
+
+			#if (UNITY_EDITOR)
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
@@ -146,6 +148,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _attackRange);
 			}
+			#endif
 		}
 	}
 #endif

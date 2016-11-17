@@ -4,23 +4,23 @@ using System.Collections.Generic;
 
 public class FireWallManager : MonoBehaviour {
 
-	public List<FireWall> _fireWalls;
+	public List<Firewall> _fireWalls;
 	public int fireWallIndex = 0;
 
-	private TCPMBTesterServer _sender;
+	private ShooterPackageSender _sender;
 
-	public void SendFireWallUpdate(FireWall firewall)
+	public void SendFireWallUpdate(Firewall firewall)
 	{
 		_sender.SendFireWallUpdate(firewall);
 	}
 
 	public void UpdateFireWallState(CustomCommands.Update.FireWallUpdate update)
 	{
-		FireWall firewall = GetFireWallByID(update.ID);
+		Firewall firewall = GetFireWallByID(update.ID);
 		firewall.ChangeState(update.destroyed);
 	}
 
-	public void SetSender(TCPMBTesterServer sender)
+	public void SetSender(ShooterPackageSender sender)
 	{
 		_sender = sender;
 	}
@@ -30,10 +30,10 @@ public class FireWallManager : MonoBehaviour {
 		_fireWalls = InitGetAllFireWallsInLevel();
 	}
 
-	private List<FireWall> InitGetAllFireWallsInLevel()
+	private List<Firewall> InitGetAllFireWallsInLevel()
 	{
-		List<FireWall> allFireWalls = new List<FireWall>();
-		FireWall[] fireWallArray = FindObjectsOfType<FireWall>();
+		List<Firewall> allFireWalls = new List<Firewall>();
+		Firewall[] fireWallArray = FindObjectsOfType<Firewall>();
 		for (int i = 0; i < fireWallArray.Length; i++)
 		{
 			fireWallArray[i].ID = fireWallIndex;
@@ -44,9 +44,9 @@ public class FireWallManager : MonoBehaviour {
 		return allFireWalls;
 	}
 
-	public FireWall GetFireWallByID(int ID)
+	public Firewall GetFireWallByID(int ID)
 	{
-		foreach (FireWall f in _fireWalls)
+		foreach (Firewall f in _fireWalls)
 		{
 			if (f.ID == ID)
 			{

@@ -6,9 +6,11 @@ public class MinimapDoor : HackerDoorAsset {
 	[SerializeField]
 	Sprite openSprite;
 	[SerializeField]
+	Sprite openSpriteLocked;
+	[SerializeField]
 	Sprite closedSprite;
 	[SerializeField]
-	Sprite lockedSprite;
+	Sprite closedSpriteLocked;
 
 	[SerializeField]
 	SpriteRenderer _renderer;
@@ -18,7 +20,6 @@ public class MinimapDoor : HackerDoorAsset {
 	// Use this for initialization
 	public override void Start()
 	{
-		Debug.Log("Constructer Minimapdoor");
 		GetRenderer();
 		base.Start();
 	}
@@ -34,17 +35,25 @@ public class MinimapDoor : HackerDoorAsset {
 		{
 		case Door.DoorStatus.Open:
 			{
-				_renderer.sprite = openSprite;
+				if (_mainDoor.GetFirewall() != null && !_mainDoor.GetFirewall().GetPermission())
+				{
+					_renderer.sprite = openSpriteLocked;
+				}
+				else
+				{
+					_renderer.sprite = openSprite;
+				}
 				break;
 			}
 		case Door.DoorStatus.Closed:
 			{
-				if(_mainDoor.GetFireWall() == null)
+				if(_mainDoor.GetFirewall() != null && !_mainDoor.GetFirewall().GetPermission())
+				{
+					_renderer.sprite = closedSpriteLocked;
+				}
+				else
 				{
 					_renderer.sprite = closedSprite;
-				}else
-				{
-					_renderer.sprite = lockedSprite;
 				}
 				break;
 			}
@@ -52,30 +61,14 @@ public class MinimapDoor : HackerDoorAsset {
 	}
 	public override void OnMouseClick()
 	{
-		if(_mainDoor.GetDoorState() == Door.DoorStatus.Closed)
+		if(_mainDoor.GetDoorState() == Door.DoorStatus.Open)
 		{
-			Debug.Log("Main door firewall : " + _mainDoor.GetFireWall());
-			Debug.Log("Main door firewallID : " + _mainDoor.GetFireWall().ID);
-			if (!_mainDoor.GetFireWall() is  HackerFireWall || _mainDoor.GetFireWall().GetPermission())
-			{
-				_mainDoor.ChangeState(Door.DoorStatus.Open);
-				_manager.SendDoorUpdate(_mainDoor);
-			}
-		}
-		else if(_mainDoor.GetDoorState() == Door.DoorStatus.Open)
+			_mainDoor.ChangeState(Door.DoorStatus.Closed);
+        }
+		else if (_mainDoor.GetDoorState() == Door.DoorStatus.Closed)
 		{
-			if (!_mainDoor.GetFireWall() is HackerFireWall || _mainDoor.GetFireWall().GetPermission())
-			{
-				_mainDoor.ChangeState(Door.DoorStatus.Closed);
-				_manager.SendDoorUpdate(_mainDoor);
-			}
+			_mainDoor.ChangeState(Door.DoorStatus.Open);
 		}
-		base.OnMouseClick();
-	}
-
-	public void SetManger( MinimapManager manager)
-	{
-		_manager = manager;
 	}
 
 	private void GetRenderer()
