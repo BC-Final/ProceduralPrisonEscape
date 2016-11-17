@@ -26,7 +26,6 @@ public class MinimapFirewall : MonoBehaviour {
 
 	private void GetRenderer()
 	{
-		Debug.Log("Getting Renderer");
 		if (_renderer == null)
 		{
 			_renderer = GetComponentInChildren<SpriteRenderer>();

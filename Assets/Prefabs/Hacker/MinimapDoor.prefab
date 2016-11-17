@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b5edb604ab3d7418259ddb72de6821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  openSprite: {fileID: 21300000, guid: 2e4693a99856b3a498ea15b7b20b006c, type: 3}
-  closedSprite: {fileID: 21300000, guid: f7698a73158fbe24e9bb1bd5c2f8b788, type: 3}
-  lockedSprite: {fileID: 21300000, guid: f8efec5f57f5de1449c39e11d8f6adcd, type: 3}
+  openSprite: {fileID: 21300000, guid: 0d360162efb82494bbee224017609c34, type: 3}
+  openSpriteLocked: {fileID: 21300000, guid: 531f41cfd7d49d544ada98cd7b53b947, type: 3}
+  closedSprite: {fileID: 21300000, guid: 839dfe7aa367bf9479b38875edd51fb0, type: 3}
+  closedSpriteLocked: {fileID: 21300000, guid: 5d30272877ba94240954f42b1a0482d0, type: 3}
   _renderer: {fileID: 0}

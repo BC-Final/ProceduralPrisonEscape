@@ -13,7 +13,7 @@ public class Door : MonoBehaviour {
 
 
 	[SerializeField]
-	protected FireWall _firewall;
+	protected Firewall _firewall;
 	[SerializeField]
 	protected KeyCard keycard;
 	[SerializeField]
@@ -54,11 +54,11 @@ public class Door : MonoBehaviour {
 	{
 		return keycard;
 	}
-	public FireWall GetFireWall()
+	public Firewall GetFireWall()
 	{
 		return _firewall;
 	}
-	public void SetFireWall(FireWall firewall)
+	public void SetFireWall(Firewall firewall)
 	{
 		_firewall = firewall;
 	}

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class MinimapManager : HackerMapManager {
 
+	public static MinimapManager _instance;
+
 	[SerializeField]
 	private GameObject _playerPrefab;
 	[SerializeField]
@@ -12,6 +14,8 @@ public class MinimapManager : HackerMapManager {
 
 	MinimapPlayer _player;
 
+	[SerializeField]
+	private float _iconHeight = 1;
 
 	protected override void Start()
 	{
@@ -45,36 +49,52 @@ public class MinimapManager : HackerMapManager {
 
 	public MinimapDoor CreateMinimapDoor(Vector3 pos, float rotation, int ID)
 	{
-		Debug.Log("Doorrotaion" + rotation);
-		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos, Quaternion.Euler(0, rotation, 0));
+		pos.y = _iconHeight;
+		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos/scale, Quaternion.Euler(0, rotation, 0));
 		MinimapDoor miniDoor = gameObject.GetComponent<MinimapDoor>();
-		miniDoor.SetManger(this);
 		return miniDoor;
 	}
 	
 	public MinimapFirewall CreateMinimapFirewall(Vector3 pos, int ID)
 	{
-		GameObject gameObject = (GameObject)Instantiate(_minimapFirewallPrefab, pos, Quaternion.Euler(0, 0, 0));
+		pos.y = _iconHeight;
+        GameObject gameObject = (GameObject)Instantiate(_minimapFirewallPrefab, pos/scale, Quaternion.Euler(0, 0, 0));
 		MinimapFirewall miniWall = gameObject.GetComponent<MinimapFirewall>();
 		return miniWall;
 	}
 
-	public void SendDoorUpdate(Door door)
-	{
-		_sender.SendDoorUpdate(door);
-	}
+	//public void SendDoorUpdate(Door door)
+	//{
+	//	_sender.SendDoorUpdate(door);
+	//}
 
-	public void UpdateMinimapPlayer(Vector3 pos, float rotation)
+	public void UpdateMinimapPlayer(CustomCommands.Update.PlayerPositionUpdate package)
 	{
+		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
 		if (_player == null)
 		{
-			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/scale, Quaternion.Euler(rotation, 0, 0));
+			
+			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos/scale, Quaternion.Euler(package.rotation, 0, 0));
 			_player = gameObject.GetComponent<MinimapPlayer>();
 		}
 		else
 		{
 			_player.SetNewPos(pos/scale);
-			_player.SetNewRotation(rotation);
+			_player.SetNewRotation(package.rotation);
 		}
+	}
+
+	//Static
+	public static MinimapManager GetInstance()
+	{
+		if(_instance == null)
+		{
+			_instance = FindObjectOfType<MinimapManager>();
+			if(_instance == null)
+			{
+				Debug.Log("ERROR!!! MINIMAP MANAGER NOT FOUND");
+			}
+		}
+		return _instance;
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FireWall : MonoBehaviour, IDamageable {
+public class Firewall : MonoBehaviour, IDamageable {
 
 	public bool destroyed;
 	public int ID;

@@ -11,8 +11,22 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine.UI;
 
-public class TcpChatClient : MonoBehaviour
+public class HackerPackageSender : MonoBehaviour
 {
+	public static HackerPackageSender _instance;
+	public static HackerPackageSender GetInstance()
+	{
+		if (_instance == null)
+		{
+			_instance = FindObjectOfType<HackerPackageSender>();
+			if (_instance == null)
+			{
+				Debug.Log("ERROR!!! PACKAGE SENDER NOT FOUND");
+			}
+		}
+		return _instance;
+	}
+
 	[SerializeField]
 	private ChatBoxScreen _chatBoxScreen;
 	[SerializeField]
@@ -28,14 +42,10 @@ public class TcpChatClient : MonoBehaviour
 	{
 		Application.runInBackground = true;
 		formatter = new BinaryFormatter();
-		_chatBoxScreen.RegisterChatInputHandler(onChatTextEntered);
-		_chatBoxScreen.ClearChat();
 		try
 		{
 			client = new TcpClient("localhost", 55556);
 			stream = client.GetStream();
-			//Thread ReadThread = new Thread(PackageReader);
-			//ReadThread.Start();
 		}
 		catch (SocketException e)
 		{
@@ -48,33 +58,11 @@ public class TcpChatClient : MonoBehaviour
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
-
 			Application.Quit();
 			Debug.Break();
 		}
 	}
 	//Do things when you input something in the chat window
-	private void onChatTextEntered()
-	{
-		//Get Message from Chat input
-		string msg = _chatBoxScreen.GetChatInput();
-		_chatBoxScreen.SetChatInput("");
-		_chatBoxScreen.AddChatLine(msg);
-
-		//Process, send Message and recieve Response
-		if (!ProcessMessage(msg))
-		{
-			Debug.Log("Error processing message");
-		}
-		_chatBoxScreen.ScrollToBottom();
-	}
-
-	//Getters
-
-	public ChatBoxScreen GetChatBoxScreen()
-	{
-		return _chatBoxScreen;
-	}
 
 	public TcpClient GetClient()
 	{
@@ -105,12 +93,12 @@ public class TcpChatClient : MonoBehaviour
 		{
 			case "!MINIMAP":
 				{
-					SendRequest(new CustomCommands.MinimapUpdateRequest());
+					SendPackage(new CustomCommands.MinimapUpdateRequest());
 					break;
 				}
 			case "!PLAYERPOS":
 				{
-					SendRequest(new CustomCommands.PlayerPositionUpdateRequest());
+					SendPackage(new CustomCommands.PlayerPositionUpdateRequest());
 					break;
 				}
 			default:
@@ -173,13 +161,13 @@ public class TcpChatClient : MonoBehaviour
 	/// <summary>
 	/// Sends a custom request to the server
 	/// </summary>
-	/// <param name="req">Request type</param>
-	private void SendRequest(CustomCommands.AbstractPackage req)
+	/// <param name="package">Request type</param>
+	private void SendPackage(CustomCommands.AbstractPackage package)
 	{
 		try
 		{
 			BinaryFormatter formatter = new BinaryFormatter();
-			formatter.Serialize(stream, req);
+			formatter.Serialize(stream, package);
 		}
 		catch (SerializationException e)
 		{
@@ -189,9 +177,9 @@ public class TcpChatClient : MonoBehaviour
 
 	}
 
-	public void SendDoorUpdate(Door door)
+	public void SendDoorUpdate(HackerDoor door)
 	{
-		SendRequest(new CustomCommands.Update.DoorUpdate(door.Id, door.GetDoorState().ToString()));
+		SendPackage(new CustomCommands.Update.DoorUpdate(door.GetID(), door.GetDoorState().ToString()));
 	}
 	//NOT USED! TO BE DELETED
 	//private void ReadResponse(CustomCommands.AbstractPackage response)
@@ -214,12 +202,12 @@ public class TcpChatClient : MonoBehaviour
 	//Exit Methods
 	private void OnProcessExit(object sender, EventArgs e)
 	{
-		SendRequest(new CustomCommands.NotImplementedMessage());
+		SendPackage(new CustomCommands.NotImplementedMessage());
 	}
 
 	private void OnApplicationQuit()
 	{
-		SendRequest(new CustomCommands.NotImplementedMessage());
+		SendPackage(new CustomCommands.NotImplementedMessage());
 	}
 }
 

@@ -12,7 +12,7 @@ using UnityEngine;
 public class ShooterPackageReader : MonoBehaviour
 {
 
-	private TCPMBTesterServer _sender;
+	private ShooterPackageSender _sender;
 	private TcpClient _client;
 	private NetworkStream _stream;
 	private BinaryFormatter _formatter;
@@ -21,7 +21,7 @@ public class ShooterPackageReader : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		_sender = GameObject.FindObjectOfType<TCPMBTesterServer>();
+		_sender = GameObject.FindObjectOfType<ShooterPackageSender>();
 		_formatter = new BinaryFormatter();
 		_doorManager = GameObject.FindObjectOfType<DoorManager>();
 	}
