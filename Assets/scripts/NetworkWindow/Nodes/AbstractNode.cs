@@ -76,6 +76,7 @@ public abstract class AbstractNode : MonoBehaviour {
 			if (n != null) {
 				GameObject go = new GameObject("Connection Line", typeof(LineRenderer));
 				go.transform.parent = transform;
+				go.layer = gameObject.layer;
 				LineRenderer lr = go.GetComponent<LineRenderer>();
 				lr.material = new Material(Shader.Find("Particles/Additive"));
 				lr.SetWidth(0.1f, 0.1f);
@@ -112,7 +113,7 @@ public abstract class AbstractNode : MonoBehaviour {
 	//TODO Add chance to spawn alarm packet
 	protected virtual void GotHacked() {
 		if (Random.Range(0.0f, 1.0f) < _hackedAlarmPacketChance) {
-			GameObject go = (Instantiate(Resources.Load("Packets/AlarmPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
+			GameObject go = (Instantiate(Resources.Load("prefabs/hacker/packets/AlarmPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 			go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 		}
 	}
@@ -187,7 +188,7 @@ public abstract class AbstractNode : MonoBehaviour {
 
 	private IEnumerator sendFeedback() {
 		yield return new WaitForSeconds(_feedbackIntervall);
-		GameObject go = (Instantiate(Resources.Load("Packets/FeedbackPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
+		GameObject go = (Instantiate(Resources.Load("prefabs/hacker/packets/FeedbackPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 		_feedbackCoroutine = StartCoroutine(sendFeedback());
 	}

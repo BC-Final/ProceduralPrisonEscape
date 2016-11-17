@@ -583,7 +583,7 @@ MonoBehaviour:
   _reloadTime: 1
   _meleeTime: 0.5
   _aimTime: 0.1
-  _cameraRecoilForce: {x: 0, y: 0}
+  _cameraRecoilForce: {x: 1, y: 1}
   _weaponRotationRecoilForce: {x: 1, y: 1}
   _weaponMoveRecoilForce: 0.08
   _weaponRecoilApplyTime: 0.05

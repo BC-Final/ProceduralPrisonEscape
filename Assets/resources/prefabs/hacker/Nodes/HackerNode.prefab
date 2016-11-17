@@ -72,11 +72,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09c5348c3956bf845be3b55eb3447c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _connections: []
+  _connections:
+  - {fileID: 0}
   _hackable: 0
   _hackTime: 0
   _adminProtectTime: 0
   _hackedAlarmPacketChance: 0
+  _feedbackIntervall: 0
 --- !u!114 &114000013320750260
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,6 +185,6 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: 0}
+  m_AnchoredPosition: {x: -200, y: -100}
   m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class Machinegun : Weapon {
+	protected override void Start() {
+		base.Start();
+	}
+
 	public void Update() {
 		if (Input.GetMouseButton(0) && _magazineContent != 0 && _canShoot) {
 			StartCoroutine(shoot());

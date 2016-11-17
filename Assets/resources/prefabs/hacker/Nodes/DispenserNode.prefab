@@ -137,6 +137,7 @@ MonoBehaviour:
   _hackTime: 0
   _adminProtectTime: 0
   _hackedAlarmPacketChance: 0
+  _feedbackIntervall: 0
 --- !u!222 &222000010790933002
 CanvasRenderer:
   m_ObjectHideFlags: 1

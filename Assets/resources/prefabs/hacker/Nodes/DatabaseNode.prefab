@@ -110,6 +110,7 @@ MonoBehaviour:
   _hackTime: 20
   _adminProtectTime: 20
   _hackedAlarmPacketChance: 50
+  _feedbackIntervall: 0
 --- !u!114 &114000014003793582
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -67,9 +67,15 @@ public abstract class Weapon : MonoBehaviour {
 	protected bool _canShoot = true;
 	protected bool _reloading = false;
 
+	private MouseLook _mouseLook;
+
 	protected virtual void Awake() {
 		_magazineContent = _magazineCapacity;
 		_reserveAmmo = _magazineCapacity;
+	}
+
+	protected virtual void Start() {
+		_mouseLook = FindObjectOfType<MouseLook>();
 	}
 
 	public void AddAmmo(int pAmount) {
@@ -107,13 +113,15 @@ public abstract class Weapon : MonoBehaviour {
 			spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
 		}
 
+		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
+
 		//TODO This is very costly I think
 		Sequence recoilSequence = DOTween.Sequence();
 		recoilSequence.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime));
 		recoilSequence.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
-
+		
 		yield return new WaitForSeconds(_shootRate);
 		_canShoot = true;
 	}
@@ -130,6 +138,10 @@ public abstract class Weapon : MonoBehaviour {
 			);
 
 		return Camera.main.transform.TransformDirection(rayDir.normalized);
+	}
+
+	private void OnGUI() {
+		FindObjectOfType<CrosshairDistance>().SetDistance(_spreadConeRadius, _spreadConeLength);
 	}
 
 #if UNITY_EDITOR

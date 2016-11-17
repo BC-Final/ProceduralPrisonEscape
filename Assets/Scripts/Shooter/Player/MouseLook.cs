@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using DG.Tweening;
 
 public class MouseLook : MonoBehaviour {
 	private Vector2 _mouseAbsolute;
 	private Vector2 _smoothMouse;
+	private Vector2 _recoilAbsolute;
 
 	[SerializeField]
 	private Vector2 _clampInDegrees = new Vector2(360, 180);
@@ -44,11 +46,11 @@ public class MouseLook : MonoBehaviour {
 
 
 		// Allow the script to clamp based on a desired target value.
-		var targetOrientation = Quaternion.Euler(_targetDirection);
-		var targetCharacterOrientation = Quaternion.Euler(_targetCharacterDirection);
+		Quaternion targetOrientation = Quaternion.Euler(_targetDirection);
+		Quaternion targetCharacterOrientation = Quaternion.Euler(_targetCharacterDirection);
 
 		// Get raw mouse input for a cleaner reading on more sensitive mice.
-		var mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+		Vector2 mouseDelta = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
 
 		// Scale input against the sensitivity setting and multiply that against the smoothing value.
 		mouseDelta = Vector2.Scale(mouseDelta, new Vector2(_sensitivity.x * _smoothing.x, _sensitivity.y * _smoothing.y));
@@ -64,7 +66,7 @@ public class MouseLook : MonoBehaviour {
 		if (_clampInDegrees.x < 360)
 			_mouseAbsolute.x = Mathf.Clamp(_mouseAbsolute.x, -_clampInDegrees.x * 0.5f, _clampInDegrees.x * 0.5f);
 
-		var xRotation = Quaternion.AngleAxis(-_mouseAbsolute.y, targetOrientation * Vector3.right);
+		Quaternion xRotation = Quaternion.AngleAxis(-_mouseAbsolute.y - _recoilAbsolute.y, targetOrientation * Vector3.right);
 		transform.localRotation = xRotation;
 
 		// Then clamp and apply the global y value.
@@ -75,12 +77,18 @@ public class MouseLook : MonoBehaviour {
 
 		// If there's a character body that acts as a parent to the camera
 		if (characterBody) {
-			var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, characterBody.up);
+			Quaternion yRotation = Quaternion.AngleAxis(_mouseAbsolute.x + _recoilAbsolute.x, characterBody.up);
 			characterBody.localRotation = yRotation;
 			characterBody.localRotation *= targetCharacterOrientation;
 		} else {
-			var yRotation = Quaternion.AngleAxis(_mouseAbsolute.x, transform.InverseTransformDirection(Vector3.up));
+			Quaternion yRotation = Quaternion.AngleAxis(_mouseAbsolute.x + _recoilAbsolute.x, transform.InverseTransformDirection(Vector3.up));
 			transform.localRotation *= yRotation;
 		}
+	}
+
+	public void ApplyRecoil(Vector2 pRecoilForce) {
+		Sequence s = DOTween.Sequence();
+		s.Append(DOTween.To(() => _recoilAbsolute, x => _recoilAbsolute = x, _recoilAbsolute + pRecoilForce, 0.05f));
+		s.Append(DOTween.To(() => _recoilAbsolute, x => _recoilAbsolute = x, Vector2.zero, 0.3f));
 	}
 }

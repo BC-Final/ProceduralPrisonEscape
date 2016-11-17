@@ -13,7 +13,7 @@ public class SecurityNode : AbstractNode {
 	protected override void Awake() {
 		base.Awake();
 		_knownHackedNodes = new LinkedList<AbstractNode>();
-		_avatar = (Instantiate(Resources.Load("Avatars/AdminAvatar"), transform.position, Quaternion.identity, transform.parent) as GameObject).GetComponent<AdminAvatar>();
+		_avatar = (Instantiate(Resources.Load("prefabs/hacker/avatars/AdminAvatar"), transform.position, Quaternion.identity, transform.parent) as GameObject).GetComponent<AdminAvatar>();
 		_avatar.SpawnNode = this;
 	}
 

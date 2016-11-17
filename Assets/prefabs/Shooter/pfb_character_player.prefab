@@ -85,7 +85,6 @@ GameObject:
   - 4: {fileID: 470614}
   - 114: {fileID: 11485642}
   - 114: {fileID: 114000012951694904}
-  - 114: {fileID: 114000013426323758}
   m_Layer: 0
   m_Name: Camera Holder
   m_TagString: Untagged
@@ -454,15 +453,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _range: 2
---- !u!114 &114000013426323758
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 191844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf581db3feb198b4f8aa689a40044408, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSideRandom: 1

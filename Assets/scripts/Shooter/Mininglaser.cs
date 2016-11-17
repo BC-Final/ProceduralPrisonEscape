@@ -6,6 +6,10 @@ public class Mininglaser : Weapon {
 	private float _chargeTime;
 	//TODO Scale damage with charge time??
 
+	protected override void Start() {
+		base.Start();
+	}
+
 	public void Update() {
 		if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
 			StartCoroutine(shoot());

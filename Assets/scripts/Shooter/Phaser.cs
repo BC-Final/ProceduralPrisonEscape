@@ -4,6 +4,10 @@ using StateFramework;
 using System;
 
 public class Phaser : Weapon {
+	protected override void Start() {
+		base.Start();
+	}
+
 	public void Update() {
 		if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
 			StartCoroutine(shoot());

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using StateFramework;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -96,9 +97,10 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 		if (_health > 0.0f) {
 			_health -= pDamage;
 
+#if UNITY_EDITOR
 			//For drawing Gizmos
-			_lastShootPos = transform.InverseTransformPoint(pPoint);
-			_lastFlyDirection = transform.InverseTransformDirection(pDirection);
+			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
+#endif
 
 			if (_health <= 0.0f) {
 				_fsm.SetState<DroneDeadState>();
@@ -111,29 +113,31 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 
 
 
+	private struct HitInfo {
+		public HitInfo(Vector3 pPoint, Vector3 pDirection) {
+			Point = pPoint;
+			Direction = pDirection;
+		}
 
-
-	
-	private Vector3 _lastShootPos = Vector3.zero;
-	private Vector3 _lastFlyDirection = Vector3.zero;
+		public Vector3 Point;
+		public Vector3 Direction;
+	}
 
 #if UNITY_EDITOR
+	private List<HitInfo> _hitInfo = new List<HitInfo>();
+
 	private void OnDrawGizmos() {
 		if (_visualizeHits) {
-			if (_lastShootPos != Vector3.zero) {
+			foreach (HitInfo hi in _hitInfo) {
 				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(transform.TransformPoint(_lastShootPos), 0.1f);
-			}
+				Gizmos.DrawSphere(transform.TransformPoint(hi.Point), 0.05f);
 
-			if (_lastFlyDirection != Vector3.zero) {
 				Gizmos.color = Color.blue;
-				Gizmos.DrawRay(transform.TransformPoint(_lastShootPos), transform.TransformDirection(_lastFlyDirection));
+				Gizmos.DrawRay(transform.TransformPoint(hi.Point), transform.TransformDirection(hi.Direction));
 			}
 		}
 
 		if (_visualizeView) {
-
-			#if (UNITY_EDITOR)
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
@@ -148,7 +152,6 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _attackRange);
 			}
-			#endif
 		}
 	}
 #endif
