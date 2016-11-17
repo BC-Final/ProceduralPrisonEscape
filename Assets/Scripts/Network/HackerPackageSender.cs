@@ -62,7 +62,6 @@ public class HackerPackageSender : MonoBehaviour
 			Debug.Break();
 		}
 	}
-	//Do things when you input something in the chat window
 
 	public TcpClient GetClient()
 	{
@@ -79,84 +78,6 @@ public class HackerPackageSender : MonoBehaviour
 		return formatter;
 	}
 	//Message Management
-
-	/// <summary>
-	/// Processes the message.Then checks if and what request should be send. 
-	/// </summary>
-	/// <param name="pMessage">Message that was input</param>
-	/// <returns>Returns true if Processed correctly and request was send. Returns false when no request was send</returns>
-	private bool ProcessMessage(string pMessage)
-	{
-		String[] substrings = pMessage.Split(' ');
-	
-		switch (substrings[0].ToUpper())
-		{
-			case "!MINIMAP":
-				{
-					SendPackage(new CustomCommands.MinimapUpdateRequest());
-					break;
-				}
-			case "!PLAYERPOS":
-				{
-					SendPackage(new CustomCommands.PlayerPositionUpdateRequest());
-					break;
-				}
-			default:
-				{
-					_chatBoxScreen.AddChatLine("Don't know what to do? Try !help");
-					return false;
-				}
-		}
-		return true;
-	}
-	//
-	////Read incoming bytes and returns them when finished
-	//private byte[] ReadBytes(int pByteCount)
-	//{
-	//	byte[] bytes = new byte[pByteCount];
-	//	int bytesRead = 0;
-	//	int totalBytesRead = 0;
-	//
-	//	try
-	//	{
-	//		while (totalBytesRead != pByteCount && (bytesRead = stream.Read(bytes, totalBytesRead, pByteCount - totalBytesRead)) > 0)
-	//		{
-	//			Debug.Log("Total Bytes Read : " + totalBytesRead);
-	//			totalBytesRead += bytesRead;
-	//		}
-	//	}
-	//	catch {
-	//		Console.WriteLine("Something went wrong");
-	//	}
-	//
-	//	return (totalBytesRead == pByteCount) ? bytes : null;
-	//}
-	//
-	////First gets Message size in bytes then gets Message in bytes itself.
-	//private byte[] ReceiveMessage()
-	//{
-	//	int byteCountToRead = BitConverter.ToInt32(ReadBytes(8), 0);
-	//	return ReadBytes(byteCountToRead);
-	//}
-	//
-	////Starts listening to Message with ReceiveMessage(). When finished listening returns message.
-	//private string ReceiveString(Encoding pEncoding)
-	//{
-	//	return pEncoding.GetString(ReceiveMessage());
-	//}
-	//
-	////Starts sending Message size then sends Message itself
-	//private void SendMessage(byte[] pMessage)
-	//{
-	//	stream.Write(BitConverter.GetBytes(pMessage.Length), 0, 4);
-	//	stream.Write(pMessage, 0, pMessage.Length);
-	//}
-	//
-	////Starts sending a string Message 
-	//private void SendString(string pMessage, Encoding pEncoding)
-	//{
-	//	SendMessage(pEncoding.GetBytes(pMessage));
-	//}
 
 	/// <summary>
 	/// Sends a custom request to the server
@@ -181,23 +102,6 @@ public class HackerPackageSender : MonoBehaviour
 	{
 		SendPackage(new CustomCommands.Update.DoorUpdate(door.GetID(), door.GetDoorState().ToString()));
 	}
-	//NOT USED! TO BE DELETED
-	//private void ReadResponse(CustomCommands.AbstractPackage response)
-	//{
-	//	if (response is CustomCommands.NotImplementedMessage){
-	//		CustomCommands.NotImplementedMessage NIM = response as CustomCommands.NotImplementedMessage;
-	//		_chatBoxScreen.AddChatLine(NIM.message);
-	//	}
-	//	if (response is CustomCommands.SendMinimapUpdate){
-	//		//Debug.Log("Updating Minimap...");
-	//		//CustomCommands.SendMinimapUpdate MU = response as CustomCommands.SendMinimapUpdate;
-	//		//Texture2D tex = new Texture2D(2, 2);
-	//		//tex.LoadImage(MU.bytes);
-	//		//_minimap.GetComponent<Renderer>().material.mainTexture = tex;
-	//		//Debug.Log("Minimap Updated");
-	//		_chatBoxScreen.AddChatLine("Minimap Update");
-	//	}
-	//}
 
 	//Exit Methods
 	private void OnProcessExit(object sender, EventArgs e)

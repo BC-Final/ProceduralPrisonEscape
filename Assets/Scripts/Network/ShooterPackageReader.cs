@@ -11,39 +11,39 @@ using UnityEngine;
 
 public class ShooterPackageReader : MonoBehaviour
 {
+	static private List<TcpClient> _clients;
 
-	private ShooterPackageSender _sender;
-	private TcpClient _client;
-	private NetworkStream _stream;
+	//private ShooterPackageSender _sender;
 	private BinaryFormatter _formatter;
-	private DoorManager _doorManager;
 
 	// Use this for initialization
 	void Start()
 	{
-		_sender = GameObject.FindObjectOfType<ShooterPackageSender>();
+		_clients = new List<TcpClient>();
 		_formatter = new BinaryFormatter();
-		_doorManager = GameObject.FindObjectOfType<DoorManager>();
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		try
+		foreach (TcpClient client in _clients)
 		{
-			if (_client != null && _client.Available != 0)
+			try
 			{
-				CustomCommands.AbstractPackage response = _formatter.Deserialize(_stream) as CustomCommands.AbstractPackage;
+				if (client.Available != 0)
+				{
+					CustomCommands.AbstractPackage response = _formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
 
-				ReadResponse(response);
+					ReadPackage(response);
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.Log("Error" + e.ToString());
 			}
 		}
-		catch (Exception e)
-		{
-			Debug.Log("Error" + e.ToString());
-		}
 	}
-
+	/*
 	private void ReadResponse(CustomCommands.AbstractPackage response)
 	{
 		if (response is CustomCommands.NotImplementedMessage)
@@ -99,10 +99,26 @@ public class ShooterPackageReader : MonoBehaviour
 			}
 		}
 	}
-
-	public void SetClient(TcpClient client)
+	*/
+	/// <summary>
+	/// Reading incoming Packages
+	/// </summary>
+	/// <param name="package"></param>
+	private void ReadPackage(CustomCommands.AbstractPackage package)
 	{
-		_client = client;
-		_stream = client.GetStream();
+		if(package is CustomCommands.Update.DoorUpdate) { ReadPackage(package as CustomCommands.Update.DoorUpdate); return;}
+
+		//If package method not found
+		Debug.Log("ERROR!!! NOT SUITABLE METHOD FOR THIS PACKAGE FOUND");
+	}
+
+	private void ReadPackage(CustomCommands.Update.DoorUpdate package)
+	{
+		Door.UpdateDoor(package);
+	}
+
+	public static void SetClients(List<TcpClient> clients)
+	{
+		_clients = clients;
 	}
 }
