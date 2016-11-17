@@ -18,7 +18,6 @@ namespace StateFramework {
 		public virtual void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) { }
 
 		protected void rotateTowards (GameObject pDroneModel, Transform pTarget) {
-			//FIX This was used to rotate the drone model up and down, but also moved hte model it left and right
 			Vector3 mdlDirection = (new Vector3(pTarget.position.x, pTarget.position.y, pTarget.position.z) - pDroneModel.transform.position).normalized;
 			Quaternion mdlLookRotation = Quaternion.LookRotation(mdlDirection);
 			pDroneModel.transform.rotation = Quaternion.Slerp(pDroneModel.transform.rotation, mdlLookRotation, Time.deltaTime * _drone.RotationSpeed);

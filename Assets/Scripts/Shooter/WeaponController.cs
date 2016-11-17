@@ -49,7 +49,6 @@ public class WeaponController : MonoBehaviour, IMecanimNotifiable {
 			}
 		}
 
-		//TODO Move to center of screen
 		if (Input.GetButtonDown("Aim")) {
 			_equipedWeaponTransform.DOLocalMove(transform.InverseTransformPoint(_aimTransform.position), _aimTime);
 			_aiming = true;

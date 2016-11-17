@@ -17,4 +17,11 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour {
 			return instance;
 		}
 	}
+
+	public Singleton() {
+		//TODO This might cause bugs, but not sure
+		if (instance != null) {
+			Debug.Log("There is are more than one instance of " + typeof(T).Name);
+		}
+	}
 }

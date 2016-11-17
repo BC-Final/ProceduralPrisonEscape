@@ -31,10 +31,6 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	[SerializeField]
 	private float _meleeRange;
 
-
-	//TODO Make accuracy increase when aiming down sight
-	//TODO Make accuracy decrease when walking
-	//TODO Make accuracy decrease after lengthy fire
 	[SerializeField]
 	private float _spreadConeLength;
 
@@ -88,11 +84,9 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 	}
 
 	public void SpawnShell() {
-		//TODO Spawn a shell
 	}
 
 	public void SpawnMag() {
-		//TODO Spawn a magazine
 	}
 
 	public void SpawnBullet() {
@@ -102,7 +96,6 @@ public class Weapon_M9 : MonoBehaviour, IDamaging {
 		Transform cam = Camera.main.transform;
 		RaycastHit hit;
 
-		//TODO Modify with walkspeed
 		float randomRadius = UnityEngine.Random.Range(0, _spreadConeRadius);
 		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
 

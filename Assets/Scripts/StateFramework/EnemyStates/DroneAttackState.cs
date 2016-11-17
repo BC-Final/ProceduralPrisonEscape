@@ -22,7 +22,6 @@ namespace StateFramework {
 		}
 
 		public override void Step() {
-			//TODO Also rotate _drone without y axis (so he player is in attack range) (maybe only in attack state??)
 			rotateTowards(_droneModel, _player.transform);
 
 			if (_nextAttackTime - Time.time <= 0.0f) {
