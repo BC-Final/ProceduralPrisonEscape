@@ -37,14 +37,14 @@ public class ShooterDoor : Door, IInteractable {
 		SendDoorUpdate();
 	}
 
-	public override void ChangeState(DoorState status)
+	public override void ChangeState(DoorState state)
 	{
-		base.ChangeState(status);
-		if(status == DoorState.Open)
+		base.ChangeState(state);
+		if(state == DoorState.Open)
 		{
 			_fsm.SetState<DoorOpenState>();
 		}
-		else if(status == DoorState.Closed)
+		else if(state == DoorState.Closed)
 		{
 			_fsm.SetState<DoorClosedState>();
 		}
