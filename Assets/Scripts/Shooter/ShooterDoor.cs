@@ -37,14 +37,14 @@ public class ShooterDoor : Door, IInteractable {
 		SendDoorUpdate();
 	}
 
-	public override void ChangeState(DoorState status)
+	public override void ChangeState(DoorState state)
 	{
-		base.ChangeState(status);
-		if(status == DoorState.Open)
+		base.ChangeState(state);
+		if(state == DoorState.Open)
 		{
 			_fsm.SetState<DoorOpenState>();
 		}
-		else if(status == DoorState.Closed)
+		else if(state == DoorState.Closed)
 		{
 			_fsm.SetState<DoorClosedState>();
 		}
@@ -53,13 +53,13 @@ public class ShooterDoor : Door, IInteractable {
 	private void OnTriggerEnter(Collider pOther) {
 		//TODO Activate only when door is not locked or protected
 		if (pOther.GetComponent<Enemy_Drone>() != null) {
-			ChangeState(DoorStatus.Open);
+			ChangeState(DoorState.Open);
 		}
 	}
 
 	private void OnTriggerExit(Collider pOther) {
 		if (pOther.GetComponent<Enemy_Drone>() != null) {
-			ChangeState(DoorStatus.Closed);
+			ChangeState(DoorState.Closed);
 		}
 	}
 }
