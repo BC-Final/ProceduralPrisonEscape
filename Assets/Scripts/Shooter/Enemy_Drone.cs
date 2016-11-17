@@ -9,10 +9,15 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 
 	[SerializeField]
 	private float _attackDamage;
+	public float AttackDamage { get { return _attackDamage; } }
 
 	[SerializeField]
 	private float _attackRange;
 	public float AttackRange { get { return _attackRange; } }
+
+	[SerializeField]
+	private float _attackRate;
+	public float AttackRate { get { return _attackRate; } }
 
 	[SerializeField]
 	private float _seeRange;
@@ -48,6 +53,22 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 	private float _rotationSpeed;
 	public float RotationSpeed { get { return _rotationSpeed; } }
 
+	[SerializeField]
+	private eAttackType _attackType;
+	public eAttackType AttackType { get { return _attackType; } }
+	public enum eAttackType {
+		Ranged,
+		Melee
+	}
+
+	[SerializeField]
+	private float _spreadConeLength;
+	public float SpreadConeLength { get { return _spreadConeLength; } }
+
+	[SerializeField]
+	private float _spreadConeRadius;
+	public float SpreadConeRadius { get { return _spreadConeRadius; } }
+
 	private StateMachine<AbstractDroneState> _fsm;
 
 	private void Start() {
@@ -60,7 +81,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 		_fsm.AddState(new DroneFollowState(this, _fsm));
 		_fsm.AddState(new DroneSearchState(this, _fsm));
 		_fsm.AddState(new DroneReturnState(this, _fsm));
-		//TODO Add Attack State
+		_fsm.AddState(new DroneAttackState(this, _fsm));
 
 		_fsm.SetState<DroneIdleState>();
 	}

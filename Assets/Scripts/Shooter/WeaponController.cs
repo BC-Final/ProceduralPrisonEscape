@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour, IMecanimNotifiable {
 
 	private void Start() {
 		//TODO Replace
-		GameObject weapon = Instantiate(Resources.Load("Prefabs/pfb_weapon_m9"), transform.position, transform.rotation) as GameObject;
+		GameObject weapon = Instantiate(Resources.Load("prefabs/shooter/weapons/pfb_weapon_m9"), transform.position, transform.rotation) as GameObject;
 		_equipedWeaponTransform = weapon.transform;
 		weapon.transform.parent = this.transform;
 		_equipedWeapon = weapon.GetComponentInChildren<IDamaging>();
@@ -49,7 +49,6 @@ public class WeaponController : MonoBehaviour, IMecanimNotifiable {
 			}
 		}
 
-		//TODO Move to center of screen
 		if (Input.GetButtonDown("Aim")) {
 			_equipedWeaponTransform.DOLocalMove(transform.InverseTransformPoint(_aimTransform.position), _aimTime);
 			_aiming = true;

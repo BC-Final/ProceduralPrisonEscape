@@ -17,8 +17,8 @@ public class MouseLook : MonoBehaviour {
 	private Vector2 _smoothing = new Vector2(3, 3);
 
 	private Vector2 _targetDirection;
-
 	private Vector2 _targetCharacterDirection;
+
 
 	// Assign this if there's a parent object controlling motion, such as a Character Controller.
 	// Yaw rotation will affect this object instead of the camera if set.

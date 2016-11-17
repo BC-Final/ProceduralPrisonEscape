@@ -16,11 +16,10 @@ namespace StateFramework {
 		}
 
 		public override void Enter() {
-
+			_nextPathTick = 0.0f;
 		}
 
 		public override void Step() {
-			//TODO Also rotate _drone without y axis (so he player is in attack range) (maybe only in attack state??)
 			rotateTowards(_droneModel, _player.transform);
 
 			if (_nextPathTick - Time.time <= 0.0f) {
@@ -28,11 +27,12 @@ namespace StateFramework {
 				_agent.SetDestination(_player.transform.position);
 			}
 
-			if (Vector3.Distance(_player.transform.position, _drone.transform.position) < _drone.AttackRange) {
-				//TODO Add Attack State
+			if (canSeeObject(_player, _drone.AttackRange)) {
+				_fsm.SetState<DroneAttackState>();
 			}
 
-			if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
+			if(!canSeeObject(_player, _drone.SeeRange)) {
+			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
 				_fsm.SetState<DroneFollowState>();
 			}
 		}

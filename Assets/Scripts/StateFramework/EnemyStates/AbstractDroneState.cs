@@ -18,7 +18,6 @@ namespace StateFramework {
 		public virtual void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) { }
 
 		protected void rotateTowards (GameObject pDroneModel, Transform pTarget) {
-			//FIX This was used to rotate the drone model up and down, but also moved hte model it left and right
 			Vector3 mdlDirection = (new Vector3(pTarget.position.x, pTarget.position.y, pTarget.position.z) - pDroneModel.transform.position).normalized;
 			Quaternion mdlLookRotation = Quaternion.LookRotation(mdlDirection);
 			pDroneModel.transform.rotation = Quaternion.Slerp(pDroneModel.transform.rotation, mdlLookRotation, Time.deltaTime * _drone.RotationSpeed);
@@ -35,7 +34,12 @@ namespace StateFramework {
 				float finalAngle = sign * angle;
 
 				if (finalAngle <= _drone.SeeAngle / 2f && finalAngle >= -_drone.SeeAngle) {
-					return true;
+					RaycastHit hit;
+					if(Physics.Raycast(_drone.transform.position, (pObject.transform.position - _drone.transform.position).normalized, out hit, _drone.SeeRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+						if (hit.collider.GetComponent<PlayerMotor>() != null) {
+							return true;
+						}
+					}
 				}
 			}
 
