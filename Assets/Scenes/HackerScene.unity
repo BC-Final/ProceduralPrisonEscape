@@ -933,7 +933,8 @@ MonoBehaviour:
   _minimapDoorPrefab: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
   _minimapFirewallPrefab: {fileID: 140550, guid: 5e6f61cc9e8425245882f6250470af96,
     type: 2}
-  _minimapPickupIconPrefab: {fileID: 0}
+  _minimapPickupIconPrefab: {fileID: 1000012495054524, guid: 1af382110b6dd9b4c8f9beed53787a39,
+    type: 2}
   _iconHeight: 1
 --- !u!1 &672769840
 GameObject:

@@ -30,7 +30,8 @@ public class HackerKeyCard : MonoBehaviour {
             _items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			item._icon.SetSprite((Sprite)Resources.Load("Sprite/spr_keycard"));
+			//Sprite sprite = Resources.Load<Sprite>("Sprites/spr_keycard.png");
+            //item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}
 	}

@@ -85,7 +85,9 @@ public class HackerPackageReader : MonoBehaviour {
 	{
 		HackerFirewall.CreateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.KeyCardCreation package) { }
+	private void ReadResponse(CustomCommands.Creation.KeyCardCreation package) {
+		HackerKeyCard.CreateKeyCard(package);
+	}
 
 	//Updates Methods
 	private void ReadResponse(CustomCommands.Update.DoorUpdate package)
@@ -96,7 +98,9 @@ public class HackerPackageReader : MonoBehaviour {
 	{
 		HackerFirewall.UpdateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Update.KeyCardUpdate package) { }
+	private void ReadResponse(CustomCommands.Update.KeyCardUpdate package) {
+		HackerKeyCard.UpdateKeyCard(package);
+	}
 	private void ReadResponse(CustomCommands.Update.MinimapUpdate package)
 	{
 		Texture2D tex = new Texture2D(2, 2);

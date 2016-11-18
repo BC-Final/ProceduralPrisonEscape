@@ -13,6 +13,7 @@ public class MinimapPickupIcon : MonoBehaviour {
 
 	public void ChangeState(bool collected)
 	{
+		GetRenderer();
 		_renderer.enabled = !collected;
 	}
 
