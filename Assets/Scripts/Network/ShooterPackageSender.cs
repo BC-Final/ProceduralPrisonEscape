@@ -117,6 +117,11 @@ public class ShooterPackageSender : MonoBehaviour
 			int[] doorIDs = IDs.ToArray();
 			SendPackage(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.GetState(), doorIDs), pClient);
 		}
+		//List<KeyCard> keycards = KeyCard.GetAllKeyCards();
+		//foreach(KeyCard k in keycards)
+		//{
+		//	SendPackage(new CustomCommands.Creation.KeyCardCreation(k.id, k.transform.position.x, k.transform.position.z, nCollected));
+		//}
 	}
 
 	public void SendFireWallUpdate(Firewall firewall)
