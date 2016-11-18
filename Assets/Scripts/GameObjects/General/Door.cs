@@ -6,6 +6,7 @@ public class Door : MonoBehaviour {
 
 	private static List<Door> _doors;
 	private static int _doorIndex = 0;
+
 	public enum DoorState
 	{
 		Open,
@@ -15,10 +16,11 @@ public class Door : MonoBehaviour {
 	[SerializeField]
 	protected Firewall _firewall;
 	[SerializeField]
-	protected KeyCard _keycard;
-	[SerializeField]
 	protected DoorState _currentDoorState;
 	public int doorID;
+
+	[SerializeField]
+	public bool _requireKeyCard;
 
 	public virtual void Start()
 	{
@@ -49,14 +51,11 @@ public class Door : MonoBehaviour {
 		_currentDoorState = pStatus;
 	}
 
-	public KeyCard GetKeyCard()
-	{
-		return _keycard;
-	}
 	public Firewall GetFireWall()
 	{
 		return _firewall;
 	}
+
 	public void SetFireWall(Firewall firewall)
 	{
 		_firewall = firewall;
@@ -116,5 +115,9 @@ public class Door : MonoBehaviour {
 		}
 		_doorIndex = 0;
 		return allDoors;
+	}
+
+	public void SetRequireKeyCard() {
+		_requireKeyCard = true;
 	}
 }

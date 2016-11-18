@@ -116,9 +116,6 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 		}
 	}
 
-
-
-
 	private struct HitInfo {
 		public HitInfo(Vector3 pPoint, Vector3 pDirection) {
 			Point = pPoint;
