@@ -15,7 +15,8 @@ public class MenuManager : MonoBehaviour {
 	}
 	public void UIOnPlayShooter()
 	{
-		SceneManager.LoadScene("NetworkedShooterTestScene");
+		//SceneManager.LoadScene("NetworkedShooterTestScene");
+		SceneManager.LoadScene("PresentationScene");
 	}
 	public void UIOnPlayHacker()
 	{
