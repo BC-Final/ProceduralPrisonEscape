@@ -35,6 +35,19 @@ namespace CustomCommands
 		}
 
 		[System.Serializable]
+		public class KeyCardUpdate : AbstractPackage
+		{
+			public int ID;
+			public bool collected;
+
+			public KeyCardUpdate(int nID, bool nCollected)
+			{
+				ID = nID;
+				collected = nCollected;
+			}
+		}
+
+		[System.Serializable]
 		public class MinimapUpdate : AbstractPackage
 		{
 			public byte[] bytes;
@@ -100,6 +113,23 @@ namespace CustomCommands
 				z = nZ;
 				state = nState;
 				doorIDs = nDoorIDs;
+			}
+		}
+
+		[System.Serializable]
+		public class KeyCardCreation : AbstractPackage
+		{
+			public int ID;
+			public float x;
+			public float z;
+			public bool collected;
+
+			public KeyCardCreation(int nID, float nX, float nZ, bool nCollected)
+			{
+				ID = nID;
+				x = nX;
+				z = nZ;
+				collected = nCollected;
 			}
 		}
 	}
