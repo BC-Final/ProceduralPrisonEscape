@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 
 public abstract class Weapon : MonoBehaviour {
+	[Header("Shoot Settings")]
 	[SerializeField]
 	private float _shootDamage;
 
@@ -12,12 +13,14 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _shootRate;
 
+	[Header("Spread Settings")]
 	[SerializeField]
 	private float _spreadConeRadius;
 
 	[SerializeField]
 	private float _spreadConeLength;
 
+	[Header("Ammo Settings")]
 	[SerializeField]
 	protected int _magazineCapacity;
 	public int MagazineCapacity { get { return _magazineCapacity; } }
@@ -26,6 +29,7 @@ public abstract class Weapon : MonoBehaviour {
 	protected int _maxReserveAmmo;
 	public int MaxReserveAmmo { get { return _maxReserveAmmo; } }
 
+	[Header("References")]
 	[SerializeField]
 	protected Transform _muzzlePosition;
 
@@ -33,6 +37,7 @@ public abstract class Weapon : MonoBehaviour {
 	private Transform _aimPosition;
 	public Transform AimPosition { get { return _aimPosition; } }
 
+	[Header("Timer Settings")]
 	[SerializeField]
 	private float _reloadTime;
 
@@ -43,6 +48,7 @@ public abstract class Weapon : MonoBehaviour {
 	private float _aimTime;
 	public float AimTime { get { return _aimTime; } }
 
+	[Header("Recoil Settings")]
 	[SerializeField]
 	private Vector2 _cameraRecoilForce;
 
@@ -58,6 +64,16 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _weaponRecoilReturnTime;
 
+	[Header("Reload Settings")]
+	[SerializeField]
+	private float _reloadDownMovement;
+
+	[SerializeField]
+	private float _reloadDownRotation;
+
+	[SerializeField]
+	private float _reloadMoveTime;
+
 	protected int _magazineContent;
 	public int MagazineContent { get { return _magazineContent; } }
 
@@ -66,6 +82,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected bool _canShoot = true;
 	protected bool _reloading = false;
+	public bool Reloading { get { return _reloading; } }
 
 	private MouseLook _mouseLook;
 
@@ -88,6 +105,14 @@ public abstract class Weapon : MonoBehaviour {
 	protected IEnumerator reload() {
 		_canShoot = false;
 		_reloading = true;
+
+		Sequence reloadStartSequence = DOTween.Sequence();
+		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(_reloadDownRotation, 0.0f, 0.0f), _reloadMoveTime));
+		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f), _reloadMoveTime));
+		reloadStartSequence.AppendInterval(_reloadTime - 2 * _reloadMoveTime);
+		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime));
+		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime));
+
 		yield return new WaitForSeconds(_reloadTime);
 		_magazineContent = (_reserveAmmo >= _magazineCapacity) ? _magazineCapacity : _reserveAmmo;
 		_reserveAmmo -= _magazineContent;

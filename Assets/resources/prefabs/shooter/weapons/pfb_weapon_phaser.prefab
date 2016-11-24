@@ -490,3 +490,6 @@ MonoBehaviour:
   _weaponMoveRecoilForce: 0.15
   _weaponRecoilApplyTime: 0.05
   _weaponRecoilReturnTime: 0.1
+  _reloadDownMovement: 0.25
+  _reloadDownRotation: 25
+  _reloadMoveTime: 0.2

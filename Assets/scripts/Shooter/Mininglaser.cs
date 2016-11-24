@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Mininglaser : Weapon {
+	[Header("Weapon Specific")]
 	[SerializeField]
 	private float _chargeTime;
 	//TODO Scale damage with charge time??

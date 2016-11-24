@@ -37,7 +37,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private void Update() {
 		//TODO This can be done more clever!
 		//int nextWeapon = Mathf.Min(Mathf.Max(0, _currentWeapon + (int)Input.mouseScrollDelta.y), _weapons.Count - 1);
-
 		int nextWeapon = _currentWeapon;
 
 		for (int i = 0; i < (int)Mathf.Abs(Input.mouseScrollDelta.y); ++i) {
