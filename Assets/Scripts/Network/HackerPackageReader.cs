@@ -64,12 +64,14 @@ public class HackerPackageReader : MonoBehaviour {
 		//Creation Methods
 		if (package is CustomCommands.Creation.DoorCreation) { Debug.Log("Package Received : DoorCreation"); ReadResponse(package as CustomCommands.Creation.DoorCreation); return; }
         if (package is CustomCommands.Creation.FireWallCreation) { Debug.Log("Package Received : FireWallCreation"); ReadResponse(package as CustomCommands.Creation.FireWallCreation); return; }
-		if (package is CustomCommands.Creation.KeyCardCreation) { Debug.Log("Package Received : FireWallCreation"); ReadResponse(package as CustomCommands.Creation.KeyCardCreation); return; }
+		if (package is CustomCommands.Creation.Items.KeyCardCreation) { Debug.Log("Package Received : FireWallCreation"); ReadResponse(package as CustomCommands.Creation.Items.KeyCardCreation); return; }
+		if (package is CustomCommands.Creation.Items.HealthKitCreation) { Debug.Log("Package Received : FireWallCreation"); ReadResponse(package as CustomCommands.Creation.Items.HealthKitCreation); return; }
+		if (package is CustomCommands.Creation.Items.AmmoPackCreation) { Debug.Log("Package Received : FireWallCreation"); ReadResponse(package as CustomCommands.Creation.Items.AmmoPackCreation); return; }
 
 		//Update Methods
 		if (package is CustomCommands.Update.DoorUpdate) { Debug.Log("Package Received : DoorUpdate"); ReadResponse(package as CustomCommands.Update.DoorUpdate); return; }
 		if (package is CustomCommands.Update.FireWallUpdate) { Debug.Log("Package Received : FireWallUpdate"); ReadResponse(package as CustomCommands.Update.FireWallUpdate); return; }
-		if (package is CustomCommands.Update.KeyCardUpdate) { Debug.Log("Package Received : FireWallUpdate"); ReadResponse(package as CustomCommands.Update.KeyCardUpdate); return; }
+		if (package is CustomCommands.Update.Items.ItemUpdate) { Debug.Log("Package Received : FireWallUpdate"); ReadResponse(package as CustomCommands.Update.Items.ItemUpdate); return; }
 		if (package is CustomCommands.Update.MinimapUpdate) { Debug.Log("Package Received : MinimapUpdate"); ReadResponse(package as CustomCommands.Update.MinimapUpdate); return; }
 		if (package is CustomCommands.Update.PlayerPositionUpdate) { Debug.Log("Package Received : PlayerPositionUpdate"); ReadResponse(package as CustomCommands.Update.PlayerPositionUpdate); return; }
 
@@ -85,8 +87,19 @@ public class HackerPackageReader : MonoBehaviour {
 	{
 		HackerFirewall.CreateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.KeyCardCreation package) {
-		HackerKeyCard.CreateKeyCard(package);
+
+	//Item Creation Methods
+	private void ReadResponse(CustomCommands.Creation.Items.KeyCardCreation package)
+	{
+		ItemDisplayIcon.CreateItem(package);
+	}
+	private void ReadResponse(CustomCommands.Creation.Items.HealthKitCreation package)
+	{
+		ItemDisplayIcon.CreateItem(package);
+	}
+	private void ReadResponse(CustomCommands.Creation.Items.AmmoPackCreation package)
+	{
+		ItemDisplayIcon.CreateItem(package);
 	}
 
 	//Updates Methods
@@ -98,8 +111,8 @@ public class HackerPackageReader : MonoBehaviour {
 	{
 		HackerFirewall.UpdateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Update.KeyCardUpdate package) {
-		HackerKeyCard.UpdateKeyCard(package);
+	private void ReadResponse(CustomCommands.Update.Items.ItemUpdate package) {
+		ItemDisplayIcon.UpdateItem(package);
 	}
 	private void ReadResponse(CustomCommands.Update.MinimapUpdate package)
 	{
