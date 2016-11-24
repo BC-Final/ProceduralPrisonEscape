@@ -67,7 +67,7 @@ public class MinimapManager : HackerMapManager {
 
 	public MinimapPickupIcon CreateMinimapIcon(Vector3 pos)
 	{
-		GameObject gameObject = (GameObject)Instantiate(_minimapFirewallPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
+		GameObject gameObject = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
 		return gameObject.GetComponent<MinimapPickupIcon>();
 	}
 	//public void SendDoorUpdate(Door door)

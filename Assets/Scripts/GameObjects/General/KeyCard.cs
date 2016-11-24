@@ -17,13 +17,13 @@ public class KeyCard : MonoBehaviour, IInteractable {
 		_id = _availibleId;
 		_availibleId++;
 
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.KeyCardUpdate(_id, false));
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, false));
 
 		_keyCards.Add(this);
 	}
 
 	private void OnDestroy() {
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.KeyCardUpdate(_id, true));
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true));
 		_keyCards.Remove(this);
 	}
 

@@ -35,19 +35,6 @@ namespace CustomCommands
 		}
 
 		[System.Serializable]
-		public class KeyCardUpdate : AbstractPackage
-		{
-			public int ID;
-			public bool collected;
-
-			public KeyCardUpdate(int nID, bool nCollected)
-			{
-				ID = nID;
-				collected = nCollected;
-			}
-		}
-
-		[System.Serializable]
 		public class MinimapUpdate : AbstractPackage
 		{
 			public byte[] bytes;
@@ -69,6 +56,22 @@ namespace CustomCommands
 				x = pos.x;
 				z = pos.z;
 				rotation = nRotation;
+			}
+		}
+
+		namespace Items
+		{
+			[System.Serializable]
+			public class ItemUpdate : AbstractPackage
+			{
+				public int ID;
+				public bool collected;
+
+				public ItemUpdate(int nID, bool nCollected)
+				{
+					ID = nID;
+					collected = nCollected;
+				}
 			}
 		}
 	}
@@ -115,21 +118,57 @@ namespace CustomCommands
 				doorIDs = nDoorIDs;
 			}
 		}
-
-		[System.Serializable]
-		public class KeyCardCreation : AbstractPackage
+		namespace Items
 		{
-			public int ID;
-			public float x;
-			public float z;
-			public bool collected;
-
-			public KeyCardCreation(int nID, float nX, float nZ, bool nCollected)
+			[System.Serializable]
+			public class KeyCardCreation : AbstractPackage
 			{
-				ID = nID;
-				x = nX;
-				z = nZ;
-				collected = nCollected;
+				public int ID;
+				public float x;
+				public float z;
+				public bool collected;
+
+				public KeyCardCreation(int nID, float nX, float nZ, bool nCollected)
+				{
+					ID = nID;
+					x = nX;
+					z = nZ;
+					collected = nCollected;
+				}
+			}
+
+			[System.Serializable]
+			public class AmmoPackCreation : AbstractPackage
+			{
+				public int ID;
+				public float x;
+				public float z;
+				public bool collected;
+
+				public AmmoPackCreation(int nID, float nX, float nZ, bool nCollected)
+				{
+					ID = nID;
+					x = nX;
+					z = nZ;
+					collected = nCollected;
+				}
+			}
+
+			[System.Serializable]
+			public class HealthKitCreation : AbstractPackage
+			{
+				public int ID;
+				public float x;
+				public float z;
+				public bool collected;
+
+				public HealthKitCreation(int nID, float nX, float nZ, bool nCollected)
+				{
+					ID = nID;
+					x = nX;
+					z = nZ;
+					collected = nCollected;
+				}
 			}
 		}
 	}

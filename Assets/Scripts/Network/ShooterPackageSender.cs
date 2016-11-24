@@ -121,7 +121,7 @@ public class ShooterPackageSender : MonoBehaviour
 		List<KeyCard> keycards = KeyCard.GetKeyCards();
 		foreach(KeyCard k in keycards)
 		{
-			SendPackage(new CustomCommands.Creation.KeyCardCreation(k._id, k.transform.position.x, k.transform.position.z, false));
+			SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(k._id, k.transform.position.x, k.transform.position.z, false));
 		}
 	}
 
