@@ -44,7 +44,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			_items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_keycard");
+			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_healthpackpack");
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}
@@ -58,7 +58,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			_items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_keycard");
+			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_ammopack");
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}

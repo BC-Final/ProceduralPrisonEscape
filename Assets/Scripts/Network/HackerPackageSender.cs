@@ -44,7 +44,8 @@ public class HackerPackageSender : MonoBehaviour
 		formatter = new BinaryFormatter();
 		try
 		{
-			client = new TcpClient("localhost", 55556);
+			Debug.Log(PlayerPrefs.GetString("ConnectionIP"));
+			client = new TcpClient(PlayerPrefs.GetString("ConnectionIP"), 55556);
 			stream = client.GetStream();
 		}
 		catch (SocketException e)
