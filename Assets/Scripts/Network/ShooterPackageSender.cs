@@ -43,10 +43,10 @@ public class ShooterPackageSender : MonoBehaviour
 
 	public void Start()
 	{
+		Application.runInBackground = true;
 		int port;
 		int.TryParse(PlayerPrefs.GetString("HostPort"), out port);
 		Debug.Log("Hosted on port : " + port);
-		Application.runInBackground = true;
 		_listener = new TcpListener(IPAddress.Any, port);
 		_listener.Start(5);
 	}
