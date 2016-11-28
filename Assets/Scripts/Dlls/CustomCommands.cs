@@ -58,6 +58,24 @@ namespace CustomCommands
 				rotation = nRotation;
 			}
 		}
+		[System.Serializable]
+		public class EnemyUpdate : AbstractPackage
+		{
+			public int id;
+			public int hpPercent;
+			public float x;
+			public float z;
+			public float rotation;
+
+			public EnemyUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+			{
+				id = nID;
+				hpPercent = nHpPercent;
+				x = pos.x;
+				z = pos.z;
+				rotation = nRotation;
+			}
+		}
 
 		namespace Items
 		{
@@ -171,6 +189,26 @@ namespace CustomCommands
 				}
 			}
 		}
+		namespace Shots
+		{
+			[System.Serializable]
+			public class LaserShotCreation : AbstractPackage
+			{
+				float startX;
+				float startZ;
+				float targetX;
+				float targetZ;
+
+				public LaserShotCreation(Vector3 startPos, Vector3 endPos)
+				{
+					startX = startPos.x;
+					startZ = startPos.z;
+					targetX = endPos.x;
+					targetZ = endPos.z;
+                }
+
+			}
+        }
 	}
 
 		[System.Serializable]

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HackerPackageSender : MonoBehaviour
 {
@@ -44,7 +45,10 @@ public class HackerPackageSender : MonoBehaviour
 		formatter = new BinaryFormatter();
 		try
 		{
-			client = new TcpClient("localhost", 55556);
+			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetString("ConnectionPort"));
+			int port;
+			int.TryParse(PlayerPrefs.GetString("ConnectionPort"), out port);
+            client = new TcpClient(PlayerPrefs.GetString("ConnectionIP"), port);
 			stream = client.GetStream();
 		}
 		catch (SocketException e)
@@ -58,8 +62,8 @@ public class HackerPackageSender : MonoBehaviour
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
-			Application.Quit();
 			Debug.Break();
+			SceneManager.LoadScene("MenuScene");
 		}
 	}
 
