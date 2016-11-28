@@ -100,6 +100,19 @@ namespace CustomCommands
 	namespace Creation
 	{
 		[System.Serializable]
+		public class NodeCreation : AbstractPackage {
+			public int ID;
+			public int NodeType;
+			public int AsocID;
+
+			public NodeCreation (int pId, int pNodeType, int pAsocId) {
+				ID = pId;
+				NodeType = pNodeType;
+				AsocID = pAsocId;
+			}
+		}
+
+		[System.Serializable]
 		public class DoorCreation : AbstractPackage
 		{
 			public int ID;

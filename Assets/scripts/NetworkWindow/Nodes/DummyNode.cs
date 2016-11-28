@@ -14,6 +14,8 @@ public class DummyNode : MonoBehaviour {
 		Database
 	}
 
+	private int _id;
+
 	[SerializeField]
 	private NodeType _type;
 
@@ -23,6 +25,10 @@ public class DummyNode : MonoBehaviour {
 
 	[SerializeField]
 	private List<DummyNode> _connections;
+
+	public void Initialize () {
+
+	}
 
 	public List<DummyNode> GetConnections () {
 		return new List<DummyNode>(_connections);

@@ -2702,6 +2702,22 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _smoothing.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _smoothing.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _sensitivity.x
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 11485642, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: _sensitivity.y
+      value: 3.25
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 81000010497791864, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
@@ -3326,7 +3342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &364241588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13066,7 +13082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1627183194
 MonoBehaviour:
   m_ObjectHideFlags: 0
