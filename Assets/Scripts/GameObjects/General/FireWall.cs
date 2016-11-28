@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Firewall : MonoBehaviour, IDamageable {
+public class FireWall : MonoBehaviour, IDamageable {
 
-	private static List<Firewall> _firewalls;
+	private static List<FireWall> _firewalls;
 	private static int _firewallIndex = 0;
 
 	public int ID;
@@ -61,8 +61,8 @@ public class Firewall : MonoBehaviour, IDamageable {
 
 	//Static methods
 
-	private static Firewall GetFireWallByID(int ID) {
-		foreach (Firewall f in _firewalls) {
+	private static FireWall GetFireWallByID(int ID) {
+		foreach (FireWall f in _firewalls) {
 			if (f.ID == ID) {
 				return f;
 			}
@@ -70,9 +70,9 @@ public class Firewall : MonoBehaviour, IDamageable {
 		return null;
 	}
 
-	private static List<Firewall> InitGetAllFireWallsInLevel() {
-		List<Firewall> allFireWalls = new List<Firewall>();
-		Firewall[] fireWallArray = FindObjectsOfType<Firewall>();
+	private static List<FireWall> InitGetAllFireWallsInLevel() {
+		List<FireWall> allFireWalls = new List<FireWall>();
+		FireWall[] fireWallArray = FindObjectsOfType<FireWall>();
 		for (int i = 0; i < fireWallArray.Length; i++) {
 			fireWallArray[i].ID = _firewallIndex;
 			_firewallIndex++;
@@ -81,7 +81,7 @@ public class Firewall : MonoBehaviour, IDamageable {
 		return allFireWalls;
 	}
 
-	public static List<Firewall> GetFirewallList() {
+	public static List<FireWall> GetFirewallList() {
 		if (_firewalls == null) {
 			_firewalls = InitGetAllFireWallsInLevel();
 		}

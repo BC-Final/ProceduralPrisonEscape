@@ -97,7 +97,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 	private void ReadResponse(CustomCommands.Creation.FireWallCreation package)
 	{
-		HackerFirewall.CreateFireWall(package);
+		HackerFireWall.CreateFireWall(package);
 	}
 	private void ReadResponse(CustomCommands.Creation.Shots.LaserShotCreation package)
 	{
@@ -125,7 +125,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 	private void ReadResponse(CustomCommands.Update.FireWallUpdate package)
 	{
-		HackerFirewall.UpdateFireWall(package);
+		HackerFireWall.UpdateFireWall(package);
 	}
 	private void ReadResponse(CustomCommands.Update.Items.ItemUpdate package) {
 		ItemDisplayIcon.UpdateItem(package);

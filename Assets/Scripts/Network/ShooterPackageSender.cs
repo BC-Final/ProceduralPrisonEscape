@@ -109,8 +109,8 @@ public class ShooterPackageSender : MonoBehaviour
 			Debug.Log("Sending Door " + d.transform.position.x); ;
 			SendPackage(new CustomCommands.Creation.DoorCreation(d.doorID, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
-		List<Firewall> fireWalls = Firewall.GetFirewallList();
-		foreach(Firewall f in fireWalls)
+		List<FireWall> fireWalls = FireWall.GetFirewallList();
+		foreach(FireWall f in fireWalls)
 		{
 			List<int> IDs = new List<int>();
 			foreach(Door d in f.GetDoorList())
@@ -128,7 +128,7 @@ public class ShooterPackageSender : MonoBehaviour
 		}
 	}
 
-	public void SendFireWallUpdate(Firewall firewall)
+	public void SendFireWallUpdate(FireWall firewall)
 	{
 		foreach (TcpClient client in _clients)
 		{

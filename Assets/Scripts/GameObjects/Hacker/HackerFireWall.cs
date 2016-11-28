@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class HackerFirewall {
+public class HackerFireWall {
 
 	MinimapFirewall _minimapIcon;
 
-	private static List<HackerFirewall> _firewalls = new List<HackerFirewall>();
+	private static List<HackerFireWall> _firewalls = new List<HackerFireWall>();
 
 	public int ID;
 	private bool _destroyed;
@@ -45,7 +45,7 @@ public class HackerFirewall {
 
 	public static void CreateFireWall(CustomCommands.Creation.FireWallCreation firewallCreation)
 	{
-		HackerFirewall firewall = new HackerFirewall();
+		HackerFireWall firewall = new HackerFireWall();
 		firewall.ID = firewallCreation.ID;
 		firewall._destroyed = firewallCreation.state;
 
@@ -69,12 +69,12 @@ public class HackerFirewall {
 	}
 	public static void UpdateFireWall(CustomCommands.Update.FireWallUpdate package)
 	{
-		HackerFirewall firewall= GetFireWallByID(package.ID);
+		HackerFireWall firewall= GetFireWallByID(package.ID);
 		firewall.ChangeState(package.destroyed);
 	}
-	public static HackerFirewall GetFireWallByID(int ID)
+	public static HackerFireWall GetFireWallByID(int ID)
 	{
-		foreach (HackerFirewall f in _firewalls)
+		foreach (HackerFireWall f in _firewalls)
 		{
 			if (f.ID == ID)
 			{
@@ -84,7 +84,7 @@ public class HackerFirewall {
 		return null;
 	}
 
-	private static void AddFirewall(HackerFirewall firewall)
+	private static void AddFirewall(HackerFireWall firewall)
 	{
 		_firewalls.Add(firewall);
 	}

@@ -7,7 +7,7 @@ public class HackerDoor {
 	private static List<HackerDoor> _doors = new List<HackerDoor>();
 
 	private MinimapDoor _minimapDoor;
-	private HackerFirewall _firewall;
+	private HackerFireWall _firewall;
 	private Door.DoorState _currentDoorState;
 	private int _id;
 
@@ -44,14 +44,14 @@ public class HackerDoor {
 		_minimapDoor = door;
 	}
 
-	public void SetFirewall(HackerFirewall firewall)
+	public void SetFirewall(HackerFireWall firewall)
 	{
 		_firewall = firewall;
 		UpdateDoorState();
 	}
 
 	//Getter
-	public HackerFirewall GetFirewall()
+	public HackerFireWall GetFirewall()
 	{
 		if(_firewall == null)
 		{
