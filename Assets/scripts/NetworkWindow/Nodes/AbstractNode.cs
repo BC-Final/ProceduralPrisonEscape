@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 
+[SelectionBase]
 public abstract class AbstractNode : MonoBehaviour {
 	private static List<AbstractNode> _graph = new List<AbstractNode>();
 	public static List<AbstractNode> Graph { get { return _graph; } }
@@ -166,24 +167,6 @@ public abstract class AbstractNode : MonoBehaviour {
 		transform.DOScale(Vector3.one, _adminProtectTime);
 		yield return new WaitForSeconds(_adminProtectTime);
 		_protected = false;
-	}
-	
-	private void OnDrawGizmos() {
-		if (_connections != null) {
-			foreach (AbstractNode n in _connections) {
-				if (n != null) {
-					if (n.GetConnections().FindAll(x => x == this).Count == 0) {
-						Gizmos.color = Color.red;
-					} else if (GetConnections().FindAll(x => x == n).Count > 1) {
-						Gizmos.color = Color.blue;
-					} else {
-						Gizmos.color = Color.white;
-					}
-
-					Gizmos.DrawLine(transform.position, transform.position + (n.transform.position - transform.position) / 2.0f);
-				}
-			}
-		}
 	}
 
 	private IEnumerator sendFeedback() {

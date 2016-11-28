@@ -74,6 +74,9 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _reloadMoveTime;
 
+	[SerializeField]
+	private GameObject _model;
+
 	protected int _magazineContent;
 	public int MagazineContent { get { return _magazineContent; } }
 
@@ -83,6 +86,7 @@ public abstract class Weapon : MonoBehaviour {
 	protected bool _canShoot = true;
 	protected bool _reloading = false;
 	public bool Reloading { get { return _reloading; } }
+	protected bool _active;
 
 	private MouseLook _mouseLook;
 
@@ -165,14 +169,23 @@ public abstract class Weapon : MonoBehaviour {
 		return Camera.main.transform.TransformDirection(rayDir.normalized);
 	}
 
+	public void SetActive (bool pActive) {
+		_active = pActive;
+		_model.SetActive(pActive);
+	}
+
 	private void OnGUI() {
-		FindObjectOfType<CrosshairDistance>().SetDistance(_spreadConeRadius, _spreadConeLength);
+		if (_active) {
+			FindObjectOfType<CrosshairDistance>().SetDistance(_spreadConeRadius, _spreadConeLength);
+		}
 	}
 
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
-		UnityEditor.Handles.color = Color.white;
-		UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
+		if (_active) {
+			UnityEditor.Handles.color = Color.white;
+			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
+		}
 	}
 #endif
 }

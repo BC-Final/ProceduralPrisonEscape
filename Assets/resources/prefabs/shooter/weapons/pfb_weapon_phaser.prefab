@@ -493,3 +493,4 @@ MonoBehaviour:
   _reloadDownMovement: 0.25
   _reloadDownRotation: 25
   _reloadMoveTime: 0.2
+  _model: {fileID: 1000011439340584}

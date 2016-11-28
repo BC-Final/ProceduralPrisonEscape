@@ -12,14 +12,16 @@ public class Mininglaser : Weapon {
 	}
 
 	public void Update() {
-		if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
-			StartCoroutine(shoot());
-		} else if (_magazineContent == 0) {
+		if (_active) {
+			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
+				StartCoroutine(shoot());
+			} else if (_magazineContent == 0) {
 
-		}
+			}
 
-		if (Input.GetKeyDown(KeyCode.R) && !_reloading) {
-			StartCoroutine(reload());
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading) {
+				StartCoroutine(reload());
+			}
 		}
 	}
 

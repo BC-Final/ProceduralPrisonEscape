@@ -2,6 +2,7 @@
 using System.Collections;
 using StateFramework;
 
+[SelectionBase]
 public class ShooterDoor : Door, IInteractable {
 	private StateMachine<AbstractDoorState> _fsm = null;
 

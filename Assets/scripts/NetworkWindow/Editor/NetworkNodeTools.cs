@@ -5,18 +5,17 @@ using System.Collections.Generic;
 public class NetworkNodeTools : MonoBehaviour {
 	[MenuItem("Node Tools/Connect Selected Nodes %g")]
 	static void ConnectSelectedNodes() {
-		List<AbstractNode> selectedNodes = new List<AbstractNode>();
-
+		List<DummyNode> selectedNodes = new List<DummyNode>();
 		
 		foreach (GameObject n in Selection.gameObjects) {
-			if (n.GetComponent<AbstractNode>() != null) {
-				selectedNodes.Add(n.GetComponent<AbstractNode>());
+			if (n.GetComponent<DummyNode>() != null) {
+				selectedNodes.Add(n.GetComponent<DummyNode>());
 			}
 		}
 
 		if (selectedNodes.Count == 2) {
-			foreach (AbstractNode n in selectedNodes) {
-				foreach (AbstractNode c in selectedNodes) {
+			foreach (DummyNode n in selectedNodes) {
+				foreach (DummyNode c in selectedNodes) {
 					if (n.gameObject != c.gameObject) {
 						Undo.RecordObject(n, "Added connection");
 						n.AddConnection(c);
@@ -30,19 +29,18 @@ public class NetworkNodeTools : MonoBehaviour {
 	}
 
 	[MenuItem("Node Tools/Deconnect Selected Nodes %h")]
-	static void DeconnectSelectedNodes() {
-		List<AbstractNode> selectedNodes = new List<AbstractNode>();
-
+	static void DisconnectSelectedNodes() {
+		List<DummyNode> selectedNodes = new List<DummyNode>();
 
 		foreach (GameObject n in Selection.gameObjects) {
-			if (n.GetComponent<AbstractNode>() != null) {
-				selectedNodes.Add(n.GetComponent<AbstractNode>());
+			if (n.GetComponent<DummyNode>() != null) {
+				selectedNodes.Add(n.GetComponent<DummyNode>());
 			}
 		}
 
 		if (selectedNodes.Count == 2) {
-			foreach (AbstractNode n in selectedNodes) {
-				foreach (AbstractNode c in selectedNodes) {
+			foreach (DummyNode n in selectedNodes) {
+				foreach (DummyNode c in selectedNodes) {
 					if (n.gameObject != c.gameObject) {
 						Undo.RecordObject(n, "Removed connection");
 						n.RemoveConnection(c);

@@ -25,10 +25,10 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		_currentWeapon = 0;
 
 		foreach (Weapon w in _weapons) {
-			w.gameObject.SetActive(false);
+			w.SetActive(false);
 		}
 
-		_weapons[0].gameObject.SetActive(true);
+		_weapons[0].SetActive(true);
 
 		//TODO I hate using strings
 		_ammobar = GameObject.FindGameObjectWithTag("ammobar").GetComponent<Text>();
@@ -50,8 +50,8 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 
 		if (nextWeapon != _currentWeapon) {
-			_weapons[_currentWeapon].gameObject.SetActive(false);
-			_weapons[nextWeapon].gameObject.SetActive(true);
+			_weapons[_currentWeapon].SetActive(false);
+			_weapons[nextWeapon].SetActive(true);
 			_currentWeapon = nextWeapon;
 		}
 		//END commentpart
