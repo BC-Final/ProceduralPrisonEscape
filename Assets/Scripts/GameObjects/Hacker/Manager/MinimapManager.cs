@@ -70,11 +70,6 @@ public class MinimapManager : HackerMapManager {
 		GameObject gameObject = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
 		return gameObject.GetComponent<MinimapPickupIcon>();
 	}
-	//public void SendDoorUpdate(Door door)
-	//{
-	//	_sender.SendDoorUpdate(door);
-	//}
-
 	public void UpdateMinimapPlayer(CustomCommands.Update.PlayerPositionUpdate package)
 	{
 		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
@@ -87,6 +82,21 @@ public class MinimapManager : HackerMapManager {
 		else
 		{
 			_player.SetNewPos(pos/scale);
+			_player.SetNewRotation(package.rotation);
+		}
+	}
+	public void UpdateEnemy(CustomCommands.Update.EnemyUpdate package)
+	{
+		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
+		if (_player == null)
+		{
+
+			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos / scale, Quaternion.Euler(package.rotation, 0, 0));
+			_player = gameObject.GetComponent<MinimapPlayer>();
+		}
+		else
+		{
+			_player.SetNewPos(pos / scale);
 			_player.SetNewRotation(package.rotation);
 		}
 	}
