@@ -14,7 +14,7 @@ public class Door : MonoBehaviour {
 	};
 
 	[SerializeField]
-	protected FireWall _firewall;
+	protected ShooterFireWall _firewall;
 	[SerializeField]
 	protected DoorState _currentDoorState;
 	public int doorID;
@@ -51,12 +51,12 @@ public class Door : MonoBehaviour {
 		_currentDoorState = pStatus;
 	}
 
-	public FireWall GetFireWall()
+	public ShooterFireWall GetFireWall()
 	{
 		return _firewall;
 	}
 
-	public void SetFireWall(FireWall firewall)
+	public void SetFireWall(ShooterFireWall firewall)
 	{
 		_firewall = firewall;
 	}
