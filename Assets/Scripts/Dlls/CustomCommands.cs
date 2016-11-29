@@ -101,12 +101,16 @@ namespace CustomCommands
 	{
 		[System.Serializable]
 		public class NodeCreation : AbstractPackage {
+			public float X;
+			public float Y;
 			public int ID;
 			public int NodeType;
 			public int AsocID;
 			public int[] ConnectionIds;
 
-			public NodeCreation (int pId, int pNodeType, int pAsocId, int[] pConnectionIds) {
+			public NodeCreation (float pX, float pY, int pId, int pNodeType, int pAsocId, int[] pConnectionIds) {
+				X = pX;
+				Y = pY;
 				ID = pId;
 				NodeType = pNodeType;
 				AsocID = pAsocId;

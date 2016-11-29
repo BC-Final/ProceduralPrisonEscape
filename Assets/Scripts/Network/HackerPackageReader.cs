@@ -142,7 +142,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
-		//TODO Tell network canvas to create nodes
+		
 	}
 
 	private void ReadResponse(CustomCommands.Update.EnemyUpdate package)

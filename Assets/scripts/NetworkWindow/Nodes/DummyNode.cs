@@ -22,9 +22,11 @@ public class DummyNode : MonoBehaviour, INetworked {
 
 	[SerializeField]
 	private NodeType _type;
+	public NodeType Type { get { return _type; } }
 
 	[SerializeField]
 	private GameObject _associatedObject;
+	public GameObject AssociatedObject { get { return _associatedObject; } }
 
 	[SerializeField]
 	private List<DummyNode> _connections;
