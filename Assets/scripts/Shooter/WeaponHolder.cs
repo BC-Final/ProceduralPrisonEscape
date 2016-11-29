@@ -57,8 +57,10 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		//END commentpart
 
 		if (Input.GetMouseButtonDown(1)) {
+			FindObjectOfType<CrosshairDistance>().Disable();
 			_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime);
 		} else if (Input.GetMouseButtonUp(1)) {
+			FindObjectOfType<CrosshairDistance>().Enable();
 			_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime);
 		}
 	}
