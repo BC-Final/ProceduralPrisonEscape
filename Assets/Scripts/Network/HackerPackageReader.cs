@@ -147,7 +147,7 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void ReadResponse(CustomCommands.Update.EnemyUpdate package)
 	{
-		Debug.Log("NOT IMPLEMENTED");
+		MinimapEnemy.UpdateEnemy(package);
 	}
 
 	//Exit Methods
