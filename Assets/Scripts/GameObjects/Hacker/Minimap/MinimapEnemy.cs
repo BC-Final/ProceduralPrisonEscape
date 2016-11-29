@@ -7,6 +7,7 @@ public class MinimapEnemy : MonoBehaviour {
 	//static vars
 	private static List<MinimapEnemy> _enemies = new List<MinimapEnemy>();
 
+	public int health;
 	private int _id;
 	private Vector3 _oldPos;
 	private Vector3 _newPos;
@@ -37,16 +38,16 @@ public class MinimapEnemy : MonoBehaviour {
 		_timeSinceLastUpdate = 0f;
 		_currentLerpTime = 0f;
 		_oldPos = _newPos;
-		_newPos = nPos;
+		_newPos = nPos*MinimapManager.GetInstance().scale;
 	}
 	private void SetNewRotation(float rotation)
 	{
 		transform.rotation = Quaternion.Euler(0, rotation, 0);
 	}
-	private void SetHealth(int health)
+	private void SetHealth(int nHealth)
 	{
-
-	}
+		health = nHealth;
+    }
 
 	//STATIC METHODS
 	private static MinimapEnemy GetEnemyByID(int id)
@@ -64,9 +65,20 @@ public class MinimapEnemy : MonoBehaviour {
 	public static void UpdateEnemy(CustomCommands.Update.EnemyUpdate package)
 	{
 		Vector3 pos = new Vector3(package.x, 1, package.z);
-		MinimapEnemy enemy = GetEnemyByID(package.id);
-		enemy.SetNewPos(pos);
-		enemy.SetNewRotation(package.rotation);
-		enemy.SetHealth(package.hpPercent);
+		if (GetEnemyByID(package.id) != null)
+		{	
+			MinimapEnemy enemy = GetEnemyByID(package.id);
+			enemy.SetNewPos(pos);
+			enemy.SetNewRotation(package.rotation);
+			enemy.SetHealth(package.hpPercent);
+		}
+		else
+		{
+			MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
+			_enemies.Add(enemy);
+            enemy.SetNewPos(pos);
+			enemy.SetNewRotation(package.rotation);
+			enemy.SetHealth(package.hpPercent);
+		}
 	}
 }
