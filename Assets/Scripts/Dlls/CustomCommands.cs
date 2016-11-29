@@ -119,6 +119,11 @@ namespace CustomCommands
 		}
 
 		[System.Serializable]
+		public class OnCreationEnd : AbstractPackage {
+			public OnCreationEnd () { }
+		}
+
+		[System.Serializable]
 		public class DoorCreation : AbstractPackage
 		{
 			public int ID;

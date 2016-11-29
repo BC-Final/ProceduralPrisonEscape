@@ -28,34 +28,34 @@ public class CameraDragAndDrop : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0) )//&& MouseIsInScreenRegion(mouseRegion))
+		if (_camera.pixelRect.Contains(Input.mousePosition)) {
+			if (Input.GetMouseButtonDown(1))//&& MouseIsInScreenRegion(mouseRegion))
 		{
-			StartDragging();
-			_startPos = Input.mousePosition;
-			_startTransformPos = this.transform.position;
-		}
-		if (Input.GetMouseButtonUp(0))
-		{
-			StopDragging();
-		}
+				StartDragging();
+				_startPos = Input.mousePosition;
+				_startTransformPos = this.transform.position;
+			}
+			if (Input.GetMouseButtonUp(1)) {
+				StopDragging();
+			}
 
-		//Scrolling mouse wheel
-		float scrollPos = _camera.orthographicSize - Input.mouseScrollDelta.y * 0.5f;
-		_camera.orthographicSize = Mathf.Clamp(scrollPos, 1f, 15f); ;
+			//Scrolling mouse wheel
+			float scrollPos = _camera.orthographicSize - Input.mouseScrollDelta.y * 0.5f;
+			_camera.orthographicSize = Mathf.Clamp(scrollPos, 1f, 15f);
+			;
 
-		if (_dragging)
-		{
-			_currentLerpTime = 0f;
-			_newPos = _startPos - Input.mousePosition;
-			_targetPos = new Vector3(_startTransformPos.x + _newPos.x*scrollPos*(_mouseSensitivity / 10000), 1, _startTransformPos.z + _newPos.y*scrollPos *(_mouseSensitivity / 10000));		
+			if (_dragging) {
+				_currentLerpTime = 0f;
+				_newPos = _startPos - Input.mousePosition;
+				_targetPos = new Vector3(_startTransformPos.x + _newPos.x * scrollPos * (_mouseSensitivity / 10000), 1, _startTransformPos.z + _newPos.y * scrollPos * (_mouseSensitivity / 10000));
+			}
+			_currentLerpTime += Time.deltaTime;
+			if (_currentLerpTime > _lerpTime) {
+				_currentLerpTime = _lerpTime;
+			}
+			float perc = _currentLerpTime / _lerpTime;
+			this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 		}
-		_currentLerpTime += Time.deltaTime;
-		if (_currentLerpTime > _lerpTime)
-		{
-			_currentLerpTime = _lerpTime;
-		}
-		float perc = _currentLerpTime / _lerpTime;
-		this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 	}
 	public void SetTargetPos(Vector3 targetPosition)
 	{

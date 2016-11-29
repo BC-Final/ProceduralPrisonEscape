@@ -47,7 +47,7 @@ public class HackerPackageReader : MonoBehaviour {
 		}
 		catch (Exception e)
 		{
-			Debug.Log("Error" + e.ToString());
+			Debug.LogError("Error" + e.ToString());
 		}
 	}
 	//Message Management
@@ -60,8 +60,9 @@ public class HackerPackageReader : MonoBehaviour {
 	//Abstract Method
 	private void ReadResponse(CustomCommands.AbstractPackage package)
 	{
-		Debug.Log("Package Received : Abstract");
-		string debugMessage = "";
+		//Debug.Log("Package Received : Abstract");
+
+		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 		//Update Methods
 		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadResponse(package as CustomCommands.Update.DoorUpdate); }
 		if (package is CustomCommands.Update.FireWallUpdate) { debugMessage = "Package Received : FireWallUpdate"; ReadResponse(package as CustomCommands.Update.FireWallUpdate); }
@@ -78,17 +79,9 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Creation.Items.AmmoPackCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.AmmoPackCreation); }
 		if (package is CustomCommands.Creation.Shots.LaserShotCreation) { debugMessage = "Package Received : LaserShotCreation"; ReadResponse(package as CustomCommands.Creation.Shots.LaserShotCreation); }
 		if (package is CustomCommands.Creation.NodeCreation) { debugMessage = "Package Received : NodeCreation"; ReadResponse(package as CustomCommands.Creation.NodeCreation); }
+		if (package is CustomCommands.Creation.OnCreationEnd) { debugMessage = "Package Received : OnCreationEnd"; ReadResponse(package as CustomCommands.Creation.OnCreationEnd); }
 
-		//Debug Message 
-		if (debugMessage != "")
-		{
-			Debug.Log(debugMessage);
-		}
-		else
-		{
-			//Method not found or not implemented
-			Debug.Log("ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED");
-		}
+		//Debug.Log(debugMessage);
 	}
 	//Creation Methods
 	private void ReadResponse(CustomCommands.Creation.DoorCreation package)
@@ -142,7 +135,11 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
-		
+		NetworkWindow.Instance.AddNode(pPackage);
+	}
+
+	private void ReadResponse (CustomCommands.Creation.OnCreationEnd pPackage) {
+		NetworkWindow.Instance.FinishedReceivingAll();
 	}
 
 	private void ReadResponse(CustomCommands.Update.EnemyUpdate package)

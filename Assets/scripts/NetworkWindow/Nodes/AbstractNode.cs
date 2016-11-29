@@ -38,6 +38,12 @@ public abstract class AbstractNode : MonoBehaviour {
 
 	private SecurityNode _nearestSecurityNode;
 
+	private int _id;
+	public int Id {
+		get { return _id; }
+		set { _id = value; }
+	}
+
 
 	public List<AbstractNode> GetConnections() {
 		return new List<AbstractNode>(_connections);
@@ -80,7 +86,7 @@ public abstract class AbstractNode : MonoBehaviour {
 				go.layer = gameObject.layer;
 				LineRenderer lr = go.GetComponent<LineRenderer>();
 				lr.material = new Material(Shader.Find("Particles/Additive"));
-				lr.SetWidth(0.1f, 0.1f);
+				lr.SetWidth(1f, 1f);
 				lr.SetPosition(0, transform.position);
 				lr.SetPosition(1, transform.position + (n.transform.position - transform.position) / 2.0f);
 			} else {

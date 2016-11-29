@@ -72,8 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 325305b073481484aa757cdf1e72e089, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _connections:
-  - {fileID: 0}
+  _connections: []
   _hackable: 1
   _hackTime: 1
   _adminProtectTime: 20
