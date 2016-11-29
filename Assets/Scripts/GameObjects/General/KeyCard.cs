@@ -11,10 +11,18 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	private List<ShooterDoor> _doors;
 
 	private int _id;
-	public int Id { get { return _id; } }
+	public int Id {
+		get {
+			if (_id == 0) {
+				_id = IdManager.RequestId();
+			}
+
+			return _id;
+		}
+	}
 
 	public void Initialize () {
-		_id = IdManager.RequestId();
+		
 	}
 
 	private void Awake() {

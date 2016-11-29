@@ -104,11 +104,13 @@ namespace CustomCommands
 			public int ID;
 			public int NodeType;
 			public int AsocID;
+			public int[] ConnectionIds;
 
-			public NodeCreation (int pId, int pNodeType, int pAsocId) {
+			public NodeCreation (int pId, int pNodeType, int pAsocId, int[] pConnectionIds) {
 				ID = pId;
 				NodeType = pNodeType;
 				AsocID = pAsocId;
+				ConnectionIds = pConnectionIds;
 			}
 		}
 

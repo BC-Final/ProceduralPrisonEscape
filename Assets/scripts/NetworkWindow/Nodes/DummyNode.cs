@@ -1,10 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [SelectionBase]
-public class DummyNode : MonoBehaviour {
+public class DummyNode : MonoBehaviour, INetworked {
+	private static List<DummyNode> _nodes = new List<DummyNode>();
+	public static List<DummyNode> GetNodeList () { return _nodes; }
+
 	private int _id;
+
+	public int Id {
+		get {
+			if (_id == 0) {
+				_id = IdManager.RequestId();
+			}
+
+			return _id;
+		}
+	}
 
 	[SerializeField]
 	private NodeType _type;
@@ -15,10 +29,18 @@ public class DummyNode : MonoBehaviour {
 	[SerializeField]
 	private List<DummyNode> _connections;
 
-	private void Initialize () {
-		_id = IdManager.RequestId();
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(_id, (int)_type, _associatedObject.GetComponent<INetworked>().Id));
+	public void Initialize () {
+		
 	}
+
+	private void Awake () {
+		_nodes.Add(this);
+	}
+
+	private void OnDestroy () {
+		_nodes.Remove(this);
+	}
+
 
 	public List<DummyNode> GetConnections () {
 		return new List<DummyNode>(_connections);

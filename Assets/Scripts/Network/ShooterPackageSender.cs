@@ -125,6 +125,9 @@ public class ShooterPackageSender : MonoBehaviour
 		{
 			SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(k.Id, k.transform.position.x, k.transform.position.z, false));
 		}
+
+		//TODO Send all nodes
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(_id, (int)_type, _associatedObject.GetComponent<INetworked>().Id, _connections.Select(x => x.Id).ToArray()));
 	}
 
 	public void SendFireWallUpdate(ShooterFireWall firewall)
