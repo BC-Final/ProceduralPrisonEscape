@@ -21,7 +21,7 @@ namespace StateFramework {
 		}
 
 		public override void Step() {
-			
+			//TODO Despawn after some time
 		}
 
 		public override void Exit() {

@@ -13,7 +13,7 @@ public class MultipurposeWindowManager : MonoBehaviour {
 	
 	}
 
-	public void ShowMultipurposeInformation(Door door)
+	public void ShowMultipurposeInformation(ShooterDoor door)
 	{
 
 	}

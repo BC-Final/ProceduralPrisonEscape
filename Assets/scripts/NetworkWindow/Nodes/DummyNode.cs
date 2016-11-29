@@ -4,16 +4,6 @@ using System.Collections.Generic;
 
 [SelectionBase]
 public class DummyNode : MonoBehaviour {
-	private enum NodeType {
-		Base,
-		Door,
-		Firewall,
-		Dispenser,
-		Security,
-		Hacker,
-		Database
-	}
-
 	private int _id;
 
 	[SerializeField]
@@ -21,13 +11,13 @@ public class DummyNode : MonoBehaviour {
 
 	[SerializeField]
 	private GameObject _associatedObject;
-	//TODO Send information after init
 
 	[SerializeField]
 	private List<DummyNode> _connections;
 
-	public void Initialize () {
-
+	private void Initialize () {
+		_id = IdManager.RequestId();
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(_id, (int)_type, _associatedObject.GetComponent<INetworked>().Id));
 	}
 
 	public List<DummyNode> GetConnections () {

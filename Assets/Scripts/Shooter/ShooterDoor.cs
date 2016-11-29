@@ -1,19 +1,51 @@
 ﻿using UnityEngine;
 using System.Collections;
 using StateFramework;
+using System.Collections.Generic;
 
 [SelectionBase]
-public class ShooterDoor : Door, IInteractable {
+public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
+	private static List<ShooterDoor> _doors = new List<ShooterDoor>();
+	public static List<ShooterDoor> GetDoorList () { return _doors; }
+
+	[SerializeField]
+	private int _id;
+	public int Id { get { return _id; } }
+
+	public void Initialize () {
+		_id = IdManager.RequestId();
+	}
+
+	[SerializeField]
+	protected ShooterFireWall _firewall;
+
+	[SerializeField]
+	protected DoorState _currentDoorState;
+
+	[SerializeField]
+	public bool _requireKeyCard;
+
 	private StateMachine<AbstractDoorState> _fsm = null;
 
 	public Transform LeftDoor;
 	public Transform RightDoor;
 
-	public override void Start()
-	{
-		base.Start();
+	private void Awake() {
+		Initialize();
+		_doors.Add(this);
+	}
+
+	private void OnDestroy() {
+		_doors.Remove(this);
+	}
 	
-	_fsm = new StateMachine<AbstractDoorState>();
+	private void Start()
+	{
+		if (_firewall != null) {
+			_firewall.AddDoor(this);
+		}
+
+		_fsm = new StateMachine<AbstractDoorState>();
 
 		_fsm.AddState(new DoorOpenState(this, _fsm));
 		_fsm.AddState(new DoorClosedState(this, _fsm));
@@ -29,18 +61,21 @@ public class ShooterDoor : Door, IInteractable {
 		};
 	}
 
+
 	private void Update() {
 		_fsm.Step();
 	}
 
 	public void Interact() {
 		_fsm.GetState().Interact();
-		SendDoorUpdate();
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, GetDoorState().ToString()));
 	}
 
-	public override void ChangeState(DoorState state)
+	public void ChangeState(DoorState state)
 	{
-		base.ChangeState(state);
+		if (_firewall == null || _firewall.GetState()) {
+			_currentDoorState = state;
+		}
 
 		if (state == DoorState.Open)
 		{
@@ -63,5 +98,32 @@ public class ShooterDoor : Door, IInteractable {
 		if (pOther.GetComponent<Enemy_Drone>() != null) {
 			ChangeState(DoorState.Closed);
 		}
+	}
+
+	public DoorState GetDoorState () {
+		return _currentDoorState;
+	}
+
+	public void SetDoorState (DoorState pStatus) {
+		_currentDoorState = pStatus;
+	}
+
+	public ShooterFireWall GetFireWall () {
+		return _firewall;
+	}
+
+	public void SetRequireKeyCard () {
+		_requireKeyCard = true;
+	}
+
+
+
+	public static void UpdateDoor (CustomCommands.Update.DoorUpdate update) {
+		ShooterDoor door = GetDoorByID(update.ID);
+		door.ChangeState(Helper.ParseEnum<DoorState>(update.state));
+	}
+
+	private static ShooterDoor GetDoorByID (int pId) {
+		return _doors.Find(x => x.Id == pId);
 	}
 }

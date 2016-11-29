@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using StateFramework;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy_Drone : MonoBehaviour, IDamageable {
+public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
+	private static List<Enemy_Drone> _drones = new List<Enemy_Drone>();
+	public static List<Enemy_Drone> GetFirewallList () { return _drones; }
+
 	[SerializeField]
-	private float _health;
+	private float _maxHealth;
+	private float _currentHealth;
 
 	[SerializeField]
 	private float _attackDamage;
@@ -78,6 +82,22 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 
 	private StateMachine<AbstractDroneState> _fsm;
 
+	private int _id;
+	public int Id { get { return _id; } }
+
+	public void Initialize () {
+		_id = IdManager.RequestId();
+	}
+
+	private void Awake () {
+		_drones.Add(this);
+	}
+
+	private void OnDestroy () {
+		_drones.Remove(this);
+	}
+
+
 	private void Start() {
 		_fsm = new StateMachine<AbstractDroneState>();
 
@@ -91,24 +111,27 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 		_fsm.AddState(new DroneAttackState(this, _fsm));
 
 		_fsm.SetState<DroneIdleState>();
+
+		_currentHealth = _maxHealth;
 	}
 
 	private void Update() {
-		if (_health > 0.0f) {
-			_fsm.Step();
-		}
+		//HACK Remove this later
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(_id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+
+		_fsm.Step();
 	}
 
 	public void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		if (_health > 0.0f) {
-			_health -= pDamage;
+		if (_currentHealth > 0.0f) {
+			_currentHealth -= pDamage;
 
 #if UNITY_EDITOR
-			//For drawing Gizmos
 			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
 #endif
 
-			if (_health <= 0.0f) {
+			if (_currentHealth <= 0.0f) {
+				_drones.Remove(this);
 				_fsm.SetState<DroneDeadState>();
 			}
 
@@ -145,8 +168,6 @@ public class Enemy_Drone : MonoBehaviour, IDamageable {
 			UnityEditor.Handles.color = Color.white;
 
 			if (_seeAngle < 360f) {
-				//Gizmos.DrawLine(transform.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _attackRange)), transform.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
-				//Gizmos.DrawLine(transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _attackRange)), transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
 				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
 				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
 				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
