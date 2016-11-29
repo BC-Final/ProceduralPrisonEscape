@@ -12,6 +12,14 @@ public class CrosshairDistance : MonoBehaviour {
 		_crosshairs = new List<Crosshair>(GetComponentsInChildren<Crosshair>());
 	}
 
+	public void Enable() { 
+		_crosshairs.ForEach(x => x.GetComponent<Image>().enabled = true);
+	}
+
+	public void Disable () {
+		_crosshairs.ForEach(x => x.GetComponent<Image>().enabled = false);
+	}
+
 	public void SetDistance(float pConeRadius, float pConeLength) {
 		Vector3 worldPosition = (Camera.main.transform.position + Camera.main.transform.forward * pConeLength) + Camera.main.transform.up * pConeRadius;
 		Vector2 screenPosition = Camera.main.WorldToViewportPoint(worldPosition);
