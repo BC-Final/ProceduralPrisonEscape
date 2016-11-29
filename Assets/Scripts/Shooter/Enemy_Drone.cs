@@ -131,7 +131,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _postionUpdateRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(_id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 		}
 		
 

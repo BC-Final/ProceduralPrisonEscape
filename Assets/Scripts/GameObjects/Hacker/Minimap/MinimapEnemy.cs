@@ -38,7 +38,7 @@ public class MinimapEnemy : MonoBehaviour {
 		_timeSinceLastUpdate = 0f;
 		_currentLerpTime = 0f;
 		_oldPos = _newPos;
-		_newPos = nPos*MinimapManager.GetInstance().scale;
+		_newPos = nPos/MinimapManager.GetInstance().scale;
 	}
 	private void SetNewRotation(float rotation)
 	{
