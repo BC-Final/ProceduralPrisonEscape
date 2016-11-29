@@ -65,6 +65,10 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	private float _loadHearRadius;
 
 	[SerializeField]
+	private float _postionUpdateRate = 0.5f;
+	private float _positionSendTimer;
+
+	[SerializeField]
 	private eAttackType _attackType;
 	public eAttackType AttackType { get { return _attackType; } }
 	public enum eAttackType {
@@ -117,7 +121,11 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 
 	private void Update() {
 		//HACK Remove this later
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(_id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+		if (_positionSendTimer - Time.time <= 0.0f) {
+			_positionSendTimer = Time.time + _postionUpdateRate;
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(_id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+		}
+		
 
 		_fsm.Step();
 	}
