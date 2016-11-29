@@ -70,6 +70,11 @@ public class MinimapManager : HackerMapManager {
 		GameObject gameObject = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
 		return gameObject.GetComponent<MinimapPickupIcon>();
 	}
+	public MinimapEnemy CreateMinimapEnemy(Vector3 pos)
+	{
+		GameObject gameObject = (GameObject)Instantiate(Resources.Load("Prefabs/MinimapEnemy"), pos / scale, Quaternion.Euler(0, 0, 0));
+		return gameObject.GetComponent<MinimapEnemy>();
+	}
 	public void UpdateMinimapPlayer(CustomCommands.Update.PlayerPositionUpdate package)
 	{
 		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
