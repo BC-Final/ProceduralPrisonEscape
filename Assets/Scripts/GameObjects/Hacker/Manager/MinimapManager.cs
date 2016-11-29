@@ -72,7 +72,7 @@ public class MinimapManager : HackerMapManager {
 	}
 	public MinimapEnemy CreateMinimapEnemy(Vector3 pos)
 	{
-		GameObject gameObject = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/MinimapEnemy"), pos / scale, Quaternion.Euler(0, 0, 0));
+		GameObject gameObject = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/hacker/Minimap/MinimapEnemy"), pos / scale, Quaternion.Euler(0, 0, 0));
 		return gameObject.GetComponent<MinimapEnemy>();
 	}
 	public void UpdateMinimapPlayer(CustomCommands.Update.PlayerPositionUpdate package)

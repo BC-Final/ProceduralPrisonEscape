@@ -74,11 +74,13 @@ public class MinimapEnemy : MonoBehaviour {
 		}
 		else
 		{
+			Debug.Log("Creating Enemy");
 			MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
-			_enemies.Add(enemy);
+			enemy._id = package.id;
             enemy.SetNewPos(pos);
 			enemy.SetNewRotation(package.rotation);
 			enemy.SetHealth(package.hpPercent);
+			_enemies.Add(enemy);
 		}
 	}
 }
