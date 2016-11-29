@@ -8,10 +8,10 @@ public class HackerDoor {
 
 	private MinimapDoor _minimapDoor;
 	private HackerFireWall _firewall;
-	private Door.DoorState _currentDoorState;
+	private DoorState _currentDoorState;
 	private int _id;
 
-	public void ChangeState(Door.DoorState state)
+	public void ChangeState(DoorState state)
 	{
 		if (GetFirewall() == null || _firewall.GetPermission())
 		{
@@ -28,7 +28,7 @@ public class HackerDoor {
 	/// SetState is used when an update come in. ChangeState will send an update to the shooter.
 	/// </summary>
 	/// <param name="state"></param>
-	public void SetState(Door.DoorState state)
+	public void SetState(DoorState state)
 	{
 		_currentDoorState = state;
 		_minimapDoor.ChangeState(state);
@@ -66,7 +66,7 @@ public class HackerDoor {
 	{
 		return _id;
 	}
-	public Door.DoorState GetDoorState()
+	public DoorState GetDoorState()
 	{
 		return _currentDoorState;
 	}
@@ -98,12 +98,12 @@ public class HackerDoor {
 		AddDoor(door);
 	
 		//Syncing door state
-		door.ChangeState(Door.ParseEnum<Door.DoorState>(package.state));
+		door.ChangeState(Helper.ParseEnum<DoorState>(package.state));
 	}
 	public static void UpdateDoor(CustomCommands.Update.DoorUpdate package)
 	{
 		HackerDoor door = GetDoorByID(package.ID);
-		door.SetState(Door.ParseEnum<Door.DoorState>(package.state));
+		door.SetState(Helper.ParseEnum<DoorState>(package.state));
 	}
 	public static HackerDoor GetDoorByID(int ID)
 	{
@@ -128,7 +128,7 @@ public class HackerDoor {
 	private static void UpdateDoor(CustomCommands.Creation.DoorCreation package)
 	{
 		HackerDoor door = GetDoorByID(package.ID);
-		door.ChangeState(Door.ParseEnum<Door.DoorState>(package.state));
+		door.ChangeState(Helper.ParseEnum<DoorState>(package.state));
 	}
 	private static void AddDoor(HackerDoor door)
 	{

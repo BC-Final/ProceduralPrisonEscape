@@ -3,32 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class KeyCard : MonoBehaviour, IInteractable {
+public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	private static List<KeyCard> _keyCards = new List<KeyCard>();
-	public static List<KeyCard> GetKeyCards() { return _keyCards; }
-	public static int _availibleId = 0;
+	public static List<KeyCard> GetKeyCardList() { return _keyCards; }
 
 	[SerializeField]
-	private List<Door> _doors;
+	private List<ShooterDoor> _doors;
 
-	public int _id;
+	private int _id;
+	public int Id { get { return _id; } }
+
+	public void Initialize () {
+		_id = IdManager.RequestId();
+	}
 
 	private void Awake() {
-		_id = _availibleId;
-		_availibleId++;
-
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, false));
-
+		Initialize();
 		_keyCards.Add(this);
 	}
 
 	private void OnDestroy() {
 		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true));
+		
 		_keyCards.Remove(this);
 	}
 
 	private void Start() {
-		foreach (Door d in _doors) {
+		foreach (ShooterDoor d in _doors) {
 			d.SetRequireKeyCard();
 		}
 	}
@@ -38,7 +39,7 @@ public class KeyCard : MonoBehaviour, IInteractable {
 		Destroy(gameObject);
 	}
 
-	public void SetDoors(List<Door> pDoors) {
+	public void SetDoors(List<ShooterDoor> pDoors) {
 		_doors = pDoors;
 	}
 }

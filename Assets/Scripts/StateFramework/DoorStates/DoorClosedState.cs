@@ -8,7 +8,7 @@ namespace StateFramework {
 
 
 		public override void Enter () {
-			_door.SetDoorState(Door.DoorState.Closed);
+			_door.SetDoorState(DoorState.Closed);
 
 			_door.RightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f);
 			_door.LeftDoor.DOLocalMove(new Vector3(-0.625f, 1.25f, 0.0f), 1.0f);

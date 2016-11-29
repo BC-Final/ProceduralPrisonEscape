@@ -114,7 +114,7 @@ public class ShooterPackageReader : MonoBehaviour
 
 	private void ReadPackage(CustomCommands.Update.DoorUpdate package)
 	{
-		Door.UpdateDoor(package);
+		ShooterDoor.UpdateDoor(package);
 	}
 
 	public static void SetClients(List<TcpClient> clients)

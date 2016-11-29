@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class DropBeacon : MonoBehaviour {
 	[SerializeField]
-	public List<Door> _doors;
+	public List<ShooterDoor> _doors;
 
 	private void Start() {
-		foreach (Door d in _doors) {
+		foreach (ShooterDoor d in _doors) {
 			d.SetRequireKeyCard();
 		}
 	}

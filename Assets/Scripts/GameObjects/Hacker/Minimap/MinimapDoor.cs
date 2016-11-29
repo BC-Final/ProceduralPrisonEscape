@@ -28,12 +28,12 @@ public class MinimapDoor : HackerDoorAsset {
 	void Update () {
 	
 	}
-	public void ChangeState(Door.DoorState state)
+	public void ChangeState(DoorState state)
 	{
 		GetRenderer();
 		switch (state)
 		{
-		case Door.DoorState.Open:
+		case DoorState.Open:
 			{
 				if (_mainDoor.GetFirewall() != null && !_mainDoor.GetFirewall().GetPermission())
 				{
@@ -45,7 +45,7 @@ public class MinimapDoor : HackerDoorAsset {
 				}
 				break;
 			}
-		case Door.DoorState.Closed:
+		case DoorState.Closed:
 			{
 				if(_mainDoor.GetFirewall() != null && !_mainDoor.GetFirewall().GetPermission())
 				{
@@ -61,13 +61,13 @@ public class MinimapDoor : HackerDoorAsset {
 	}
 	public override void OnMouseClick()
 	{
-		if(_mainDoor.GetDoorState() == Door.DoorState.Open)
+		if(_mainDoor.GetDoorState() == DoorState.Open)
 		{
-			_mainDoor.ChangeState(Door.DoorState.Closed);
+			_mainDoor.ChangeState(DoorState.Closed);
         }
-		else if (_mainDoor.GetDoorState() == Door.DoorState.Closed)
+		else if (_mainDoor.GetDoorState() == DoorState.Closed)
 		{
-			_mainDoor.ChangeState(Door.DoorState.Open);
+			_mainDoor.ChangeState(DoorState.Open);
 		}
 	}
 

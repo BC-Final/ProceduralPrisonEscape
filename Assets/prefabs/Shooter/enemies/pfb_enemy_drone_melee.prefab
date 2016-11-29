@@ -23,6 +23,7 @@ GameObject:
   - 54: {fileID: 54000013166176776}
   - 114: {fileID: 114000011423508484}
   - 65: {fileID: 65000010170684226}
+  - 114: {fileID: 114000013915544718}
   m_Layer: 0
   m_Name: pfb_enemy_drone_melee
   m_TagString: Untagged
@@ -128,7 +129,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012459772106}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -8.78, y: 0, z: 7.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -246,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3944f3e495022e341b0830180bf97b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 300
+  _maxHealth: 250
   _attackDamage: 10
   _attackRange: 10
   _attackRate: 0.2
@@ -254,14 +255,29 @@ MonoBehaviour:
   _seeAngle: 80
   _quitIdleRange: 100
   _pathTickRate: 0.25
-  _visualizeHits: 1
-  _visualizeView: 1
+  _visualizeHits: 0
+  _visualizeView: 0
   _searchCount: 3
   _searchRadius: 15
   _rotationSpeed: 10
+  _quitHearRadius: 0
+  _loadHearRadius: 0
   _attackType: 0
   _spreadConeLength: 10
   _spreadConeRadius: 3
+--- !u!114 &114000013915544718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012459772106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5961510b733ad4c4ab0ad9a4e1181a20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doors:
+  - {fileID: 0}
 --- !u!135 &135000012700651398
 SphereCollider:
   m_ObjectHideFlags: 1

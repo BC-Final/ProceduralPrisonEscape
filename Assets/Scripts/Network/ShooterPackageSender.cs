@@ -103,28 +103,27 @@ public class ShooterPackageSender : MonoBehaviour
 	{
 		SendPackage(new CustomCommands.Update.MinimapUpdate(GetMinimapData()), pClient);
 		//_reader.SetClients(pClient);
-		List<Door> doors = Door.GetDoorList();
-		foreach(Door d in doors)
+		foreach(ShooterDoor d in ShooterDoor.GetDoorList())
 		{
-			Debug.Log("Sending Door " + d.transform.position.x); ;
-			SendPackage(new CustomCommands.Creation.DoorCreation(d.doorID, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
+			SendPackage(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, d.GetDoorState().ToString()), pClient);
 		}
-		List<ShooterFireWall> fireWalls = ShooterFireWall.GetFirewallList();
-		foreach(ShooterFireWall f in fireWalls)
+		
+		foreach(ShooterFireWall f in ShooterFireWall.GetFirewallList())
 		{
 			List<int> IDs = new List<int>();
-			foreach(Door d in f.GetDoorList())
+			
+			foreach(ShooterDoor d in f.GetDoorList())
 			{
-				IDs.Add(d.doorID);
+				IDs.Add(d.Id);
 			}
+			
 			int[] doorIDs = IDs.ToArray();
-			SendPackage(new CustomCommands.Creation.FireWallCreation(f.ID, f.transform.position.x, f.transform.position.z, f.GetState(), doorIDs), pClient);
+			SendPackage(new CustomCommands.Creation.FireWallCreation(f.Id, f.transform.position.x, f.transform.position.z, f.GetState(), doorIDs), pClient);
 		}
 
-		List<KeyCard> keycards = KeyCard.GetKeyCards();
-		foreach(KeyCard k in keycards)
+		foreach(KeyCard k in KeyCard.GetKeyCardList())
 		{
-			SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(k._id, k.transform.position.x, k.transform.position.z, false));
+			SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(k.Id, k.transform.position.x, k.transform.position.z, false));
 		}
 	}
 
@@ -132,7 +131,7 @@ public class ShooterPackageSender : MonoBehaviour
 	{
 		foreach (TcpClient client in _clients)
 		{
-			SendPackage(new CustomCommands.Update.FireWallUpdate(firewall.ID, firewall.GetState()), client);
+			SendPackage(new CustomCommands.Update.FireWallUpdate(firewall.Id, firewall.GetState()), client);
 		}
 	}
 
