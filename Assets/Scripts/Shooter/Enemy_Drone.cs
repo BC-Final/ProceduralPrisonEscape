@@ -6,7 +6,7 @@ using StateFramework;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	private static List<Enemy_Drone> _drones = new List<Enemy_Drone>();
-	public static List<Enemy_Drone> GetFirewallList () { return _drones; }
+	public static List<Enemy_Drone> GetEnemyList () { return _drones; }
 
 	[SerializeField]
 	private float _maxHealth;
@@ -87,10 +87,18 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	private StateMachine<AbstractDroneState> _fsm;
 
 	private int _id;
-	public int Id { get { return _id; } }
+	public int Id {
+		get {
+			if (_id == 0) {
+				_id = IdManager.RequestId();
+			}
+
+			return _id;
+		}
+	}
 
 	public void Initialize () {
-		_id = IdManager.RequestId();
+		
 	}
 
 	private void Awake () {

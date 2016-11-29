@@ -10,10 +10,18 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	[SerializeField]
 	private int _id;
-	public int Id { get { return _id; } }
+	public int Id {
+		get {
+			if (_id == 0) {
+				_id = IdManager.RequestId();
+			}
+
+			return _id;
+		}
+	}
 
 	public void Initialize () {
-		_id = IdManager.RequestId();
+		
 	}
 
 	[SerializeField]
