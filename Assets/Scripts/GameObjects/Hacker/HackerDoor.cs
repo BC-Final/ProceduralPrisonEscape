@@ -20,9 +20,6 @@ public class HackerDoor {
 	#endregion
 
 
-	//TODO read this from network node
-	private bool _accessed;
-
 
 	#region Properties
 	/// <summary>
@@ -40,6 +37,15 @@ public class HackerDoor {
 	public ObservedValue<DoorState> State {
 		get { return _state; }
 	}
+
+
+
+	/// <summary>
+	/// Sets the reference to the door node
+	/// </summary>
+	public DoorNode DoorNode {
+		set { _doorNode = value; }
+	}
 	#endregion
 
 
@@ -50,7 +56,7 @@ public class HackerDoor {
 	/// </summary>
 	/// <param name="pState"></param>
 	public void SetState (DoorState pState) {
-		if (_accessed) {
+		if (_doorNode.Accessed) {
 			_state.Value = pState;
 			HackerPackageSender.GetInstance().SendDoorUpdate(this);
 		}
@@ -68,12 +74,12 @@ public class HackerDoor {
 
 		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
 
+		door._state = new ObservedValue<DoorState>((DoorState)pPackage.state);
+
 		minimapDoor.AccociatedDoor = door;
 		door._minimapDoor = minimapDoor;
 
 		_doors.Add(door);
-
-		door._state.Value = (DoorState)pPackage.state;
 	}
 
 

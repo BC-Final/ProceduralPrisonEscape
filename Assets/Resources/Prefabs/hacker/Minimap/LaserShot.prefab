@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b258ba3045453754e889484ad639fcad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _endTime: 0.5
 --- !u!120 &120000013323525636
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -65,7 +66,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9ed2f7866703b0e4b965134ca2663098, type: 2}
+  - {fileID: 2100000, guid: 63edb58a1692f8e438770ee75dd30ea2, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

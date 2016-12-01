@@ -62,6 +62,53 @@ public class AstarPathFinder {
 		return null;
 	}
 
+	public static bool PathExists (AbstractNode pStart, AbstractNode pEnd) {
+		List<AbstractNode> closed = new List<AbstractNode>();
+		List<AbstractNode> open = new List<AbstractNode>();
+		Dictionary<AbstractNode, AbstractNode> cameFrom = new Dictionary<AbstractNode, AbstractNode>();
+		Dictionary<AbstractNode, float> gScore = new Dictionary<AbstractNode, float>();
+		Dictionary<AbstractNode, float> fScore = new Dictionary<AbstractNode, float>();
+
+		open.Add(pStart);
+		gScore[pStart] = 0.0f;
+		fScore[pStart] = Vector3.Distance(pStart.transform.position, pEnd.transform.position);
+
+		while (open.Count != 0) {
+			AbstractNode current = getNearestNode(open, fScore);
+
+			if (current.gameObject == pEnd.gameObject) {
+				return true;
+			}
+
+			open.Remove(current);
+			closed.Add(current);
+
+			foreach (AbstractNode neighbor in current.GetConnections()) {
+				if (closed.Contains(neighbor)) {
+					continue;
+				}
+
+				if ((neighbor is FirewallNode) && !(neighbor as FirewallNode).AssociatedFirewall.Destroyed.Value) {
+					continue;
+				}
+
+				float tentative_gScore = gScore[current] + Vector3.Distance(current.transform.position, neighbor.transform.position);
+
+				if (!open.Contains(neighbor)) {
+					open.Add(neighbor);
+				} else if (tentative_gScore >= gScore[neighbor]) {
+					continue;
+				}
+
+				cameFrom[neighbor] = current;
+				gScore[neighbor] = tentative_gScore;
+				fScore[neighbor] = gScore[neighbor] + Vector3.Distance(neighbor.transform.position, pEnd.transform.position);
+			}
+		}
+
+		return false;
+	} 
+
 	private static AbstractNode getNearestNode(List<AbstractNode> pOpenNodes, Dictionary<AbstractNode, float> pCost) {
 		Dictionary<AbstractNode, float> unusedNodes = new Dictionary<AbstractNode, float>();
 

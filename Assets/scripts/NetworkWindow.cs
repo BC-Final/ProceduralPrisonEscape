@@ -83,5 +83,19 @@ public class NetworkWindow : MonoBehaviour {
 				n.AddConnection(GetNodeById(id));
 			}
 		}
+
+		_nodeData.ForEach(x => GetNodeById(x.ID).SetReferences(x.AsocID));
+		(_nodes.Find(x => x is HackerNode) as HackerNode).CreateAvatar();
+		_nodes.FindAll(x => x is SecurityNode).ForEach(x => (x as SecurityNode).CreateAvatar());
+
+		_nodeData.Clear();
+		_nodeData = null;
+	}
+
+
+	public void RecalculateAccesibleNodes() {
+		foreach (AbstractNode n in _nodes) {
+			n.Accessible = AstarPathFinder.PathExists(FindObjectOfType<HackerAvatar>().CurrentNode, n);
+		}
 	}
 }

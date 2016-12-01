@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.UI;
 
 [SelectionBase]
 public abstract class AbstractNode : MonoBehaviour {
@@ -44,32 +45,52 @@ public abstract class AbstractNode : MonoBehaviour {
 		set { _id = value; }
 	}
 
+	private bool _accessed;
+	public bool Accessed {
+		get { return _accessed; }
+		set { _accessed = value; }
+	}
 
-	public List<AbstractNode> GetConnections() {
+	private bool _accessible;
+	public bool Accessible {
+		get { return _accessible; }
+		set {
+			_accessible = value;
+
+			if (_accessible) {
+				GetComponent<Image>().color = Color.white;
+			} else {
+				GetComponent<Image>().color = Color.gray;
+			}
+		}
+	}
+
+
+	public List<AbstractNode> GetConnections () {
 		return new List<AbstractNode>(_connections);
 	}
 
-	public void AddConnection(AbstractNode pNode) {
+	public void AddConnection (AbstractNode pNode) {
 		if (!_connections.Contains(pNode)) {
 			_connections.Add(pNode);
 		}
 	}
 
-	public void RemoveConnection(AbstractNode pNode) {
+	public void RemoveConnection (AbstractNode pNode) {
 		if (_connections.Contains(pNode)) {
 			_connections.Remove(pNode);
 		}
 	}
 
-	void OnMouseDown() {
+	void OnMouseDown () {
 		FindObjectOfType<HackerAvatar>().OnClickNode(this);
 	}
 
-	protected virtual void Awake() {
+	protected virtual void Awake () {
 		_graph.Add(this);
 	}
 
-	protected virtual void Start() {
+	protected virtual void Start () {
 		if (_connections.Count > 4) {
 			Debug.LogError("Too many connections on Node: " + gameObject.name + "; Only 4 connections allowed.");
 		}
@@ -105,26 +126,26 @@ public abstract class AbstractNode : MonoBehaviour {
 		}
 	}
 
-	protected virtual void OnDestroy() {
+	protected virtual void OnDestroy () {
 		_graph.Remove(this);
 	}
 
 
-	public virtual void ReceivePacket(AbstractNode pSender, Packet pPacket) {}
+	public virtual void ReceivePacket (AbstractNode pSender, Packet pPacket) { }
 
 	//TODO Add chance to spawn alarm packet
-	protected virtual void GotHacked() {
+	protected virtual void GotHacked () {
 		if (Random.Range(0.0f, 1.0f) < _hackedAlarmPacketChance) {
 			GameObject go = (Instantiate(Resources.Load("prefabs/hacker/packets/AlarmPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 			go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 		}
 	}
 
-	protected virtual void GotUnhacked() { }
+	protected virtual void GotUnhacked () { }
 
 
 
-	public bool StartHack(AbstractAvatar pAvatar) {
+	public bool StartHack (AbstractAvatar pAvatar) {
 		if (pAvatar is AdminAvatar || _hackable && !_protected) {
 			_hackCoroutine = StartCoroutine(ToggleHack(pAvatar));
 			return true;
@@ -133,7 +154,7 @@ public abstract class AbstractNode : MonoBehaviour {
 		return false;
 	}
 
-	public void AbortHack() {
+	public void AbortHack () {
 		_moveTweener.Kill();
 		_moveTweener = transform.DORotate(Vector3.zero, 0.5f);
 		Protect();
@@ -143,7 +164,7 @@ public abstract class AbstractNode : MonoBehaviour {
 		}
 	}
 
-	private IEnumerator ToggleHack(AbstractAvatar pAvatar) {
+	private IEnumerator ToggleHack (AbstractAvatar pAvatar) {
 		_moveTweener = transform.DORotate(new Vector3(0, 0, _hacked ? 0.0f : 45.0f), _hackTime);
 		yield return new WaitForSeconds(_hackTime);
 		_hacked = !_hacked;
@@ -158,11 +179,11 @@ public abstract class AbstractNode : MonoBehaviour {
 	}
 
 
-	public void Protect() {
+	public void Protect () {
 		StartCoroutine(protect());
 	}
 
-	private IEnumerator protect() {
+	private IEnumerator protect () {
 		_protected = true;
 		transform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
 		transform.DOScale(Vector3.one, _adminProtectTime);
@@ -170,10 +191,16 @@ public abstract class AbstractNode : MonoBehaviour {
 		_protected = false;
 	}
 
-	private IEnumerator sendFeedback() {
+	private IEnumerator sendFeedback () {
 		yield return new WaitForSeconds(_feedbackIntervall);
 		GameObject go = (Instantiate(Resources.Load("prefabs/hacker/packets/FeedbackPacket"), transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 		_feedbackCoroutine = StartCoroutine(sendFeedback());
+	}
+
+	public virtual void SetReferences (int pAssocId) { }
+
+	protected virtual void changedState () {
+		NetworkWindow.Instance.RecalculateAccesibleNodes();
 	}
 }

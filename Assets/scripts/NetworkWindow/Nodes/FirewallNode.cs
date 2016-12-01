@@ -2,12 +2,17 @@
 using System.Collections;
 
 public class FirewallNode : AbstractNode {
-	[SerializeField]
-	private float _feedbackPacketInterval;
+	private HackerFireWall _associatedFirewall;
+	public HackerFireWall AssociatedFirewall { get { return _associatedFirewall; } }
 
-	private bool _broken;
+	public bool Accessible { get { return _associatedFirewall.Destroyed.Value; } }
 
-	protected override void GotHacked() {
-
+	public override void SetReferences (int pAssocId) {
+		_associatedFirewall = HackerFireWall.GetFireWallByID(pAssocId);
+		_associatedFirewall.FirwallNode = this;
+		_associatedFirewall.Destroyed.OnValueChange += () => changedState();
 	}
+
+
+	//TODO OnDoubleClick to map icon
 }

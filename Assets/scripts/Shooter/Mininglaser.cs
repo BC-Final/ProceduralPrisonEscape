@@ -29,7 +29,7 @@ public class Mininglaser : Weapon {
 		GameObject laser = Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), pHitPoint, Quaternion.identity) as GameObject;
 		laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
 		laser.GetComponent<LineRenderer>().SetWidth(0.1f, 0.1f);
-		GameObject.Destroy(laser, 0.05f);
+		//GameObject.Destroy(laser, 0.05f);
 	}
 
 	protected override void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform) {

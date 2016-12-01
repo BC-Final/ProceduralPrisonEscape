@@ -17,6 +17,7 @@ public class HackerAvatar : AbstractAvatar {
 			_targetNode = pNode;
 			_path = AstarPathFinder.CalculatePath(_currentNode, _targetNode);
 			_state = State.Moving;
+			_currentNode.Accessed = false;
 		}
 	}
 	
@@ -29,6 +30,7 @@ public class HackerAvatar : AbstractAvatar {
 		base.Start();
 		_spawnNode = FindObjectOfType<HackerNode>();
 		_currentNode = _spawnNode;
+		NetworkWindow.Instance.RecalculateAccesibleNodes();
 	}
 
 	/// <summary>
@@ -45,7 +47,7 @@ public class HackerAvatar : AbstractAvatar {
 	protected override void move() {
 		if (_path != null && _path.Count != 0) {
 			if (_moveTweener == null || !_moveTweener.IsPlaying()) {
-				if (!(_path[0] is FirewallNode)) {
+				if (!(_path[0] is FirewallNode) || (_path[0] as FirewallNode).Accessible) {
 					_currentNode = _path[0];
 					_moveTweener = transform.DOMove(_path[0].transform.position, Vector3.Distance(transform.position, _path[0].transform.position) / _moveSpeed);
 					_path.RemoveAt(0);
@@ -55,6 +57,7 @@ public class HackerAvatar : AbstractAvatar {
 				}
 			}
 		} else if (_moveTweener == null || !_moveTweener.IsPlaying()) {
+			_currentNode.Accessed = true;
 			_state = State.Idle;
 		}
 	}

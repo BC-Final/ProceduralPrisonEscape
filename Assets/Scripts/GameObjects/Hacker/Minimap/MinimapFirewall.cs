@@ -16,6 +16,7 @@ public class MinimapFirewall : MonoBehaviour {
 	#endregion
 
 
+
 	#region Properties
 	/// <summary>
 	/// Sets the associated Firewall and subscribes to its state change
@@ -24,18 +25,26 @@ public class MinimapFirewall : MonoBehaviour {
 		set {
 			_associatedFirewall = value;
 			_associatedFirewall.Destroyed.OnValueChange += () => changedState();
+			changedState();
 		}
 	}
-	#endregion
 
 
 
 	/// <summary>
-	/// Gets called after this object is initialized
+	/// Lazily initializes renderer. This is necessary because sometimes its not initialized on start
 	/// </summary>
-	private void Start () {
-		_renderer = GetComponentInChildren<SpriteRenderer>();
+	new private SpriteRenderer renderer {
+		get {
+			if (_renderer == null) {
+				_renderer = GetComponentInChildren<SpriteRenderer>();
+			}
+
+			return _renderer;
+		}
 	}
+	#endregion
+
 
 
 
@@ -44,9 +53,9 @@ public class MinimapFirewall : MonoBehaviour {
 	/// </summary>
 	private void changedState () {
 		if (_associatedFirewall.Destroyed.Value) {
-			_renderer.sprite = destroyedSprite;
+			renderer.sprite = destroyedSprite;
 		} else {
-			_renderer.sprite = normalSprite;
+			renderer.sprite = normalSprite;
 		}
 	}
 }

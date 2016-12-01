@@ -9499,6 +9499,48 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
   m_PrefabInternal: {fileID: 834170853}
+--- !u!1001 &1151394748
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.8518145
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.090931654
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -0.16346169
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012571802932, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 8ef93257659e27c4ba73d3613d1c9dab, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1152332824 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}

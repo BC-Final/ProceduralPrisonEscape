@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class Machinegun : Weapon {
+	[Header("Specific")]
+	[SerializeField]
+	private GameObject _bullettracer;
+
 	protected override void Start() {
 		base.Start();
 	}
@@ -21,6 +25,9 @@ public class Machinegun : Weapon {
 	}
 
 	protected override void spawnBullet(Vector3 pHitPoint) {
+		GameObject tracer = Instantiate(_bullettracer, _muzzlePosition.position, Quaternion.LookRotation(pHitPoint - _muzzlePosition.position)) as GameObject;
+		tracer.GetComponentInChildren<ParticleSystem>().Play();
+		Destroy(tracer, 1.0f);
 		//GameObject laser = Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), pHitPoint, Quaternion.identity) as GameObject;
 		//laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
 		//GameObject.Destroy(laser, 0.05f);

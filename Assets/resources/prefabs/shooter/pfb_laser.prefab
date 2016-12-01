@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013825880102}
   - 120: {fileID: 120000011250577678}
+  - 114: {fileID: 114000011948741740}
   m_Layer: 0
   m_Name: pfb_laser
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000011948741740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013587672668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 170ee2e00b3ca1044bbfd5704a417d65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _endTime: 0.45
 --- !u!120 &120000011250577678
 LineRenderer:
   m_ObjectHideFlags: 1

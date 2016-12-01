@@ -21,6 +21,7 @@ public class MinimapDoor : MonoBehaviour {
 	#endregion
 
 
+
 	#region Properties
 	/// <summary>
 	/// Sets the associated door and subscribes to is state update
@@ -29,6 +30,22 @@ public class MinimapDoor : MonoBehaviour {
 		set {
 			_associatedDoor = value;
 			_associatedDoor.State.OnValueChange += () => changedState();
+			changedState();
+		}
+	}
+
+
+
+	/// <summary>
+	/// Lazily initializes renderer. This is necessary because sometimes its not initialized on start
+	/// </summary>
+	new private SpriteRenderer renderer {
+		get {
+			if (_renderer == null) {
+				_renderer = GetComponentInChildren<SpriteRenderer>();
+			}
+
+			return _renderer;
 		}
 	}
 	#endregion
@@ -36,9 +53,9 @@ public class MinimapDoor : MonoBehaviour {
 
 
 	/// <summary>
-	/// Gets called after this object is initialized
+	/// Gets called during this objects initialization
 	/// </summary>
-	public void Start () {
+	public void Awake () {
 		_renderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
@@ -51,12 +68,12 @@ public class MinimapDoor : MonoBehaviour {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
 					//TODO When protected render openSpriteLocked
-					_renderer.sprite = openSprite;
+					renderer.sprite = openSprite;
 					break;
 				}
 			case DoorState.Closed: {
 					//TODO When protected render closedSpriteLocked
-					_renderer.sprite = closedSprite;
+					renderer.sprite = closedSprite;
 					break;
 				}
 		}

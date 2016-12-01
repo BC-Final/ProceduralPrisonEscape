@@ -23,6 +23,10 @@ public abstract class AbstractAvatar : MonoBehaviour {
 	protected Tweener _scaleTweener;
 
 	protected AbstractNode _currentNode;
+	public AbstractNode CurrentNode {
+		get { return _currentNode; }
+	}
+
 	protected AbstractNode _targetNode;
 	protected AbstractNode _previousNode;
 

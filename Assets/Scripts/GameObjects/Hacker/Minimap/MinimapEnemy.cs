@@ -12,8 +12,8 @@ public class MinimapEnemy : MonoBehaviour {
 	private Vector3 _oldPos;
 	private Vector3 _newPos;
 
-	private float _lerpTime = 0.5f;
-	private float _timeSinceLastUpdate;
+	private float _lerpTime = 0.1f;
+	private float _timeSinceLastUpdate = 0.1f;
 	private float _currentLerpTime;
 
 	// Update is called once per frame
@@ -29,6 +29,7 @@ public class MinimapEnemy : MonoBehaviour {
 
 		//lerp!
 		float perc = _currentLerpTime / _lerpTime;
+
 		transform.position = Vector3.Lerp(_oldPos, _newPos, perc);
 	}
 
@@ -40,6 +41,7 @@ public class MinimapEnemy : MonoBehaviour {
 		_oldPos = _newPos;
 		_newPos = nPos/MinimapManager.GetInstance().scale;
 	}
+
 	private void SetNewRotation(float rotation)
 	{
 		transform.rotation = Quaternion.Euler(0, rotation, 0);

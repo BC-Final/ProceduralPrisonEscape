@@ -18,6 +18,8 @@ public class HackerFireWall {
 	private int _id;
 	#endregion
 
+
+
 	#region Properties
 	/// <summary>
 	/// Gets the network id of this object
@@ -34,6 +36,13 @@ public class HackerFireWall {
 	public ObservedValue<bool> Destroyed {
 		get { return _destroyed; }
 	}
+
+	/// <summary>
+	/// Sets the reference to the firewall node
+	/// </summary>
+	public FirewallNode FirwallNode {
+		set { _firewallNode = value; }
+	}
 	#endregion
 
 
@@ -48,12 +57,12 @@ public class HackerFireWall {
 
 		MinimapFirewall minimapFirewall = MinimapManager.GetInstance().CreateMinimapFirewall(new Vector3(pPackage.x, 0, pPackage.z), pPackage.ID);
 
+		firewall._destroyed = new ObservedValue<bool>(pPackage.state);
+
 		minimapFirewall.AssociatedFirewall = firewall;
 		firewall._minimapIcon = minimapFirewall;
 
 		_firewalls.Add(firewall);
-
-		firewall._destroyed.Value = pPackage.state;
 	}
 
 

@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _respawnTime: 50
-  _moveSpeed: 5
+  _moveSpeed: 30
 --- !u!114 &114000010273595146
 MonoBehaviour:
   m_ObjectHideFlags: 1
