@@ -7,14 +7,16 @@ public class SecurityNode : AbstractNode {
 	private float _adminDeactivateDuration;
 
 	private AdminAvatar _avatar;
-	private LinkedList<AbstractNode> _knownHackedNodes;
+	private LinkedList<AbstractNode> _knownHackedNodes = new LinkedList<AbstractNode>();
 	public LinkedList<AbstractNode> KnownHackedNodes { get { return _knownHackedNodes; } } 
 
 	protected override void Awake() {
 		base.Awake();
-		_knownHackedNodes = new LinkedList<AbstractNode>();
-		//_avatar = (Instantiate(Resources.Load("prefabs/hacker/avatars/AdminAvatar"), transform.position, Quaternion.identity, transform.parent) as GameObject).GetComponent<AdminAvatar>();
-		//_avatar.SpawnNode = this;
+	}
+
+	public void CreateAvatar () {
+		_avatar = (Instantiate(Resources.Load("prefabs/hacker/avatars/AdminAvatar"), transform.position, Quaternion.identity, transform.parent) as GameObject).GetComponent<AdminAvatar>();
+		_avatar.SpawnNode = this;
 	}
 
 	protected override void GotHacked() {

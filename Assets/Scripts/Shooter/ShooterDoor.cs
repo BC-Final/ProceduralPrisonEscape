@@ -76,7 +76,7 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	public void Interact() {
 		_fsm.GetState().Interact();
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, GetDoorState().ToString()));
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)GetDoorState()));
 	}
 
 	public void ChangeState(DoorState state)
@@ -125,11 +125,11 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	}
 
 
-
-	public static void UpdateDoor (CustomCommands.Update.DoorUpdate update) {
-		ShooterDoor door = GetDoorByID(update.ID);
-		door.ChangeState(Helper.ParseEnum<DoorState>(update.state));
+	public static void UpdateDoor (CustomCommands.Update.DoorUpdate pUpdate) {
+		ShooterDoor door = GetDoorByID(pUpdate.ID);
+		door.ChangeState((DoorState)pUpdate.state);
 	}
+
 
 	private static ShooterDoor GetDoorByID (int pId) {
 		return _doors.Find(x => x.Id == pId);

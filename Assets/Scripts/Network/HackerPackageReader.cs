@@ -13,7 +13,6 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private Vector2 _minimapScale;
 	private MinimapManager _minimapManager;
-	private NetworkViewManager _networkViewManager;
 	private HackerPackageSender _networkManager;
 	[SerializeField]
 	private Transform _minimap;

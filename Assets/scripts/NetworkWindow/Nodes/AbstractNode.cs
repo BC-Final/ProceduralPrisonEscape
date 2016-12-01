@@ -67,11 +67,6 @@ public abstract class AbstractNode : MonoBehaviour {
 
 	protected virtual void Awake() {
 		_graph.Add(this);
-
-		//TODO Actually add to all prefabs by hand
-		//Rigidbody2D rb = gameObject.AddComponent<Rigidbody2D>();
-		//rb.gravityScale = 0.0f;
-		//rb.isKinematic = true;
 	}
 
 	protected virtual void Start() {

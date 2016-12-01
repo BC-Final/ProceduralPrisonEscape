@@ -12,16 +12,12 @@ using System.Runtime.Serialization;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HackerPackageSender : MonoBehaviour
-{
+public class HackerPackageSender : MonoBehaviour {
 	public static HackerPackageSender _instance;
-	public static HackerPackageSender GetInstance()
-	{
-		if (_instance == null)
-		{
+	public static HackerPackageSender GetInstance () {
+		if (_instance == null) {
 			_instance = FindObjectOfType<HackerPackageSender>();
-			if (_instance == null)
-			{
+			if (_instance == null) {
 				Debug.Log("ERROR!!! PACKAGE SENDER NOT FOUND");
 			}
 		}
@@ -39,26 +35,19 @@ public class HackerPackageSender : MonoBehaviour
 	private static BinaryFormatter formatter;
 
 	// Use this for initialization
-	private void Awake()
-	{
+	private void Awake () {
 		Application.runInBackground = true;
 		formatter = new BinaryFormatter();
-		try
-		{
+		try {
 			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetString("ConnectionPort"));
 			int port;
 			int.TryParse(PlayerPrefs.GetString("ConnectionPort"), out port);
-            client = new TcpClient(PlayerPrefs.GetString("ConnectionIP"), port);
+			client = new TcpClient(PlayerPrefs.GetString("ConnectionIP"), port);
 			stream = client.GetStream();
-		}
-		catch (SocketException e)
-		{
-			if (e.ErrorCode.ToString() == "10061")
-			{
+		} catch (SocketException e) {
+			if (e.ErrorCode.ToString() == "10061") {
 				Debug.Log("Connection refused. Server is propably full");
-			}
-			else
-			{
+			} else {
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
@@ -67,54 +56,39 @@ public class HackerPackageSender : MonoBehaviour
 		}
 	}
 
-	public TcpClient GetClient()
-	{
+	public TcpClient GetClient () {
 		return client;
 	}
 
-	public NetworkStream GetStream()
-	{
+	public NetworkStream GetStream () {
 		return stream;
 	}
 
-	public BinaryFormatter GetFormatter()
-	{
+	public BinaryFormatter GetFormatter () {
 		return formatter;
 	}
-	//Message Management
 
-	/// <summary>
-	/// Sends a custom request to the server
-	/// </summary>
-	/// <param name="package">Request type</param>
-	private void SendPackage(CustomCommands.AbstractPackage package)
-	{
-		try
-		{
+	private void SendPackage (CustomCommands.AbstractPackage package) {
+		try {
 			BinaryFormatter formatter = new BinaryFormatter();
 			formatter.Serialize(stream, package);
-		}
-		catch (SerializationException e)
-		{
+		} catch (SerializationException e) {
 			Console.WriteLine("Failed to serialize. Reason: " + e.Message);
 			throw;
 		}
-
 	}
 
-	public void SendDoorUpdate(HackerDoor door)
-	{
-		SendPackage(new CustomCommands.Update.DoorUpdate(door.GetID(), door.GetDoorState().ToString()));
+	public void SendDoorUpdate (HackerDoor door) {
+		SendPackage(new CustomCommands.Update.DoorUpdate(door.Id, (int)door.State.Value));
 	}
 
-	//Exit Methods
-	private void OnProcessExit(object sender, EventArgs e)
-	{
+	private void OnProcessExit (object sender, EventArgs e) {
+		//TODO Properly disconnect
 		SendPackage(new CustomCommands.NotImplementedMessage());
 	}
 
-	private void OnApplicationQuit()
-	{
+	private void OnApplicationQuit () {
+		//TODO Properly disconnect
 		SendPackage(new CustomCommands.NotImplementedMessage());
 	}
 }

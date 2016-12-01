@@ -1,137 +1,100 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Gamelogic.Extensions;
 
 public class HackerDoor {
 
+	#region Static Fields
 	private static List<HackerDoor> _doors = new List<HackerDoor>();
+	#endregion
 
+	#region References
 	private MinimapDoor _minimapDoor;
-	private HackerFireWall _firewall;
-	private DoorState _currentDoorState;
-	private int _id;
+	private DoorNode _doorNode;
+	#endregion
 
-	public void ChangeState(DoorState state)
-	{
-		if (GetFirewall() == null || _firewall.GetPermission())
-		{
-			_currentDoorState = state;
-			_minimapDoor.ChangeState(state);
+	#region Private Fields
+	private ObservedValue<DoorState> _state;
+	private int _id;
+	#endregion
+
+
+	//TODO read this from network node
+	private bool _accessed;
+
+
+	#region Properties
+	/// <summary>
+	/// Gets the network id of this door
+	/// </summary>
+	public int Id {
+		get { return _id; }
+	}
+
+
+
+	/// <summary>
+	/// Gets the state of this door
+	/// </summary>
+	public ObservedValue<DoorState> State {
+		get { return _state; }
+	}
+	#endregion
+
+
+
+	/// <summary>
+	/// Sets the state of the door and sends and update to the shooter.
+	/// The state only gets changed if the corresponding network node is accessed
+	/// </summary>
+	/// <param name="pState"></param>
+	public void SetState (DoorState pState) {
+		if (_accessed) {
+			_state.Value = pState;
 			HackerPackageSender.GetInstance().SendDoorUpdate(this);
 		}
-		else
-		{
-			//Door Access denied
-		}
 	}
+
+
+
 	/// <summary>
-	/// SetState is used when an update come in. ChangeState will send an update to the shooter.
+	/// Creates a door and its minimap icon.
 	/// </summary>
-	/// <param name="state"></param>
-	public void SetState(DoorState state)
-	{
-		_currentDoorState = state;
-		_minimapDoor.ChangeState(state);
-	}
-	public void UpdateDoorState()
-	{
-		SetState(_currentDoorState);
-	}
-
-	//Setter
-	public void SetMinimapDoor(MinimapDoor door)
-	{
-		_minimapDoor = door;
-	}
-
-	public void SetFirewall(HackerFireWall firewall)
-	{
-		_firewall = firewall;
-		UpdateDoorState();
-	}
-
-	//Getter
-	public HackerFireWall GetFirewall()
-	{
-		if(_firewall == null)
-		{
-			return null;
-		}
-		else
-		{
-			return _firewall;
-		}
-	}
-	public int GetID()
-	{
-		return _id;
-	}
-	public DoorState GetDoorState()
-	{
-		return _currentDoorState;
-	}
-
-	//STATIC METHODS
-
-	public static void CreateDoor(CustomCommands.Creation.DoorCreation package)
-	{
-		//Check if door already exists
-		if(GetDoorByID(package.ID) != null)
-		{
-			UpdateDoor(package);
-			return;
-		}
-
-		//else create door
+	/// <param name="pPackage">The information about the door</param>
+	public static void CreateDoor (CustomCommands.Creation.DoorCreation pPackage) {
 		HackerDoor door = new HackerDoor();
-		door._id = package.ID;
-		
-		//Creating Minimap Door
-		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(package.x,0, package.z), package.rotationY, package.ID);
+		door._id = pPackage.ID;
 
-		//Linking door and minimap icon
-		minimapDoor.SetMainDoor(door);
-		door.SetMinimapDoor(minimapDoor);
+		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
 
-	
-		//Adding door to door list
-		AddDoor(door);
-	
-		//Syncing door state
-		door.ChangeState(Helper.ParseEnum<DoorState>(package.state));
+		minimapDoor.AccociatedDoor = door;
+		door._minimapDoor = minimapDoor;
+
+		_doors.Add(door);
+
+		door._state.Value = (DoorState)pPackage.state;
 	}
-	public static void UpdateDoor(CustomCommands.Update.DoorUpdate package)
-	{
-		HackerDoor door = GetDoorByID(package.ID);
-		door.SetState(Helper.ParseEnum<DoorState>(package.state));
-	}
-	public static HackerDoor GetDoorByID(int ID)
-	{
-		foreach (HackerDoor d in _doors)
-		{
-			//Debug.Log("Searching for door" + d._id);
-			if (d._id == ID)
-			{
-				//Debug.Log("Door found : " + d._id + " = " + ID);
-				//Debug.Log("returning : " + d);
-				return d;
-			}
-			//Debug.Log("Door NOT found : " + d._id + " != " + ID);
-		}
-		return null;
-	}
+
+
 
 	/// <summary>
-	/// Should only be called in case or duplicate door creation
+	/// Updates the door and its icons.
 	/// </summary>
-	/// <param name="package"></param>
-	private static void UpdateDoor(CustomCommands.Creation.DoorCreation package)
-	{
+	/// <param name="package">The information about the door</param>
+	public static void UpdateDoor (CustomCommands.Update.DoorUpdate package) {
 		HackerDoor door = GetDoorByID(package.ID);
-		door.ChangeState(Helper.ParseEnum<DoorState>(package.state));
+		door._state.Value = (DoorState)package.state;
 	}
-	private static void AddDoor(HackerDoor door)
-	{
-		_doors.Add(door);
+
+
+
+	/// <summary>
+	/// Finds a door with given id.
+	/// </summary>
+	/// <param name="pId">The id of the searched door</param>
+	/// <returns>The found door, otherwise null</returns>
+	public static HackerDoor GetDoorByID (int pId) {
+		return _doors.Find(x => x.Id == pId);
 	}
 }

@@ -12,9 +12,9 @@ namespace CustomCommands
 		public class DoorUpdate : AbstractPackage
 		{
 			public int ID;
-			public string state;
+			public int state;
 
-			public DoorUpdate(int nID, string nState)
+			public DoorUpdate(int nID, int nState)
 			{
 				ID = nID;
 				state = nState;
@@ -130,9 +130,9 @@ namespace CustomCommands
 			public float x;
 			public float z;
 			public float rotationY;
-			public string state;
+			public int state;
 
-			public DoorCreation(int nID, float nX, float nZ, float nRotationY, string nState)
+			public DoorCreation(int nID, float nX, float nZ, float nRotationY, int nState)
 			{
 				ID = nID;
 				x = nX;
