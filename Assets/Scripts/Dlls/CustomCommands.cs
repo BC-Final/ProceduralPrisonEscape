@@ -218,10 +218,10 @@ namespace CustomCommands
 			[System.Serializable]
 			public class LaserShotCreation : AbstractPackage
 			{
-				float startX;
-				float startZ;
-				float targetX;
-				float targetZ;
+				public float startX;
+				public float startZ;
+				public float targetX;
+				public float targetZ;
 
 				public LaserShotCreation(Vector3 startPos, Vector3 endPos)
 				{

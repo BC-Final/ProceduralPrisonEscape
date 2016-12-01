@@ -183,15 +183,16 @@ public class ShooterPackageSender : MonoBehaviour {
 	}
 
 	//Internal Methods
-	private byte[] GetMinimapData () {
-		RenderTexture rt = new RenderTexture(512, 512, 24);
+	private byte[] GetMinimapData()
+	{
+		RenderTexture rt = new RenderTexture(1024, 1024, 24);
 
 		_camera.targetTexture = rt;
 		_camera.Render();
 
 		RenderTexture.active = rt;
-		Texture2D tex2d = new Texture2D(512, 512, TextureFormat.RGB24, false);
-		tex2d.ReadPixels(new Rect(0, 0, 512, 512), 0, 0);
+		Texture2D tex2d = new Texture2D(1024, 1024, TextureFormat.RGB24, false);
+		tex2d.ReadPixels(new Rect(0, 0, 1024, 1024), 0, 0);
 
 		RenderTexture.active = null;
 		_camera.targetTexture = null;
