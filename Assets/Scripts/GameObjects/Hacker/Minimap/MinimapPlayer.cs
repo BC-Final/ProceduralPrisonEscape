@@ -23,6 +23,12 @@ public class MinimapPlayer : MonoBehaviour {
 		transform.position = Vector3.Lerp(oldPos, newPos, perc);
 	}
 
+	public void InitialPosition (Vector3 pPosition) {
+		oldPos = pPosition;
+		newPos = pPosition;
+	}
+	
+
 	public void SetNewPos (Vector3 nPos) {
 		_lerpTime = _timeSinceLastUpdate;
 		_timeSinceLastUpdate = 0f;
@@ -31,9 +37,8 @@ public class MinimapPlayer : MonoBehaviour {
 		newPos = nPos;
 	}
 
-
-
 	public void SetNewRotation (float rotation) {
 		transform.rotation = Quaternion.Euler(0, rotation, 0);
 	}
+	
 }

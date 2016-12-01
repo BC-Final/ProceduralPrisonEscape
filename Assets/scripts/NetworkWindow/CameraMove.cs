@@ -19,7 +19,7 @@ public class CameraMove : MonoBehaviour {
 			_camera.orthographicSize = Mathf.Max(1, _camera.orthographicSize - Input.GetAxis("Mouse ScrollWheel") * _zoomSpeed * Time.deltaTime);
 
 			if (Input.GetMouseButton(1)) {
-				transform.Translate(new Vector3(-Input.GetAxisRaw("Mouse X"), -Input.GetAxisRaw("Mouse Y"), 0.0f) * _moveSpeed * Time.deltaTime);
+				transform.Translate(new Vector3(-Input.GetAxisRaw("Mouse X"), -Input.GetAxisRaw("Mouse Y"), 0.0f) * _moveSpeed * Time.deltaTime * (_camera.orthographicSize * 0.01f));
 			}
 		}
 	}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.UI;
+using Gamelogic.Extensions;
 
 [SelectionBase]
 public abstract class AbstractNode : MonoBehaviour {
@@ -45,23 +46,11 @@ public abstract class AbstractNode : MonoBehaviour {
 		set { _id = value; }
 	}
 
-	private bool _accessed;
-	public bool Accessed {
-		get { return _accessed; }
-		set { _accessed = value; }
-	}
-
-	private bool _accessible;
-	public bool Accessible {
-		get { return _accessible; }
-		set {
-			_accessible = value;
-
-			if (_accessible) {
-				GetComponent<Image>().color = Color.white;
-			} else {
-				GetComponent<Image>().color = Color.gray;
-			}
+	public virtual void SetAccessible (bool pAccessible) {
+		if (pAccessible) {
+			GetComponent<Image>().color = Color.white;
+		} else {
+			GetComponent<Image>().color = Color.gray;
 		}
 	}
 
@@ -102,7 +91,7 @@ public abstract class AbstractNode : MonoBehaviour {
 				go.layer = gameObject.layer;
 				LineRenderer lr = go.GetComponent<LineRenderer>();
 				lr.material = new Material(Shader.Find("Particles/Additive"));
-				lr.SetWidth(1f, 1f);
+				lr.SetWidth(4f, 4f);
 				lr.SetPosition(0, transform.position);
 				lr.SetPosition(1, transform.position + (n.transform.position - transform.position) / 2.0f);
 			} else {

@@ -17,7 +17,6 @@ public class HackerAvatar : AbstractAvatar {
 			_targetNode = pNode;
 			_path = AstarPathFinder.CalculatePath(_currentNode, _targetNode);
 			_state = State.Moving;
-			_currentNode.Accessed = false;
 		}
 	}
 	
@@ -57,7 +56,6 @@ public class HackerAvatar : AbstractAvatar {
 				}
 			}
 		} else if (_moveTweener == null || !_moveTweener.IsPlaying()) {
-			_currentNode.Accessed = true;
 			_state = State.Idle;
 		}
 	}

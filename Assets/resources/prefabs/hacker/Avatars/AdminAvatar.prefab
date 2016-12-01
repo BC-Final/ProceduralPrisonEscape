@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6b7802091cee84cadef153a75fbbbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnTime: 50
-  _moveSpeed: 30
+  _respawnTime: 25
+  _moveSpeed: 100
 --- !u!114 &114000010273595146
 MonoBehaviour:
   m_ObjectHideFlags: 1

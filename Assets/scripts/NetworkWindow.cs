@@ -95,7 +95,7 @@ public class NetworkWindow : MonoBehaviour {
 
 	public void RecalculateAccesibleNodes() {
 		foreach (AbstractNode n in _nodes) {
-			n.Accessible = AstarPathFinder.PathExists(FindObjectOfType<HackerAvatar>().CurrentNode, n);
+			n.SetAccessible(AstarPathFinder.PathExists(FindObjectOfType<HackerAvatar>().CurrentNode, n));
 		}
 	}
 }

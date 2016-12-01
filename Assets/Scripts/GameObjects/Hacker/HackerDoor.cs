@@ -15,6 +15,7 @@ public class HackerDoor {
 	#endregion
 
 	#region Private Fields
+	private ObservedValue<bool> _accessible;
 	private ObservedValue<DoorState> _state;
 	private int _id;
 	#endregion
@@ -44,7 +45,17 @@ public class HackerDoor {
 	/// Sets the reference to the door node
 	/// </summary>
 	public DoorNode DoorNode {
+		get { return _doorNode; }
 		set { _doorNode = value; }
+	}
+
+
+
+	/// <summary>
+	/// Gets the accesible state of this door
+	/// </summary>
+	public ObservedValue<bool> Accessible {
+		get { return _accessible; }
 	}
 	#endregion
 
@@ -56,7 +67,7 @@ public class HackerDoor {
 	/// </summary>
 	/// <param name="pState"></param>
 	public void SetState (DoorState pState) {
-		if (_doorNode.Accessed) {
+		if (_doorNode.Hacked) {
 			_state.Value = pState;
 			HackerPackageSender.GetInstance().SendDoorUpdate(this);
 		}
@@ -75,6 +86,7 @@ public class HackerDoor {
 		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
 
 		door._state = new ObservedValue<DoorState>((DoorState)pPackage.state);
+		door._accessible = new ObservedValue<bool>(false);
 
 		minimapDoor.AccociatedDoor = door;
 		door._minimapDoor = minimapDoor;

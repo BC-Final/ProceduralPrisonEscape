@@ -25,22 +25,24 @@ public class MinimapManager : HackerMapManager {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			CameraGoToPosition(_player.transform.position);
-		}
+		if (_camera.GetCamera().pixelRect.Contains(Input.mousePosition)) {
+			if (Input.GetKeyDown(KeyCode.Space)) {
+				CameraGoToPosition(_player.transform.position);
+			}
 
-		if (Input.GetMouseButtonDown(0)) {
-			RaycastHit hit;
-			Ray ray = _camera.GetCamera().ScreenPointToRay(Input.mousePosition);
+			if (Input.GetMouseButtonDown(0)) {
+				RaycastHit hit;
+				Ray ray = _camera.GetCamera().ScreenPointToRay(Input.mousePosition);
 
-			if (Physics.Raycast(ray, out hit)) {
-				//Debug.Log("My ray is created");
-				if (hit.transform.GetComponent<MinimapDoor>()) {
-					//Debug.Log("My object is clicked by mouse");
-					MinimapDoor door = hit.transform.GetComponent<MinimapDoor>();
-					door.OnMouseClick();
+				if (Physics.Raycast(ray, out hit)) {
+					//Debug.Log("My ray is created");
+					if (hit.transform.GetComponent<MinimapDoor>()) {
+						//Debug.Log("My object is clicked by mouse");
+						MinimapDoor door = hit.transform.GetComponent<MinimapDoor>();
+						door.OnMouseClick();
+					}
+					//Debug.Log(hit.transform.name);
 				}
-				//Debug.Log(hit.transform.name);
 			}
 		}
 	}
@@ -76,6 +78,7 @@ public class MinimapManager : HackerMapManager {
 		if (_player == null) {
 			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos / scale, Quaternion.Euler(0, package.rotation, 0));
 			_player = gameObject.GetComponent<MinimapPlayer>();
+			_player.InitialPosition(pos / scale);
 		} else {
 			_player.SetNewPos(pos / scale);
 			_player.SetNewRotation(package.rotation);

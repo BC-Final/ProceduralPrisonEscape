@@ -10,5 +10,11 @@ public class DoorNode : AbstractNode {
 		_associatedDoor.State.OnValueChange += () => changedState();
 	}
 
+	public override void SetAccessible (bool pAccessible) {
+		base.SetAccessible(pAccessible);
+
+		_associatedDoor.Accessible.Value = pAccessible;
+	}
+
 	//TODO OnDoubleClick to map icon
 }

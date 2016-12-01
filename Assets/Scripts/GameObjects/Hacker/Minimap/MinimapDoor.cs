@@ -30,6 +30,7 @@ public class MinimapDoor : MonoBehaviour {
 		set {
 			_associatedDoor = value;
 			_associatedDoor.State.OnValueChange += () => changedState();
+			_associatedDoor.Accessible.OnValueChange += () => changedState();
 			changedState();
 		}
 	}
@@ -67,13 +68,19 @@ public class MinimapDoor : MonoBehaviour {
 	private void changedState () {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
-					//TODO When protected render openSpriteLocked
-					renderer.sprite = openSprite;
+					if (!_associatedDoor.Accessible.Value) {
+						renderer.sprite = openSpriteLocked;
+					} else {
+						renderer.sprite = openSprite;
+					}
 					break;
 				}
 			case DoorState.Closed: {
-					//TODO When protected render closedSpriteLocked
-					renderer.sprite = closedSprite;
+					if (!_associatedDoor.Accessible.Value) {
+						renderer.sprite = closedSpriteLocked;
+					} else {
+						renderer.sprite = closedSprite;
+					}
 					break;
 				}
 		}
