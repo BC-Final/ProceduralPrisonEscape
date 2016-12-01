@@ -574,7 +574,7 @@ MonoBehaviour:
   _shootDamage: 15
   _shootRange: 100
   _shootRate: 0.08
-  _spreadConeRadius: 0.6
+  _spreadConeRadius: 0.1
   _spreadConeLength: 10
   _magazineCapacity: 24
   _maxReserveAmmo: 48

@@ -142,6 +142,7 @@ public abstract class Weapon : MonoBehaviour {
 			spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
 			ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 		}
+
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
 
 		//TODO This is very costly I think

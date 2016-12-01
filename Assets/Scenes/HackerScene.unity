@@ -1697,7 +1697,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1344691635}
   m_HandleRect: {fileID: 1344691634}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2945,7 +2945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 500
-  _zoomSpeed: 2200
+  _zoomSpeed: 10000
 --- !u!81 &2020074020
 AudioListener:
   m_ObjectHideFlags: 0
