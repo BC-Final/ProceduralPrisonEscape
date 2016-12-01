@@ -30,7 +30,7 @@ public class HackerPackageReader : MonoBehaviour {
 		_stream = _networkManager.GetStream();
 		_formatter = _networkManager.GetFormatter();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
-		_minimapManager.SetScale(4);
+		_minimapManager.SetScale(2);
 		_minimapManager.SetSender(_networkManager);
 		
 	}
@@ -101,7 +101,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 	private void ReadResponse(CustomCommands.Creation.Shots.LaserShotCreation package)
 	{
-		Debug.Log("NOT IMPLEMENTED");
+		MinimapManager.GetInstance().CreateShot(package);
 	}
 
 	//Item Creation Methods

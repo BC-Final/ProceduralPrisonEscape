@@ -105,6 +105,14 @@ public class MinimapManager : HackerMapManager {
 			_player.SetNewRotation(package.rotation);
 		}
 	}
+	public void CreateShot(CustomCommands.Creation.Shots.LaserShotCreation package)
+	{
+		Vector3 startPos = new Vector3(package.startX, 1, package.startZ);
+		Vector3 endPos = new Vector3(package.targetX, 1, package.targetZ);
+		GameObject gameObject = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/hacker/Minimap/LaserShot"), startPos / scale, Quaternion.Euler(0, 0, 0));
+		LaserShot shot = gameObject.GetComponent<LaserShot>();
+		shot.SetTargetPos(endPos/ scale);
+	}
 
 	//Static
 	public static MinimapManager GetInstance()
