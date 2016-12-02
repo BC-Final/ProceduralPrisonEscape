@@ -5,18 +5,32 @@ namespace StateFramework {
 	public class DroneSearchState : AbstractDroneState {
 
 		private int _searchCounter;
+
+		private GameObject _player;
 		private NavMeshAgent _agent;
 
+		private float _seeTimer;
+
 		public DroneSearchState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+			_player = GameObject.FindGameObjectWithTag("Player");
 			_agent = _drone.GetComponent<NavMeshAgent>();
 		}
 
 		public override void Enter() {
 			_searchCounter = _drone.SearchCount;
+			_seeTimer = 0.0f;
 		}
 
 		//TODO Make the direction to choose more intelligent
 		public override void Step() {
+			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+				_seeTimer += Time.deltaTime;
+
+				if (_seeTimer > _drone.IdleReactionTime) {
+					_fsm.SetState<DroneEngangeState>();
+				}
+			}
+
 			if (!_agent.hasPath || _agent.remainingDistance <= _agent.stoppingDistance) {
 				if (_searchCounter > 0) {
 					_searchCounter--;

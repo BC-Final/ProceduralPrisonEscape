@@ -252,16 +252,18 @@ MonoBehaviour:
   _attackRange: 10
   _attackRate: 0.2
   _seeRange: 15
-  _seeAngle: 80
+  _seeAngle: 120
   _quitIdleRange: 100
   _pathTickRate: 0.25
   _visualizeHits: 0
-  _visualizeView: 0
+  _visualizeView: 1
+  _idleReactionTime: 0.4
+  _alarmedReactionTime: 0.25
   _searchCount: 3
   _searchRadius: 15
   _rotationSpeed: 10
-  _quitHearRadius: 0
-  _loadHearRadius: 0
+  _awarenessRadius: 2.74
+  _postionUpdateRate: 0.5
   _attackType: 0
   _spreadConeLength: 10
   _spreadConeRadius: 3

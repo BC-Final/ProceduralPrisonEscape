@@ -27,11 +27,11 @@ namespace StateFramework {
 				_agent.SetDestination(_player.transform.position);
 			}
 
-			if (canSeeObject(_player, _drone.AttackRange)) {
+			if (canSeeObject(_player, _drone.AttackRange, _drone.SeeAngle)) {
 				_fsm.SetState<DroneAttackState>();
 			}
 
-			if(!canSeeObject(_player, _drone.SeeRange)) {
+			if(!canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle)) {
 			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
 				_fsm.SetState<DroneFollowState>();
 			}

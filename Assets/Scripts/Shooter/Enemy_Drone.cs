@@ -47,6 +47,14 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	private bool _visualizeView;
 
 	[SerializeField]
+	private float _idleReactionTime;
+	public float IdleReactionTime { get { return _idleReactionTime; } }
+
+	[SerializeField]
+	private float _alarmedReactionTime;
+	public float AlarmedReactionTime { get { return _alarmedReactionTime; } }
+
+	[SerializeField]
 	private int _searchCount;
 	public int SearchCount { get { return _searchCount; } }
 
@@ -59,10 +67,8 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	public float RotationSpeed { get { return _rotationSpeed; } }
 
 	[SerializeField]
-	private float _quitHearRadius;
-
-	[SerializeField]
-	private float _loadHearRadius;
+	private float _awarenessRadius;
+	public float AwarenessRadius { get { return _awarenessRadius; } }
 
 	[SerializeField]
 	private float _postionUpdateRate = 0.5f;
@@ -98,7 +104,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	public void Initialize () {
-		
+
 	}
 
 	private void Awake () {
@@ -110,7 +116,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	}
 
 
-	private void Start() {
+	private void Start () {
 		_fsm = new StateMachine<AbstractDroneState>();
 
 		_fsm.AddState(new DroneIdleState(this, _fsm));
@@ -127,18 +133,18 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 		_currentHealth = _maxHealth;
 	}
 
-	private void Update() {
+	private void Update () {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _postionUpdateRate;
 			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 		}
-		
+
 
 		_fsm.Step();
 	}
 
-	public void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
+	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
 		if (_currentHealth > 0.0f) {
 			_currentHealth -= pDamage;
 
@@ -156,7 +162,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	private struct HitInfo {
-		public HitInfo(Vector3 pPoint, Vector3 pDirection) {
+		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
 			Point = pPoint;
 			Direction = pDirection;
 		}
@@ -168,7 +174,7 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 #if UNITY_EDITOR
 	private List<HitInfo> _hitInfo = new List<HitInfo>();
 
-	private void OnDrawGizmos() {
+	private void OnDrawGizmos () {
 		if (_visualizeHits) {
 			foreach (HitInfo hi in _hitInfo) {
 				Gizmos.color = Color.red;
@@ -188,6 +194,8 @@ public class Enemy_Drone : MonoBehaviour, IDamageable, INetworked {
 				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
 				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
 				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
+				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _awarenessRadius);
+				//UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, (360.0f - _seeAngle) / 2f, 0f) * (Vector3.forward * _awarenessRadius).normalized), (360.0f - _seeAngle), _awarenessRadius);
 			} else {
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _attackRange);

@@ -10,7 +10,7 @@ namespace StateFramework {
 		private Vector3 _startPosition;
 		private Vector3 _startRotation;
 		private float _startStoppingDistance;
-
+		private float _seeTimer;
 
 		public DroneReturnState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
@@ -25,11 +25,16 @@ namespace StateFramework {
 		public override void Enter() {
 			_agent.stoppingDistance = 0.0f;
 			_agent.SetDestination(_startPosition);
+			_seeTimer = 0.0f;
 		}
 
 		public override void Step() {
-			if (canSeeObject(_player, _drone.SeeRange)) {
-				_fsm.SetState<DroneEngangeState>();
+			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+				_seeTimer += Time.deltaTime;
+
+				if (_seeTimer > _drone.IdleReactionTime) {
+					_fsm.SetState<DroneEngangeState>();
+				}
 			}
 
 			if (_agent.velocity.magnitude == 0.0f) {
