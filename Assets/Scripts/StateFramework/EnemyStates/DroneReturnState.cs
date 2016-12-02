@@ -35,6 +35,8 @@ namespace StateFramework {
 				if (_seeTimer > _drone.IdleReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 			if (_agent.velocity.magnitude == 0.0f) {

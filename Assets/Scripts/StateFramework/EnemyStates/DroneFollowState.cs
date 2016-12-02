@@ -6,7 +6,7 @@ namespace StateFramework {
 		private GameObject _player;
 		private NavMeshAgent _agent;
 
-		private float _seeTime;
+		private float _seeTimer;
 
 		public DroneFollowState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
@@ -15,16 +15,18 @@ namespace StateFramework {
 
 		public override void Enter() {
 			_agent.SetDestination(_player.transform.position);
-			_seeTime = 0.0f;
+			_seeTimer = 0.0f;
 		}
 
 		public override void Step() {
 			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
-				_seeTime += Time.deltaTime;
+				_seeTimer += Time.deltaTime;
 
-				if (_seeTime > _drone.AlarmedReactionTime) {
+				if (_seeTimer > _drone.AlarmedReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 

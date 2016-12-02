@@ -29,6 +29,8 @@ namespace StateFramework {
 				if (_seeTimer > _drone.IdleReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 			if (!_agent.hasPath || _agent.remainingDistance <= _agent.stoppingDistance) {

@@ -22,6 +22,8 @@ namespace StateFramework {
 				if (_seeTimer > _drone.IdleReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 			if (Vector3.Distance(_drone.transform.position, _player.transform.position) > _drone.QuitIdleRange) {

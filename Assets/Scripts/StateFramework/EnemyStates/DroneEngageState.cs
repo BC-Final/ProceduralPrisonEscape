@@ -31,8 +31,7 @@ namespace StateFramework {
 				_fsm.SetState<DroneAttackState>();
 			}
 
-			if(!canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle)) {
-			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.SeeRange) {
+			if(!canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) && !canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
 				_fsm.SetState<DroneFollowState>();
 			}
 		}
