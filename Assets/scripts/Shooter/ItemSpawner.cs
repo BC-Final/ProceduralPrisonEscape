@@ -6,11 +6,11 @@ public class ItemSpawner : MonoBehaviour, IInteractable {
 	private bool _used;
 
 	[SerializeField]
-	private string _spawnItem;
+	private GameObject _spawnItemPrefab;
 
 	public void Interact() {
 		if (_accessible && !_used) {
-			Instantiate(Resources.Load("prefabs/shooter/pickups/" + _spawnItem), transform.position + -transform.right / 2.0f, Quaternion.identity);
+			Instantiate(_spawnItemPrefab, transform.position + -transform.right / 2.0f, Quaternion.identity);
 			_used = true;
 		}
 	}

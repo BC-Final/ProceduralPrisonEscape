@@ -829,6 +829,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42654cc8b3219564f9665ae01528744c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ipInputField: {fileID: 1640540275}
+  portInputField: {fileID: 380228400}
+  hostPortInputField: {fileID: 1673483440}
 --- !u!4 &815667158
 Transform:
   m_ObjectHideFlags: 0

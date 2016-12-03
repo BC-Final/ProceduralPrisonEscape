@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
+using Gamelogic.Extensions;
 
 public class WeaponHolder : Singleton<WeaponHolder> {
 	[SerializeField]
@@ -18,9 +19,9 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private void Start() {
 		_weapons = new List<Weapon>();
 
-		_weapons.Add((Instantiate(Resources.Load("prefabs/shooter/weapons/pfb_weapon_phaser"), transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
-		_weapons.Add((Instantiate(Resources.Load("prefabs/shooter/weapons/pfb_weapon_machinegun"), transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
-		_weapons.Add((Instantiate(Resources.Load("prefabs/shooter/weapons/pfb_weapon_mininglaser"), transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
+		_weapons.Add((Instantiate(ShooterReferenceManager.Instance.Phaser, transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
+		_weapons.Add((Instantiate(ShooterReferenceManager.Instance.Machinegun, transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
+		_weapons.Add((Instantiate(ShooterReferenceManager.Instance.Mininglaser, transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
 
 		_currentWeapon = 0;
 

@@ -30,8 +30,8 @@ public class ItemDisplayIcon : MonoBehaviour {
             _items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_keycard");
-            item._icon.SetSprite(sprite);
+			Sprite sprite = HackerReferenceManager.Instance.KeycardIcon;
+			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}
 	}
@@ -44,7 +44,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			_items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_healthpackpack");
+			Sprite sprite = HackerReferenceManager.Instance.HealthpackIcon;
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}
@@ -58,7 +58,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			_items.Add(item);
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
-			Sprite sprite = Resources.Load<Sprite>("Sprites/spr_ammopack");
+			Sprite sprite = HackerReferenceManager.Instance.AmmobagIcon;
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
 		}

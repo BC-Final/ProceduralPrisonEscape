@@ -23,13 +23,13 @@ public class Phaser : Weapon {
 	}
 
 	protected override void spawnBullet(Vector3 pHitPoint) {
-		GameObject laser = Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), pHitPoint, Quaternion.identity) as GameObject;
+		GameObject laser = Instantiate(ShooterReferenceManager.Instance.LaserShot, pHitPoint, Quaternion.identity) as GameObject;
 		laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
 		//GameObject.Destroy(laser, 0.05f);
 	}
 
 	protected override void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform) {
-		GameObject decal = Instantiate(Resources.Load("prefabs/shooter/pfb_bullethole"), pHitPoint + pHitNormal * 0.001f, Quaternion.LookRotation(pHitNormal)) as GameObject;
+		GameObject decal = Instantiate(ShooterReferenceManager.Instance.BulletHole, pHitPoint + pHitNormal * 0.001f, Quaternion.LookRotation(pHitNormal)) as GameObject;
 		decal.transform.parent = pHitTransform;
 		Destroy(decal, 10);
 	}

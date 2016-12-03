@@ -66,7 +66,7 @@ public class MinimapManager : HackerMapManager {
 		return gameObject.GetComponent<MinimapPickupIcon>();
 	}
 	public MinimapEnemy CreateMinimapEnemy (Vector3 pos) {
-		GameObject gameObject = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/hacker/Minimap/MinimapEnemy"), pos / scale, Quaternion.Euler(0, 0, 0));
+		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.EnemyIcon, pos / scale, Quaternion.Euler(0, 0, 0));
 		return gameObject.GetComponent<MinimapEnemy>();
 	}
 
@@ -89,7 +89,7 @@ public class MinimapManager : HackerMapManager {
 	public void CreateShot (CustomCommands.Creation.Shots.LaserShotCreation package) {
 		Vector3 startPos = new Vector3(package.startX, 1, package.startZ);
 		Vector3 endPos = new Vector3(package.targetX, 1, package.targetZ);
-		GameObject gameObject = (GameObject)Instantiate(Resources.Load<GameObject>("Prefabs/hacker/Minimap/LaserShot"), startPos / scale, Quaternion.Euler(0, 0, 0));
+		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.LaserShot, startPos / scale, Quaternion.Euler(0, 0, 0));
 		LaserShot shot = gameObject.GetComponent<LaserShot>();
 		shot.SetTargetPos(endPos / scale);
 	}

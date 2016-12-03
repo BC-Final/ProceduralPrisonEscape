@@ -42,11 +42,11 @@ namespace StateFramework {
 					rayDir = _drone.transform.GetChild(0).TransformDirection(rayDir.normalized);
 
 					if (Physics.Raycast(_drone.transform.GetChild(0).GetChild(1).position, rayDir, out hit, _drone.AttackRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
+						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, hit.point, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
 
-						GameObject decal = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
+						GameObject decal = GameObject.Instantiate(ShooterReferenceManager.Instance.BulletHole, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
 						decal.transform.parent = hit.collider.transform;
 						GameObject.Destroy(decal, 10);
 
@@ -56,7 +56,7 @@ namespace StateFramework {
 
 						ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, hit.point));
 					} else {
-						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
+						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
 						ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange));
