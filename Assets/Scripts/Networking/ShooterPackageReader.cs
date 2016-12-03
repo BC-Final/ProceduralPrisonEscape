@@ -11,34 +11,23 @@ using UnityEngine;
 
 public class ShooterPackageReader : MonoBehaviour
 {
-	static private List<TcpClient> _clients;
-
-	//private ShooterPackageSender _sender;
+	private static List<TcpClient> _clients;
 	private BinaryFormatter _formatter;
 
-	// Use this for initialization
-	void Start()
-	{
+	private void Start() {
 		_clients = new List<TcpClient>();
 		_formatter = new BinaryFormatter();
 	}
 
-	// Update is called once per frame
-	void Update()
-	{
-		foreach (TcpClient client in _clients)
-		{
-			try
-			{
-				if (client.Available != 0)
-				{
+	private void Update() {
+		foreach (TcpClient client in _clients) {
+			try {
+				if (client.Available != 0) {
 					CustomCommands.AbstractPackage response = _formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
-
 					ReadPackage(response);
 				}
 			}
-			catch (Exception e)
-			{
+			catch (Exception e) {
 				Debug.Log("Error" + e.ToString());
 			}
 		}
@@ -100,6 +89,7 @@ public class ShooterPackageReader : MonoBehaviour
 		}
 	}
 	*/
+
 	/// <summary>
 	/// Reading incoming Packages
 	/// </summary>

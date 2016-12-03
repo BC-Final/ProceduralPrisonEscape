@@ -10,27 +10,16 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 public class ShooterPackageSender : Singleton<ShooterPackageSender> {
-
-	[SerializeField]
-	public Camera _camera;
-	private float _playerPosUpdateTimer = 0;
-	[SerializeField]
-	private float _playerPosUpdateInterval = 0.5f;
-	[SerializeField]
-	private Transform _player;
-
 	//Networking Variables
 	private static List<TcpClient> _clients = new List<TcpClient>();
-	private static List<TcpClient> clientsToBeDeleted = new List<TcpClient>();
-	private static BinaryFormatter formatter = new BinaryFormatter();
-
+	private static List<TcpClient> _clientsToBeDeleted = new List<TcpClient>();
+	private static BinaryFormatter _formatter;
 	private TcpListener _listener;
-
 
 	public void Start () {
 		Application.runInBackground = true;
-		int port;
-		int.TryParse(PlayerPrefs.GetString("HostPort"), out port);
+		_formatter = new BinaryFormatter();
+		int port = PlayerPrefs.GetInt("HostPort", 55556);
 		Debug.Log("Hosted on port : " + port);
 		_listener = new TcpListener(IPAddress.Any, port);
 		_listener.Start(5);
@@ -38,7 +27,6 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 
 	public void Update () {
 		CheckForNewClients();
-		UpdateClients();
 		DeleteBadClients();
 	}
 
@@ -54,30 +42,19 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		}
 	}
 
-	//Updates Player Position. To be moved to own class
-	private void UpdateClients () {
-		_playerPosUpdateTimer += Time.deltaTime;
-		if (_playerPosUpdateTimer > _playerPosUpdateInterval) {
-			foreach (TcpClient client in _clients) {
-
-				_playerPosUpdateTimer -= _playerPosUpdateInterval;
-				SendPackage(new CustomCommands.Update.PlayerPositionUpdate(_player.position, _player.transform.rotation.eulerAngles.y), client);
-			}
-		}
-	}
 	private void DeleteBadClients () {
-		foreach (TcpClient client in clientsToBeDeleted) {
+		foreach (TcpClient client in _clientsToBeDeleted) {
 			Debug.Log("Deleting Client");
 			_clients.Remove(client);
-			DisconnectClient(client);
+			disconnectClient(client);
 		}
-		clientsToBeDeleted.Clear();
+		_clientsToBeDeleted.Clear();
 	}
 
 	//Player Management
-
 	private void ClientInitialize (TcpClient pClient) {
-		SendPackage(new CustomCommands.Update.MinimapUpdate(GetMinimapData()), pClient);
+		FindObjectOfType<MinimapCamera>().SendUpdate();
+		//
 		//_reader.SetClients(pClient);
 		foreach (ShooterDoor d in ShooterDoor.GetDoorList()) {
 			SendPackage(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, (int)d.GetDoorState()), pClient);
@@ -111,35 +88,35 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		}
 	}
 
-
 	/// <summary>
 	/// Sends a package to all known clients
 	/// </summary>
-	/// <param name="package"></param>
+	/// <param name="package">Sendable data</param>
 	public static void SendPackage (CustomCommands.AbstractPackage package) {
 		foreach (TcpClient client in _clients) {
 			SendPackage(package, client);
 		}
 	}
+
 	/// <summary>
 	/// Sends a pckage to a specific client
 	/// </summary>
-	/// <param name="package"></param>
+	/// <param name="package">Sendable Data</param>
 	/// <param name="client"></param>
 	private static void SendPackage (CustomCommands.AbstractPackage package, TcpClient client) {
 		try {
 			if (client.Client.Connected) {
-				BinaryFormatter formatter = new BinaryFormatter();
-				formatter.Serialize(client.GetStream(), package);
+				_formatter.Serialize(client.GetStream(), package);
 			} else {
-				clientsToBeDeleted.Add(client);
+				_clientsToBeDeleted.Add(client);
 			}
 		} catch (SerializationException e) {
 			Debug.Log("Failed to serialize. Reason: " + e.Message);
-			clientsToBeDeleted.Add(client);
+			_clientsToBeDeleted.Add(client);
 			throw;
 		}
 	}
+
 	//Connection Management
 	private static bool ClientIsConnected (TcpClient client) {
 		if (client.Client.Poll(0, SelectMode.SelectRead)) {
@@ -154,43 +131,17 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		return true;
 	}
 
-
-	//Mainly disconnecting Clients
 	private static void OnProcessExit (object sender, EventArgs e) {
-		Console.WriteLine("Im outta here");
-		DisconnectAllClients();
+		foreach (TcpClient client in _clients) {
+			disconnectClient(client);
+		}
 	}
-	private static void DisconnectClient (TcpClient client) {
+
+	private static void disconnectClient (TcpClient client) {
 		Console.WriteLine("Client Disconnected");
 		_clients.Remove(client);
 		client.GetStream().Close();
 		client.Close();
-	}
-	private static void DisconnectAllClients () {
-		foreach (TcpClient client in _clients) {
-			DisconnectClient(client);
-		}
-	}
-
-	//Internal Methods
-	private byte[] GetMinimapData()
-	{
-		RenderTexture rt = new RenderTexture(512, 512, 24);
-
-		_camera.targetTexture = rt;
-		_camera.Render();
-
-		RenderTexture.active = rt;
-		Texture2D tex2d = new Texture2D(512, 512, TextureFormat.RGB24, false);
-		tex2d.ReadPixels(new Rect(0, 0, 512, 512), 0, 0);
-
-		RenderTexture.active = null;
-		_camera.targetTexture = null;
-
-		byte[] bytes;
-		bytes = tex2d.EncodeToPNG();
-
-		return bytes;
 	}
 }
 

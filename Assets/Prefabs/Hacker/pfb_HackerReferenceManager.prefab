@@ -75,3 +75,5 @@ MonoBehaviour:
   HackerNode: {fileID: 1000013153228002, guid: 5ccc64d24b6b6a94caeb54ed9e48b2c4, type: 2}
   SecurityNode: {fileID: 1000012317260312, guid: cc670b08eb0030a459dcbfecc862134b,
     type: 2}
+  ConnenctionLine: {fileID: 1000010131538874, guid: a8971cc87d6cc6c47bd5563a00b2a23f,
+    type: 2}

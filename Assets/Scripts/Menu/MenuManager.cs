@@ -1,52 +1,49 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Text.RegularExpressions;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour {
+	private const string IPV4REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
 	[SerializeField]
-	InputField ipInputField;
+	private InputField _ipInputField;
 	[SerializeField]
-	InputField portInputField;
+	private InputField _portInputField;
 	[SerializeField]
-	InputField hostPortInputField;
+	private InputField _hostPortInputField;
 
-	// Use this for initialization
-	void Start () {
-		if (PlayerPrefs.GetString("ConnectionIP") != "") {
-			ipInputField.text = PlayerPrefs.GetString("ConnectionIP");
-		}
-
-		if (PlayerPrefs.GetString("ConnectionPort") != "") {
-			portInputField.text = PlayerPrefs.GetString("ConnectionPort");
-		}
+	private void Start () {
+		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
+		_portInputField.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
+		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
 	public void UIOnPlayShooter () {
-		if (hostPortInputField.text == "") {
-			PlayerPrefs.SetString("HostPort", "55556");
+		int port = 55556;
+
+		if(!int.TryParse(_hostPortInputField.text, out port)) {
+			Debug.LogWarning("Invalid Host Port.");
 		} else {
-			PlayerPrefs.SetString("HostPort", hostPortInputField.text);
+			PlayerPrefs.SetInt("HostPort", port);
+			SceneManager.LoadScene("ShooterScene");
 		}
-		SceneManager.LoadScene("ShooterScene");
 	}
 	public void UIOnPlayHacker () {
-		if (ipInputField.text == "") {
-			PlayerPrefs.SetString("ConnectionIP", "localhost");
-		} else {
-			PlayerPrefs.SetString("ConnectionIP", ipInputField.text);
-		}
+		if(new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
+			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
 
-		if (portInputField.text == "") {
-			PlayerPrefs.SetString("ConnectionPort", "55556");
+			int port = 55556;
+
+			if(!int.TryParse(_hostPortInputField.text, out port)) {
+				Debug.LogWarning("Invalid Connection Port.");
+			} else {
+				PlayerPrefs.SetInt("ConnectionPort", port);
+				SceneManager.LoadScene("HackerScene");
+			}
 		} else {
-			PlayerPrefs.SetString("ConnectionPort", portInputField.text);
+			Debug.LogWarning("Invalid Connection IP-Adress.");
 		}
-		SceneManager.LoadScene("HackerScene");
 	}
 }

@@ -86,16 +86,14 @@ public abstract class AbstractNode : MonoBehaviour {
 
 		foreach (AbstractNode n in _connections) {
 			if (n != null) {
-				GameObject go = new GameObject("Connection Line", typeof(LineRenderer));
+				GameObject go = Instantiate(HackerReferenceManager.Instance.ConnenctionLine) as GameObject;
 				go.transform.parent = transform;
 				go.layer = gameObject.layer;
 				LineRenderer lr = go.GetComponent<LineRenderer>();
-				lr.material = new Material(Shader.Find("Particles/Additive"));
-				lr.SetWidth(4f, 4f);
 				lr.SetPosition(0, transform.position);
 				lr.SetPosition(1, transform.position + (n.transform.position - transform.position) / 2.0f);
 			} else {
-				Debug.LogError("Empty connection at " + transform.name);
+				Debug.LogWarning("Empty connection at " + transform.name);
 			}
 		}
 

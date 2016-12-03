@@ -21,20 +21,20 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	private Transform _minimap;
 	private Texture _minimapTexture;
 
-	private static TcpClient client;
-	private static NetworkStream stream;
-	private static BinaryFormatter formatter;
+	private static TcpClient _client;
+	private static NetworkStream _stream;
+	private static BinaryFormatter _formatter;
 
 	// Use this for initialization
 	private void Awake () {
 		Application.runInBackground = true;
-		formatter = new BinaryFormatter();
+		_formatter = new BinaryFormatter();
+
 		try {
-			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetString("ConnectionPort"));
-			int port;
-			int.TryParse(PlayerPrefs.GetString("ConnectionPort"), out port);
-			client = new TcpClient(PlayerPrefs.GetString("ConnectionIP"), port);
-			stream = client.GetStream();
+			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetInt("ConnectionPort"));
+			int port = PlayerPrefs.GetInt("ConnectionPort");
+			_client = new TcpClient(PlayerPrefs.GetString("ConnectionIP", "127.0.0.1"), port);
+			_stream = _client.GetStream();
 		} catch (SocketException e) {
 			if (e.ErrorCode.ToString() == "10061") {
 				Debug.Log("Connection refused. Server is propably full");
@@ -42,27 +42,21 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
-			Debug.Break();
 			SceneManager.LoadScene("MenuScene");
 		}
 	}
 
 	public TcpClient GetClient () {
-		return client;
+		return _client;
 	}
 
 	public NetworkStream GetStream () {
-		return stream;
-	}
-
-	public BinaryFormatter GetFormatter () {
-		return formatter;
+		return _stream;
 	}
 
 	private void SendPackage (CustomCommands.AbstractPackage package) {
 		try {
-			BinaryFormatter formatter = new BinaryFormatter();
-			formatter.Serialize(stream, package);
+			_formatter.Serialize(_stream, package);
 		} catch (SerializationException e) {
 			Console.WriteLine("Failed to serialize. Reason: " + e.Message);
 			throw;

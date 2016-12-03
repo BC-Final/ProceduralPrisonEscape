@@ -27,24 +27,19 @@ public class HackerPackageReader : MonoBehaviour {
 		_networkManager = FindObjectOfType<HackerPackageSender>();
 		_client = _networkManager.GetClient();
 		_stream = _networkManager.GetStream();
-		_formatter = _networkManager.GetFormatter();
+		_formatter = new BinaryFormatter();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
 		_minimapManager.SetScale(2);
 		_minimapManager.SetSender(_networkManager);
 	}
-	
-	void Update () {
-		try
-		{
-			if (_client.Available != 0)
-			{
-				CustomCommands.AbstractPackage response = _formatter.Deserialize(_stream) as CustomCommands.AbstractPackage;
 
+	void Update () {
+		try {
+			if (_client.Available != 0) {
+				CustomCommands.AbstractPackage response = _formatter.Deserialize(_stream) as CustomCommands.AbstractPackage;
 				ReadResponse(response);
 			}
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			Debug.LogError("Error" + e.ToString());
 		}
 	}
@@ -56,8 +51,7 @@ public class HackerPackageReader : MonoBehaviour {
 	/// <param name="response"></param>
 
 	//Abstract Method
-	private void ReadResponse(CustomCommands.AbstractPackage package)
-	{
+	private void ReadResponse (CustomCommands.AbstractPackage package) {
 		//Debug.Log("Package Received : Abstract");
 
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
@@ -68,10 +62,10 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Update.MinimapUpdate) { debugMessage = "Package Received : MinimapUpdate"; ReadResponse(package as CustomCommands.Update.MinimapUpdate); }
 		if (package is CustomCommands.Update.PlayerPositionUpdate) { debugMessage = "Package Received : PlayerPositionUpdate"; ReadResponse(package as CustomCommands.Update.PlayerPositionUpdate); }
 		if (package is CustomCommands.Update.EnemyUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.EnemyUpdate); }
-		
+
 		//Creation Methods
 		if (package is CustomCommands.Creation.DoorCreation) { debugMessage = "Package Received : DoorCreation"; ReadResponse(package as CustomCommands.Creation.DoorCreation); }
-        if (package is CustomCommands.Creation.FireWallCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.FireWallCreation); }
+		if (package is CustomCommands.Creation.FireWallCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.FireWallCreation); }
 		if (package is CustomCommands.Creation.Items.KeyCardCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.KeyCardCreation); }
 		if (package is CustomCommands.Creation.Items.HealthKitCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.HealthKitCreation); }
 		if (package is CustomCommands.Creation.Items.AmmoPackCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.AmmoPackCreation); }
@@ -82,53 +76,43 @@ public class HackerPackageReader : MonoBehaviour {
 		//Debug.Log(debugMessage);
 	}
 	//Creation Methods
-	private void ReadResponse(CustomCommands.Creation.DoorCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
 		HackerDoor.CreateDoor(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.FireWallCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
 		HackerFireWall.CreateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.Shots.LaserShotCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.Shots.LaserShotCreation package) {
 		MinimapManager.GetInstance().CreateShot(package);
 	}
 
 	//Item Creation Methods
-	private void ReadResponse(CustomCommands.Creation.Items.KeyCardCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.Items.HealthKitCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
-	private void ReadResponse(CustomCommands.Creation.Items.AmmoPackCreation package)
-	{
+	private void ReadResponse (CustomCommands.Creation.Items.AmmoPackCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
 
 	//Updates Methods
-	private void ReadResponse(CustomCommands.Update.DoorUpdate package)
-	{
+	private void ReadResponse (CustomCommands.Update.DoorUpdate package) {
 		HackerDoor.UpdateDoor(package);
 	}
-	private void ReadResponse(CustomCommands.Update.FireWallUpdate package)
-	{
+	private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
 		HackerFireWall.UpdateFireWall(package);
 	}
-	private void ReadResponse(CustomCommands.Update.Items.ItemUpdate package) {
+	private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
 		ItemDisplayIcon.UpdateItem(package);
 	}
-	private void ReadResponse(CustomCommands.Update.MinimapUpdate package)
-	{
+	private void ReadResponse (CustomCommands.Update.MinimapUpdate package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
 		_minimap.GetComponent<Renderer>().material.mainTexture = tex;
 	}
-	private void ReadResponse(CustomCommands.Update.PlayerPositionUpdate package)
-	{
+	private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
 		MinimapManager.GetInstance().UpdateMinimapPlayer(package);
 	}
 
@@ -140,19 +124,16 @@ public class HackerPackageReader : MonoBehaviour {
 		NetworkWindow.Instance.FinishedReceivingAll();
 	}
 
-	private void ReadResponse(CustomCommands.Update.EnemyUpdate package)
-	{
+	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {
 		MinimapEnemy.UpdateEnemy(package);
 	}
 
 	//Exit Methods
-	private void OnProcessExit(object sender, EventArgs e)
-	{
+	private void OnProcessExit (object sender, EventArgs e) {
 		//_client.Close();
 	}
-	
-	private void OnApplicationQuit()
-	{
+
+	private void OnApplicationQuit () {
 		//_client.Close();
 	}
 }
