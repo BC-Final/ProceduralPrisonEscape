@@ -7,7 +7,7 @@ namespace StateFramework {
 		private Rigidbody _rigidbody;
 
 
-		public DroneDeadState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneDeadState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_agent = _drone.GetComponent<NavMeshAgent>();
 			_rigidbody = _drone.GetComponent<Rigidbody>();
 		}

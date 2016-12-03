@@ -7,7 +7,7 @@ namespace StateFramework {
 
 		private float _seeTimer;
 
-		public DroneGuardState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneGuardState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 		}
 

@@ -12,7 +12,7 @@ namespace StateFramework {
 		private float _startStoppingDistance;
 		private float _seeTimer;
 
-		public DroneReturnState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneReturnState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_agent = _drone.GetComponent<NavMeshAgent>();
 

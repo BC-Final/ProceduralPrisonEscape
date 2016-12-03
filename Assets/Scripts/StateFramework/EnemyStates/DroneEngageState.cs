@@ -9,7 +9,7 @@ namespace StateFramework {
 
 		private float _nextPathTick;
 
-		public DroneEngangeState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneEngangeState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_droneModel = _drone.transform.GetChild(0).gameObject;
 			_agent = _drone.GetComponent<NavMeshAgent>();

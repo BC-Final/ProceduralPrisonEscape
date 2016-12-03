@@ -9,7 +9,7 @@ namespace StateFramework {
 
 		private float _nextAttackTime;
 
-		public DroneAttackState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneAttackState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_droneModel = _drone.transform.GetChild(0).gameObject;
 			_agent = _drone.GetComponent<NavMeshAgent>();
@@ -27,7 +27,7 @@ namespace StateFramework {
 			if (_nextAttackTime - Time.time <= 0.0f) {
 				_nextAttackTime = Time.time + _drone.AttackRate;
 
-				if (_drone.AttackType == Enemy_Drone.eAttackType.Ranged) {
+				if (_drone.AttackType == DroneEnemy.eAttackType.Ranged) {
 					RaycastHit hit;
 
 					float randomRadius = UnityEngine.Random.Range(0, _drone.SpreadConeRadius);
@@ -61,7 +61,7 @@ namespace StateFramework {
 						GameObject.Destroy(laser, 0.05f);
 						ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange));
 					}
-				} else if (_drone.AttackType == Enemy_Drone.eAttackType.Melee) {
+				} else if (_drone.AttackType == DroneEnemy.eAttackType.Melee) {
 					_player.GetComponent<IDamageable>().ReceiveDamage((_drone.transform.position - _player.transform.position).normalized, _player.transform.position, _drone.AttackDamage);
 					//TODO play attack animation
 				}

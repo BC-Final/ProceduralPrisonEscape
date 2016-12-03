@@ -4,9 +4,9 @@ using System;
 namespace StateFramework {
 	public class AbstractDroneState : AbstractState {
 		protected StateMachine<AbstractDroneState> _fsm = null;
-		protected Enemy_Drone _drone;
+		protected DroneEnemy _drone;
 
-		public AbstractDroneState (Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) {
+		public AbstractDroneState (DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) {
 			_drone = pDrone;
 			_fsm = pFsm;
 		}
