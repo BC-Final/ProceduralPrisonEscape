@@ -10,19 +10,15 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 public class ShooterPackageReader : MonoBehaviour {
-	private static List<TcpClient> _clients;
-	private BinaryFormatter _formatter;
-
-	private void Start () {
-		_clients = new List<TcpClient>();
-		_formatter = new BinaryFormatter();
-	}
-
+	/// <summary>
+	/// Read incomming packages
+	/// </summary>
 	private void Update () {
-		foreach (TcpClient client in _clients) {
+		foreach (TcpClient client in ShooterPackageSender.Clients) {
 			try {
 				if (client.Available != 0) {
-					CustomCommands.AbstractPackage response = _formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
+					//FIX Does this really only read one package per frame???
+					CustomCommands.AbstractPackage response = ShooterPackageSender.Formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
 					ReadPackage(response);
 				}
 			} catch (Exception e) {
@@ -30,66 +26,9 @@ public class ShooterPackageReader : MonoBehaviour {
 			}
 		}
 	}
-	/*
-	private void ReadResponse(CustomCommands.AbstractPackage response)
-	{
-		if (response is CustomCommands.NotImplementedMessage)
-		{
-			CustomCommands.NotImplementedMessage NIM = response as CustomCommands.NotImplementedMessage;
-			Debug.Log("NotImplemented");
-		}
-		if (response is CustomCommands.Update.MinimapUpdate)
-		{
-			//CustomCommands.SendMinimapUpdate MU = response as CustomCommands.SendMinimapUpdate;
-			//Texture2D tex = new Texture2D(2, 2);
-			//tex.LoadImage(MU.bytes);
-			//_minimap.GetComponent<Renderer>().material.mainTexture = tex;
-			//Debug.Log("Minimap Updated");
-			//_chatBoxScreen.AddChatLine("Minimap Update");
-		}
-		if (response is CustomCommands.Update.PlayerPositionUpdate)
-		{
-			//Debug.Log("Updating Player Position");
-			//CustomCommands.PlayerPositionUpdate PPU = response as CustomCommands.PlayerPositionUpdate;
-			//_minimapManager.UpdateMinimapPlayer(new Vector3(PPU.x, 0, PPU.z));
-		}
-		if (response is CustomCommands.Creation.DoorCreation)
-		{
-			//Debug.Log("Updating Door");
-			CustomCommands.Creation.DoorCreation DU = response as CustomCommands.Creation.DoorCreation;
-			//Debug.Log("Update for Door : " + DU.ID);
-			if (!_doorManager.DoorAlreadyExists(DU.ID))
-			{
-				Debug.Log("-Door does not exists ");
-				//_doorManager.CreateDoor(new Vector3(DU.x / _minimapScale.x, 0, DU.z / _minimapScale.y), DU.rotationY, DU.state, DU.ID);
-			}
-			else
-			{
-				//Debug.Log("-Door exists");
-				_doorManager.UpdateDoor(DU);
-			}
-		}
-		if (response is CustomCommands.Update.DoorUpdate)
-		{
-			//Debug.Log("Updating Door");
-			CustomCommands.Update.DoorUpdate DU = response as CustomCommands.Update.DoorUpdate;
-			//Debug.Log("Update for Door : " + DU.ID);
-			if (!_doorManager.DoorAlreadyExists(DU.ID))
-			{
-				Debug.Log("-Door does not exists ");
-				//_doorManager.CreateDoor(new Vector3(DU.x / _minimapScale.x, 0, DU.z / _minimapScale.y), DU.rotationY, DU.state, DU.ID);
-			}
-			else
-			{
-				//Debug.Log("-Door exists");
-				_doorManager.UpdateDoorState(DU);
-			}
-		}
-	}
-	*/
 
 	/// <summary>
-	/// Reading incoming Packages
+	/// Checks a package for its type and
 	/// </summary>
 	/// <param name="package"></param>
 	private void ReadPackage (CustomCommands.AbstractPackage package) {
@@ -101,9 +40,5 @@ public class ShooterPackageReader : MonoBehaviour {
 
 	private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
 		ShooterDoor.UpdateDoor(package);
-	}
-
-	public static void SetClients (List<TcpClient> clients) {
-		_clients = clients;
 	}
 }

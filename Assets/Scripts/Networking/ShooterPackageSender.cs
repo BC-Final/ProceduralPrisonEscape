@@ -11,44 +11,66 @@ using Gamelogic.Extensions;
 
 public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	//Networking Variables
-	private static List<TcpClient> _clients = new List<TcpClient>();
-	private static List<TcpClient> _clientsToBeDeleted = new List<TcpClient>();
-	private static BinaryFormatter _formatter;
-	private TcpListener _listener;
-
 	private static List<IShooterNetworked> _networkObjects = new List<IShooterNetworked>();
 
+	private static List<TcpClient> _clients = new List<TcpClient>();
+	private static List<TcpClient> _clientsToBeDeleted = new List<TcpClient>();
+	private static BinaryFormatter _formatter = new BinaryFormatter();
+
+	public static List<TcpClient> Clients {
+		get { return _clients; }
+	}
+
+	public static BinaryFormatter Formatter {
+		get { return _formatter; }
+	}
+
+
+	private TcpListener _listener;
+
+	/// <summary>
+	/// Adds a networked object to the reference list
+	/// </summary>
+	/// <param name="pObject"></param>
 	public static void RegisterNetworkObject (IShooterNetworked pObject) {
 		_networkObjects.Add(pObject);
 	}
-
+	
+	/// <summary>
+	/// Removes a networked object from the reference list
+	/// </summary>
+	/// <param name="pObject"></param>
 	public static void UnregisterNetworkedObject (IShooterNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
-	public void Start () {
-		Application.runInBackground = true;
-		_formatter = new BinaryFormatter();
+	/// <summary>
+	/// Initializes the server
+	/// </summary>
+	public void Awake () {
 		int port = PlayerPrefs.GetInt("HostPort", 55556);
 		Debug.Log("Hosted on port : " + port);
 		_listener = new TcpListener(IPAddress.Any, port);
 		_listener.Start(5);
 	}
 
+	/// <summary>
+	/// Checks for connecting clients and deletes bad ones
+	/// </summary>
 	public void Update () {
 		CheckForNewClients();
 		DeleteBadClients();
 	}
 
+	/// <summary>
+	/// 
+	/// </summary>
 	private void CheckForNewClients () {
 		if (_listener.Pending()) {
-			//Add new Client
 			TcpClient connectingClient = _listener.AcceptTcpClient();
 			_clients.Add(connectingClient);
-			ShooterPackageReader.SetClients(_clients);
 			Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 			ClientInitialize(connectingClient);
-
 		}
 	}
 

@@ -10,16 +10,13 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 public class HackerPackageReader : MonoBehaviour {
+	[SerializeField]
+	private Transform _minimap;
 
 	private Vector2 _minimapScale;
 	private MinimapManager _minimapManager;
 	private HackerPackageSender _networkManager;
-	[SerializeField]
-	private Transform _minimap;
 	private Texture _minimapTexture;
-	private TcpClient _client;
-	private NetworkStream _stream;
-	private BinaryFormatter _formatter;
 	private MinimapPlayer _player;
 
 	[SerializeField]
@@ -28,9 +25,6 @@ public class HackerPackageReader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_networkManager = FindObjectOfType<HackerPackageSender>();
-		_client = _networkManager.GetClient();
-		_stream = _networkManager.GetStream();
-		_formatter = new BinaryFormatter();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
 		_minimapManager.SetScale(2);
 		_minimapManager.SetSender(_networkManager);
@@ -38,8 +32,8 @@ public class HackerPackageReader : MonoBehaviour {
 
 	void Update () {
 		try {
-			if (_client.Available != 0) {
-				CustomCommands.AbstractPackage response = _formatter.Deserialize(_stream) as CustomCommands.AbstractPackage;
+			if (HackerPackageSender.Host.Available != 0) {
+				CustomCommands.AbstractPackage response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Stream) as CustomCommands.AbstractPackage;
 				ReadResponse(response);
 			}
 		} catch (Exception e) {
@@ -52,8 +46,6 @@ public class HackerPackageReader : MonoBehaviour {
 	/// Then they get transmitted to another method that is made for their specific package.
 	/// </summary>
 	/// <param name="response"></param>
-
-	//Abstract Method
 	private void ReadResponse (CustomCommands.AbstractPackage package) {
 		//Debug.Log("Package Received : Abstract");
 
@@ -79,8 +71,8 @@ public class HackerPackageReader : MonoBehaviour {
 		if (_showReceivedPackets) {
 			Debug.Log(debugMessage);
 		}
-		
 	}
+
 	//Creation Methods
 	private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
 		HackerDoor.CreateDoor(package);
@@ -140,18 +132,6 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {
 		MinimapEnemy.UpdateEnemy(package);
-	}
-
-
-
-
-	//Exit Methods
-	private void OnProcessExit (object sender, EventArgs e) {
-		//_client.Close();
-	}
-
-	private void OnApplicationQuit () {
-		//_client.Close();
 	}
 }
 

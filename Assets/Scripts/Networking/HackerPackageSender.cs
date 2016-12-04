@@ -21,20 +21,20 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	private Transform _minimap;
 	private Texture _minimapTexture;
 
-	private static TcpClient _client;
 	private static NetworkStream _stream;
-	private static BinaryFormatter _formatter;
+	public static NetworkStream Stream { get { return _stream; } }
+	private static TcpClient _host;
+	public static TcpClient Host { get { return _host; } }
+	private static BinaryFormatter _formatter = new BinaryFormatter();
+	public static BinaryFormatter Formatter { get { return _formatter; } }
 
 	// Use this for initialization
 	private void Awake () {
-		Application.runInBackground = true;
-		_formatter = new BinaryFormatter();
-
 		try {
 			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetInt("ConnectionPort"));
 			int port = PlayerPrefs.GetInt("ConnectionPort");
-			_client = new TcpClient(PlayerPrefs.GetString("ConnectionIP", "127.0.0.1"), port);
-			_stream = _client.GetStream();
+			_host = new TcpClient(PlayerPrefs.GetString("ConnectionIP", "127.0.0.1"), port);
+			_stream = _host.GetStream();
 		} catch (SocketException e) {
 			if (e.ErrorCode.ToString() == "10061") {
 				Debug.Log("Connection refused. Server is propably full");
@@ -44,14 +44,6 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 
 			SceneManager.LoadScene("MenuScene");
 		}
-	}
-
-	public TcpClient GetClient () {
-		return _client;
-	}
-
-	public NetworkStream GetStream () {
-		return _stream;
 	}
 
 	public static void SendPackage (CustomCommands.AbstractPackage package) {
