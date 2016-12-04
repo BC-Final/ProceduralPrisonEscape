@@ -10,8 +10,10 @@ public class HackerDoor {
 	#endregion
 
 	#region References
+	#pragma warning disable 0414
 	private MinimapDoor _minimapDoor;
 	private DoorNode _doorNode;
+	#pragma warning restore 0414
 	#endregion
 
 	#region Private Fields

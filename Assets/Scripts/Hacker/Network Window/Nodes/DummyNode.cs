@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 
 [SelectionBase]
 public class DummyNode : MonoBehaviour, INetworked {
@@ -31,16 +32,21 @@ public class DummyNode : MonoBehaviour, INetworked {
 	[SerializeField]
 	private List<DummyNode> _connections;
 
-	public void Initialize () {
-		
+	public void Initialize (TcpClient pClient) {
+		int assocObjectId = (_associatedObject == null) ? 0 : _associatedObject.GetComponent<INetworked>().Id;
+		int[] connectionIds = _connections.Select (x => x.Id).ToArray ();
+		RectTransform trans = GetComponent<RectTransform>();
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(trans.anchoredPosition.x, trans.anchoredPosition.y, Id, (int)_type, assocObjectId, connectionIds), pClient);
 	}
 
 	private void Awake () {
 		_nodes.Add(this);
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 	private void OnDestroy () {
 		_nodes.Remove(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
 

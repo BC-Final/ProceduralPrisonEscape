@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ItemDisplayIcon : MonoBehaviour {
+public class ItemDisplayIcon {
 
 	private static List<ItemDisplayIcon> _items = new List<ItemDisplayIcon>();
 
@@ -36,6 +36,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			item._icon.ChangeState(package.collected);
 		}
 	}
+
 	public static void CreateItem(CustomCommands.Creation.Items.HealthKitCreation package)
 	{
 		if (GetItemByID(package.ID) == null)
@@ -50,6 +51,7 @@ public class ItemDisplayIcon : MonoBehaviour {
 			item._icon.ChangeState(package.collected);
 		}
 	}
+
 	public static void CreateItem(CustomCommands.Creation.Items.AmmoPackCreation package)
 	{
 		if (GetItemByID(package.ID) == null)

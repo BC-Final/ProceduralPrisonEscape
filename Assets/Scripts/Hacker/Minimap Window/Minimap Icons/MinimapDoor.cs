@@ -40,7 +40,7 @@ public class MinimapDoor : MonoBehaviour {
 	/// <summary>
 	/// Lazily initializes renderer. This is necessary because sometimes its not initialized on start
 	/// </summary>
-	private new SpriteRenderer renderer {
+	private SpriteRenderer spriteRenderer {
 		get {
 			if (_renderer == null) {
 				_renderer = GetComponentInChildren<SpriteRenderer>();
@@ -69,17 +69,17 @@ public class MinimapDoor : MonoBehaviour {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
 					if (!_associatedDoor.Accessible.Value) {
-						renderer.sprite = openSpriteLocked;
+						spriteRenderer.sprite = openSpriteLocked;
 					} else {
-						renderer.sprite = openSprite;
+						spriteRenderer.sprite = openSprite;
 					}
 					break;
 				}
 			case DoorState.Closed: {
 					if (!_associatedDoor.Accessible.Value) {
-						renderer.sprite = closedSpriteLocked;
+						spriteRenderer.sprite = closedSpriteLocked;
 					} else {
-						renderer.sprite = closedSprite;
+						spriteRenderer.sprite = closedSprite;
 					}
 					break;
 				}

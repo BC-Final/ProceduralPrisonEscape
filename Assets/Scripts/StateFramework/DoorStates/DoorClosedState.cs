@@ -6,7 +6,6 @@ namespace StateFramework {
 	public class DoorClosedState : AbstractDoorState {
 		public DoorClosedState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) { }
 
-
 		public override void Enter () {
 			_door.SetDoorState(DoorState.Closed);
 
@@ -22,10 +21,8 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
-			if (_door.GetFireWall() == null || _door.GetFireWall().GetState()) {
-				if (_door._requireKeyCard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door._requireKeyCard) {
-					_fsm.SetState<DoorOpenState>();
-				}
+			if (_door._requireKeyCard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door._requireKeyCard) {
+				_fsm.SetState<DoorOpenState>();
 			}
 		}
 	}

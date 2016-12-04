@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 public class ShooterFireWall : MonoBehaviour, IDamageable, INetworked {
 	private static List<ShooterFireWall> _firewalls = new List<ShooterFireWall>();
@@ -17,59 +18,37 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, INetworked {
 		}
 	}
 
-	public void Initialize () {
-		
-	}
 
-	private bool destroyed;
-	private List<ShooterDoor> _doors;
+	private bool _destroyed;
 
 	//Graphical Stuff
 	private ParticleSystem _particleSystem;
 
-	private void Awake() {
-		Initialize();
+	public void Initialize (TcpClient pClient) {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.FireWallCreation(Id, transform.position.x, transform.position.z, _destroyed), pClient);
+	}
 
+	private void Awake() {
 		_particleSystem = GetComponentInChildren<ParticleSystem>();
 		ParticleSystem.EmissionModule em = _particleSystem.emission;
 		em.enabled = false;
 
 		_firewalls.Add(this);
+
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 	private void OnDestroy() {
 		_firewalls.Remove(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-
-
 	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		destroyed = true;
+		_destroyed = true;
 
 		ParticleSystem.EmissionModule em = _particleSystem.emission;
 		em.enabled = true;
 
-		ShooterPackageSender.Instance.SendFireWallUpdate(this);
-
-		//Tell all doors im dead
-		foreach (ShooterDoor d in _doors) {
-			d.ChangeState(DoorState.Closed);
-		}
-	}
-
-	public void AddDoor(ShooterDoor door) {
-		if (_doors == null) {
-			_doors = new List<ShooterDoor>();
-		}
-
-		_doors.Add(door);
-	}
-
-	public bool GetState() {
-		return destroyed;
-	}
-
-	public List<ShooterDoor> GetDoorList() {
-		return _doors;
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.FireWallUpdate(Id, _destroyed));
 	}
 }

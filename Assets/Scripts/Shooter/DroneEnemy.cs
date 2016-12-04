@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using StateFramework;
+using System.Net.Sockets;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
@@ -103,16 +104,19 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		}
 	}
 
-	public void Initialize () {
-
+	public void Initialize (TcpClient pClient) {
+		//TODO Create init package??
 	}
 
 	private void Awake () {
 		_drones.Add(this);
+		//TODO Make Networked Drone enemy class
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 	private void OnDestroy () {
 		_drones.Remove(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
 
@@ -153,7 +157,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 #endif
 
 			if (_currentHealth <= 0.0f) {
-				_drones.Remove(this);
+				OnDestroy();
 				_fsm.SetState<DroneDeadState>();
 			}
 

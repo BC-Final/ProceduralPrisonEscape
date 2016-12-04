@@ -21,7 +21,7 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
-			if (_door.GetFireWall() == null || _door.GetFireWall().GetState()) {
+			if (_door._requireKeyCard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door._requireKeyCard) {
 				_fsm.SetState<DoorClosedState>();
 			}
 		}

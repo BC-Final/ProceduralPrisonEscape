@@ -34,7 +34,7 @@ public class MinimapFirewall : MonoBehaviour {
 	/// <summary>
 	/// Lazily initializes renderer. This is necessary because sometimes its not initialized on start
 	/// </summary>
-	new private SpriteRenderer renderer {
+	private SpriteRenderer spriteRenderer {
 		get {
 			if (_renderer == null) {
 				_renderer = GetComponentInChildren<SpriteRenderer>();
@@ -53,9 +53,9 @@ public class MinimapFirewall : MonoBehaviour {
 	/// </summary>
 	private void changedState () {
 		if (_associatedFirewall.Destroyed.Value) {
-			renderer.sprite = destroyedSprite;
+			spriteRenderer.sprite = destroyedSprite;
 		} else {
-			renderer.sprite = normalSprite;
+			spriteRenderer.sprite = normalSprite;
 		}
 	}
 }

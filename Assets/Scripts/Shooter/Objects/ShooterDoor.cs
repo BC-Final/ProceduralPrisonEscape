@@ -2,6 +2,7 @@
 using System.Collections;
 using StateFramework;
 using System.Collections.Generic;
+using System.Net.Sockets;
 
 [SelectionBase]
 public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
@@ -20,12 +21,9 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 		}
 	}
 
-	public void Initialize () {
-		
+	public void Initialize (TcpClient pClient) {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_currentDoorState), pClient);
 	}
-
-	[SerializeField]
-	protected ShooterFireWall _firewall;
 
 	[SerializeField]
 	protected DoorState _currentDoorState;
@@ -38,21 +36,17 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	public Transform LeftDoor;
 	public Transform RightDoor;
 
-	private void Awake() {
-		Initialize();
+	private void Awake () {
 		_doors.Add(this);
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
-	private void OnDestroy() {
+	private void OnDestroy () {
 		_doors.Remove(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
-	
-	private void Start()
-	{
-		if (_firewall != null) {
-			_firewall.AddDoor(this);
-		}
 
+	private void Start () {
 		_fsm = new StateMachine<AbstractDoorState>();
 
 		_fsm.AddState(new DoorOpenState(this, _fsm));
@@ -70,39 +64,33 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	}
 
 
-	private void Update() {
+	private void Update () {
 		_fsm.Step();
 	}
 
-	public void Interact() {
+	public void Interact () {
 		_fsm.GetState().Interact();
 		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)GetDoorState()));
 	}
 
-	public void ChangeState(DoorState state)
-	{
-		if (_firewall == null || _firewall.GetState()) {
-			_currentDoorState = state;
-		}
+	public void ChangeState (DoorState state) {
+		_currentDoorState = state;
 
-		if (state == DoorState.Open)
-		{
+		if (state == DoorState.Open) {
 			_fsm.SetState<DoorOpenState>();
-		}
-		else if(state == DoorState.Closed)
-		{
+		} else if (state == DoorState.Closed) {
 			_fsm.SetState<DoorClosedState>();
 		}
 	}
 
-	private void OnTriggerEnter(Collider pOther) {
+	private void OnTriggerEnter (Collider pOther) {
 		//TODO Activate only when door is not locked or protected
 		if (pOther.GetComponent<DroneEnemy>() != null) {
 			ChangeState(DoorState.Open);
 		}
 	}
 
-	private void OnTriggerExit(Collider pOther) {
+	private void OnTriggerExit (Collider pOther) {
 		if (pOther.GetComponent<DroneEnemy>() != null) {
 			ChangeState(DoorState.Closed);
 		}
@@ -114,10 +102,6 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	public void SetDoorState (DoorState pStatus) {
 		_currentDoorState = pStatus;
-	}
-
-	public ShooterFireWall GetFireWall () {
-		return _firewall;
 	}
 
 	public void SetRequireKeyCard () {

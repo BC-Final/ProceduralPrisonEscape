@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Net.Sockets;
 
 public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	private static List<KeyCard> _keyCards = new List<KeyCard>();
@@ -21,19 +22,19 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 		}
 	}
 
-	public void Initialize () {
-		
+	public void Initialize (TcpClient pClient) {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, false), pClient);
 	}
 
 	private void Awake() {
-		Initialize();
 		_keyCards.Add(this);
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 	private void OnDestroy() {
 		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true));
-		
 		_keyCards.Remove(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
 	private void Start() {

@@ -16,6 +16,16 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private static BinaryFormatter _formatter;
 	private TcpListener _listener;
 
+	private static List<INetworked> _networkObjects = new List<INetworked>();
+
+	public static void RegisterNetworkObject (INetworked pObject) {
+		_networkObjects.Add(pObject);
+	}
+
+	public static void UnregisterNetworkedObject (INetworked pObject) {
+		_networkObjects.Remove(pObject);
+	}
+
 	public void Start () {
 		Application.runInBackground = true;
 		_formatter = new BinaryFormatter();
@@ -54,8 +64,13 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	//Player Management
 	private void ClientInitialize (TcpClient pClient) {
 		FindObjectOfType<MinimapCamera>().SendUpdate();
-		//
 		//_reader.SetClients(pClient);
+
+		foreach (INetworked n in _networkObjects) {
+			n.Initialize(pClient);
+		}
+				
+		/*
 		foreach (ShooterDoor d in ShooterDoor.GetDoorList()) {
 			SendPackage(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, (int)d.GetDoorState()), pClient);
 		}
@@ -78,14 +93,9 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		foreach (DummyNode d in DummyNode.GetNodeList()) {
 			ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(d.GetComponent<RectTransform>().anchoredPosition.x, d.GetComponent<RectTransform>().anchoredPosition.y, d.Id, (int)d.Type, (d.AssociatedObject == null) ? 0 : d.AssociatedObject.GetComponent<INetworked>().Id, d.GetConnections().Select(x => x.Id).ToArray()));
 		}
+		*/
 
 		SendPackage(new CustomCommands.Creation.OnCreationEnd());
-	}
-
-	public void SendFireWallUpdate (ShooterFireWall firewall) {
-		foreach (TcpClient client in _clients) {
-			SendPackage(new CustomCommands.Update.FireWallUpdate(firewall.Id, firewall.GetState()), client);
-		}
 	}
 
 	/// <summary>
@@ -103,7 +113,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	/// <param name="package">Sendable Data</param>
 	/// <param name="client"></param>
-	private static void SendPackage (CustomCommands.AbstractPackage package, TcpClient client) {
+	public static void SendPackage (CustomCommands.AbstractPackage package, TcpClient client) {
 		try {
 			if (client.Client.Connected) {
 				_formatter.Serialize(client.GetStream(), package);

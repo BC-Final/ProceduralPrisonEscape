@@ -9,8 +9,10 @@ public class HackerFireWall {
 	#endregion
 
 	#region References
+	#pragma warning disable 0414
 	private MinimapFirewall _minimapIcon;
 	private FirewallNode _firewallNode;
+	#pragma warning restore 0414
 	#endregion
 
 	#region Private Fields

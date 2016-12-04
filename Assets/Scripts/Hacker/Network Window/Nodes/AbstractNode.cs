@@ -36,7 +36,6 @@ public abstract class AbstractNode : MonoBehaviour {
 	private Tweener _moveTweener;
 
 	private Coroutine _hackCoroutine;
-	private Coroutine _feedbackCoroutine;
 
 	private SecurityNode _nearestSecurityNode;
 
@@ -109,7 +108,7 @@ public abstract class AbstractNode : MonoBehaviour {
 		}
 
 		if (_feedbackIntervall != 0.0f) {
-			_feedbackCoroutine = StartCoroutine(sendFeedback());
+			StartCoroutine(sendFeedback());
 		}
 	}
 
@@ -182,7 +181,7 @@ public abstract class AbstractNode : MonoBehaviour {
 		yield return new WaitForSeconds(_feedbackIntervall);
 		GameObject go = (Instantiate(HackerReferenceManager.Instance.FeedbackPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
-		_feedbackCoroutine = StartCoroutine(sendFeedback());
+		StartCoroutine(sendFeedback());
 	}
 
 	public virtual void SetReferences (int pAssocId) { }
