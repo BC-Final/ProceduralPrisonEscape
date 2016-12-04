@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Net.Sockets;
 
-public class NetworkPlayer : MonoBehaviour, INetworked {
+public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private float _transformUpdateInterval;
 	private Timers.Timer _updateTimer;

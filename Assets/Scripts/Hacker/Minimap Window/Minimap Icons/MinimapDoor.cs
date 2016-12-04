@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Gamelogic.Extensions;
 
 public class MinimapDoor : MonoBehaviour {
 
@@ -31,11 +32,12 @@ public class MinimapDoor : MonoBehaviour {
 	/// <summary>
 	/// Sets the associated door and subscribes to is state update
 	/// </summary>
-	public HackerDoor AccociatedDoor {
+	public HackerDoor AssociatedDoor {
 		set {
 			_associatedDoor = value;
 			_associatedDoor.State.OnValueChange += () => changedState();
 			_associatedDoor.Accessible.OnValueChange += () => changedState();
+			_associatedDoor.Hacked.OnValueChange += () => changedState();
 			changedState();
 		}
 	}
@@ -74,21 +76,21 @@ public class MinimapDoor : MonoBehaviour {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
 					if (!_associatedDoor.Accessible.Value) {
-						renderer.sprite = lockedOpenSprite;
-					} else if(_associatedDoor.Hacked){
-						renderer.sprite = hackedOpenSprite;
+						spriteRenderer.sprite = lockedOpenSprite;
+					} else if(_associatedDoor.Hacked.Value){
+						spriteRenderer.sprite = hackedOpenSprite;
 					}else {
-						renderer.sprite = neutralOpenSprite;
+						spriteRenderer.sprite = neutralOpenSprite;
                     }
 					break;
 				}
 			case DoorState.Closed: {
 					if (!_associatedDoor.Accessible.Value) {
-						renderer.sprite = lockedClosedSprite;
-					} else if (_associatedDoor.Hacked) {
-						renderer.sprite = hackedClosedSprite;
+						spriteRenderer.sprite = lockedClosedSprite;
+					} else if (_associatedDoor.Hacked.Value) {
+						spriteRenderer.sprite = hackedClosedSprite;
 					}else {
-						renderer.sprite = neutralClosedSprite;
+						spriteRenderer.sprite = neutralClosedSprite;
 					}
 					break;
 				}

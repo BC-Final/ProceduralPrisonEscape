@@ -18,8 +18,10 @@ public abstract class AbstractNode : MonoBehaviour {
 
 	[SerializeField]
 	private float _hackTime;
-	private bool _hacked;
-	public bool Hacked { get { return _hacked; } }
+	private ObservedValue<bool> _hacked = new ObservedValue<bool>(false);
+	public ObservedValue<bool> Hacked {
+		get { return _hacked; }
+	}
 
 	private bool _protected;
 	public bool Protected { get { return _protected; } }
@@ -151,11 +153,11 @@ public abstract class AbstractNode : MonoBehaviour {
 	}
 
 	private IEnumerator ToggleHack (AbstractAvatar pAvatar) {
-		_moveTweener = transform.DORotate(new Vector3(0, 0, _hacked ? 0.0f : 45.0f), _hackTime);
+		_moveTweener = transform.DORotate(new Vector3(0, 0, _hacked.Value ? 0.0f : 45.0f), _hackTime);
 		yield return new WaitForSeconds(_hackTime);
-		_hacked = !_hacked;
+		_hacked.Value = !_hacked.Value;
 
-		if (_hacked) {
+		if (_hacked.Value) {
 			GotHacked();
 		} else {
 			GotUnhacked();

@@ -65,7 +65,7 @@ public class HackerAvatar : AbstractAvatar {
 	/// Starts hacking the current node, when corresponding key is pressed
 	/// </summary>
 	protected override void idle() {
-		if (Input.GetKeyDown(KeyCode.Space) && !_currentNode.Hacked) {
+		if (Input.GetKeyDown(KeyCode.Space) && !_currentNode.Hacked.Value) {
 			if (_currentNode.StartHack(this)) {
 				_state = State.Hacking;
 			}

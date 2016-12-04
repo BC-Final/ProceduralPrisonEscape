@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Net.Sockets;
 
-public class KeyCard : MonoBehaviour, IInteractable, INetworked {
+public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked {
 	private static List<KeyCard> _keyCards = new List<KeyCard>();
 	public static List<KeyCard> GetKeyCardList() { return _keyCards; }
 

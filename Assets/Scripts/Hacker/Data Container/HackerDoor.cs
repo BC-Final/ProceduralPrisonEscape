@@ -13,12 +13,12 @@ public class HackerDoor {
 	#pragma warning disable 0414
 	private MinimapDoor _minimapDoor;
 	private DoorNode _doorNode;
-	#pragma warning restore 0414
+#pragma warning restore 0414
 	#endregion
 
 	#region Private Fields
-	private ObservedValue<bool> _accessible;
 	private ObservedValue<bool> _hacked;
+	private ObservedValue<bool> _accessible;
 	private ObservedValue<DoorState> _state;
 	private int _id;
 	#endregion
@@ -26,6 +26,12 @@ public class HackerDoor {
 
 
 	#region Properties
+	public ObservedValue<bool> Hacked {
+		get { return _hacked; }
+	}
+
+
+
 	/// <summary>
 	/// Gets the network id of this door
 	/// </summary>
@@ -49,7 +55,10 @@ public class HackerDoor {
 	/// </summary>
 	public DoorNode DoorNode {
 		get { return _doorNode; }
-		set { _doorNode = value; }
+		set {
+			_doorNode = value;
+			_doorNode.Hacked.OnValueChange += () => { _hacked.Value = _doorNode.Hacked.Value; };
+		}
 	}
 
 
@@ -59,13 +68,6 @@ public class HackerDoor {
 	/// </summary>
 	public ObservedValue<bool> Accessible {
 		get { return _accessible; }
-	}
-
-	/// <summary>
-	/// Gets the accesible state of this door
-	/// </summary>
-	public bool Hacked{
-		get { return _doorNode.Hacked; }
 	}
 	#endregion
 
@@ -77,7 +79,7 @@ public class HackerDoor {
 	/// </summary>
 	/// <param name="pState"></param>
 	public void SetState (DoorState pState) {
-		if (_doorNode.Hacked) {
+		if (_doorNode.Hacked.Value) {
 			_state.Value = pState;
 			HackerPackageSender.Instance.SendDoorUpdate(this);
 		}
@@ -97,8 +99,9 @@ public class HackerDoor {
 
 		door._state = new ObservedValue<DoorState>((DoorState)pPackage.state);
 		door._accessible = new ObservedValue<bool>(false);
+		door._hacked = new ObservedValue<bool>(false);
 
-		minimapDoor.AccociatedDoor = door;
+		minimapDoor.AssociatedDoor = door;
 		door._minimapDoor = minimapDoor;
 
 		_doors.Add(door);

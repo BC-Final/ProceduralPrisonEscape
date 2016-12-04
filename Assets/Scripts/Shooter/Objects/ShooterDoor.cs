@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 
 [SelectionBase]
-public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
+public class ShooterDoor : MonoBehaviour, IInteractable, IShooterNetworked {
 	private static List<ShooterDoor> _doors = new List<ShooterDoor>();
 	public static List<ShooterDoor> GetDoorList () { return _doors; }
 

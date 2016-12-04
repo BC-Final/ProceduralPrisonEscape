@@ -16,13 +16,13 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private static BinaryFormatter _formatter;
 	private TcpListener _listener;
 
-	private static List<INetworked> _networkObjects = new List<INetworked>();
+	private static List<IShooterNetworked> _networkObjects = new List<IShooterNetworked>();
 
-	public static void RegisterNetworkObject (INetworked pObject) {
+	public static void RegisterNetworkObject (IShooterNetworked pObject) {
 		_networkObjects.Add(pObject);
 	}
 
-	public static void UnregisterNetworkedObject (INetworked pObject) {
+	public static void UnregisterNetworkedObject (IShooterNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
@@ -66,7 +66,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		FindObjectOfType<MinimapCamera>().SendUpdate();
 		//_reader.SetClients(pClient);
 
-		foreach (INetworked n in _networkObjects) {
+		foreach (IShooterNetworked n in _networkObjects) {
 			n.Initialize(pClient);
 		}
 				

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class ShooterFireWall : MonoBehaviour, IDamageable, INetworked {
+public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked {
 	private static List<ShooterFireWall> _firewalls = new List<ShooterFireWall>();
 	public static List<ShooterFireWall> GetFirewallList() { return _firewalls; }
 

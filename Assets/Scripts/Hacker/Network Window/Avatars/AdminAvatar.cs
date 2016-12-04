@@ -35,7 +35,7 @@ public class AdminAvatar : AbstractAvatar {
 					_moveTweener.SetEase(Ease.Flash);
 			}
 		} else if (_moveTweener == null || !_moveTweener.IsPlaying()) {
-			if (_currentNode.Hacked && _currentNode.StartHack(this)) {
+			if (_currentNode.Hacked.Value && _currentNode.StartHack(this)) {
 				_state = State.Hacking;
 			} else {
 				_state = State.Idle;

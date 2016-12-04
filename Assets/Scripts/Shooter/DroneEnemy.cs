@@ -5,7 +5,7 @@ using StateFramework;
 using System.Net.Sockets;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
+public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	private static List<DroneEnemy> _drones = new List<DroneEnemy>();
 	public static List<DroneEnemy> GetEnemyList () { return _drones; }
 
