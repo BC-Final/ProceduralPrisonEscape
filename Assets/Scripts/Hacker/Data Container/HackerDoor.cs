@@ -16,6 +16,7 @@ public class HackerDoor {
 
 	#region Private Fields
 	private ObservedValue<bool> _accessible;
+	private ObservedValue<bool> _hacked;
 	private ObservedValue<DoorState> _state;
 	private int _id;
 	#endregion
@@ -56,6 +57,13 @@ public class HackerDoor {
 	/// </summary>
 	public ObservedValue<bool> Accessible {
 		get { return _accessible; }
+	}
+
+	/// <summary>
+	/// Gets the accesible state of this door
+	/// </summary>
+	public bool Hacked{
+		get { return _doorNode.Hacked; }
 	}
 	#endregion
 

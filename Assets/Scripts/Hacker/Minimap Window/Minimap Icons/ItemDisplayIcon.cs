@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class ItemDisplayIcon : MonoBehaviour {
+public class ItemDisplayIcon {
 
 	private static List<ItemDisplayIcon> _items = new List<ItemDisplayIcon>();
 

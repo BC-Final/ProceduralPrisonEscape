@@ -24,13 +24,15 @@ public class CameraDragAndDrop : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (_camera.pixelRect.Contains(Input.mousePosition)) {
-			if (Input.GetMouseButtonDown(1)) {
+		if (_camera.pixelRect.Contains(Input.mousePosition))
+		{
+			if (Input.GetMouseButtonDown(1))
+			{
 				StartDragging();
 				_startPos = Input.mousePosition;
 				_startTransformPos = this.transform.position;
 			}
-
+		}
 			if (Input.GetMouseButtonUp(1)) {
 				StopDragging();
 			}
@@ -50,7 +52,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 			}
 			float perc = _currentLerpTime / _lerpTime;
 			this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
-		}
+		
 	}
 
 	public void SetTargetPos (Vector3 targetPosition) {
