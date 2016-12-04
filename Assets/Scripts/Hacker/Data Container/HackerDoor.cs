@@ -81,7 +81,7 @@ public class HackerDoor {
 	public void SetState (DoorState pState) {
 		if (_doorNode.Hacked.Value) {
 			_state.Value = pState;
-			HackerPackageSender.Instance.SendDoorUpdate(this);
+			HackerPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)_state.Value));
 		}
 	}
 

@@ -85,9 +85,11 @@ public class HackerPackageReader : MonoBehaviour {
 	private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
 		HackerDoor.CreateDoor(package);
 	}
+
 	private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
 		HackerFireWall.CreateFireWall(package);
 	}
+
 	private void ReadResponse (CustomCommands.Creation.Shots.LaserShotCreation package) {
 		MinimapManager.GetInstance().CreateShot(package);
 	}
@@ -96,28 +98,34 @@ public class HackerPackageReader : MonoBehaviour {
 	private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
+
 	private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
+
 	private void ReadResponse (CustomCommands.Creation.Items.AmmoPackCreation package) {
 		ItemDisplayIcon.CreateItem(package);
 	}
 
-	//Updates Methods
+
 	private void ReadResponse (CustomCommands.Update.DoorUpdate package) {
 		HackerDoor.UpdateDoor(package);
 	}
+
 	private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
 		HackerFireWall.UpdateFireWall(package);
 	}
+
 	private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
 		ItemDisplayIcon.UpdateItem(package);
 	}
+
 	private void ReadResponse (CustomCommands.Update.MinimapUpdate package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
 		_minimap.GetComponent<Renderer>().material.mainTexture = tex;
 	}
+
 	private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
 		MinimapManager.GetInstance().UpdateMinimapPlayer(package);
 	}
@@ -133,6 +141,9 @@ public class HackerPackageReader : MonoBehaviour {
 	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {
 		MinimapEnemy.UpdateEnemy(package);
 	}
+
+
+
 
 	//Exit Methods
 	private void OnProcessExit (object sender, EventArgs e) {

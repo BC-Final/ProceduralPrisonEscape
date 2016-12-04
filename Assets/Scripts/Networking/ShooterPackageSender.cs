@@ -69,31 +69,6 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		foreach (IShooterNetworked n in _networkObjects) {
 			n.Initialize(pClient);
 		}
-				
-		/*
-		foreach (ShooterDoor d in ShooterDoor.GetDoorList()) {
-			SendPackage(new CustomCommands.Creation.DoorCreation(d.Id, d.transform.position.x, d.transform.position.z, d.transform.rotation.eulerAngles.y, (int)d.GetDoorState()), pClient);
-		}
-
-		foreach (ShooterFireWall f in ShooterFireWall.GetFirewallList()) {
-			List<int> IDs = new List<int>();
-
-			foreach (ShooterDoor d in f.GetDoorList()) {
-				IDs.Add(d.Id);
-			}
-
-			int[] doorIDs = IDs.ToArray();
-			SendPackage(new CustomCommands.Creation.FireWallCreation(f.Id, f.transform.position.x, f.transform.position.z, f.GetState(), doorIDs), pClient);
-		}
-
-		foreach (KeyCard k in KeyCard.GetKeyCardList()) {
-			SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(k.Id, k.transform.position.x, k.transform.position.z, false));
-		}
-
-		foreach (DummyNode d in DummyNode.GetNodeList()) {
-			ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(d.GetComponent<RectTransform>().anchoredPosition.x, d.GetComponent<RectTransform>().anchoredPosition.y, d.Id, (int)d.Type, (d.AssociatedObject == null) ? 0 : d.AssociatedObject.GetComponent<INetworked>().Id, d.GetConnections().Select(x => x.Id).ToArray()));
-		}
-		*/
 
 		SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}

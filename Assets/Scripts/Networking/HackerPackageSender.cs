@@ -54,17 +54,13 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 		return _stream;
 	}
 
-	private void SendPackage (CustomCommands.AbstractPackage package) {
+	public static void SendPackage (CustomCommands.AbstractPackage package) {
 		try {
 			_formatter.Serialize(_stream, package);
 		} catch (SerializationException e) {
 			Console.WriteLine("Failed to serialize. Reason: " + e.Message);
 			throw;
 		}
-	}
-
-	public void SendDoorUpdate (HackerDoor door) {
-		SendPackage(new CustomCommands.Update.DoorUpdate(door.Id, (int)door.State.Value));
 	}
 
 	private void OnProcessExit (object sender, EventArgs e) {

@@ -9,25 +9,23 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine;
 
-public class ShooterPackageReader : MonoBehaviour
-{
+public class ShooterPackageReader : MonoBehaviour {
 	private static List<TcpClient> _clients;
 	private BinaryFormatter _formatter;
 
-	private void Start() {
+	private void Start () {
 		_clients = new List<TcpClient>();
 		_formatter = new BinaryFormatter();
 	}
 
-	private void Update() {
+	private void Update () {
 		foreach (TcpClient client in _clients) {
 			try {
 				if (client.Available != 0) {
 					CustomCommands.AbstractPackage response = _formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
 					ReadPackage(response);
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				Debug.Log("Error" + e.ToString());
 			}
 		}
@@ -94,21 +92,18 @@ public class ShooterPackageReader : MonoBehaviour
 	/// Reading incoming Packages
 	/// </summary>
 	/// <param name="package"></param>
-	private void ReadPackage(CustomCommands.AbstractPackage package)
-	{
-		if(package is CustomCommands.Update.DoorUpdate) { ReadPackage(package as CustomCommands.Update.DoorUpdate); return;}
+	private void ReadPackage (CustomCommands.AbstractPackage package) {
+		if (package is CustomCommands.Update.DoorUpdate) { ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
 
 		//If package method not found
 		Debug.Log("ERROR!!! NOT SUITABLE METHOD FOR THIS PACKAGE FOUND");
 	}
 
-	private void ReadPackage(CustomCommands.Update.DoorUpdate package)
-	{
+	private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
 		ShooterDoor.UpdateDoor(package);
 	}
 
-	public static void SetClients(List<TcpClient> clients)
-	{
+	public static void SetClients (List<TcpClient> clients) {
 		_clients = clients;
 	}
 }
