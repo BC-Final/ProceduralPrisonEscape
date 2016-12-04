@@ -6,13 +6,18 @@ public class MinimapDoor : MonoBehaviour {
 	#region Sprites
 	[Header("Sprites")]
 	[SerializeField]
-	private Sprite openSprite;
+	private Sprite neutralOpenSprite;
 	[SerializeField]
-	private Sprite openSpriteLocked;
+	private Sprite neutralClosedSprite;
 	[SerializeField]
-	private Sprite closedSprite;
+	private Sprite lockedOpenSprite;
 	[SerializeField]
-	private Sprite closedSpriteLocked;
+	private Sprite lockedClosedSprite;
+	[SerializeField]
+	private Sprite hackedOpenSprite;
+	[SerializeField]
+	private Sprite hackedClosedSprite;
+
 	#endregion
 
 	#region References
@@ -69,17 +74,21 @@ public class MinimapDoor : MonoBehaviour {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
 					if (!_associatedDoor.Accessible.Value) {
-						spriteRenderer.sprite = openSpriteLocked;
-					} else {
-						spriteRenderer.sprite = openSprite;
-					}
+						renderer.sprite = lockedOpenSprite;
+					} else if(_associatedDoor.Hacked){
+						renderer.sprite = hackedOpenSprite;
+					}else {
+						renderer.sprite = neutralOpenSprite;
+                    }
 					break;
 				}
 			case DoorState.Closed: {
 					if (!_associatedDoor.Accessible.Value) {
-						spriteRenderer.sprite = closedSpriteLocked;
-					} else {
-						spriteRenderer.sprite = closedSprite;
+						renderer.sprite = lockedClosedSprite;
+					} else if (_associatedDoor.Hacked) {
+						renderer.sprite = hackedClosedSprite;
+					}else {
+						renderer.sprite = neutralClosedSprite;
 					}
 					break;
 				}

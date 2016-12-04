@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MinimapManager : HackerMapManager {
+public class MinimapManager : MonoBehaviour {
 
 	public static MinimapManager _instance;
 
