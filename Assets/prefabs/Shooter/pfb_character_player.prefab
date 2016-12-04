@@ -8,7 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 446412}
-  - 114: {fileID: 11468090}
   - 114: {fileID: 114000012751741174}
   m_Layer: 0
   m_Name: Weapon Holder
@@ -32,6 +31,8 @@ GameObject:
   - 136: {fileID: 13635018}
   - 114: {fileID: 114000011813892628}
   - 54: {fileID: 54000010998407230}
+  - 114: {fileID: 114000012939861438}
+  - 114: {fileID: 114000010217067718}
   m_Layer: 0
   m_Name: pfb_character_player
   m_TagString: Player
@@ -127,7 +128,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 119446}
   m_LocalRotation: {x: -0, y: -0.68782973, z: -0, w: 0.72587216}
-  m_LocalPosition: {x: 15.3, y: 1, z: 7.4}
+  m_LocalPosition: {x: 22.43, y: 1, z: 27.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -87.007, z: 0}
   m_Children:
@@ -311,19 +312,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 167664}
   m_Enabled: 1
---- !u!114 &11468090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 114922}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86f935bc344c3ad48965013263773184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _aimTransform: {fileID: 407354}
-  _aimTime: 0.15
 --- !u!114 &11477922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,9 +338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clampInDegrees: {x: 360, y: 180}
-  _lockCursor: 0
-  _sensitivity: {x: 2, y: 2}
-  _smoothing: {x: 3, y: 3}
+  _lockCursor: 1
+  _sensitivity: {x: 3.25, y: 3.25}
+  _smoothing: {x: 1.2, y: 1.2}
   characterBody: {fileID: 442856}
 --- !u!124 &12402502
 Behaviour:
@@ -413,7 +401,6 @@ GameObject:
   - 20: {fileID: 20000011365843894}
   - 124: {fileID: 124000010754132612}
   - 92: {fileID: 92000012053114966}
-  - 81: {fileID: 81000010497791864}
   m_Layer: 0
   m_Name: Weapon Camera
   m_TagString: Untagged
@@ -483,13 +470,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!81 &81000010497791864
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010605477144}
-  m_Enabled: 1
 --- !u!92 &92000012053114966
 Behaviour:
   m_ObjectHideFlags: 1
@@ -497,6 +477,18 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010605477144}
   m_Enabled: 1
+--- !u!114 &114000010217067718
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4624dbb5b34e6d64781fcbe0ea5541e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transformUpdateInterval: 0
 --- !u!114 &114000011813892628
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -522,6 +514,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aimPosition: {fileID: 407354}
   _weaponSwitchSpeed: 0
+--- !u!114 &114000012939861438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 119446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11f091c1335b1e442a484702aced386d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012951694904
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,6 +16,12 @@ public class MenuManager : MonoBehaviour {
 
 	private void Start () {
 		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
+
+		if (!new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
+			_ipInputField.text = "127.0.0.1";
+			PlayerPrefs.SetString("ConnectionIP", "127.0.0.1");
+		}
+
 		_portInputField.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
 		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
 	}

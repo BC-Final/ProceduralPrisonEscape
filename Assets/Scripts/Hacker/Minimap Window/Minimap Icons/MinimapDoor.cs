@@ -40,7 +40,7 @@ public class MinimapDoor : MonoBehaviour {
 	/// <summary>
 	/// Lazily initializes renderer. This is necessary because sometimes its not initialized on start
 	/// </summary>
-	new private SpriteRenderer renderer {
+	private new SpriteRenderer renderer {
 		get {
 			if (_renderer == null) {
 				_renderer = GetComponentInChildren<SpriteRenderer>();

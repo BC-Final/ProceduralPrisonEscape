@@ -22,6 +22,9 @@ public class HackerPackageReader : MonoBehaviour {
 	private BinaryFormatter _formatter;
 	private MinimapPlayer _player;
 
+	[SerializeField]
+	private bool _showReceivedPackets;
+
 	// Use this for initialization
 	void Start () {
 		_networkManager = FindObjectOfType<HackerPackageSender>();
@@ -73,7 +76,10 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Creation.NodeCreation) { debugMessage = "Package Received : NodeCreation"; ReadResponse(package as CustomCommands.Creation.NodeCreation); }
 		if (package is CustomCommands.Creation.OnCreationEnd) { debugMessage = "Package Received : OnCreationEnd"; ReadResponse(package as CustomCommands.Creation.OnCreationEnd); }
 
-		//Debug.Log(debugMessage);
+		if (_showReceivedPackets) {
+			Debug.Log(debugMessage);
+		}
+		
 	}
 	//Creation Methods
 	private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
