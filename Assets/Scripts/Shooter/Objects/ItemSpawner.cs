@@ -11,7 +11,7 @@ public class ItemSpawner : MonoBehaviour, IInteractable {
 	public void Interact() {
 		if (_accessible && !_used) {
 			Instantiate(_spawnItemPrefab, transform.position + -transform.right / 2.0f, Quaternion.identity);
-			_used = true;
+			//_used = true;
 		}
 	}
 }

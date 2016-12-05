@@ -23,7 +23,7 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, false));
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
 	}
 
 	private void Awake() {
@@ -32,7 +32,7 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	private void OnDestroy() {
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true));
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true, this.transform.position));
 		_keyCards.Remove(this);
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
