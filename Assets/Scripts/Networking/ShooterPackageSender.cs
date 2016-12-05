@@ -32,6 +32,11 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// <param name="pObject"></param>
 	public static void RegisterNetworkObject (INetworked pObject) {
 		_networkObjects.Add(pObject);
+
+		//FIX Hacky fix for a initializing rtuntime objects over the network
+		if (_client != null) {
+			pObject.Initialize();
+		}
 	}
 	
 	/// <summary>

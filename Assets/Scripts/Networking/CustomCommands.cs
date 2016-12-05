@@ -185,6 +185,21 @@ namespace CustomCommands {
 					collected = nCollected;
 				}
 			}
+
+			[System.Serializable]
+			public class DroneBeaconCreation : AbstractPackage {
+				public int ID;
+				public float x;
+				public float z;
+				public bool collected;
+
+				public DroneBeaconCreation (int nID, float nX, float nZ, bool nCollected) {
+					ID = nID;
+					x = nX;
+					z = nZ;
+					collected = nCollected;
+				}
+			}
 		}
 		namespace Shots {
 			[System.Serializable]
