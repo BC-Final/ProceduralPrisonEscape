@@ -55,6 +55,10 @@ public class MinimapEnemy : MonoBehaviour {
 	private void SetHealth(int nHealth)
 	{
 		health = nHealth;
+        if(health <= 0)
+        {
+            GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
+        }
     }
 
 	//STATIC METHODS
