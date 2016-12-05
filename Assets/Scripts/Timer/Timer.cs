@@ -8,7 +8,7 @@ partial class Timers {
 
 		private int _loopCount;
 		private bool _useRealTime;
-		private bool _destroyOnFinish;
+		private bool _resetOnFinish;
 
 		private Action _callback;
 
@@ -28,7 +28,7 @@ partial class Timers {
 			_playing = false;
 			_killed = false;
 			_useRealTime = false;
-			_destroyOnFinish = false;
+			_resetOnFinish = false;
 
 			_currentTime = 0.0f;
 			_currentloopCount = 0;
@@ -53,7 +53,8 @@ partial class Timers {
 			return this;
 		}
 
-		public Timer Play () {
+		public Timer Start () {
+			_killed = false;
 			_playing = true;
 			return this;
 		}
@@ -63,12 +64,24 @@ partial class Timers {
 			return this;
 		}
 
-		public Timer DestroyOnFinish () {
-			_destroyOnFinish = true;
+		public Timer Reset () {
+			_currentTime = 0.0f;
 			return this;
 		}
 
-		public Timer AddCallback (Action pCallback) {
+		public Timer Stop () {
+			Pause();
+			Reset();
+			_killed = true;
+			return this;
+		}
+
+		public Timer ResetOnFinish () {
+			_resetOnFinish = true;
+			return this;
+		}
+
+		public Timer SetCallback (Action pCallback) {
 			_callback = pCallback;
 			return this;
 		}
@@ -95,6 +108,9 @@ partial class Timers {
 			get { return _killed; }
 		}
 
+		public float FinishedPercent {
+			get { return Mathf.Clamp01(_currentTime / _time); }
+		}
 
 
 		internal void Step () {
@@ -103,17 +119,20 @@ partial class Timers {
 
 				if (_currentTime >= _time) {
 					_currentloopCount++;
-					_currentTime -= _time;
 
 					_callback();
 
-					if (_loopCount < _currentloopCount && _loopCount > 0) {
+					if (_loopCount < _currentloopCount && _loopCount >= 0) {
+						_currentTime = _time;
 						_playing = false;
 						_killed = true;
 
-						if (_destroyOnFinish) {
-							Timers.Instance.UnregisterTimer(this);
+						if (_resetOnFinish) {
+							Stop();
+							//Timers.Instance.UnregisterTimer(this);
 						}
+					} else {
+						_currentTime -= _time;
 					}
 				}
 			}

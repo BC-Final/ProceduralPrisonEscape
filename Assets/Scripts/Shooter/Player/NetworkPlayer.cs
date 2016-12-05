@@ -28,8 +28,8 @@ public class NetworkPlayer : MonoBehaviour, INetworked {
 			.SetTime(_transformUpdateInterval)
 			.SetLoop(-1)
 			.UseRealTime(true)
-			.AddCallback(() => ShooterPackageSender.SendPackage(new CustomCommands.Update.PlayerPositionUpdate(transform.position, transform.rotation.eulerAngles.y)))
-			.Play();
+			.SetCallback(() => ShooterPackageSender.SendPackage(new CustomCommands.Update.PlayerPositionUpdate(transform.position, transform.rotation.eulerAngles.y)))
+			.Start();
 	}
 
 	private void OnDestroy () {

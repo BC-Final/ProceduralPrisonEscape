@@ -103,7 +103,7 @@ public abstract class AbstractAvatar : MonoBehaviour {
 		}
 
 		if (_state == State.Hacking) {
-			_currentNode.AbortHack();
+			_currentNode.AbortHack(this);
 			_state = State.Idle;
 		}
 

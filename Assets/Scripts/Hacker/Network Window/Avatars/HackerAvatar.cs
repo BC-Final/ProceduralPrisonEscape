@@ -17,6 +17,8 @@ public class HackerAvatar : AbstractAvatar {
 			_targetNode = pNode;
 			_path = AstarPathFinder.CalculatePath(_currentNode, _targetNode);
 			_state = State.Moving;
+			_currentNode.CurrentNode = false;
+			_currentNode.ToggleContext(false, this);
 		}
 	}
 	
@@ -57,6 +59,8 @@ public class HackerAvatar : AbstractAvatar {
 			}
 		} else if (_moveTweener == null || !_moveTweener.IsPlaying()) {
 			_state = State.Idle;
+			_currentNode.CurrentNode = true;
+			_currentNode.ToggleContext(true, this);
 		}
 	}
 
@@ -65,20 +69,13 @@ public class HackerAvatar : AbstractAvatar {
 	/// Starts hacking the current node, when corresponding key is pressed
 	/// </summary>
 	protected override void idle() {
-		if (Input.GetKeyDown(KeyCode.Space) && !_currentNode.Hacked.Value) {
-			if (_currentNode.StartHack(this)) {
-				_state = State.Hacking;
-			}
-		}
+		
 	}
 	/// <summary>
-	/// This does nothing yet, but should abort hacking.
+	/// Aborts hacking.
 	/// </summary>
 	protected override void hacking() {
-		if (Input.GetKeyDown(KeyCode.Space)) {
-			_currentNode.AbortHack();
-			_state = State.Idle;
-		}
+
 	}
 
 	/// <summary>
@@ -94,8 +91,10 @@ public class HackerAvatar : AbstractAvatar {
 	}
 
 	public void StartHack() {
-		if (_currentNode.StartHack(this)) {
-			_state = State.Hacking;
-		}
+		_state = State.Hacking;
+	}
+
+	public void AbortHack () {
+		_state = State.Idle;
 	}
 }

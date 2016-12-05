@@ -37,9 +37,16 @@ public abstract class AbstractNode : MonoBehaviour {
 
 	private Tweener _moveTweener;
 
-	private Coroutine _hackCoroutine;
+	private Timers.Timer _feedbackTimer;
+	protected Timers.Timer _hackTimer;
+	private Timers.Timer _protectTimer;
 
 	private SecurityNode _nearestSecurityNode;
+
+	protected bool _currentNode;
+	public bool CurrentNode {
+		set { _currentNode = value; }
+	}
 
 	private int _id;
 	public int Id {
@@ -110,12 +117,25 @@ public abstract class AbstractNode : MonoBehaviour {
 		}
 
 		if (_feedbackIntervall != 0.0f) {
-			StartCoroutine(sendFeedback());
+			//TODO Start feedbackTimer;
+			//StartCoroutine(sendFeedback());
+			_feedbackTimer = Timers.CreateTimer().SetTime(_feedbackIntervall).SetLoop(-1).SetCallback(() => sendFeedback()).Start();
 		}
+
+		_hackTimer = Timers.CreateTimer().SetTime(_hackTime);
+		_protectTimer = Timers.CreateTimer().SetTime(_adminProtectTime).SetCallback(() => { _protected = false; }).ResetOnFinish();
+	}
+
+	protected virtual void OnGUI () {
+		
 	}
 
 	protected virtual void OnDestroy () {
 		_graph.Remove(this);
+	}
+
+	public virtual void ToggleContext (bool pShow, HackerAvatar pAvatar) {
+		
 	}
 
 
@@ -134,24 +154,49 @@ public abstract class AbstractNode : MonoBehaviour {
 
 
 	public bool StartHack (AbstractAvatar pAvatar) {
-		if (pAvatar is AdminAvatar || _hackable && !_protected) {
-			_hackCoroutine = StartCoroutine(ToggleHack(pAvatar));
+		if (_hackTimer.IsPlaying) {
+			AbortHack(pAvatar);
+			return false;
+		}
+
+		if (pAvatar is HackerAvatar) {
+			(pAvatar as HackerAvatar).StartHack();
+		}
+
+		if (pAvatar is AdminAvatar || _hackable && !_protected && !_hacked.Value) {
+			_hackTimer.SetCallback(() => finishedHack(pAvatar)).Reset().Start();
+			_moveTweener = transform.DORotate(new Vector3(0, 0, _hacked.Value ? 0.0f : 45.0f), _hackTime);
 			return true;
 		}
+
+		
+		//TODO Start Hacking
+		//if (pAvatar is AdminAvatar || _hackable && !_protected) {
+		//	_hackCoroutine = StartCoroutine(ToggleHack(pAvatar));
+		//	return true;
+		//}
 
 		return false;
 	}
 
-	public void AbortHack () {
+	public void AbortHack (AbstractAvatar pAvatar) {
 		_moveTweener.Kill();
 		_moveTweener = transform.DORotate(Vector3.zero, 0.5f);
-		Protect();
+		//Protect();
 
-		if (_hackCoroutine != null) {
-			StopCoroutine(_hackCoroutine);
+		_hackTimer.Stop();
+
+		if (pAvatar is HackerAvatar) {
+			(pAvatar as HackerAvatar).StartHack();
 		}
+
+		///TODO Abort Hack
+		//if (_hackCoroutine != null) {
+		//	StopCoroutine(_hackCoroutine);
+		//}
 	}
 
+	/*
 	private IEnumerator ToggleHack (AbstractAvatar pAvatar) {
 		_moveTweener = transform.DORotate(new Vector3(0, 0, _hacked.Value ? 0.0f : 45.0f), _hackTime);
 		yield return new WaitForSeconds(_hackTime);
@@ -165,12 +210,28 @@ public abstract class AbstractNode : MonoBehaviour {
 
 		pAvatar.HackFinished();
 	}
+	*/
+
+	private void finishedHack (AbstractAvatar pAvatar) {
+		_hacked.Value = !_hacked.Value;
+
+		if (_hacked.Value) {
+			GotHacked();
+		} else {
+			GotUnhacked();
+		}
+
+		pAvatar.HackFinished();
+	}
 
 
 	public void Protect () {
-		StartCoroutine(protect());
+		_protectTimer.Start();
+		//TODO Start protect timer
+		//StartCoroutine(protect());
 	}
 
+	/*
 	private IEnumerator protect () {
 		_protected = true;
 		transform.localScale = new Vector3(1.5f, 1.5f, 1.0f);
@@ -178,13 +239,21 @@ public abstract class AbstractNode : MonoBehaviour {
 		yield return new WaitForSeconds(_adminProtectTime);
 		_protected = false;
 	}
+	*/
 
+	private void sendFeedback () {
+		GameObject go = (Instantiate(HackerReferenceManager.Instance.FeedbackPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
+		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
+	}
+
+	/*
 	private IEnumerator sendFeedback () {
 		yield return new WaitForSeconds(_feedbackIntervall);
 		GameObject go = (Instantiate(HackerReferenceManager.Instance.FeedbackPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
 		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 		StartCoroutine(sendFeedback());
 	}
+	*/
 
 	public virtual void SetReferences (int pAssocId) { }
 

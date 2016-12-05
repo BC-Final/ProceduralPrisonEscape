@@ -68,7 +68,7 @@ public class NetworkWindow : MonoBehaviour {
 			_nodes.Add(an);
 
 			RectTransform rt = go.GetComponent<RectTransform>();
-			rt.anchoredPosition = new Vector2(nc.X, nc.Y);
+			rt.anchoredPosition3D = new Vector3(nc.X, nc.Y, 0.0f);
 		}
 
 		foreach (CustomCommands.Creation.NodeCreation nc in _nodeData) {

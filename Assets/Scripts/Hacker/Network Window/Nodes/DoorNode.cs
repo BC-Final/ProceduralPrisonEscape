@@ -16,5 +16,35 @@ public class DoorNode : AbstractNode {
 		_associatedDoor.Accessible.Value = pAccessible;
 	}
 
+	public override void ToggleContext (bool pShow, HackerAvatar pAvatar) {
+		base.ToggleContext(pShow, pAvatar);
+
+		DoorContext.Instance.gameObject.SetActive(pShow);
+
+		if (pShow) {
+			(DoorContext.Instance as DoorContext).RegisterHackButton(() => StartHack(pAvatar));
+			(DoorContext.Instance as DoorContext).RegisterToggleButton(() => toggleDoor());
+		} else {
+			(DoorContext.Instance as DoorContext).UnregisterHackButton();
+			(DoorContext.Instance as DoorContext).UnregisterToggleButton();
+		}
+	}
+
+	private void toggleDoor () {
+		if (_associatedDoor.State.Value == DoorState.Open) {
+			_associatedDoor.SetState(DoorState.Closed);
+		} else {
+			_associatedDoor.SetState(DoorState.Open);
+		}
+	}
+
+	protected override void OnGUI () {
+		base.OnGUI();
+
+		if (_currentNode) {
+			DoorContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
+		}
+	}
+
 	//TODO OnDoubleClick to map icon
 }
