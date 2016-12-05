@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Sockets;
 
 [SelectionBase]
-public class DummyNode : MonoBehaviour, IShooterNetworked {
+public class DummyNode : MonoBehaviour, INetworked {
 	private static List<DummyNode> _nodes = new List<DummyNode>();
 	public static List<DummyNode> GetNodeList () { return _nodes; }
 
@@ -32,11 +32,11 @@ public class DummyNode : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private List<DummyNode> _connections;
 
-	public void Initialize (TcpClient pClient) {
-		int assocObjectId = (_associatedObject == null) ? 0 : _associatedObject.GetComponent<IShooterNetworked>().Id;
+	public void Initialize () {
+		int assocObjectId = (_associatedObject == null) ? 0 : _associatedObject.GetComponent<INetworked>().Id;
 		int[] connectionIds = _connections.Select (x => x.Id).ToArray ();
 		RectTransform trans = GetComponent<RectTransform>();
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(trans.anchoredPosition.x, trans.anchoredPosition.y, Id, (int)_type, assocObjectId, connectionIds), pClient);
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.NodeCreation(trans.anchoredPosition.x, trans.anchoredPosition.y, Id, (int)_type, assocObjectId, connectionIds));
 	}
 
 	private void Awake () {

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 
 [SelectionBase]
-public class ShooterDoor : MonoBehaviour, IInteractable, IShooterNetworked {
+public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	private static List<ShooterDoor> _doors = new List<ShooterDoor>();
 	public static List<ShooterDoor> GetDoorList () { return _doors; }
 
@@ -21,8 +21,8 @@ public class ShooterDoor : MonoBehaviour, IInteractable, IShooterNetworked {
 		}
 	}
 
-	public void Initialize (TcpClient pClient) {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_currentDoorState), pClient);
+	public void Initialize () {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_currentDoorState));
 	}
 
 	[SerializeField]

@@ -9732,6 +9732,11 @@ Prefab:
       propertyPath: _player
       value: 
       objectReference: {fileID: 225824612}
+    - target: {fileID: 114000011284455066, guid: 696a720d012aa6942ac7875199262639,
+        type: 2}
+      propertyPath: _showReceivedPackets
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 696a720d012aa6942ac7875199262639, type: 2}
   m_IsPrefabParent: 0

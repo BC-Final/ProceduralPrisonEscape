@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Net.Sockets;
 
-public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
+public class NetworkPlayer : MonoBehaviour, INetworked {
 	[SerializeField]
 	private float _transformUpdateInterval;
 	private Timers.Timer _updateTimer;
@@ -18,7 +18,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 		}
 	}
 
-	public void Initialize (TcpClient pClient) {
+	public void Initialize () {
 		//TODO Create init package??
 	}
 

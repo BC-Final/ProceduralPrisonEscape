@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Net.Sockets;
 
-public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked {
+public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	private static List<KeyCard> _keyCards = new List<KeyCard>();
 	public static List<KeyCard> GetKeyCardList() { return _keyCards; }
 
@@ -22,8 +22,8 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked {
 		}
 	}
 
-	public void Initialize (TcpClient pClient) {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, false), pClient);
+	public void Initialize () {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, false));
 	}
 
 	private void Awake() {

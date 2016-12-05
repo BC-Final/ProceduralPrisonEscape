@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked {
+public class ShooterFireWall : MonoBehaviour, IDamageable, INetworked {
 	private static List<ShooterFireWall> _firewalls = new List<ShooterFireWall>();
 	public static List<ShooterFireWall> GetFirewallList() { return _firewalls; }
 
@@ -24,8 +24,8 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked {
 	//Graphical Stuff
 	private ParticleSystem _particleSystem;
 
-	public void Initialize (TcpClient pClient) {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.FireWallCreation(Id, transform.position.x, transform.position.z, _destroyed), pClient);
+	public void Initialize () {
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.FireWallCreation(Id, transform.position.x, transform.position.z, _destroyed));
 	}
 
 	private void Awake() {

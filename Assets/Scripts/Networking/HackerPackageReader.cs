@@ -33,14 +33,14 @@ public class HackerPackageReader : MonoBehaviour {
 	void Update () {
 		try {
 			if (HackerPackageSender.Host.Available != 0) {
-				CustomCommands.AbstractPackage response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Stream) as CustomCommands.AbstractPackage;
+				CustomCommands.AbstractPackage response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as CustomCommands.AbstractPackage;
 				ReadResponse(response);
 			}
 		} catch (Exception e) {
 			Debug.LogError("Error" + e.ToString());
 		}
 	}
-	//Message Management
+	
 	/// <summary>
 	/// Incoming Packages are read here. They first enter as Abstrac Package.
 	/// Then they get transmitted to another method that is made for their specific package.
@@ -67,6 +67,10 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Creation.Shots.LaserShotCreation) { debugMessage = "Package Received : LaserShotCreation"; ReadResponse(package as CustomCommands.Creation.Shots.LaserShotCreation); }
 		if (package is CustomCommands.Creation.NodeCreation) { debugMessage = "Package Received : NodeCreation"; ReadResponse(package as CustomCommands.Creation.NodeCreation); }
 		if (package is CustomCommands.Creation.OnCreationEnd) { debugMessage = "Package Received : OnCreationEnd"; ReadResponse(package as CustomCommands.Creation.OnCreationEnd); }
+
+		if (package is CustomCommands.ServerShutdownPackage) { debugMessage = "Package Received : ServerShutdownPackage"; ReadResponse(package as CustomCommands.ServerShutdownPackage); }
+		if (package is CustomCommands.RefuseConnectionPackage) { debugMessage = "Package Received : RefuseConnectionPackage"; ReadResponse(package as CustomCommands.RefuseConnectionPackage); }
+
 
 		if (_showReceivedPackets) {
 			Debug.Log(debugMessage);
@@ -132,6 +136,15 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {
 		MinimapEnemy.UpdateEnemy(package);
+	}
+
+
+	private void ReadResponse (CustomCommands.RefuseConnectionPackage package) {
+		HackerPackageSender.SilentlyDisconnect();
+	}
+
+	private void ReadResponse (CustomCommands.ServerShutdownPackage package) {
+		HackerPackageSender.SilentlyDisconnect();
 	}
 }
 

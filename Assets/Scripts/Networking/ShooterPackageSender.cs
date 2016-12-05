@@ -11,20 +11,18 @@ using Gamelogic.Extensions;
 
 public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	//Networking Variables
-	private static List<IShooterNetworked> _networkObjects = new List<IShooterNetworked>();
+	private static List<INetworked> _networkObjects = new List<INetworked>();
 
-	private static List<TcpClient> _clients = new List<TcpClient>();
-	private static List<TcpClient> _clientsToBeDeleted = new List<TcpClient>();
+	private static TcpClient _client;
 	private static BinaryFormatter _formatter = new BinaryFormatter();
 
-	public static List<TcpClient> Clients {
-		get { return _clients; }
+	public static TcpClient Client {
+		get { return _client; }
 	}
 
 	public static BinaryFormatter Formatter {
 		get { return _formatter; }
 	}
-
 
 	private TcpListener _listener;
 
@@ -32,7 +30,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Adds a networked object to the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void RegisterNetworkObject (IShooterNetworked pObject) {
+	public static void RegisterNetworkObject (INetworked pObject) {
 		_networkObjects.Add(pObject);
 	}
 	
@@ -40,7 +38,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Removes a networked object from the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void UnregisterNetworkedObject (IShooterNetworked pObject) {
+	public static void UnregisterNetworkedObject (INetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
@@ -59,7 +57,6 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	public void Update () {
 		CheckForNewClients();
-		DeleteBadClients();
 	}
 
 	/// <summary>
@@ -68,28 +65,29 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private void CheckForNewClients () {
 		if (_listener.Pending()) {
 			TcpClient connectingClient = _listener.AcceptTcpClient();
-			_clients.Add(connectingClient);
-			Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
-			ClientInitialize(connectingClient);
+
+			if (_client == null) {
+				_client = connectingClient;
+				Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
+				ClientInitialize(connectingClient);
+			} else {
+				sendPackage(new CustomCommands.RefuseConnectionPackage(), connectingClient);
+				connectingClient.GetStream().Close();
+				connectingClient.Close();
+				Debug.Log("Connecting client refused.");
+			}
 		}
 	}
 
-	private void DeleteBadClients () {
-		foreach (TcpClient client in _clientsToBeDeleted) {
-			Debug.Log("Deleting Client");
-			_clients.Remove(client);
-			disconnectClient(client);
-		}
-		_clientsToBeDeleted.Clear();
-	}
-
-	//Player Management
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pClient"></param>
 	private void ClientInitialize (TcpClient pClient) {
 		FindObjectOfType<MinimapCamera>().SendUpdate();
-		//_reader.SetClients(pClient);
 
-		foreach (IShooterNetworked n in _networkObjects) {
-			n.Initialize(pClient);
+		foreach (INetworked n in _networkObjects) {
+			n.Initialize();
 		}
 
 		SendPackage(new CustomCommands.Creation.OnCreationEnd());
@@ -100,55 +98,45 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	/// <param name="package">Sendable data</param>
 	public static void SendPackage (CustomCommands.AbstractPackage package) {
-		foreach (TcpClient client in _clients) {
-			SendPackage(package, client);
-		}
+		sendPackage(package, _client);
 	}
 
 	/// <summary>
-	/// Sends a pckage to a specific client
+	/// Sends a package to all known clients
 	/// </summary>
-	/// <param name="package">Sendable Data</param>
-	/// <param name="client"></param>
-	public static void SendPackage (CustomCommands.AbstractPackage package, TcpClient client) {
-		try {
-			if (client.Client.Connected) {
-				_formatter.Serialize(client.GetStream(), package);
-			} else {
-				_clientsToBeDeleted.Add(client);
-			}
-		} catch (SerializationException e) {
-			Debug.Log("Failed to serialize. Reason: " + e.Message);
-			_clientsToBeDeleted.Add(client);
-			throw;
-		}
-	}
-
-	//Connection Management
-	private static bool ClientIsConnected (TcpClient client) {
-		if (client.Client.Poll(0, SelectMode.SelectRead)) {
-			byte[] buff = new byte[1];
-			if (client.Client.Receive(buff, SocketFlags.Peek) == 0) {
-				// Client disconnected
-				return false;
-			} else {
-				return true;
+	/// <param name="package">Sendable data</param>
+	private static void sendPackage (CustomCommands.AbstractPackage package, TcpClient pClient) {
+		if (pClient != null && pClient.Client.Connected) {
+			try {
+				_formatter.Serialize(pClient.GetStream(), package);
+			} catch (Exception e) {
+				Debug.LogError("Failed to serialize. Reason: " + e.Message);
 			}
 		}
-		return true;
 	}
 
-	private static void OnProcessExit (object sender, EventArgs e) {
-		foreach (TcpClient client in _clients) {
-			disconnectClient(client);
+	private void OnApplicationQuit () {
+		SendPackage(new CustomCommands.ServerShutdownPackage());
+		disconnectClient();
+	}
+
+	#if UNITY_EDITOR
+	void OnDestroy () {
+		SendPackage(new CustomCommands.ServerShutdownPackage());
+		disconnectClient();
+	}
+#endif
+
+	public static void SilentlyDisconnect () {
+		disconnectClient();
+	}
+
+	private static void disconnectClient () {
+		if (_client != null) {
+			_client.GetStream().Close();
+			_client.Close();
+			_client = null;
 		}
-	}
-
-	private static void disconnectClient (TcpClient client) {
-		Console.WriteLine("Client Disconnected");
-		_clients.Remove(client);
-		client.GetStream().Close();
-		client.Close();
 	}
 }
 

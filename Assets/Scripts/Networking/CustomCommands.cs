@@ -207,21 +207,16 @@ namespace CustomCommands {
 	public abstract class AbstractPackage { }
 
 	[System.Serializable]
+	public class DisconnectPackage : AbstractPackage { }
+
+	[System.Serializable]
+	public class RefuseConnectionPackage : AbstractPackage { }
+
+	[System.Serializable]
+	public class ServerShutdownPackage : AbstractPackage { }
+
+	[System.Serializable]
 	public class NotImplementedMessage : AbstractPackage {
 		public string message = "Not implemented";
-	}
-
-
-	/// <summary>
-	/// OLD. Dont use. To be deleted
-	/// </summary>
-	[System.Serializable]
-	public class MinimapUpdateRequest : AbstractPackage {
-
-	}
-
-	[System.Serializable]
-	public class PlayerPositionUpdateRequest : AbstractPackage {
-
 	}
 }

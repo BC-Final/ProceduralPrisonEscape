@@ -1,11 +1,6 @@
 ﻿using System.Net.Sockets;
 
-public interface IShooterNetworked {
-	void Initialize (TcpClient pClient);
-	int Id { get; }
-}
-
-public interface IHackerNetworked {
+public interface INetworked {
 	void Initialize ();
-	int Id { get; set; }
+	int Id { get; }
 }

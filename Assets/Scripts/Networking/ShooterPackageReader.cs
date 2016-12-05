@@ -10,19 +10,22 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 public class ShooterPackageReader : MonoBehaviour {
+	[SerializeField]
+	private bool _showReceivedPackets;
+
 	/// <summary>
 	/// Read incomming packages
 	/// </summary>
 	private void Update () {
-		foreach (TcpClient client in ShooterPackageSender.Clients) {
+		if (ShooterPackageSender.Client != null) {
 			try {
-				if (client.Available != 0) {
+				if (ShooterPackageSender.Client.Available != 0) {
 					//FIX Does this really only read one package per frame???
-					CustomCommands.AbstractPackage response = ShooterPackageSender.Formatter.Deserialize(client.GetStream()) as CustomCommands.AbstractPackage;
+					CustomCommands.AbstractPackage response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as CustomCommands.AbstractPackage;
 					ReadPackage(response);
 				}
-			} catch (Exception e) {
-				Debug.Log("Error" + e.ToString());
+			} catch (SocketException e) {
+				Debug.LogError("Error" + e.ToString());
 			}
 		}
 	}
@@ -32,13 +35,22 @@ public class ShooterPackageReader : MonoBehaviour {
 	/// </summary>
 	/// <param name="package"></param>
 	private void ReadPackage (CustomCommands.AbstractPackage package) {
-		if (package is CustomCommands.Update.DoorUpdate) { ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
+		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 
-		//If package method not found
-		Debug.Log("ERROR!!! NOT SUITABLE METHOD FOR THIS PACKAGE FOUND");
+		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
+		if (package is CustomCommands.DisconnectPackage) { debugMessage = "Package Received : DisconnectPackage"; ReadPackage(package as CustomCommands.DisconnectPackage); return; }
+
+		if (_showReceivedPackets) {
+			Debug.Log(debugMessage);
+		}
 	}
 
 	private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
 		ShooterDoor.UpdateDoor(package);
+	}
+
+	private void ReadPackage (CustomCommands.DisconnectPackage package) {
+		Debug.Log("Client disconnected.");
+		ShooterPackageSender.SilentlyDisconnect();
 	}
 }

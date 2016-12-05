@@ -21,8 +21,6 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	private Transform _minimap;
 	private Texture _minimapTexture;
 
-	private static NetworkStream _stream;
-	public static NetworkStream Stream { get { return _stream; } }
 	private static TcpClient _host;
 	public static TcpClient Host { get { return _host; } }
 	private static BinaryFormatter _formatter = new BinaryFormatter();
@@ -34,7 +32,6 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetInt("ConnectionPort"));
 			int port = PlayerPrefs.GetInt("ConnectionPort");
 			_host = new TcpClient(PlayerPrefs.GetString("ConnectionIP", "127.0.0.1"), port);
-			_stream = _host.GetStream();
 		} catch (SocketException e) {
 			if (e.ErrorCode.ToString() == "10061") {
 				Debug.Log("Connection refused. Server is propably full");
@@ -47,22 +44,40 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	}
 
 	public static void SendPackage (CustomCommands.AbstractPackage package) {
-		try {
-			_formatter.Serialize(_stream, package);
-		} catch (SerializationException e) {
-			Console.WriteLine("Failed to serialize. Reason: " + e.Message);
-			throw;
+		if (_host != null) {
+			try {
+				_formatter.Serialize(_host.GetStream(), package);
+			} catch (SerializationException e) {
+				Debug.LogError("Failed to serialize. Reason: " + e.Message);
+				throw;
+			}
 		}
 	}
 
-	private void OnProcessExit (object sender, EventArgs e) {
-		//TODO Properly disconnect
-		SendPackage(new CustomCommands.NotImplementedMessage());
+	public static void SilentlyDisconnect () {
+		disconnectHost();
+
+		SceneManager.LoadScene("MenuScene");
 	}
 
 	private void OnApplicationQuit () {
-		//TODO Properly disconnect
-		SendPackage(new CustomCommands.NotImplementedMessage());
+		SendPackage(new CustomCommands.DisconnectPackage());
+		disconnectHost();
+	}
+
+	#if UNITY_EDITOR
+	private void OnDestroy () {
+		SendPackage(new CustomCommands.DisconnectPackage());
+		disconnectHost();
+	}
+	#endif
+
+	private static void disconnectHost () {
+		if (_host != null) {
+			_host.GetStream().Close();
+			_host.Close();
+			_host = null;
+		}
 	}
 }
 
