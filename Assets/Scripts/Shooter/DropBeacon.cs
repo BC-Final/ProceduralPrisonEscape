@@ -12,6 +12,11 @@ public class DropBeacon : MonoBehaviour, INetworked {
 		foreach (ShooterDoor d in _doors) {
 			d.SetRequireKeyCard();
 		}
+
+		_sendTimer = Timers.CreateTimer()
+			.SetTime(0.5f)
+			.SetCallback(() => ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(Id, false, transform.position)))
+			.SetLoop(-1);
 	}
 
 	private int _id;
@@ -28,11 +33,7 @@ public class DropBeacon : MonoBehaviour, INetworked {
 	public void Initialize () {
 		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
 
-		_sendTimer = Timers.CreateTimer()
-			.SetTime(0.5f)
-			.SetCallback(() => ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(Id, false, transform.position)))
-			.SetLoop(-1)
-			.Start();
+		_sendTimer.Start();
 	}
 
 	private void Awake () {

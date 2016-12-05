@@ -81,7 +81,7 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	private void OnTriggerExit (Collider pOther) {
 		if (pOther.GetComponent<DroneEnemy>() != null) {
-			SendStateUpdate(DoorState.Closed);
+			_fsm.SetState<DoorClosedState>();
 		}
 	}
 
