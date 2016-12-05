@@ -34,7 +34,7 @@ public class ItemDisplayIcon {
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.KeycardIcon;
 			item._icon.SetSprite(sprite);
-			item._icon.ChangeState(true);
+			item._icon.ChangeState(false);
 		}
 	}
 
