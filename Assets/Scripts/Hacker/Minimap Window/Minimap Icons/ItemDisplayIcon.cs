@@ -20,7 +20,7 @@ public class ItemDisplayIcon {
 	{
 		ItemDisplayIcon item = GetItemByID(package.ID);
 		item.ChangeState(package.collected);
-        item._icon.transform.position = new Vector3(package.x, 1, package.z);
+        item._icon.transform.position = new Vector3(package.x/MinimapManager.GetInstance().scale, 1, package.z / MinimapManager.GetInstance().scale);
 	}
 
 	public static void CreateItem(CustomCommands.Creation.Items.KeyCardCreation package)

@@ -17,7 +17,7 @@ public class MinimapManager : MonoBehaviour {
 	MinimapPlayer _player;
 
 	[SerializeField]
-	public float scale;
+	public float scale = 2;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
 	[SerializeField]
@@ -28,7 +28,7 @@ public class MinimapManager : MonoBehaviour {
 	}
 
 	public void SetScale (float scale) {
-		this.scale = scale;
+		//this.scale = scale;
 	}
 
 	public void SetSender (HackerPackageSender sender) {
