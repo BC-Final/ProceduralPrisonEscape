@@ -909,7 +909,7 @@ MonoBehaviour:
     type: 2}
   _minimapPickupIconPrefab: {fileID: 1000012495054524, guid: 1af382110b6dd9b4c8f9beed53787a39,
     type: 2}
-  scale: 0
+  scale: 2
   _camera: {fileID: 0}
   _sender: {fileID: 0}
   _iconHeight: 1
@@ -1944,7 +1944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86bbd3d7ae45efc4caea23f32b2cd358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mouseSensitivity: 50
+  _mouseSensitivity: 80
   _lerpTime: 0.2
 --- !u!1 &1871935448
 GameObject:

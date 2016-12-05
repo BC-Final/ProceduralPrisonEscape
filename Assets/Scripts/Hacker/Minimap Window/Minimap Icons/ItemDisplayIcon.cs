@@ -20,7 +20,7 @@ public class ItemDisplayIcon {
 	{
 		ItemDisplayIcon item = GetItemByID(package.ID);
 		item.ChangeState(package.collected);
-        item._icon.transform.position = new Vector3(package.x, 1, package.z);
+        item._icon.transform.position = new Vector3(package.x/MinimapManager.GetInstance().scale, 2, package.z / MinimapManager.GetInstance().scale);
 	}
 
 	public static void CreateItem(CustomCommands.Creation.Items.KeyCardCreation package)
@@ -31,7 +31,7 @@ public class ItemDisplayIcon {
 			item._id = package.ID;
             _items.Add(item);
 
-			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
+			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 2, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.KeycardIcon;
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(false);
@@ -46,7 +46,7 @@ public class ItemDisplayIcon {
 			item._id = package.ID;
 			_items.Add(item);
 
-			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
+			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 2, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.HealthpackIcon;
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
@@ -61,7 +61,7 @@ public class ItemDisplayIcon {
 			item._id = package.ID;
 			_items.Add(item);
 
-			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
+			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 2, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.AmmobagIcon;
 			item._icon.SetSprite(sprite);
 			item._icon.ChangeState(package.collected);
