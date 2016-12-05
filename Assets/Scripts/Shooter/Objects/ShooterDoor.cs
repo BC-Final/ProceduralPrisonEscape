@@ -33,12 +33,16 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	private StateMachine<AbstractDoorState> _fsm = null;
 
-	public Transform LeftDoor;
+    public GameObject FrontTerminal;
+    public GameObject RearTerminal;
+    public Transform LeftDoor;
 	public Transform RightDoor;
 
 	private void Awake () {
 		_doors.Add(this);
 		ShooterPackageSender.RegisterNetworkObject(this);
+        FrontTerminal.SetActive( false);
+        RearTerminal.SetActive(false);
 	}
 
 	private void OnDestroy () {
@@ -106,6 +110,8 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	public void SetRequireKeyCard () {
 		_requireKeyCard = true;
+        FrontTerminal.SetActive(true);
+        RearTerminal.SetActive(true);
 	}
 
 

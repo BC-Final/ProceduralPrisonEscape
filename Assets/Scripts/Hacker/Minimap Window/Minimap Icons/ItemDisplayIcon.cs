@@ -20,6 +20,7 @@ public class ItemDisplayIcon {
 	{
 		ItemDisplayIcon item = GetItemByID(package.ID);
 		item.ChangeState(package.collected);
+        item._icon.transform.position = new Vector3(package.x, 1, package.z);
 	}
 
 	public static void CreateItem(CustomCommands.Creation.Items.KeyCardCreation package)
@@ -33,7 +34,7 @@ public class ItemDisplayIcon {
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 1, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.KeycardIcon;
 			item._icon.SetSprite(sprite);
-			item._icon.ChangeState(package.collected);
+			item._icon.ChangeState(true);
 		}
 	}
 

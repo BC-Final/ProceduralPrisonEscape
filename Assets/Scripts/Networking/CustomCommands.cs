@@ -70,10 +70,14 @@ namespace CustomCommands {
 			public class ItemUpdate : AbstractPackage {
 				public int ID;
 				public bool collected;
+                public float x;
+                public float z;
 
-				public ItemUpdate (int nID, bool nCollected) {
+                public ItemUpdate (int nID, bool nCollected, Vector3 pos) {
 					ID = nID;
 					collected = nCollected;
+                    x = pos.x;
+                    z = pos.z;
 				}
 			}
 		}
@@ -144,13 +148,11 @@ namespace CustomCommands {
 				public int ID;
 				public float x;
 				public float z;
-				public bool collected;
 
-				public KeyCardCreation (int nID, float nX, float nZ, bool nCollected) {
+				public KeyCardCreation (int nID, float nX, float nZ) {
 					ID = nID;
 					x = nX;
 					z = nZ;
-					collected = nCollected;
 				}
 			}
 
