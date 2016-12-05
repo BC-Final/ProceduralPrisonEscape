@@ -22,11 +22,8 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_currentDoorState));
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_fsm.GetState().AssociatedState));
 	}
-
-	[SerializeField]
-	protected DoorState _currentDoorState;
 
 	[SerializeField]
 	public bool _requireKeyCard;
@@ -55,12 +52,7 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 		_fsm.AddState(new DoorProtectedState(this, _fsm));
 		_fsm.AddState(new DoorObstructedState(this, _fsm));
 
-		//TODO Determine Starting state
-		if (_currentDoorState == DoorState.Open) {
-			_fsm.SetState<DoorOpenState>();
-		} else if (_currentDoorState == DoorState.Closed) {
-			_fsm.SetState<DoorClosedState>();
-		};
+		_fsm.SetState<DoorClosedState>();
 	}
 
 
@@ -70,48 +62,36 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	public void Interact () {
 		_fsm.GetState().Interact();
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)GetDoorState()));
 	}
 
-	public void ChangeState (DoorState state) {
-		_currentDoorState = state;
-
-		if (state == DoorState.Open) {
-			_fsm.SetState<DoorOpenState>();
-		} else if (state == DoorState.Closed) {
-			_fsm.SetState<DoorClosedState>();
-		}
+	public void SendStateUpdate (DoorState state) {
+		ShooterPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)state));
 	}
 
 	private void OnTriggerEnter (Collider pOther) {
 		//TODO Activate only when door is not locked or protected
 		if (pOther.GetComponent<DroneEnemy>() != null) {
-			ChangeState(DoorState.Open);
+			_fsm.SetState<DoorOpenState>();
 		}
 	}
 
 	private void OnTriggerExit (Collider pOther) {
 		if (pOther.GetComponent<DroneEnemy>() != null) {
-			ChangeState(DoorState.Closed);
+			SendStateUpdate(DoorState.Closed);
 		}
-	}
-
-	public DoorState GetDoorState () {
-		return _currentDoorState;
-	}
-
-	public void SetDoorState (DoorState pStatus) {
-		_currentDoorState = pStatus;
 	}
 
 	public void SetRequireKeyCard () {
 		_requireKeyCard = true;
 	}
 
-
 	public static void UpdateDoor (CustomCommands.Update.DoorUpdate pUpdate) {
 		ShooterDoor door = GetDoorByID(pUpdate.ID);
-		door.ChangeState((DoorState)pUpdate.state);
+		AbstractDoorState newState = door._fsm.States.Find(x => x.AssociatedState == (DoorState)pUpdate.state);
+
+		if (newState.GetType() != door._fsm.GetState().GetType()) {
+			door._fsm.SetState(newState.GetType());
+		}
 	}
 
 
