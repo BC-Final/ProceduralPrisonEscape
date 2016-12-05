@@ -32,7 +32,7 @@ public class HackerPackageReader : MonoBehaviour {
 
 	void Update () {
 		try {
-			if (HackerPackageSender.Host.Available != 0) {
+			while (HackerPackageSender.Host.Available > 0) {
 				CustomCommands.AbstractPackage response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as CustomCommands.AbstractPackage;
 				ReadResponse(response);
 			}

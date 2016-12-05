@@ -7,22 +7,23 @@ public class MinimapDoor : MonoBehaviour {
 	#region Sprites
 	[Header("Sprites")]
 	[SerializeField]
-	private Sprite neutralOpenSprite;
+	private Sprite openSprite;
 	[SerializeField]
-	private Sprite neutralClosedSprite;
-	[SerializeField]
-	private Sprite lockedOpenSprite;
-	[SerializeField]
-	private Sprite lockedClosedSprite;
-	[SerializeField]
-	private Sprite hackedOpenSprite;
-	[SerializeField]
-	private Sprite hackedClosedSprite;
+	private Sprite closedSprite;
+	          
+    #endregion
 
-	#endregion
+    #region DoorColors
+    [SerializeField]
+    Color neutralColor;
+    [SerializeField]
+    Color lockedColor;
+    [SerializeField]
+    Color hackedColor;
+    #endregion
 
-	#region References
-	private SpriteRenderer _renderer;
+    #region References
+    private SpriteRenderer _renderer;
 	private HackerDoor _associatedDoor;
 	#endregion
 
@@ -75,22 +76,25 @@ public class MinimapDoor : MonoBehaviour {
 	private void changedState () {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
-					if (!_associatedDoor.Accessible.Value) {
-						spriteRenderer.sprite = lockedOpenSprite;
+                    spriteRenderer.sprite = openSprite;
+                    if (!_associatedDoor.Accessible.Value) {
+                        spriteRenderer.color = lockedColor;
 					} else if(_associatedDoor.Hacked.Value){
-						spriteRenderer.sprite = hackedOpenSprite;
+                        spriteRenderer.color = hackedColor;
 					}else {
-						spriteRenderer.sprite = neutralOpenSprite;
+                        spriteRenderer.color = neutralColor;
                     }
 					break;
 				}
 			case DoorState.Closed: {
-					if (!_associatedDoor.Accessible.Value) {
-						spriteRenderer.sprite = lockedClosedSprite;
+                    spriteRenderer.sprite = closedSprite;
+                    if (!_associatedDoor.Accessible.Value) {
+                        spriteRenderer.color = lockedColor;
 					} else if (_associatedDoor.Hacked.Value) {
-						spriteRenderer.sprite = hackedClosedSprite;
-					}else {
-						spriteRenderer.sprite = neutralClosedSprite;
+                        spriteRenderer.color = hackedColor;
+                    }
+                    else {
+                        spriteRenderer.color = neutralColor;
 					}
 					break;
 				}
