@@ -7,13 +7,13 @@ namespace StateFramework {
 		private int _searchCounter;
 
 		private GameObject _player;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private float _seeTimer;
 
 		public DroneSearchState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		}
 
 		public override void Enter() {
@@ -38,8 +38,8 @@ namespace StateFramework {
 					_searchCounter--;
 					Vector3 randomDir = Random.insideUnitSphere * _drone.SearchRadius;
 					randomDir += _drone.transform.position;
-					NavMeshHit hit;
-					NavMesh.SamplePosition(randomDir, out hit, _drone.SearchRadius, 1);
+					UnityEngine.AI.NavMeshHit hit;
+					UnityEngine.AI.NavMesh.SamplePosition(randomDir, out hit, _drone.SearchRadius, 1);
 					_agent.SetDestination(hit.position);
 				} else {
 					_fsm.SetState<DroneReturnState>();

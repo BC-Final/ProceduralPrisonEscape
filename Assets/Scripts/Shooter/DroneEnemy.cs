@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using StateFramework;
 using System.Net.Sockets;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private static List<DroneEnemy> _drones = new List<DroneEnemy>();
 	public static List<DroneEnemy> GetEnemyList () { return _drones; }

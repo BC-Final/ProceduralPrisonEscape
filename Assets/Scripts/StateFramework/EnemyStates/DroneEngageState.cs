@@ -5,14 +5,14 @@ namespace StateFramework {
 	public class DroneEngangeState : AbstractDroneState {
 		private GameObject _player;
 		private GameObject _droneModel;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private float _nextPathTick;
 
 		public DroneEngangeState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_droneModel = _drone.transform.GetChild(0).gameObject;
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		}
 
 		public override void Enter() {

@@ -4,13 +4,13 @@ using System.Collections;
 namespace StateFramework {
 	public class DroneFollowState : AbstractDroneState {
 		private GameObject _player;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private float _seeTimer;
 
 		public DroneFollowState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		}
 
 		public override void Enter() {

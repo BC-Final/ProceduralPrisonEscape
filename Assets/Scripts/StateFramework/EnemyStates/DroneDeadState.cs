@@ -3,12 +3,12 @@ using System.Collections;
 
 namespace StateFramework {
 	public class DroneDeadState : AbstractDroneState {
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 		private Rigidbody _rigidbody;
 
 
 		public DroneDeadState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 			_rigidbody = _drone.GetComponent<Rigidbody>();
 		}
 

@@ -5,7 +5,7 @@ using DG.Tweening;
 namespace StateFramework {
 	public class DroneReturnState : AbstractDroneState {
 		private GameObject _player;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private Vector3 _startPosition;
 		private Vector3 _startRotation;
@@ -14,7 +14,7 @@ namespace StateFramework {
 
 		public DroneReturnState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
 			_startPosition = _drone.transform.position;
 			_startRotation = _drone.transform.rotation.eulerAngles;
