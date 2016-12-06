@@ -78,7 +78,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 			this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 		
 
-		if (Input.GetMouseButtonUp(1)) {
+		if (_dragging && Input.GetMouseButtonUp(1)) {
 			StopDragging();
 		}
 
