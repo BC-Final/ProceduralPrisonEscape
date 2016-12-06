@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class CameraMove : MonoBehaviour {
 	[SerializeField]
@@ -12,6 +13,10 @@ public class CameraMove : MonoBehaviour {
 
 	private void Start() {
 		_camera = GetComponent<Camera>();
+	}
+
+	public void MoveTo (float x, float y) {
+		transform.DOMove(new Vector3(x, y, transform.position.z), 0.1f);
 	}
 
 	private void Update() {
