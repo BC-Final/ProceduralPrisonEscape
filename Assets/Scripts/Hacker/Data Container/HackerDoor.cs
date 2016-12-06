@@ -24,6 +24,10 @@ public class HackerDoor {
 	#endregion
 
 
+	private bool _requireKeycard;
+	public bool RequireKeycard { get { return _requireKeycard; } }
+
+
 
 	#region Properties
 	public ObservedValue<bool> Hacked {
@@ -59,6 +63,10 @@ public class HackerDoor {
 			_doorNode = value;
 			_doorNode.Hacked.OnValueChange += () => { _hacked.Value = _doorNode.Hacked.Value; };
 		}
+	}
+
+	public MinimapDoor MapDoor {
+		get { return _minimapDoor; }
 	}
 
 
@@ -97,6 +105,7 @@ public class HackerDoor {
 
 		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
 
+		door._requireKeycard = pPackage.requireKeycard;
 		door._state = new ObservedValue<DoorState>((DoorState)pPackage.state);
 		door._accessible = new ObservedValue<bool>(false);
 		door._hacked = new ObservedValue<bool>(false);

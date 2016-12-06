@@ -86,6 +86,8 @@ public class HackerAvatar : AbstractAvatar {
 		AdminAvatar av = pOther.GetComponent<AdminAvatar>();
 
 		if (av != null && av.Active) {
+			_currentNode.AbortHack(this);
+			_currentNode.ToggleContext(false, this);
 			base.OnTriggerEnter2D(pOther);
 		}
 	}

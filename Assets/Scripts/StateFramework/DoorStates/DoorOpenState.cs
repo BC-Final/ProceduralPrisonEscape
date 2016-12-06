@@ -23,7 +23,7 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
-			if (_door._requireKeyCard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door._requireKeyCard) {
+			if ((_door.RequireKeycard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door.RequireKeycard) && _door.Openable) {
 				_fsm.SetState<DoorClosedState>();
 			}
 		}

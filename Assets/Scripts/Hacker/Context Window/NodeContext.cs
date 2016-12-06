@@ -4,8 +4,6 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 public class NodeContext : MonoBehaviour {
-	public static NodeContext Instance;
-
 	private ContextProgressBar _bar;
 
 	private void Start () {
@@ -16,8 +14,7 @@ public class NodeContext : MonoBehaviour {
 		_bar.SetProgress(pProgress);
 	}
 
-	private void Awake () {
-		Instance = this;
+	protected virtual void Awake () {
 		gameObject.SetActive(false);
 	}
 }

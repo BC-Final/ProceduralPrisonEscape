@@ -153,7 +153,7 @@ public abstract class AbstractNode : MonoBehaviour {
 
 
 
-	public bool StartHack (AbstractAvatar pAvatar) {
+	public virtual bool StartHack (AbstractAvatar pAvatar) {
 		if (_hackTimer.IsPlaying) {
 			AbortHack(pAvatar);
 			return false;

@@ -27,6 +27,18 @@ public class SecurityNode : AbstractNode {
 		_knownHackedNodes.AddFirst(this);
 	}
 
+	public override void ToggleContext (bool pShow, HackerAvatar pAvatar) {
+		base.ToggleContext(pShow, pAvatar);
+
+		SecurityContext.Instance.gameObject.SetActive(pShow);
+
+		if (pShow) {
+			(SecurityContext.Instance as SecurityContext).RegisterHackButton(() => StartHack(pAvatar));
+		} else {
+			(SecurityContext.Instance as SecurityContext).UnregisterHackButton();
+		}
+	}
+
 
 
 	public override void ReceivePacket(AbstractNode pSender, Packet pPacket) {
@@ -35,6 +47,14 @@ public class SecurityNode : AbstractNode {
 			GameStateManager.Instance.Alarm = true;
 		} else {
 			//Debug.Log("What should " + this.GetType().Name + "do with " + pPacket.GetType().Name + "?");
+		}
+	}
+
+	protected override void OnGUI () {
+		base.OnGUI();
+
+		if (_currentNode) {
+			SecurityContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
 		}
 	}
 }

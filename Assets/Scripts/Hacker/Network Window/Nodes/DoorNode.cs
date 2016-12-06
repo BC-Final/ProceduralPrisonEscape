@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DoorNode : AbstractNode {
+	[SerializeField]
+	private GameObject KeycardImage;
+
 	private HackerDoor _associatedDoor;
 
 	public override void SetReferences (int pAssocId) {
 		_associatedDoor = HackerDoor.GetDoorByID(pAssocId);
 		_associatedDoor.DoorNode = this;
 		_associatedDoor.State.OnValueChange += () => changedState();
+
+		if (!_associatedDoor.RequireKeycard) {
+			KeycardImage.SetActive(false);
+		}
 	}
 
 	public override void SetAccessible (bool pAccessible) {
@@ -38,11 +46,25 @@ public class DoorNode : AbstractNode {
 		}
 	}
 
+	void OnMouseOver () {
+		if(Input.GetMouseButtonDown(1)){
+			FindObjectOfType<CameraDragAndDrop>().SetTargetPos(_associatedDoor.MapDoor.transform.position);
+		}
+	}
+
 	protected override void OnGUI () {
 		base.OnGUI();
 
 		if (_currentNode) {
 			DoorContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
+		}
+	}
+
+	public override bool StartHack (AbstractAvatar pAvatar) {
+		if (!_associatedDoor.RequireKeycard) {
+			return base.StartHack(pAvatar);
+		} else {
+			return false;
 		}
 	}
 

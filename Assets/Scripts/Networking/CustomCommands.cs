@@ -118,13 +118,15 @@ namespace CustomCommands {
 			public float z;
 			public float rotationY;
 			public int state;
+			public bool requireKeycard;
 
-			public DoorCreation (int nID, float nX, float nZ, float nRotationY, int nState) {
+			public DoorCreation (int nID, float nX, float nZ, float nRotationY, int nState, bool reqKeycard) {
 				ID = nID;
 				x = nX;
 				z = nZ;
 				rotationY = nRotationY;
 				state = nState;
+				requireKeycard = reqKeycard;
 			}
 		}
 

@@ -3,14 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DoorContext : NodeContext {
+public class SecurityContext : NodeContext {
 	[SerializeField]
 	private Button _hackButton;
 
-	[SerializeField]
-	private Button _openCloseButton;
-
-	public static DoorContext Instance;
+	public static SecurityContext Instance;
 
 	protected override void Awake () {
 		base.Awake();
@@ -22,15 +19,7 @@ public class DoorContext : NodeContext {
 		_hackButton.onClick.AddListener(pDelegate);
 	}
 
-	public void RegisterToggleButton (UnityEngine.Events.UnityAction pDelegate) {
-		_openCloseButton.onClick.AddListener(pDelegate);
-	}
-
 	public void UnregisterHackButton () {
 		_hackButton.onClick.RemoveAllListeners();
-	}
-
-	public void UnregisterToggleButton () {
-		_openCloseButton.onClick.RemoveAllListeners();
 	}
 }

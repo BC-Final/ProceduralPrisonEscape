@@ -9,7 +9,6 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	private static List<ShooterDoor> _doors = new List<ShooterDoor>();
 	public static List<ShooterDoor> GetDoorList () { return _doors; }
 
-	[SerializeField]
 	private int _id;
 	public int Id {
 		get {
@@ -22,23 +21,36 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_fsm.GetState().AssociatedState));
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DoorCreation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, (int)_fsm.GetState().AssociatedState, _requireKeyCard));
 	}
 
 	[SerializeField]
-	public bool _requireKeyCard;
+	private bool _requireKeyCard;
+	public bool RequireKeycard { get { return _requireKeyCard; } }
+
+	[SerializeField]
+	private bool _openable = false;
+	public bool Openable { get { return _openable; } }
 
 	private StateMachine<AbstractDoorState> _fsm = null;
 
     public GameObject FrontTerminal;
     public GameObject RearTerminal;
-    public Transform LeftDoor;
+
+	public GameObject FrontTerminal2;
+	public GameObject RearTerminal2;
+
+	public Transform LeftDoor;
 	public Transform RightDoor;
 
 	private void Awake () {
 		_doors.Add(this);
 		ShooterPackageSender.RegisterNetworkObject(this);
-        FrontTerminal.SetActive( false);
+
+		FrontTerminal2.SetActive(!_openable);
+		RearTerminal2.SetActive(!_openable);
+
+		FrontTerminal.SetActive(false);
         RearTerminal.SetActive(false);
 	}
 
@@ -87,7 +99,12 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 
 	public void SetRequireKeyCard () {
 		_requireKeyCard = true;
-        FrontTerminal.SetActive(true);
+		_openable = true;
+
+		FrontTerminal2.SetActive(false);
+		RearTerminal2.SetActive(false);
+
+		FrontTerminal.SetActive(true);
         RearTerminal.SetActive(true);
 	}
 
