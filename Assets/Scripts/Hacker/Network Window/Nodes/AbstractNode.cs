@@ -187,7 +187,7 @@ public abstract class AbstractNode : MonoBehaviour {
 		_hackTimer.Stop();
 
 		if (pAvatar is HackerAvatar) {
-			(pAvatar as HackerAvatar).StartHack();
+			(pAvatar as HackerAvatar).AbortHack();
 		}
 
 		///TODO Abort Hack

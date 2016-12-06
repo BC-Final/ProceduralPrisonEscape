@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _connections: []
   _hackable: 1
-  _hackTime: 7.5
+  _hackTime: 4
   _adminProtectTime: 15
   _hackedAlarmPacketChance: 0.05
   _feedbackIntervall: 0
