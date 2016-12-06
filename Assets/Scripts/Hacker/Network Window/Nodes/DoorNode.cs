@@ -49,6 +49,7 @@ public class DoorNode : AbstractNode {
 	void OnMouseOver () {
 		if(Input.GetMouseButtonDown(1)){
 			FindObjectOfType<CameraDragAndDrop>().SetTargetPos(_associatedDoor.MapDoor.transform.position);
+			FindObjectOfType<MapSelectionHighlight>().IndicateSelection(_associatedDoor.MapDoor.transform.position);
 		}
 	}
 

@@ -104,6 +104,7 @@ public class MinimapDoor : MonoBehaviour {
 	void OnMouseOver () {
 		if (Input.GetMouseButtonDown(1)) {
 			FindObjectOfType<CameraMove>().MoveTo(_associatedDoor.DoorNode.transform.position.x, _associatedDoor.DoorNode.transform.position.y);
+			FindObjectOfType<NetworkSelectionHighlight>().IndicateSelection(_associatedDoor.DoorNode.GetComponent<RectTransform>().anchoredPosition);
 		}
 	}
 
