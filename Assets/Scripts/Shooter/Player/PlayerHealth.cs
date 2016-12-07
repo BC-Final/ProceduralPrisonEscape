@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable {
 
 		if (_currentHealth == 0.0f) {
 			Debug.Log("You are dead!");
-			Debug.Break();
+			//Debug.Break();
 		}
 	
 		DOTween.To(() => _healthBar.fillAmount, x => _healthBar.fillAmount = x, _currentHealth / _maxHealth, 0.1f);
