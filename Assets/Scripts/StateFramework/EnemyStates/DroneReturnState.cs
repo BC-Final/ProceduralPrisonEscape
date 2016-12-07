@@ -5,16 +5,16 @@ using DG.Tweening;
 namespace StateFramework {
 	public class DroneReturnState : AbstractDroneState {
 		private GameObject _player;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private Vector3 _startPosition;
 		private Vector3 _startRotation;
 		private float _startStoppingDistance;
+		private float _seeTimer;
 
-
-		public DroneReturnState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneReturnState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 
 			_startPosition = _drone.transform.position;
 			_startRotation = _drone.transform.rotation.eulerAngles;
@@ -25,11 +25,18 @@ namespace StateFramework {
 		public override void Enter() {
 			_agent.stoppingDistance = 0.0f;
 			_agent.SetDestination(_startPosition);
+			_seeTimer = 0.0f;
 		}
 
 		public override void Step() {
-			if (canSeeObject(_player, _drone.SeeRange)) {
-				_fsm.SetState<DroneEngangeState>();
+			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+				_seeTimer += Time.deltaTime;
+
+				if (_seeTimer > _drone.IdleReactionTime) {
+					_fsm.SetState<DroneEngangeState>();
+				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 			if (_agent.velocity.magnitude == 0.0f) {

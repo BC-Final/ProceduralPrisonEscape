@@ -10,6 +10,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/HackerScene.unity
   - enabled: 1
-    path: Assets/scenes/NetworkedShooterTestScene.unity
-  - enabled: 1
-    path: Assets/scenes/PresentationScene.unity
+    path: Assets/Scenes/ShooterScene.unity

@@ -4,11 +4,12 @@ using DG.Tweening;
 
 namespace StateFramework {
 	public class DoorClosedState : AbstractDoorState {
-		public DoorClosedState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) { }
-
+		public DoorClosedState (ShooterDoor pDoor, StateMachine<AbstractDoorState> pFsm) : base(pDoor, pFsm) {
+			AssociatedState = DoorState.Closed;
+		}
 
 		public override void Enter () {
-			_door.SetDoorState(DoorState.Closed);
+			_door.SendStateUpdate(AssociatedState);
 
 			_door.RightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f);
 			_door.LeftDoor.DOLocalMove(new Vector3(-0.625f, 1.25f, 0.0f), 1.0f);
@@ -22,10 +23,8 @@ namespace StateFramework {
 		public override void Exit () { }
 
 		public override void Interact () {
-			if (_door.GetFireWall() == null || _door.GetFireWall().GetState()) {
-				if (_door._requireKeyCard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door._requireKeyCard) {
-					_fsm.SetState<DoorOpenState>();
-				}
+			if ((_door.RequireKeycard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door.RequireKeycard) && _door.Openable) {
+				_fsm.SetState<DoorOpenState>();
 			}
 		}
 	}

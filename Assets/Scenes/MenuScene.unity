@@ -432,7 +432,6 @@ GameObject:
   - 222: {fileID: 380228402}
   - 114: {fileID: 380228401}
   - 114: {fileID: 380228400}
-  - 114: {fileID: 380228399}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -460,17 +459,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 130, y: 30}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &380228399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 380228397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a139eec090316449741364ff9171eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &380228400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42654cc8b3219564f9665ae01528744c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ipInputField: {fileID: 1640540275}
+  _portInputField: {fileID: 380228400}
+  _hostPortInputField: {fileID: 1673483440}
 --- !u!4 &815667158
 Transform:
   m_ObjectHideFlags: 0
@@ -1363,7 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -1482,7 +1473,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: localhost
+  m_Text: 127.0.0.1
 --- !u!222 &1512820660
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1500,7 +1491,6 @@ GameObject:
   - 222: {fileID: 1640540277}
   - 114: {fileID: 1640540276}
   - 114: {fileID: 1640540275}
-  - 114: {fileID: 1640540274}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -1528,17 +1518,6 @@ RectTransform:
   m_AnchoredPosition: {x: 65, y: 0}
   m_SizeDelta: {x: 130, y: 30}
   m_Pivot: {x: 1, y: 1}
---- !u!114 &1640540274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1640540272}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e135e033ca176f4429abf7cf5bbe4fa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1640540275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1646,7 +1625,6 @@ GameObject:
   - 222: {fileID: 1673483442}
   - 114: {fileID: 1673483441}
   - 114: {fileID: 1673483440}
-  - 114: {fileID: 1673483439}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -1674,17 +1652,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 130, y: 30}
   m_Pivot: {x: 0.5, y: 1}
---- !u!114 &1673483439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1673483437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c65a81d2957ffa469a821ae8b392552, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1673483440
 MonoBehaviour:
   m_ObjectHideFlags: 0

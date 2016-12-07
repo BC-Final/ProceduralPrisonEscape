@@ -5,7 +5,7 @@ namespace StateFramework {
 	public class DroneIdleState : AbstractDroneState {
 		private GameObject _player;
 
-		public DroneIdleState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneIdleState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 		}
 

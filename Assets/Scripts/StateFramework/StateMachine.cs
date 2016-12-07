@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace StateFramework {
 	public class StateMachine<T> where T : AbstractState {
 		private T _state = null;
 		private Dictionary<Type, T> _stateCache = new Dictionary<Type, T>();
+
+		public List<T> States {
+			get {
+				return _stateCache.Values.ToList();
+			}
+		}
 
 		public StateMachine () { }
 
@@ -18,6 +25,15 @@ namespace StateFramework {
 			}
 
 			_state = _stateCache[typeof(P)];
+			_state.Enter();
+		}
+
+		public void SetState (Type pType) {
+			if (_state != null) {
+				_state.Exit();
+			}
+
+			_state = _stateCache[pType];
 			_state.Enter();
 		}
 

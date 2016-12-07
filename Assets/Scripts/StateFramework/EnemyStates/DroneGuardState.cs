@@ -5,17 +5,25 @@ namespace StateFramework {
 	public class DroneGuardState : AbstractDroneState {
 		private GameObject _player;
 
-		public DroneGuardState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		private float _seeTimer;
+
+		public DroneGuardState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 		}
 
 		public override void Enter() {
-
+			_seeTimer = 0.0f;
 		}
 
 		public override void Step() {
-			if (canSeeObject(_player, _drone.SeeRange)) {
-				_fsm.SetState<DroneEngangeState>();
+			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+				_seeTimer += Time.deltaTime;
+
+				if (_seeTimer > _drone.IdleReactionTime) {
+					_fsm.SetState<DroneEngangeState>();
+				}
+			} else {
+				_seeTimer = 0.0f;
 			}
 
 			if (Vector3.Distance(_drone.transform.position, _player.transform.position) > _drone.QuitIdleRange) {

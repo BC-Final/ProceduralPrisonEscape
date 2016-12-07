@@ -5,14 +5,14 @@ namespace StateFramework {
 	public class DroneAttackState : AbstractDroneState {
 		private GameObject _player;
 		private GameObject _droneModel;
-		private NavMeshAgent _agent;
+		private UnityEngine.AI.NavMeshAgent _agent;
 
 		private float _nextAttackTime;
 
-		public DroneAttackState(Enemy_Drone pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
+		public DroneAttackState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_droneModel = _drone.transform.GetChild(0).gameObject;
-			_agent = _drone.GetComponent<NavMeshAgent>();
+			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
 		}
 
 		public override void Enter() {
@@ -27,7 +27,7 @@ namespace StateFramework {
 			if (_nextAttackTime - Time.time <= 0.0f) {
 				_nextAttackTime = Time.time + _drone.AttackRate;
 
-				if (_drone.AttackType == Enemy_Drone.eAttackType.Ranged) {
+				if (_drone.AttackType == DroneEnemy.eAttackType.Ranged) {
 					RaycastHit hit;
 
 					float randomRadius = UnityEngine.Random.Range(0, _drone.SpreadConeRadius);
@@ -42,11 +42,11 @@ namespace StateFramework {
 					rayDir = _drone.transform.GetChild(0).TransformDirection(rayDir.normalized);
 
 					if (Physics.Raycast(_drone.transform.GetChild(0).GetChild(1).position, rayDir, out hit, _drone.AttackRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), hit.point, Quaternion.identity) as GameObject;
+						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, hit.point, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
 
-						GameObject decal = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_bullethole"), hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
+						GameObject decal = GameObject.Instantiate(ShooterReferenceManager.Instance.BulletHole, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal)) as GameObject;
 						decal.transform.parent = hit.collider.transform;
 						GameObject.Destroy(decal, 10);
 
@@ -56,20 +56,19 @@ namespace StateFramework {
 
 						ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, hit.point));
 					} else {
-						GameObject laser = GameObject.Instantiate(Resources.Load("prefabs/shooter/pfb_laser"), _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
+						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
 						ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange));
 					}
-				} else if (_drone.AttackType == Enemy_Drone.eAttackType.Melee) {
+				} else if (_drone.AttackType == DroneEnemy.eAttackType.Melee) {
 					_player.GetComponent<IDamageable>().ReceiveDamage((_drone.transform.position - _player.transform.position).normalized, _player.transform.position, _drone.AttackDamage);
 					//TODO play attack animation
 				}
 			}
 
 
-			if(!canSeeObject(_player, _drone.AttackRange)) { 
-			//if (Vector3.Distance(_player.transform.position, _drone.transform.position) > _drone.AttackRange) {
+			if(!canSeeObject(_player, _drone.AttackRange, _drone.SeeAngle)) { 
 				_fsm.SetState<DroneEngangeState>();
 			}
 		}

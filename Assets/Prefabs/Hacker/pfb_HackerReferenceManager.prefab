@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000010072007470}
+  m_IsPrefabParent: 1
+--- !u!1 &1000010072007470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011791686526}
+  - 114: {fileID: 114000012177118110}
+  m_Layer: 0
+  m_Name: pfb_HackerReferenceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000011791686526
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010072007470}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &114000012177118110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010072007470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58392b16b3ad9fe4aa4f1376619bb178, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeycardIcon: {fileID: 21300000, guid: 4cdfb7c8780de2144b99efc958d2aeef, type: 3}
+  HealthpackIcon: {fileID: 21300000, guid: 5372e1d8d5fcc2846b9d71393cc5e430, type: 3}
+  AmmobagIcon: {fileID: 21300000, guid: 55d52a9ace751d849a29654d59dbf7f1, type: 3}
+  EnemyIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
+  LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
+  HackerAvatar: {fileID: 1000011567829896, guid: 7447c3b7f9b75f543a8bb6256b478f62,
+    type: 2}
+  AdminAvatar: {fileID: 1000013973747204, guid: 8426f27d4b30a684ba1492733bb15c6c,
+    type: 2}
+  AlarmPacket: {fileID: 1000012066582348, guid: d783e7b363f66f34f956eebccc958ad7,
+    type: 2}
+  FeedbackPacket: {fileID: 1000012423294436, guid: 06f93921059fc4b438df31b4d84125f2,
+    type: 2}
+  BaseNode: {fileID: 1000010141412244, guid: 4176fa6ec95d4e449920b17c149f3d71, type: 2}
+  DatabaseNode: {fileID: 1000013761418876, guid: 3af5372c15496244e966601fda0c8d70,
+    type: 2}
+  DoorNode: {fileID: 1000012632418164, guid: c240730b80a0c2544a07fadfc082b96e, type: 2}
+  FirewallNode: {fileID: 1000011401929188, guid: 31fa89f170e181d42a25ebfa18dd7947,
+    type: 2}
+  DispenserNode: {fileID: 1000010831291892, guid: ac3cf8e8e14c2554cbeb220ccb30c2ad,
+    type: 2}
+  HackerNode: {fileID: 1000013153228002, guid: 5ccc64d24b6b6a94caeb54ed9e48b2c4, type: 2}
+  SecurityNode: {fileID: 1000012317260312, guid: cc670b08eb0030a459dcbfecc862134b,
+    type: 2}
+  ConnenctionLine: {fileID: 1000010131538874, guid: a8971cc87d6cc6c47bd5563a00b2a23f,
+    type: 2}
