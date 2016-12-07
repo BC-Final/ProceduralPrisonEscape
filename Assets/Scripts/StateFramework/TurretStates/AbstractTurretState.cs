@@ -87,6 +87,7 @@ namespace StateFramework {
 
 					if (finalAngle <= pAngle / 2f && finalAngle >= -pAngle) {
 						RaycastHit hit;
+						//TODO This can see trough wall apparently ????
 						if (Physics.Raycast(pOrigin.position, (pObject.transform.position - pOrigin.position).normalized, out hit, _turret.SeeRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
 							if (hit.collider.GetComponent<PlayerMotor>() != null) {
 								return true;
