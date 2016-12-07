@@ -18,6 +18,10 @@ namespace StateFramework {
 			if (db != null) {
 				db.Drop();
 			}
+
+			_agent.enabled = false;
+			_rigidbody.useGravity = true;
+			_rigidbody.isKinematic = false;
 		}
 
 		public override void Step() {
@@ -29,10 +33,6 @@ namespace StateFramework {
 		}
 
 		public override void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			_agent.enabled = false;
-
-			_rigidbody.useGravity = true;
-			_rigidbody.isKinematic = false;
 			_rigidbody.AddForceAtPosition(pDirection * pDamage, pPoint);
 		}
 	}

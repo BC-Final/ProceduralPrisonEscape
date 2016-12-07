@@ -75,6 +75,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private float _postionUpdateRate = 0.5f;
 	private float _positionSendTimer;
 
+	//TODO Add Attackangle
+
 	[SerializeField]
 	private eAttackType _attackType;
 	public eAttackType AttackType { get { return _attackType; } }
@@ -160,9 +162,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 				OnDestroy();
 				_fsm.SetState<DroneDeadState>();
 			}
-
-			_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
 		}
+
+		_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
 	}
 
 	private struct HitInfo {
@@ -193,13 +195,13 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
+			UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _awarenessRadius);
+
 			if (_seeAngle < 360f) {
 				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
 				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
 				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
 				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
-				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _awarenessRadius);
-				//UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, (360.0f - _seeAngle) / 2f, 0f) * (Vector3.forward * _awarenessRadius).normalized), (360.0f - _seeAngle), _awarenessRadius);
 			} else {
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
 				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _attackRange);
