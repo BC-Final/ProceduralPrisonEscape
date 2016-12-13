@@ -16,6 +16,8 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private int _currentWeapon;
 	private Text _ammobar;
 
+	private Tweener _zoomTween;
+
 	private void Start() {
 		_weapons = new List<Weapon>();
 
@@ -60,9 +62,16 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		if (Input.GetMouseButtonDown(1)) {
 			FindObjectOfType<CrosshairDistance>().Disable();
 			_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime);
+			//TODO Get FOV from options
+			//TODO Get substracted FOW from weapon
+			Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
+			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
 		} else if (Input.GetMouseButtonUp(1)) {
 			FindObjectOfType<CrosshairDistance>().Enable();
 			_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime);
+			//TODO Get FOV from options
+			Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
 		}
 	}
 

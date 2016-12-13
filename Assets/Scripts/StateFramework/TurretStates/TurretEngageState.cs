@@ -17,7 +17,7 @@ namespace StateFramework {
 		public override void Step () {
 			rotateTowards(_player.transform);
 
-			if (Vector3.Distance(_turret.transform.position, _player.transform.position) > _turret.SeeRange) {
+			if(!canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f)) { 
 				_fsm.SetState<TurretScanState>();
 			}
 

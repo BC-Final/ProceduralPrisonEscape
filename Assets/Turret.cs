@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
 
-public class Turret : MonoBehaviour, INetworked {
+public class Turret : MonoBehaviour, IDamageable, INetworked {
 	[SerializeField]
 	private Transform _rotaryBase;
 	public Transform RotaryBase { get { return _rotaryBase; } }
@@ -149,6 +149,7 @@ public class Turret : MonoBehaviour, INetworked {
 		}
 	}
 
+#if UNITY_EDITOR
 	private void OnDrawGizmos () {
 		if (_visualizeView) {
 			Gizmos.color = Color.white;
@@ -164,18 +165,6 @@ public class Turret : MonoBehaviour, INetworked {
 				UnityEditor.Handles.DrawWireDisc(_shootPos.position, -_shootPos.up, _attackRange);
 			}
 		}
-
-		Transform pTarget = GameObject.FindWithTag("Player").transform;
-
-		Vector3 direction = pTarget.position - RotaryBase.position;
-
-		Vector3 gunDirection = this.Gun.InverseTransformDirection(direction);
-		gunDirection.x = 0;
-		gunDirection.Normalize();
-		gunDirection = this.Gun.TransformDirection(gunDirection);
-		Quaternion gunLookDirection = Quaternion.LookRotation(gunDirection, Vector3.Cross(gunDirection, this.RotaryBase.right));
-		//this.Gun.rotation = Quaternion.Slerp(this.Gun.rotation, gunLookDirection, Time.deltaTime * this.VerticalRotationSpeed);
-
-		Gizmos.DrawRay(RotaryBase.position, gunDirection);
 	}
+#endif
 }
