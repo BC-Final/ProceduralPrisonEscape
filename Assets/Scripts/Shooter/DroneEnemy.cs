@@ -75,6 +75,14 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private float _postionUpdateRate = 0.5f;
 	private float _positionSendTimer;
 
+	[SerializeField]
+	private PatrolRoute _route;
+	public PatrolRoute Route { get { return _route; } }
+
+	[SerializeField]
+	private Transform _lookPos;
+	public Transform LookPos { get { return _lookPos; } }
+
 	//TODO Add Attackangle
 
 	[SerializeField]
@@ -127,6 +135,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 
 		_fsm.AddState(new DroneIdleState(this, _fsm));
 		_fsm.AddState(new DroneGuardState(this, _fsm));
+		_fsm.AddState(new DronePatrolState(this, _fsm));
 		_fsm.AddState(new DroneEngangeState(this, _fsm));
 		_fsm.AddState(new DroneDeadState(this, _fsm));
 		_fsm.AddState(new DroneFollowState(this, _fsm));
@@ -195,16 +204,27 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
-			UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _awarenessRadius);
+			UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _awarenessRadius);
+			UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.right, _awarenessRadius);
+			UnityEditor.Handles.DrawWireDisc(_lookPos.position, (_lookPos.right + _lookPos.up).normalized, _awarenessRadius);
+			UnityEditor.Handles.DrawWireDisc(_lookPos.position, (_lookPos.right - _lookPos.up).normalized, _awarenessRadius);
 
 			if (_seeAngle < 360f) {
-				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
-				Gizmos.DrawLine(transform.position, transform.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
-				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
-				UnityEditor.Handles.DrawWireArc(transform.position, -transform.up, transform.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
+				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
+				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
+
+				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange)));
+				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(-(_seeAngle / 2f), 0f, 0f) * (Vector3.forward * _seeRange)));
+
+
+				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.up, _lookPos.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
+				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.up, _lookPos.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
+
+				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.right, _lookPos.TransformDirection(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
+				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.right, _lookPos.TransformDirection(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
 			} else {
-				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
-				UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _attackRange);
+				UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _seeRange);
+				UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _attackRange);
 			}
 		}
 	}

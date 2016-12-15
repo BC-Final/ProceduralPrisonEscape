@@ -11,10 +11,12 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			Debug.Log("Guard");
+			
 		}
 
 		public override void Step () {
+			//TODO Rotate
+
 			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f)) {
 				_fsm.SetState<TurretDeployState>();
 			}

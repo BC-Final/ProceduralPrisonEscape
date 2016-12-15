@@ -71,7 +71,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		if (_listener.Pending()) {
 			TcpClient connectingClient = _listener.AcceptTcpClient();
 
-			if (_client == null) {
+			if (_client == null || !_client.Connected) {
 				_client = connectingClient;
 				Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 				ClientInitialize(connectingClient);
@@ -89,11 +89,14 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	/// <param name="pClient"></param>
 	private void ClientInitialize (TcpClient pClient) {
+		ShooterNetworkWindow.Instance.gameObject.SetActive(true);
 		FindObjectOfType<MinimapCamera>().SendUpdate();
 
 		foreach (INetworked n in _networkObjects) {
 			n.Initialize();
 		}
+
+		ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
 		SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
@@ -111,7 +114,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	/// <param name="package">Sendable data</param>
 	private static void sendPackage (CustomCommands.AbstractPackage package, TcpClient pClient) {
-		if (pClient != null && pClient.Client.Connected) {
+		if (pClient != null && pClient.Connected) {
 			try {
 				_formatter.Serialize(pClient.GetStream(), package);
 			} catch (Exception e) {

@@ -11,7 +11,8 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			Debug.Log("Engage");
+			_turret.GetComponentInChildren<Light>().intensity = 1.5f;
+			_turret.GetComponentInChildren<Light>().color = Color.red;
 		}
 
 		public override void Step () {

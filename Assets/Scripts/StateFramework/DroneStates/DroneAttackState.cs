@@ -41,7 +41,7 @@ namespace StateFramework {
 
 					rayDir = _drone.transform.GetChild(0).TransformDirection(rayDir.normalized);
 
-					if (Physics.Raycast(_drone.transform.GetChild(0).GetChild(1).position, rayDir, out hit, _drone.AttackRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+					if (Physics.Raycast(_drone.transform.GetChild(0).GetChild(1).position, rayDir, out hit, 200.0f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
 						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, hit.point, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
@@ -68,7 +68,7 @@ namespace StateFramework {
 			}
 
 
-			if(!canSeeObject(_player, _drone.AttackRange, _drone.SeeAngle)) { 
+			if(!canSeeObject(_player, _drone.LookPos, _drone.AttackRange, _drone.SeeAngle)) { 
 				_fsm.SetState<DroneEngangeState>();
 			}
 		}

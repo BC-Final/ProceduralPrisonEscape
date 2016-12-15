@@ -11,7 +11,7 @@ namespace StateFramework {
 		public override void Enter () {
 			_door.SendStateUpdate(AssociatedState);
 
-			_door.RightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f);
+			_door.RightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f).OnComplete(() => _door.ForceField.SetActive(false));
 			_door.LeftDoor.DOLocalMove(new Vector3(-0.625f, 1.25f, 0.0f), 1.0f);
 
 			_door.RightDoor.DOScale(new Vector3(1.25f, 2.5f, 0.5f), 1.0f);

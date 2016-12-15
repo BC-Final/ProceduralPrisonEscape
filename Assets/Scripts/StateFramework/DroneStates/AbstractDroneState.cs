@@ -26,28 +26,5 @@ namespace StateFramework {
 			Quaternion lookRotation = Quaternion.LookRotation(direction);
 			_drone.transform.rotation = Quaternion.Slerp(_drone.transform.rotation, lookRotation, Time.deltaTime * _drone.RotationSpeed);
 		}
-
-		protected bool canSeeObject (GameObject pObject, float pRange, float pAngle) {
-			if (Vector3.Distance(_drone.transform.position, pObject.transform.position) < pRange) {
-				if (pAngle < 360.0f) {
-					float angle = Vector3.Angle(pObject.transform.position - _drone.transform.position, _drone.transform.forward);
-					float sign = Mathf.Sign(Vector3.Dot(pObject.transform.position - _drone.transform.position, _drone.transform.right));
-					float finalAngle = sign * angle;
-
-					if (finalAngle <= pAngle / 2f && finalAngle >= -pAngle) {
-						RaycastHit hit;
-						if (Physics.Raycast(_drone.transform.position, (pObject.transform.position - _drone.transform.position).normalized, out hit, _drone.SeeRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-							if (hit.collider.GetComponent<PlayerMotor>() != null) {
-								return true;
-							}
-						}
-					}
-				} else {
-					return true;
-				}
-			}
-
-			return false;
-		}
 	}
 }

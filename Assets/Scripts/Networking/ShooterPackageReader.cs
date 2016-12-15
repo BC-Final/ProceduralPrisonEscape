@@ -51,6 +51,6 @@ public class ShooterPackageReader : MonoBehaviour {
 
 	private void ReadPackage (CustomCommands.DisconnectPackage package) {
 		Debug.Log("Client disconnected.");
-		ShooterPackageSender.SilentlyDisconnect();
+		//ShooterPackageSender.SilentlyDisconnect();
 	}
 }

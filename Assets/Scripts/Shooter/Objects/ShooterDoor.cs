@@ -43,6 +43,8 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	public Transform LeftDoor;
 	public Transform RightDoor;
 
+	public GameObject ForceField;
+
 	private void Awake () {
 		_doors.Add(this);
 		ShooterPackageSender.RegisterNetworkObject(this);
@@ -87,6 +89,7 @@ public class ShooterDoor : MonoBehaviour, IInteractable, INetworked {
 	private void OnTriggerEnter (Collider pOther) {
 		//TODO Activate only when door is not locked or protected
 		if (pOther.GetComponent<DroneEnemy>() != null) {
+			ForceField.SetActive(true);
 			_fsm.SetState<DoorOpenState>();
 		}
 	}

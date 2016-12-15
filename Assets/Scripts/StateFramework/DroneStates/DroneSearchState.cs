@@ -23,7 +23,7 @@ namespace StateFramework {
 
 		//TODO Make the direction to choose more intelligent
 		public override void Step() {
-			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+			if (canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) || Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius) {
 				_seeTimer += Time.deltaTime;
 
 				if (_seeTimer > _drone.IdleReactionTime) {
@@ -42,7 +42,11 @@ namespace StateFramework {
 					UnityEngine.AI.NavMesh.SamplePosition(randomDir, out hit, _drone.SearchRadius, 1);
 					_agent.SetDestination(hit.position);
 				} else {
-					_fsm.SetState<DroneReturnState>();
+					if (_drone.Route == null) {
+						_fsm.SetState<DroneReturnState>();
+					} else {
+						_fsm.SetState<DronePatrolState>();
+					}
 				}
 			}
 		}

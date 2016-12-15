@@ -10,7 +10,6 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			Debug.Log("Idle");
 		}
 
 		public override void Step () {

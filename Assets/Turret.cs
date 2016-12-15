@@ -65,6 +65,14 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	public float QuitIdleRange { get { return _quitIdleRange; } }
 
 	[SerializeField]
+	private float _scanRotationSpeed;
+	public float ScanRotaionSpeed { get { return _scanRotationSpeed; } }
+
+	[SerializeField]
+	private float _scanRotationAngle;
+	public float ScanRotationAngle { get { return _scanRotationAngle; } }
+
+	[SerializeField]
 	private float _maxHealth;
 	private float _currentHealth;
 

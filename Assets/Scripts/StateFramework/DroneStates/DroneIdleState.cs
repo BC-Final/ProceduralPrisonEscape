@@ -16,7 +16,11 @@ namespace StateFramework {
 		public override void Step() {
 			if (Vector3.Distance(_drone.transform.position, _player.transform.position) < _drone.QuitIdleRange) {
 				//TODO could also swtich to patrol
-				_fsm.SetState<DroneGuardState>();
+				if (_drone.Route == null) {
+					_fsm.SetState<DroneGuardState>();
+				} else {
+					_fsm.SetState<DronePatrolState>();
+				}
 			}
 		}
 

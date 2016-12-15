@@ -29,7 +29,7 @@ namespace StateFramework {
 		}
 
 		public override void Step() {
-			if (canSeeObject(_player, _drone.SeeRange, _drone.SeeAngle) || canSeeObject(_player, _drone.AwarenessRadius, 360.0f)) {
+			if (canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) || Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius) {
 				_seeTimer += Time.deltaTime;
 
 				if (_seeTimer > _drone.IdleReactionTime) {
@@ -39,6 +39,7 @@ namespace StateFramework {
 				_seeTimer = 0.0f;
 			}
 
+			//TODO This is buggy
 			if (_agent.velocity.magnitude == 0.0f) {
 				//This might be buggy
 				_drone.transform.DORotate(_startRotation, 0.25f);

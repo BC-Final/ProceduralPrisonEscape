@@ -14,7 +14,6 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			Debug.Log("Attack");
 			_nextAttackTime = 0.0f;
 		}
 
@@ -37,7 +36,7 @@ namespace StateFramework {
 
 				rayDir = _turret.Gun.transform.TransformDirection(rayDir.normalized);
 
-				if (Physics.Raycast(_turret.ShootPos.transform.position, rayDir, out hit, _turret.AttackRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+				if (Physics.Raycast(_turret.ShootPos.transform.position, rayDir, out hit, 100.0f, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
 					//Shooting laser
 					//GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, hit.point, Quaternion.identity) as GameObject;
 					//laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_turret.ShootPos.transform.position));
@@ -68,7 +67,7 @@ namespace StateFramework {
 					//GameObject.Destroy(laser, 0.05f);
 
 					//Shoot bullet
-					GameObject tracer = GameObject.Instantiate(ShooterReferenceManager.Instance.BulletTracer, _turret.ShootPos.position, Quaternion.LookRotation(hit.point - _turret.ShootPos.position)) as GameObject;
+					GameObject tracer = GameObject.Instantiate(ShooterReferenceManager.Instance.BulletTracer, _turret.ShootPos.position, Quaternion.LookRotation(_turret.ShootPos.position + _turret.ShootPos.forward * _turret.AttackRange)) as GameObject;
 					tracer.GetComponentInChildren<ParticleSystem>().Play();
 					GameObject.Destroy(tracer, 1.0f);
 					_turret.GetComponentInChildren<ParticleSystem>().Play();

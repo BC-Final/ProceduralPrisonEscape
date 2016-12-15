@@ -21,15 +21,15 @@ public class Machinegun : Weapon {
 	}
 
 	protected override void spawnBullet(Vector3 pHitPoint) {
-		/*
+		
 		GameObject tracer = Instantiate(ShooterReferenceManager.Instance.BulletTracer, _muzzlePosition.position, Quaternion.LookRotation(pHitPoint - _muzzlePosition.position)) as GameObject;
 		tracer.GetComponentInChildren<ParticleSystem>().Play();
 		Destroy(tracer, 1.0f);
 		GetComponentInChildren<ParticleSystem>().Play();
-		*/
+		
 
-		GameObject laser = Instantiate(ShooterReferenceManager.Instance.LaserShot, pHitPoint, Quaternion.identity) as GameObject;
-		laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
+		//GameObject laser = Instantiate(ShooterReferenceManager.Instance.LaserShot, pHitPoint, Quaternion.identity) as GameObject;
+		//laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
 	}
 
 	protected override void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform) {
