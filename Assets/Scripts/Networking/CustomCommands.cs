@@ -220,6 +220,18 @@ namespace CustomCommands {
 
 			}
 		}
+        namespace Messaging
+        {
+            [System.Serializable]
+            public class TextMessage : AbstractPackage
+            {
+                public string message;
+                public TextMessage (string nMessage)
+                {
+                    message = nMessage;
+                }
+            }
+        }
 	}
 
 	[System.Serializable]

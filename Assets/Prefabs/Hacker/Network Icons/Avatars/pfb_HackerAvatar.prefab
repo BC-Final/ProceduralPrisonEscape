@@ -16,11 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000012346511708}
-  - 222: {fileID: 222000013828977674}
-  - 114: {fileID: 114000012926396736}
+  - component: {fileID: 224000012346511708}
+  - component: {fileID: 222000013828977674}
+  - component: {fileID: 114000012926396736}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -33,14 +33,15 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 224000010644477162}
-  - 222: {fileID: 222000011267658070}
-  - 114: {fileID: 114000012625043202}
-  - 114: {fileID: 114000011979627448}
-  - 58: {fileID: 58000011477034412}
-  - 50: {fileID: 50000010152878308}
+  - component: {fileID: 224000010644477162}
+  - component: {fileID: 222000011267658070}
+  - component: {fileID: 114000012625043202}
+  - component: {fileID: 114000011979627448}
+  - component: {fileID: 58000011477034412}
+  - component: {fileID: 50000010152878308}
+  - component: {fileID: 114536782958472078}
   m_Layer: 5
   m_Name: pfb_HackerAvatar
   m_TagString: Untagged
@@ -50,17 +51,20 @@ GameObject:
   m_IsActive: 1
 --- !u!50 &50000010152878308
 Rigidbody2D:
-  serializedVersion: 2
+  serializedVersion: 4
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011567829896}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_IsKinematic: 1
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -152,6 +156,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: H
+--- !u!114 &114536782958472078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011567829896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 678f85d741f6c1047882fa10a66fe489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &222000011267658070
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -173,11 +188,11 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000012346511708}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -99.9, y: 0}
@@ -192,10 +207,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010644477162}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
