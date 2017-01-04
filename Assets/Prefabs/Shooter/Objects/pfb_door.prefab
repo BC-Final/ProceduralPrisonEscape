@@ -779,7 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _requireKeyCard: 0
-  _openable: 1
+  _openable: 0
   FrontTerminal: {fileID: 1556137898846480}
   RearTerminal: {fileID: 1628150331996092}
   FrontTerminal2: {fileID: 1532581266815482}

@@ -361,14 +361,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126648614340688}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.858011, y: 0.283, z: 8.18}
+  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
+  m_LocalPosition: {x: 14.2, y: 3.497, z: 9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928176425177534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
 --- !u!4 &4366747598699198
 Transform:
   m_ObjectHideFlags: 1
@@ -1108,8 +1108,8 @@ MonoBehaviour:
   _rotaryBase: {fileID: 4838860042530440}
   _gun: {fileID: 4475632147911614}
   _seeRange: 12
-  _attackRange: 10
-  _attackAngle: 20
+  _attackRange: 12
+  _attackAngle: 35
   _fireRate: 0.1
   _damage: 10
   _deployTime: 2
@@ -1117,8 +1117,8 @@ MonoBehaviour:
   _spreadConeLength: 10
   _spreadConeRadius: 2
   _deployedReactionTime: 0.1
-  _horizontalRotationSpeed: 3
-  _verticalRotationSpeed: 3
+  _horizontalRotationSpeed: 7.5
+  _verticalRotationSpeed: 7.5
   _quitIdleRange: 100
   _scanRotationSpeed: 50
   _scanRotationAngle: 120
