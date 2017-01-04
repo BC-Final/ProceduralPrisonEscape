@@ -16,7 +16,7 @@ public class Phaser : Weapon {
 
 			}
 
-			if (Input.GetKeyDown(KeyCode.R) && !_reloading) {
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity) {
 				StartCoroutine(reload());
 			}
 		}

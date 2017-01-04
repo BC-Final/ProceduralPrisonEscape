@@ -118,8 +118,11 @@ public abstract class Weapon : MonoBehaviour {
 		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime));
 
 		yield return new WaitForSeconds(_reloadTime);
-		_magazineContent = (_reserveAmmo >= _magazineCapacity) ? _magazineCapacity : _reserveAmmo;
-		_reserveAmmo -= _magazineContent;
+
+		int diff = _magazineCapacity - _magazineContent;
+		_magazineContent = (diff > _reserveAmmo) ? _magazineContent + _reserveAmmo : _magazineCapacity;
+		_reserveAmmo = Mathf.Max(_reserveAmmo - diff, 0);
+
 		_canShoot = true;
 		_reloading = false;
 	}

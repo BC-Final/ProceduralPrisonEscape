@@ -14,7 +14,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 	private List<Weapon> _weapons;
 	private int _currentWeapon;
-	private Text _ammobar;
 
 	private Tweener _zoomTween;
 
@@ -32,9 +31,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 
 		_weapons[0].SetActive(true);
-
-		//TODO I hate using strings
-		_ammobar = GameObject.FindGameObjectWithTag("ammobar").GetComponent<Text>();
 	}
 
 	private void Update() {
@@ -80,6 +76,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void OnGUI() {
-		_ammobar.text = _weapons[_currentWeapon].MagazineContent + "/" + _weapons[_currentWeapon].MagazineCapacity + "  R:" + _weapons[_currentWeapon].ReserveAmmo + "/" + _weapons[_currentWeapon].MaxReserveAmmo;
+		AmmoBar.Instance.SetValues(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
 	}
 }
