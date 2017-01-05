@@ -108,7 +108,8 @@ public class MinimapEnemy : MonoBehaviour {
         }
         else
         {
-            MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
+            GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
+            MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
             enemy._id = package.id;
             enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
             enemy.SetNewRotation(package.rotation);
@@ -130,7 +131,8 @@ public class MinimapEnemy : MonoBehaviour {
         }
         else
         {
-            MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
+            GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.TurretIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
+            MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
             enemy._id = package.id;
             enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
             enemy.SetNewRotation(package.rotation);

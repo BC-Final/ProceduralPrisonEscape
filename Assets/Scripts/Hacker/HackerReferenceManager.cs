@@ -10,6 +10,8 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 
 	[Header("Minimap Icon Prefabs")]
 	public GameObject EnemyIcon;
+    public GameObject CameraIcon;
+    public GameObject TurretIcon;
 
 	[Header("Minimap Prefabs")]
 	public GameObject LaserShot;
