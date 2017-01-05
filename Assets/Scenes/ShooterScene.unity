@@ -2808,6 +2808,30 @@ Prefab:
       propertyPath: m_TagString
       value: WeaponCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: toggleRun
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: walkSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: runSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: slideWhenOverSlopeLimit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: airControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: jumpSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_IsPrefabParent: 0
@@ -5032,7 +5056,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.89
+      value: 28.41
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
       propertyPath: m_LocalRotation.x

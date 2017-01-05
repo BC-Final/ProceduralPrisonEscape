@@ -20,6 +20,12 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _spreadConeLength;
 
+	[SerializeField]
+	private float _aimedSpreadConeRadius;
+
+	[SerializeField]
+	private AnimationCurve _velocitySpreadRadiusCurve = new AnimationCurve(new Keyframe(0.0f, 0.0f), new Keyframe(12.0f, 1.75f));
+
 	[Header("Ammo Settings")]
 	[SerializeField]
 	protected int _magazineCapacity;
@@ -101,6 +107,8 @@ public abstract class Weapon : MonoBehaviour {
 
 	private Timers.Timer _shootTimer;
 
+	private CharacterController _controller;
+
 	protected virtual void Awake() {
 		_magazineContent = _magazineCapacity;
 		_reserveAmmo = _magazineCapacity;
@@ -109,6 +117,7 @@ public abstract class Weapon : MonoBehaviour {
 	protected virtual void Start() {
 		_mouseLook = FindObjectOfType<MouseLook>();
 		_shootTimer = Timers.CreateTimer().SetTime(_shootDelay).SetCallback(() => _canShoot = true).ResetOnFinish();
+		_controller = GetComponentInParent<CharacterController>();
 	}
 
 	public void AddAmmo(int pAmount) {
@@ -169,10 +178,14 @@ public abstract class Weapon : MonoBehaviour {
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
 	}
 
+	private float CalcFinalSpreadConeRadius () {
+		return (_aiming ? _aimedSpreadConeRadius : _spreadConeRadius) + _velocitySpreadRadiusCurve.Evaluate(_controller.velocity.magnitude);
+	}
+
 
 	private Vector3 calulateShootDirection() {
-		//TODO Modify with walkspeed, aim, and length of fire
-		float randomRadius = UnityEngine.Random.Range(0, _spreadConeRadius);
+		//TODO Modify with length of fire
+		float randomRadius = UnityEngine.Random.Range(0, CalcFinalSpreadConeRadius());
 		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
 
 		Vector3 rayDir = new Vector3(
@@ -191,7 +204,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	private void OnGUI() {
 		if (_active) {
-			FindObjectOfType<CrosshairDistance>().SetDistance(_spreadConeRadius, _spreadConeLength);
+			FindObjectOfType<CrosshairDistance>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
 		}
 	}
 
@@ -199,7 +212,7 @@ public abstract class Weapon : MonoBehaviour {
 	private void OnDrawGizmos() {
 		if (_active) {
 			UnityEditor.Handles.color = Color.white;
-			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
+			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, CalcFinalSpreadConeRadius());
 		}
 	}
 #endif
