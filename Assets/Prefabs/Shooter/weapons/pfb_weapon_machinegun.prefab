@@ -583,13 +583,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370dd77c0596bc943bda16f35f6e95c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootDamage: 10
+  _shootDamage: 30
   _shootRange: 100
-  _shootRate: 0.05
-  _spreadConeRadius: 0.6
+  _shootDelay: 0.1
+  _spreadConeRadius: 0.8
   _spreadConeLength: 10
-  _magazineCapacity: 50
-  _maxReserveAmmo: 100
+  _aimedSpreadConeRadius: 0.3
+  _velocitySpreadRadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 12
+      value: 1.75
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _magazineCapacity: 25
+  _maxReserveAmmo: 50
   _muzzlePosition: {fileID: 4000012347117206}
   _aimPosition: {fileID: 4000013570196990}
   _reloadTime: 3

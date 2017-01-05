@@ -14,7 +14,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 	private List<Weapon> _weapons;
 	private int _currentWeapon;
-	private Text _ammobar;
 
 	private Tweener _zoomTween;
 
@@ -32,9 +31,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 
 		_weapons[0].SetActive(true);
-
-		//TODO I hate using strings
-		_ammobar = GameObject.FindGameObjectWithTag("ammobar").GetComponent<Text>();
 	}
 
 	private void Update() {
@@ -59,19 +55,25 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 		//END commentpart
 
-		if (Input.GetMouseButtonDown(1)) {
-			FindObjectOfType<CrosshairDistance>().Disable();
-			_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime);
-			//TODO Get FOV from options
-			//TODO Get substracted FOW from weapon
-			Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-		} else if (Input.GetMouseButtonUp(1)) {
-			FindObjectOfType<CrosshairDistance>().Enable();
-			_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime);
-			//TODO Get FOV from options
-			Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
-			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+		if (!_weapons[_currentWeapon].Reloading) {
+			if (Input.GetMouseButtonDown(1)) {
+				FindObjectOfType<CrosshairDistance>().Disable();
+				_weapons[_currentWeapon].Aiming = true;
+				_weapons[_currentWeapon].Moving = true;
+				_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
+				//TODO Get FOV from options
+				//TODO Get substracted FOV from weapon
+				Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
+				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
+			} else if (Input.GetMouseButtonUp(1)) {
+				FindObjectOfType<CrosshairDistance>().Enable();
+				_weapons[_currentWeapon].Aiming = false;
+				_weapons[_currentWeapon].Moving = true;
+				_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
+				//TODO Get FOV from options
+				Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+			}
 		}
 	}
 
@@ -80,6 +82,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void OnGUI() {
-		_ammobar.text = _weapons[_currentWeapon].MagazineContent + "/" + _weapons[_currentWeapon].MagazineCapacity + "  R:" + _weapons[_currentWeapon].ReserveAmmo + "/" + _weapons[_currentWeapon].MaxReserveAmmo;
+		AmmoBar.Instance.SetValues(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
 	}
 }

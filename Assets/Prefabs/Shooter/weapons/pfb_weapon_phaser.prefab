@@ -485,9 +485,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootDamage: 100
   _shootRange: 100
-  _shootRate: 0.2
+  _shootDelay: 0.175
   _spreadConeRadius: 0.4
   _spreadConeLength: 10
+  _aimedSpreadConeRadius: 0.15
+  _velocitySpreadRadiusCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 12
+      value: 1.75
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _magazineCapacity: 7
   _maxReserveAmmo: 14
   _muzzlePosition: {fileID: 4000013055729954}

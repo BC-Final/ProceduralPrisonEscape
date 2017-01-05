@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour {
 	private float _shootRange;
 
 	[SerializeField]
-	private float _shootRate;
+	private float _shootDelay;
 
 	[Header("Spread Settings")]
 	[SerializeField]
@@ -19,6 +19,12 @@ public abstract class Weapon : MonoBehaviour {
 
 	[SerializeField]
 	private float _spreadConeLength;
+
+	[SerializeField]
+	private float _aimedSpreadConeRadius;
+
+	[SerializeField]
+	private AnimationCurve _velocitySpreadRadiusCurve = new AnimationCurve(new Keyframe(0.0f, 0.0f), new Keyframe(12.0f, 1.75f));
 
 	[Header("Ammo Settings")]
 	[SerializeField]
@@ -84,11 +90,24 @@ public abstract class Weapon : MonoBehaviour {
 	public int ReserveAmmo { get { return _reserveAmmo; } }
 
 	protected bool _canShoot = true;
+	public bool CanShoot { get { return _canShoot; } }
+
 	protected bool _reloading = false;
 	public bool Reloading { get { return _reloading; } }
+
+	protected bool _moving = false;
+	public bool Moving { set { _moving = value; } }
+
+	protected bool _aiming = false;
+	public bool Aiming { set { _aiming = value; } }
+
 	protected bool _active;
 
 	private MouseLook _mouseLook;
+
+	private Timers.Timer _shootTimer;
+
+	private CharacterController _controller;
 
 	protected virtual void Awake() {
 		_magazineContent = _magazineCapacity;
@@ -97,6 +116,8 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected virtual void Start() {
 		_mouseLook = FindObjectOfType<MouseLook>();
+		_shootTimer = Timers.CreateTimer().SetTime(_shootDelay).SetCallback(() => _canShoot = true).ResetOnFinish();
+		_controller = GetComponentInParent<CharacterController>();
 	}
 
 	public void AddAmmo(int pAmount) {
@@ -106,8 +127,7 @@ public abstract class Weapon : MonoBehaviour {
 	protected abstract void spawnBullet(Vector3 pHitPoint);
 	protected abstract void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform);
 
-	protected IEnumerator reload() {
-		_canShoot = false;
+	protected void reload () {
 		_reloading = true;
 
 		Sequence reloadStartSequence = DOTween.Sequence();
@@ -116,15 +136,20 @@ public abstract class Weapon : MonoBehaviour {
 		reloadStartSequence.AppendInterval(_reloadTime - 2 * _reloadMoveTime);
 		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime));
 		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime));
+		reloadStartSequence.AppendCallback(() => finishReload());
+	}
 
-		yield return new WaitForSeconds(_reloadTime);
-		_magazineContent = (_reserveAmmo >= _magazineCapacity) ? _magazineCapacity : _reserveAmmo;
-		_reserveAmmo -= _magazineContent;
-		_canShoot = true;
+	private void finishReload () {
+		int diff = _magazineCapacity - _magazineContent;
+		_magazineContent = (diff > _reserveAmmo) ? _magazineContent + _reserveAmmo : _magazineCapacity;
+		_reserveAmmo = Mathf.Max(_reserveAmmo - diff, 0);
+
 		_reloading = false;
 	}
 
-	protected IEnumerator shoot() {
+	protected void shoot () {
+		_shootTimer.Start();
+
 		_canShoot = false;
 
 		_magazineContent = Mathf.Max(_magazineContent - 1, 0);
@@ -145,20 +170,22 @@ public abstract class Weapon : MonoBehaviour {
 
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
 
-		//TODO This is very costly I think
+		//FIX This is very costly I think
 		Sequence recoilSequence = DOTween.Sequence();
 		recoilSequence.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime));
 		recoilSequence.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
-		
-		yield return new WaitForSeconds(_shootRate);
-		_canShoot = true;
 	}
 
+	private float CalcFinalSpreadConeRadius () {
+		return (_aiming ? _aimedSpreadConeRadius : _spreadConeRadius) + _velocitySpreadRadiusCurve.Evaluate(_controller.velocity.magnitude);
+	}
+
+
 	private Vector3 calulateShootDirection() {
-		//TODO Modify with walkspeed, aim, and length of fire
-		float randomRadius = UnityEngine.Random.Range(0, _spreadConeRadius);
+		//TODO Modify with length of fire
+		float randomRadius = UnityEngine.Random.Range(0, CalcFinalSpreadConeRadius());
 		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
 
 		Vector3 rayDir = new Vector3(
@@ -177,7 +204,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	private void OnGUI() {
 		if (_active) {
-			FindObjectOfType<CrosshairDistance>().SetDistance(_spreadConeRadius, _spreadConeLength);
+			FindObjectOfType<CrosshairDistance>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
 		}
 	}
 
@@ -185,7 +212,7 @@ public abstract class Weapon : MonoBehaviour {
 	private void OnDrawGizmos() {
 		if (_active) {
 			UnityEditor.Handles.color = Color.white;
-			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, _spreadConeRadius);
+			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, CalcFinalSpreadConeRadius());
 		}
 	}
 #endif

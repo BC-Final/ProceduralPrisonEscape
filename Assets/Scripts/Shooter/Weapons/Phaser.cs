@@ -10,14 +10,14 @@ public class Phaser : Weapon {
 
 	public void Update() {
 		if (_active) {
-			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
-				StartCoroutine(shoot());
+			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot && !_reloading && !_moving) {
+				shoot();
 			} else if (_magazineContent == 0) {
 
 			}
 
-			if (Input.GetKeyDown(KeyCode.R) && !_reloading) {
-				StartCoroutine(reload());
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming) {
+				reload();
 			}
 		}
 	}
@@ -25,8 +25,6 @@ public class Phaser : Weapon {
 	protected override void spawnBullet(Vector3 pHitPoint) {
 		GameObject laser = Instantiate(ShooterReferenceManager.Instance.LaserShot, pHitPoint, Quaternion.identity) as GameObject;
 		laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
-		//GameObject.Destroy(laser, 0.05f);
-
 	}
 
 	protected override void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform) {

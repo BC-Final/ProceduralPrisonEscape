@@ -105,11 +105,11 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	private void Awake () {
-		//ShooterPackageSender.RegisterNetworkObject(this);
+		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 	private void OnDestroy () {
-		//ShooterPackageSender.UnregisterNetworkedObject(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
 

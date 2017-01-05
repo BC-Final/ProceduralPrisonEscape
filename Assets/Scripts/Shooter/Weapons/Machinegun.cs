@@ -8,14 +8,14 @@ public class Machinegun : Weapon {
 
 	public void Update() {
 		if (_active) {
-			if (Input.GetMouseButton(0) && _magazineContent != 0 && _canShoot) {
-				StartCoroutine(shoot());
+			if (Input.GetMouseButton(0) && _magazineContent != 0 && _canShoot && !_reloading && !_moving) {
+				shoot();
 			} else if (_magazineContent == 0) {
 
 			}
 
-			if (Input.GetKeyDown(KeyCode.R) && !_reloading) {
-				StartCoroutine(reload());
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming) {
+				reload();
 			}
 		}
 	}
