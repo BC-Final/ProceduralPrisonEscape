@@ -95,4 +95,48 @@ public class MinimapEnemy : MonoBehaviour {
 			enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
 		}
 	}
+
+    public static void UpdateEnemy(CustomCommands.Update.CameraUpdate package)
+    {
+        Vector3 pos = new Vector3(package.x, 1, package.z);
+        if (GetEnemyByID(package.id) != null)
+        {
+            MinimapEnemy enemy = GetEnemyByID(package.id);
+            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+            enemy.SetNewRotation(package.rotation);
+            enemy.SetHealth(package.hpPercent);
+        }
+        else
+        {
+            MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
+            enemy._id = package.id;
+            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+            enemy.SetNewRotation(package.rotation);
+            enemy.SetHealth(package.hpPercent);
+            _enemies.Add(enemy);
+            enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
+        }
+    }
+
+    public static void UpdateEnemy(CustomCommands.Update.TurretUpdate package)
+    {
+        Vector3 pos = new Vector3(package.x, 1, package.z);
+        if (GetEnemyByID(package.id) != null)
+        {
+            MinimapEnemy enemy = GetEnemyByID(package.id);
+            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+            enemy.SetNewRotation(package.rotation);
+            enemy.SetHealth(package.hpPercent);
+        }
+        else
+        {
+            MinimapEnemy enemy = MinimapManager.GetInstance().CreateMinimapEnemy(pos);
+            enemy._id = package.id;
+            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+            enemy.SetNewRotation(package.rotation);
+            enemy.SetHealth(package.hpPercent);
+            _enemies.Add(enemy);
+            enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
+        }
+    }
 }

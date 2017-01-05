@@ -65,7 +65,45 @@ namespace CustomCommands {
 			}
 		}
 
-		namespace Items {
+        [System.Serializable]
+        public class CameraUpdate : AbstractPackage
+        {
+            public int id;
+            public int hpPercent;
+            public float x;
+            public float z;
+            public float rotation;
+
+            public CameraUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+            {
+                id = nID;
+                hpPercent = nHpPercent;
+                x = pos.x;
+                z = pos.z;
+                rotation = nRotation;
+            }
+        }
+
+        [System.Serializable]
+        public class TurretUpdate : AbstractPackage
+        {
+            public int id;
+            public int hpPercent;
+            public float x;
+            public float z;
+            public float rotation;
+
+            public TurretUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+            {
+                id = nID;
+                hpPercent = nHpPercent;
+                x = pos.x;
+                z = pos.z;
+                rotation = nRotation;
+            }
+        }
+
+        namespace Items {
 			[System.Serializable]
 			public class ItemUpdate : AbstractPackage {
 				public int ID;
