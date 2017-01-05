@@ -6,7 +6,30 @@ namespace CustomCommands {
 	/// Update Packages
 	/// </summary>
 	namespace Update {
-		[System.Serializable]
+
+        [System.Serializable]
+        public class AlarmUpdate : AbstractPackage
+        {
+            public bool state;
+            
+            public AlarmUpdate (bool nState)
+            {
+                state = nState;
+            }
+        }
+
+        [System.Serializable]
+        public class AlarmTimerUpdate : AbstractPackage
+        {
+            public float timer;
+
+            public AlarmTimerUpdate(float nTimer)
+            {
+                timer = nTimer;
+            }
+        }
+
+        [System.Serializable]
 		public class DoorUpdate : AbstractPackage {
 			public int ID;
 			public int state;
@@ -65,7 +88,45 @@ namespace CustomCommands {
 			}
 		}
 
-		namespace Items {
+        [System.Serializable]
+        public class CameraUpdate : AbstractPackage
+        {
+            public int id;
+            public int hpPercent;
+            public float x;
+            public float z;
+            public float rotation;
+
+            public CameraUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+            {
+                id = nID;
+                hpPercent = nHpPercent;
+                x = pos.x;
+                z = pos.z;
+                rotation = nRotation;
+            }
+        }
+
+        [System.Serializable]
+        public class TurretUpdate : AbstractPackage
+        {
+            public int id;
+            public int hpPercent;
+            public float x;
+            public float z;
+            public float rotation;
+
+            public TurretUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+            {
+                id = nID;
+                hpPercent = nHpPercent;
+                x = pos.x;
+                z = pos.z;
+                rotation = nRotation;
+            }
+        }
+
+        namespace Items {
 			[System.Serializable]
 			public class ItemUpdate : AbstractPackage {
 				public int ID;
@@ -233,6 +294,33 @@ namespace CustomCommands {
             }
         }
 	}
+
+    namespace Communication
+    {
+        namespace Hacker
+        {
+            [System.Serializable]
+            public class EnemyWaveDispatched : AbstractPackage
+            {
+            }
+        }
+
+        namespace Shooter
+        {
+            [System.Serializable]
+            public class NeedHealth : AbstractPackage
+            {
+            }
+            [System.Serializable]
+            public class NeedHelp : AbstractPackage
+            {
+            }
+            [System.Serializable]
+            public class NeedAmmo : AbstractPackage
+            {
+            }
+        }
+    }
 
 	[System.Serializable]
 	public abstract class AbstractPackage { }
