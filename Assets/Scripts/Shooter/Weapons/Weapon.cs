@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour {
 	private float _shootRange;
 
 	[SerializeField]
-	private float _shootRate;
+	private float _shootDelay;
 
 	[Header("Spread Settings")]
 	[SerializeField]
@@ -84,11 +84,22 @@ public abstract class Weapon : MonoBehaviour {
 	public int ReserveAmmo { get { return _reserveAmmo; } }
 
 	protected bool _canShoot = true;
+	public bool CanShoot { get { return _canShoot; } }
+
 	protected bool _reloading = false;
 	public bool Reloading { get { return _reloading; } }
+
+	protected bool _moving = false;
+	public bool Moving { set { _moving = value; } }
+
+	protected bool _aiming = false;
+	public bool Aiming { set { _aiming = value; } }
+
 	protected bool _active;
 
 	private MouseLook _mouseLook;
+
+	private Timers.Timer _shootTimer;
 
 	protected virtual void Awake() {
 		_magazineContent = _magazineCapacity;
@@ -97,6 +108,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected virtual void Start() {
 		_mouseLook = FindObjectOfType<MouseLook>();
+		_shootTimer = Timers.CreateTimer().SetTime(_shootDelay).SetCallback(() => _canShoot = true).ResetOnFinish();
 	}
 
 	public void AddAmmo(int pAmount) {
@@ -106,8 +118,7 @@ public abstract class Weapon : MonoBehaviour {
 	protected abstract void spawnBullet(Vector3 pHitPoint);
 	protected abstract void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform);
 
-	protected IEnumerator reload() {
-		_canShoot = false;
+	protected void reload () {
 		_reloading = true;
 
 		Sequence reloadStartSequence = DOTween.Sequence();
@@ -116,18 +127,20 @@ public abstract class Weapon : MonoBehaviour {
 		reloadStartSequence.AppendInterval(_reloadTime - 2 * _reloadMoveTime);
 		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime));
 		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime));
+		reloadStartSequence.AppendCallback(() => finishReload());
+	}
 
-		yield return new WaitForSeconds(_reloadTime);
-
+	private void finishReload () {
 		int diff = _magazineCapacity - _magazineContent;
 		_magazineContent = (diff > _reserveAmmo) ? _magazineContent + _reserveAmmo : _magazineCapacity;
 		_reserveAmmo = Mathf.Max(_reserveAmmo - diff, 0);
 
-		_canShoot = true;
 		_reloading = false;
 	}
 
-	protected IEnumerator shoot() {
+	protected void shoot () {
+		_shootTimer.Start();
+
 		_canShoot = false;
 
 		_magazineContent = Mathf.Max(_magazineContent - 1, 0);
@@ -148,16 +161,14 @@ public abstract class Weapon : MonoBehaviour {
 
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
 
-		//TODO This is very costly I think
+		//FIX This is very costly I think
 		Sequence recoilSequence = DOTween.Sequence();
 		recoilSequence.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime));
 		recoilSequence.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime));
 		recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
-		
-		yield return new WaitForSeconds(_shootRate);
-		_canShoot = true;
 	}
+
 
 	private Vector3 calulateShootDirection() {
 		//TODO Modify with walkspeed, aim, and length of fire

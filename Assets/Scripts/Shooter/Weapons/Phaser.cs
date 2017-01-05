@@ -10,14 +10,14 @@ public class Phaser : Weapon {
 
 	public void Update() {
 		if (_active) {
-			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot) {
-				StartCoroutine(shoot());
+			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _canShoot && !_reloading && !_moving) {
+				shoot();
 			} else if (_magazineContent == 0) {
 
 			}
 
-			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity) {
-				StartCoroutine(reload());
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming) {
+				reload();
 			}
 		}
 	}

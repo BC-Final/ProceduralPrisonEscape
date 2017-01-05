@@ -485,7 +485,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootDamage: 100
   _shootRange: 100
-  _shootRate: 0.2
+  _shootDelay: 0.175
   _spreadConeRadius: 0.4
   _spreadConeLength: 10
   _magazineCapacity: 7

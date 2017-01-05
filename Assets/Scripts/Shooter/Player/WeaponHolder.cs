@@ -55,19 +55,25 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 		//END commentpart
 
-		if (Input.GetMouseButtonDown(1)) {
-			FindObjectOfType<CrosshairDistance>().Disable();
-			_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime);
-			//TODO Get FOV from options
-			//TODO Get substracted FOW from weapon
-			Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-		} else if (Input.GetMouseButtonUp(1)) {
-			FindObjectOfType<CrosshairDistance>().Enable();
-			_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime);
-			//TODO Get FOV from options
-			Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
-			GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+		if (!_weapons[_currentWeapon].Reloading) {
+			if (Input.GetMouseButtonDown(1)) {
+				FindObjectOfType<CrosshairDistance>().Disable();
+				_weapons[_currentWeapon].Aiming = true;
+				_weapons[_currentWeapon].Moving = true;
+				_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
+				//TODO Get FOV from options
+				//TODO Get substracted FOV from weapon
+				Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
+				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
+			} else if (Input.GetMouseButtonUp(1)) {
+				FindObjectOfType<CrosshairDistance>().Enable();
+				_weapons[_currentWeapon].Aiming = false;
+				_weapons[_currentWeapon].Moving = true;
+				_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
+				//TODO Get FOV from options
+				Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+			}
 		}
 	}
 

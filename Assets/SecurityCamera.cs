@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
 
-public class SecurityCamera : MonoBehaviour {
+public class SecurityCamera : MonoBehaviour, INetworked {
 	[SerializeField]
 	private Transform _base;
 	public Transform Base { get { return _base; } }
@@ -45,6 +45,29 @@ public class SecurityCamera : MonoBehaviour {
 	public bool VisualizeView { get { return _visualizeView; } }
 
 	private StateMachine<AbstractCameraState> _fsm;
+
+	private int _id;
+	public int Id {
+		get {
+			if (_id == 0) {
+				_id = IdManager.RequestId();
+			}
+
+			return _id;
+		}
+	}
+
+	public void Initialize () {
+		//TODO Create init package??
+	}
+
+	private void Awake () {
+		ShooterPackageSender.RegisterNetworkObject(this);
+	}
+
+	private void OnDestroy () {
+		ShooterPackageSender.UnregisterNetworkedObject(this);
+	}
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractCameraState>();
