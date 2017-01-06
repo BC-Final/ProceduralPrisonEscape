@@ -96,49 +96,49 @@ public class MinimapEnemy : MonoBehaviour {
 		}
 	}
 
-    public static void UpdateEnemy(CustomCommands.Update.CameraUpdate package)
-    {
-        Vector3 pos = new Vector3(package.x, 1, package.z);
-        if (GetEnemyByID(package.id) != null)
-        {
-            MinimapEnemy enemy = GetEnemyByID(package.id);
-            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
-            enemy.SetNewRotation(package.rotation);
-            enemy.SetHealth(package.hpPercent);
-        }
-        else
-        {
-            GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
-            MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
-            enemy._id = package.id;
-            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
-            enemy.SetNewRotation(package.rotation);
-            enemy.SetHealth(package.hpPercent);
-            _enemies.Add(enemy);
-            enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
-        }
-    }
-
-    public static void UpdateEnemy(CustomCommands.Update.TurretUpdate package)
-    {
-        Vector3 pos = new Vector3(package.x, 1, package.z);
-        if (GetEnemyByID(package.id) != null)
-        {
-            MinimapEnemy enemy = GetEnemyByID(package.id);
-            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
-            enemy.SetNewRotation(package.rotation);
-            enemy.SetHealth(package.hpPercent);
-        }
-        else
-        {
-            GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.TurretIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
-            MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
-            enemy._id = package.id;
-            enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
-            enemy.SetNewRotation(package.rotation);
-            enemy.SetHealth(package.hpPercent);
-            _enemies.Add(enemy);
-            enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
-        }
-    }
+    //public static void UpdateEnemy(CustomCommands.Update.CameraUpdate package)
+    //{
+    //    Vector3 pos = new Vector3(package.x, 1, package.z);
+    //    if (GetEnemyByID(package.id) != null)
+    //    {
+    //        MinimapEnemy enemy = GetEnemyByID(package.id);
+    //        enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+    //        enemy.SetNewRotation(package.rotation);
+    //        enemy.SetHealth(package.hpPercent);
+    //    }
+    //    else
+    //    {
+    //        GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
+    //        MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
+    //        enemy._id = package.id;
+    //        enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+    //        enemy.SetNewRotation(package.rotation);
+    //        enemy.SetHealth(package.hpPercent);
+    //        _enemies.Add(enemy);
+    //        enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
+    //    }
+    //}
+    //
+    //public static void UpdateEnemy(CustomCommands.Update.TurretUpdate package)
+    //{
+    //    Vector3 pos = new Vector3(package.x, 1, package.z);
+    //    if (GetEnemyByID(package.id) != null)
+    //    {
+    //        MinimapEnemy enemy = GetEnemyByID(package.id);
+    //        enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+    //        enemy.SetNewRotation(package.rotation);
+    //        enemy.SetHealth(package.hpPercent);
+    //    }
+    //    else
+    //    {
+    //        GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.TurretIcon, pos / MinimapManager.GetInstance().scale, Quaternion.Euler(0, 0, 0));
+    //        MinimapEnemy enemy = gameObject.GetComponent<MinimapEnemy>();
+    //        enemy._id = package.id;
+    //        enemy.SetNewPos(pos / MinimapManager.GetInstance().scale);
+    //        enemy.SetNewRotation(package.rotation);
+    //        enemy.SetHealth(package.hpPercent);
+    //        _enemies.Add(enemy);
+    //        enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
+    //    }
+    //}
 }
