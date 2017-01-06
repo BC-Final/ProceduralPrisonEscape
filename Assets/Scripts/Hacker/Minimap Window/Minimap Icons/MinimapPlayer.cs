@@ -3,42 +3,40 @@ using System.Collections;
 using DG.Tweening;
 
 public class MinimapPlayer : MonoBehaviour {
-	private Vector3 oldPos;
-	private Vector3 newPos;
-	private float _lerpTime = 0.1f;
-	private float _currentLerpTime;
-	private float _timeSinceLastUpdate = 0.1f;
+	private Vector3 _oldPos;
+	private Vector3 _newPos;
+
+	private float _lastUpdateTime = 0.0f;
+
+	private float _currentLerpTime = 0.0f;
+	private float _lerpTime = 0.5f;
 
 	// Update is called once per frame
-	void Update () {
-		_timeSinceLastUpdate += Time.deltaTime;
-		//increment timer once per frame
+	private void Update () {
 		_currentLerpTime += Time.deltaTime;
 		if (_currentLerpTime > _lerpTime) {
 			_currentLerpTime = _lerpTime;
 		}
 
-		//lerp!
 		float perc = _currentLerpTime / _lerpTime;
-		transform.position = Vector3.Lerp(oldPos, newPos, perc);
+		transform.position = Vector3.Lerp(_oldPos, _newPos, perc);
 	}
 
-	public void InitialPosition (Vector3 pPosition) {
-		oldPos = pPosition;
-		newPos = pPosition;
+	public void InitialPosition (Vector3 pPos) {
+		_lastUpdateTime = Time.time;
+		_oldPos = pPos;
+		_newPos = pPos;
 	}
-	
 
-	public void SetNewPos (Vector3 nPos) {
-		_lerpTime = _timeSinceLastUpdate;
-		_timeSinceLastUpdate = 0f;
+	public void UpdatePosition (Vector3 pPos) {
+		_lerpTime = Time.time - _lastUpdateTime;
+		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;
-		oldPos = newPos;
-		newPos = nPos;
+		_oldPos = transform.position;
+		_newPos = pPos;
 	}
 
-	public void SetNewRotation (float rotation) {
-		transform.rotation = Quaternion.Euler(0, rotation, 0);
+	public void UpdateRotation (float pRot) {
+		transform.rotation = Quaternion.Euler(0, pRot, 0);
 	}
-	
 }

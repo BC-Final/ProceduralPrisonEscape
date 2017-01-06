@@ -99,8 +99,8 @@ public class MinimapManager : MonoBehaviour {
 			_player = gameObject.GetComponent<MinimapPlayer>();
 			_player.InitialPosition(pos / scale);
 		} else {
-			_player.SetNewPos(pos / scale);
-			_player.SetNewRotation(package.rotation);
+			_player.UpdatePosition(pos / scale);
+			_player.UpdateRotation(package.rotation);
 		}
 	}
 
