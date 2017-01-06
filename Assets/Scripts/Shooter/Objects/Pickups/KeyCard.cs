@@ -22,8 +22,11 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 		}
 	}
 
+    [SerializeField]
+    public Color Color;
+
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
+        ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
 	}
 
 	private void Awake() {
