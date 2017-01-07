@@ -212,9 +212,11 @@ namespace CustomCommands {
 				public float x;
 				public float z;
                 public int color;
+                public int[] doorArray;
 
-				public KeyCardCreation (int nID, float nX, float nZ, int nColor) {
+				public KeyCardCreation (int nID, int[] nDoorArray, float nX, float nZ, int nColor) {
 					ID = nID;
+                    doorArray = nDoorArray;
 					x = nX;
 					z = nZ;
                     color = nColor;
