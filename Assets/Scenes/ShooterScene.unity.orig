@@ -13791,12 +13791,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+    m_RemovedComponents:
+    - {fileID: 0}
+=======
+    - target: {fileID: 114000013915544718, guid: 4ba773ba204f16a4e88057ad91882b72,
+        type: 2}
+      propertyPath: _doors.Array.data[0]
+      value: 
+      objectReference: {fileID: 1340469202}
     - target: {fileID: 114000013915544718, guid: 4ba773ba204f16a4e88057ad91882b72,
         type: 2}
       propertyPath: keyColor
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 0}]
+    m_RemovedComponents: []
+>>>>>>> 07b811cd93be35f93919a73017f4e39e84260c69
   m_ParentPrefab: {fileID: 100100000, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1484303939

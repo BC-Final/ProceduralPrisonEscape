@@ -6,9 +6,10 @@ public class ColorEnum : MonoBehaviour {
 
     public enum KeyColor
     {
-        Red,
+        
         Green,
         Yellow,
+        Red,
         Blue,
         Purple,
     }

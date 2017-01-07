@@ -19,6 +19,9 @@ public class HackerPackageReader : MonoBehaviour {
 	private Texture _minimapTexture;
 	private MinimapPlayer _player;
 
+    bool loadingFinished = false;
+    private static List<CustomCommands.AbstractPackage> _latePackages = new List<CustomCommands.AbstractPackage>();
+
 	[SerializeField]
 	private bool _showReceivedPackets;
 
@@ -41,12 +44,35 @@ public class HackerPackageReader : MonoBehaviour {
 		}
 	}
 	
-	/// <summary>
-	/// Incoming Packages are read here. They first enter as Abstrac Package.
-	/// Then they get transmitted to another method that is made for their specific package.
-	/// </summary>
-	/// <param name="response"></param>
-	private void ReadResponse (CustomCommands.AbstractPackage package) {
+    ///Late Package handling
+    ///packages that need to be read after door and other important packages, will be stored here and are being read after all packaged have been received
+
+    private void AddLatePackage(CustomCommands.AbstractPackage package)
+    {
+        _latePackages.Add(package);
+    }
+
+    private void ReadLatePackages()
+    {
+        foreach(CustomCommands.AbstractPackage package in _latePackages)
+        {
+            ReadResponse(package);
+        }
+        _latePackages.Clear();
+    }
+
+    private void OnCreationEnd()
+    {
+        loadingFinished = true;
+        ReadLatePackages();
+    }
+
+    /// <summary>
+    /// Incoming Packages are read here. They first enter as Abstrac Package.
+    /// Then they get transmitted to another method that is made for their specific package.
+    /// </summary>
+    /// <param name="response"></param>
+    private void ReadResponse (CustomCommands.AbstractPackage package) {
 		//Debug.Log("Package Received : Abstract");
 
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
@@ -85,7 +111,13 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
-		HackerFireWall.CreateFireWall(package);
+        if (loadingFinished)
+        {
+        HackerFireWall.CreateFireWall(package);
+        }else{
+            AddLatePackage(package);
+        }
+
 	}
 
 	private void ReadResponse (CustomCommands.Creation.Shots.LaserShotCreation package) {
@@ -94,7 +126,14 @@ public class HackerPackageReader : MonoBehaviour {
 
 	//Item Creation Methods
 	private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
-		ItemDisplayIcon.CreateItem(package);
+        if (loadingFinished)
+        {
+            ItemDisplayIcon.CreateItem(package);
+        }
+        else
+        {
+            AddLatePackage(package);
+        }    
 	}
 
 	private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
@@ -133,7 +172,8 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.OnCreationEnd pPackage) {
-		NetworkWindow.Instance.FinishedReceivingAll();
+        OnCreationEnd();
+        NetworkWindow.Instance.FinishedReceivingAll();
 	}
 
 	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {

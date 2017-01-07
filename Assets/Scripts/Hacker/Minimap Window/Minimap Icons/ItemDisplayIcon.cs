@@ -33,8 +33,20 @@ public class ItemDisplayIcon {
 
 			item._icon = MinimapManager.GetInstance().CreateMinimapIcon(new Vector3(package.x, 2, package.z));
 			Sprite sprite = HackerReferenceManager.Instance.KeycardIcon;
-			item._icon.SetSprite(sprite);
+
+            Color color = ColorEnum.EnumToColor((ColorEnum.KeyColor)package.color);
+
+
+            item._icon.SetSprite(sprite);
+            item._icon.SetColor(color);
 			item._icon.ChangeState(false);
+
+            for(int i = 0; i < package.doorArray.Length; i++)
+            {
+                Debug.Log("door " + package.doorArray[i] + " setup");
+                HackerDoor door = HackerDoor.GetDoorByID(package.doorArray[i]);
+                door.MapDoor.SetKeyColor(color);
+            }
 		}
 	}
 

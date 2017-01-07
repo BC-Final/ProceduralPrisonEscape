@@ -11,6 +11,12 @@ public class MinimapPickupIcon : MonoBehaviour {
 		_renderer.sprite = sprite;
 	}
 
+    public void SetColor(Color color)
+    {
+        GetRenderer();
+        _renderer.color = color;
+    }
+
 	public void ChangeState(bool collected)
 	{
 		GetRenderer();

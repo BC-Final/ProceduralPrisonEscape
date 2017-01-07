@@ -57,9 +57,9 @@ public class MinimapDoor : MonoBehaviour {
 			return _renderer;
 		}
 	}
-	#endregion
+    #endregion
 
-
+    private bool _keyProtected = false;
 
 	/// <summary>
 	/// Gets called during this objects initialization
@@ -68,7 +68,19 @@ public class MinimapDoor : MonoBehaviour {
 		_renderer = GetComponentInChildren<SpriteRenderer>();
 	}
 
+    public void SetKeyColor(Color color)
+    {
+        spriteRenderer.color = color;
+        _keyProtected = true;
+    }
 
+    private void SetColor(Color color)
+    {
+        if (!_keyProtected)
+        {
+            spriteRenderer.color = color;
+        }
+    }
 
 	/// <summary>
 	/// Should get called when the associated door changes its state
@@ -78,23 +90,23 @@ public class MinimapDoor : MonoBehaviour {
 			case DoorState.Open: {
                     spriteRenderer.sprite = openSprite;
                     if (!_associatedDoor.Accessible.Value) {
-                        spriteRenderer.color = lockedColor;
+                        SetColor(lockedColor);
 					} else if(_associatedDoor.Hacked.Value){
-                        spriteRenderer.color = hackedColor;
+                        SetColor(hackedColor);
 					}else {
-                        spriteRenderer.color = neutralColor;
+                        SetColor(neutralColor);
                     }
 					break;
 				}
 			case DoorState.Closed: {
                     spriteRenderer.sprite = closedSprite;
                     if (!_associatedDoor.Accessible.Value) {
-                        spriteRenderer.color = lockedColor;
+                        SetColor(lockedColor);
 					} else if (_associatedDoor.Hacked.Value) {
-                        spriteRenderer.color = hackedColor;
+                        SetColor(hackedColor);
                     }
                     else {
-                        spriteRenderer.color = neutralColor;
+                        SetColor(neutralColor);
 					}
 					break;
 				}
