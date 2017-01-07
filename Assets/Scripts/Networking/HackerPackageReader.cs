@@ -56,7 +56,9 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Update.Items.ItemUpdate) { debugMessage = "Package Received : FireWallUpdate"; ReadResponse(package as CustomCommands.Update.Items.ItemUpdate); }
 		if (package is CustomCommands.Update.MinimapUpdate) { debugMessage = "Package Received : MinimapUpdate"; ReadResponse(package as CustomCommands.Update.MinimapUpdate); }
 		if (package is CustomCommands.Update.PlayerPositionUpdate) { debugMessage = "Package Received : PlayerPositionUpdate"; ReadResponse(package as CustomCommands.Update.PlayerPositionUpdate); }
-		if (package is CustomCommands.Update.EnemyUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.EnemyUpdate); }
+        if (package is CustomCommands.Update.EnemyUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.EnemyUpdate); }
+        if (package is CustomCommands.Update.CameraUpdate) { debugMessage = "Package Received : CameraUpdate"; ReadResponse(package as CustomCommands.Update.CameraUpdate); }
+        if (package is CustomCommands.Update.TurretUpdate) { debugMessage = "Package Received : TurretUpdate"; ReadResponse(package as CustomCommands.Update.TurretUpdate); }
 
         //Creation Methods
         if (package is CustomCommands.Creation.DoorCreation) { debugMessage = "Package Received : DoorCreation"; ReadResponse(package as CustomCommands.Creation.DoorCreation); }
@@ -138,15 +140,15 @@ public class HackerPackageReader : MonoBehaviour {
 		MinimapEnemy.UpdateEnemy(package);
 	}
 
-    //private void ReadResponse(CustomCommands.Update.CameraUpdate package)
-    //{
-    //    MinimapEnemy.UpdateEnemy(package);
-    //}
-    //
-    //private void ReadResponse(CustomCommands.Update.TurretUpdate package)
-    //{
-    //    MinimapEnemy.UpdateEnemy(package);
-    //}
+    private void ReadResponse(CustomCommands.Update.CameraUpdate package)
+    {
+        MinimapEnemy.UpdateEnemy(package);
+    }
+    
+    private void ReadResponse(CustomCommands.Update.TurretUpdate package)
+    {
+        MinimapEnemy.UpdateEnemy(package);
+    }
 
 
     private void ReadResponse (CustomCommands.RefuseConnectionPackage package) {
