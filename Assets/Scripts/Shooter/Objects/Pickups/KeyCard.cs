@@ -26,7 +26,7 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
     public ColorEnum.KeyColor keyColor;
 
 	public void Initialize () {
-        ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z), ((int)keyColor));
+        ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, (int)keyColor));
 	}
 
 	private void Awake() {

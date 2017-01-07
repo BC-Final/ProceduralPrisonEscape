@@ -5,8 +5,13 @@ using System.Collections.Generic;
 public class DropBeacon : MonoBehaviour, INetworked {
 	[SerializeField]
 	public List<ShooterDoor> _doors;
+    [SerializeField]
+    ColorEnum.KeyColor keyColor;
 
-	private Timers.Timer _sendTimer;
+    private Timers.Timer _sendTimer;
+
+
+    
 
 	private void Start() {
 		foreach (ShooterDoor d in _doors) {
@@ -31,7 +36,7 @@ public class DropBeacon : MonoBehaviour, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z, (int)keyColor));
 
 		_sendTimer.Start();
 	}
