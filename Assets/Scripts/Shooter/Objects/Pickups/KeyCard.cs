@@ -23,14 +23,15 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 	}
 
     [SerializeField]
-    public Color Color;
+    public ColorEnum.KeyColor keyColor;
 
 	public void Initialize () {
-        ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z));
+        ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.KeyCardCreation(Id, transform.position.x, transform.position.z), ((int)keyColor));
 	}
 
 	private void Awake() {
 		_keyCards.Add(this);
+        gameObject.GetComponentInChildren<Renderer>().material.SetColor("_Color", ColorEnum.EnumToColor(keyColor));
 		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
