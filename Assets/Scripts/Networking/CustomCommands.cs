@@ -211,11 +211,13 @@ namespace CustomCommands {
 				public int ID;
 				public float x;
 				public float z;
+                public int color;
 
-				public KeyCardCreation (int nID, float nX, float nZ) {
+				public KeyCardCreation (int nID, float nX, float nZ, int nColor) {
 					ID = nID;
 					x = nX;
 					z = nZ;
+                    color = nColor;
 				}
 			}
 
