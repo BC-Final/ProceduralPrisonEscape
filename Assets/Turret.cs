@@ -87,6 +87,10 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	private float _maxGunRotation;
 	public float MaxGunRotation { get { return _maxGunRotation; } }
 
+	[SerializeField]
+	private float _positionSendRate = 0.5f;
+	private float _positionSendTimer = 0.0f;
+
 	private StateMachine<AbstractTurretState> _fsm;
 
 	private int _id;
@@ -132,12 +136,10 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 
 	private void Update () {
 		//HACK Remove this later
-		/*
 		if (_positionSendTimer - Time.time <= 0.0f) {
-			_positionSendTimer = Time.time + _postionUpdateRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+			_positionSendTimer = Time.time + _positionSendRate;
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
 		}
-		*/
 
 
 		_fsm.Step();

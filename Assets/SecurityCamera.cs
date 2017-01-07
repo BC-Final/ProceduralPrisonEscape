@@ -44,6 +44,10 @@ public class SecurityCamera : MonoBehaviour, INetworked {
 	private bool _visualizeView;
 	public bool VisualizeView { get { return _visualizeView; } }
 
+	[SerializeField]
+	private float _positionSendRate = 0.5f;
+	private float _positionSendTimer = 0.0f;
+
 	private StateMachine<AbstractCameraState> _fsm;
 
 	private int _id;
@@ -83,12 +87,10 @@ public class SecurityCamera : MonoBehaviour, INetworked {
 
 	private void Update () {
 		//HACK Remove this later
-		/*
 		if (_positionSendTimer - Time.time <= 0.0f) {
-			_positionSendTimer = Time.time + _postionUpdateRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnemyUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+			_positionSendTimer = Time.time + _postionSendRate;
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, 1, transform.position, _lookPoint.rotation.eulerAngles.y));
 		}
-		*/
 
 
 		_fsm.Step();
