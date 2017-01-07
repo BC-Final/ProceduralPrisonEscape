@@ -12384,6 +12384,22 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 412481809}
   m_Script: {fileID: 11500000, guid: 6f4847cfb93a3ba4da0ba969c69c1370, type: 3}
+--- !u!1 &1350386321 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1364825874442948, guid: 7435436a1791a964483c40d4108ff296,
+    type: 2}
+  m_PrefabInternal: {fileID: 191854837}
+--- !u!114 &1350386322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1350386321}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b48a41269441849949563070d58a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1354508652
 Prefab:
   m_ObjectHideFlags: 0
@@ -12724,6 +12740,7 @@ MonoBehaviour:
   _maxWaveDelay: 0
   _minWaveEnemyCount: 0
   _maxWaveEnemyCount: 0
+  _enemyPrefab: {fileID: 0}
 --- !u!1001 &1427054513
 Prefab:
   m_ObjectHideFlags: 0

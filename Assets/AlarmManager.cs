@@ -33,6 +33,9 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 	[SerializeField]
 	private int _maxWaveEnemyCount;
 
+	[SerializeField]
+	private GameObject _enemyPrefab;
+
 
 
 	private bool _alarmActive;
