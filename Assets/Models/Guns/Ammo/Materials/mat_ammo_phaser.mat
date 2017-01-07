@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PistolMAT
+  m_Name: mat_ammo_phaser
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 1
@@ -18,7 +18,7 @@ Material:
     - first:
         name: _BumpMap
       second:
-        m_Texture: {fileID: 2800000, guid: bb4e525442210124ebdc3db7316613de, type: 3}
+        m_Texture: {fileID: 2800000, guid: afccad55178107c4fa8434552e709248, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -42,31 +42,31 @@ Material:
     - first:
         name: _EmissionMap
       second:
-        m_Texture: {fileID: 2800000, guid: 9ce0936fa2560be44b3f316f1482caf5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 552d38ae38bd69147981c2fefd7c73d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: b76bb020d84d7a04686b4b37394193ae, type: 3}
+        m_Texture: {fileID: 2800000, guid: 7508455c9d16f9b4fb844f9d60f4d27e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
       second:
-        m_Texture: {fileID: 2800000, guid: 431b5c74aefac2143a840debe6c8afda, type: 3}
+        m_Texture: {fileID: 2800000, guid: 97edd2296639c014dbdf456dfca77e27, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _OcclusionMap
       second:
-        m_Texture: {fileID: 2800000, guid: cdbddecc85512514394aad62e06ca5ea, type: 3}
+        m_Texture: {fileID: 2800000, guid: afa24e36a3eafd74884241ccbcf3a33a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _ParallaxMap
       second:
-        m_Texture: {fileID: 2800000, guid: 0653685b70ba39b45aa92a1e7dea3206, type: 3}
+        m_Texture: {fileID: 2800000, guid: 50380e88367f20e409b38416157b6a79, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -84,7 +84,7 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 0.919
+      second: 1
     - first:
         name: _Glossiness
       second: 0.5
@@ -124,4 +124,4 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 1.464, g: 0.75724137, b: 0, a: 1}
+      second: {r: 1.464, g: 0.57550335, b: 0, a: 1}

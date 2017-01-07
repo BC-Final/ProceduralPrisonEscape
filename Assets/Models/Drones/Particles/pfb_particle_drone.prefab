@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198724267784312908}
   - component: {fileID: 199534542171655618}
   m_Layer: 0
-  m_Name: Drone_Particles
+  m_Name: pfb_particle_drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

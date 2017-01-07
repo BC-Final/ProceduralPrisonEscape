@@ -42,20 +42,20 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 	private Timers.Timer _spawnTimer;
 
 	private void Start () {
-		_waveTimer = Timers.CreateTimer().ResetOnFinish().SetCallback(() => spawnWave());
-		_spawnTimer = Timers.CreateTimer().ResetOnFinish().SetCallback(() => spawnEnemy());
+		_waveTimer = Timers.CreateTimer().SetCallback(() => spawnWave()).SetMinMaxTime(_minWaveDelay, _maxWaveDelay);
+		_spawnTimer = Timers.CreateTimer().ResetOnFinish().SetCallback(() => spawnEnemy()).SetMinMaxTime(_minEnemySpawnDelay, _maxEnemySpawnDelay);
 	}
 
 
 	private void spawnWave () {
-		_waveTimer.SetTime(Random.Range(_minWaveDelay, _maxWaveDelay)).Start();
+		_waveTimer.SetLoop(-1).Start();
 
 		spawnEnemy();
 	}
 
 
 	private void spawnEnemy () {
-		_spawnTimer.SetTime(Random.Range(_minEnemySpawnDelay, _maxEnemySpawnDelay)).Start();
+		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount+1)).Start();
 
 		//TODO Spawn an enemy
 	}
@@ -74,6 +74,8 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 
 	public void DeactivateAlarm () {
 		_alarmActive = false;
+		_waveTimer.Stop();
+		_spawnTimer.Stop();
 		//TODO Send Update
 	}
 

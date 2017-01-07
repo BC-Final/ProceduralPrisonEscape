@@ -5,10 +5,13 @@ using System;
 partial class Timers {
 	public class Timer {
 		private float _time;
+		private float _minTime;
+		private float _maxTime;
 
 		private int _loopCount;
 		private bool _useRealTime;
 		private bool _resetOnFinish;
+		private bool _randomTime;
 
 		private Action _callback;
 
@@ -39,7 +42,15 @@ partial class Timers {
 
 
 		public Timer SetTime (float pTime) {
+			_randomTime = false;
 			_time = pTime;
+			return this;
+		}
+
+		public Timer SetMinMaxTime (float pMinTime, float pMaxTime) {
+			_randomTime = true;
+			_minTime = pMinTime;
+			_maxTime = pMaxTime;
 			return this;
 		}
 
@@ -54,6 +65,10 @@ partial class Timers {
 		}
 
 		public Timer Start () {
+			if (_randomTime) {
+				_time = UnityEngine.Random.Range(_minTime, _maxTime);
+			}
+
 			_killed = false;
 			_playing = true;
 			return this;
@@ -66,6 +81,7 @@ partial class Timers {
 
 		public Timer Reset () {
 			_currentTime = 0.0f;
+			_loopCount = 0;
 			return this;
 		}
 
@@ -132,6 +148,7 @@ partial class Timers {
 							//Timers.Instance.UnregisterTimer(this);
 						}
 					} else {
+						Start();
 						_currentTime -= _time;
 					}
 				}
