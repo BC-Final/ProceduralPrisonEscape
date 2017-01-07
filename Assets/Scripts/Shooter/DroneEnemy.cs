@@ -83,6 +83,13 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private Transform _lookPos;
 	public Transform LookPos { get { return _lookPos; } }
 
+	[SerializeField]
+	private Transform _model;
+	public Transform Model { get { return _model; } }
+
+	private bool _chase = false;
+	public bool Chase { get { return _chase; } }
+
 	//TODO Add Attackangle
 
 	[SerializeField]
@@ -129,7 +136,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-
 	private void Start () {
 		_fsm = new StateMachine<AbstractDroneState>();
 
@@ -143,9 +149,20 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		_fsm.AddState(new DroneReturnState(this, _fsm));
 		_fsm.AddState(new DroneAttackState(this, _fsm));
 
-		_fsm.SetState<DroneIdleState>();
+		
 
 		_currentHealth = _maxHealth;
+
+		if (_chase) {
+			_fsm.SetState<DroneFollowState>();
+		} else {
+			_fsm.SetState<DroneIdleState>();
+		}
+	}
+
+	public void SetTarget () {
+		_chase = true;
+		
 	}
 
 	private void Update () {
@@ -171,9 +188,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 				OnDestroy();
 				_fsm.SetState<DroneDeadState>();
 			}
-		}
 
-		_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
+			_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
+		}
 	}
 
 	private struct HitInfo {

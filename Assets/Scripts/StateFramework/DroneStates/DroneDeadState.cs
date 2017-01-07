@@ -20,8 +20,20 @@ namespace StateFramework {
 			}
 
 			_agent.enabled = false;
-			_rigidbody.useGravity = true;
 			_rigidbody.isKinematic = false;
+			_rigidbody.useGravity = true;
+
+			/*
+			foreach (Transform t in _drone.Model.GetComponentsInChildren<Transform>()) {
+				Rigidbody b = t.gameObject.AddComponent<Rigidbody>();
+				b.AddExplosionForce(200.0f, _drone.Model.position, 3.0f);
+				t.parent = null;
+				GameObject.Destroy(t.gameObject, 8.0f);
+			}
+			*/
+
+
+			GameObject.Destroy(_drone.gameObject, 8.0f);
 		}
 
 		public override void Step() {
@@ -33,6 +45,9 @@ namespace StateFramework {
 		}
 
 		public override void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			//foreach (Rigidbody t in _drone.Model.GetComponentsInChildren<Rigidbody>()) {
+				//t.AddForceAtPosition(pDirection * pDamage, pPoint);
+			//}
 			_rigidbody.AddForceAtPosition(pDirection * pDamage, pPoint);
 		}
 	}

@@ -31,7 +31,7 @@ namespace StateFramework {
 
 
 
-			if (_agent.remainingDistance <= _agent.stoppingDistance) {
+			if (!_drone.Chase && _agent.remainingDistance <= _agent.stoppingDistance) {
 				_fsm.SetState<DroneSearchState>();
 			}
 		}

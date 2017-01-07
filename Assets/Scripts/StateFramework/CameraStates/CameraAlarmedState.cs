@@ -12,6 +12,7 @@ namespace StateFramework {
 
 		public override void Enter () {
 			ShooterGamestateManager.Instance.TriggerAlarm();
+			AlarmManager.Instance.ActivateAlarm();
 
 			_camera.GetComponentInChildren<Light>().color = Color.red;
 		}

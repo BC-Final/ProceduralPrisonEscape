@@ -5,7 +5,7 @@ using UnityEngine;
 using Gamelogic.Extensions;
 using DG.Tweening;
 
-public class AlarmManager : Singleton<ShooterGamestateManager> {
+public class AlarmManager : Singleton<AlarmManager> {
 	[SerializeField]
 	private float _minAlarmTime;
 
@@ -52,13 +52,12 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 
 	private void spawnWave () {
 		_waveTimer.SetLoop(-1).Start();
-
-		spawnEnemy();
+		Debug.Log("Started Wave");
+		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount + 1)).Start();
 	}
 
 
 	private void spawnEnemy () {
-		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount+1)).Start();
 
 		Vector3 playerPos = FindObjectOfType<PlayerMotor>().transform.position;
 
@@ -69,7 +68,10 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 		//TODO Make the 3 modifiable
 		int index = Random.Range(0, Mathf.Min(3+1, droneSpawners.Count));
 
-		GameObject.Instantiate(_enemyPrefab, droneSpawners[index].transform.position, droneSpawners[index].transform.rotation);
+		GameObject drone = GameObject.Instantiate(_enemyPrefab, droneSpawners[index].transform.position, droneSpawners[index].transform.rotation);
+		drone.GetComponent<DroneEnemy>().SetTarget();
+
+		Debug.Log("Spawned Enemy");
 	}
 
 
@@ -78,7 +80,7 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 	public void ActivateAlarm () {
 		_alarmActive = true;
 
-		_waveTimer.SetTime(Random.Range(_minWaveDelay, _maxWaveDelay)).Start();
+		spawnWave();
 
 		//TODO Send Min Alarm Time
 		//TODO Send Update
