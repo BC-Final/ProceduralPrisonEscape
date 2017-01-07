@@ -60,7 +60,16 @@ public class AlarmManager : Singleton<ShooterGamestateManager> {
 	private void spawnEnemy () {
 		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount+1)).Start();
 
-		//TODO Spawn an enemy
+		Vector3 playerPos = FindObjectOfType<PlayerMotor>().transform.position;
+
+		List<DroneSpawner> droneSpawners = DroneSpawner.DroneSpawners;
+
+		droneSpawners.Sort((x, y) => Vector3.Distance(x.transform.position, playerPos).CompareTo(Vector3.Distance(y.transform.position, playerPos)));
+
+		//TODO Make the 3 modifiable
+		int index = Random.Range(0, Mathf.Min(3+1, droneSpawners.Count));
+
+		GameObject.Instantiate(_enemyPrefab, droneSpawners[index].transform.position, droneSpawners[index].transform.rotation);
 	}
 
 
