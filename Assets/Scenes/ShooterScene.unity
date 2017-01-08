@@ -11904,7 +11904,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _doors:
   - {fileID: 1340469202}
-  keyColor: 0
+  keyColor: 1
 --- !u!1 &1277406219 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
@@ -13796,7 +13796,8 @@ Prefab:
       propertyPath: keyColor
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: [{fileID: 0}]
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1484303939
