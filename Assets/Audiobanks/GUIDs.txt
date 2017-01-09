@@ -1,0 +1,39 @@
+{47df3b62-d06c-4cff-b88c-2af1d36b5b5f} event:/PE_menu/PE_menu_buttonclick
+{f1a22b17-f242-40fd-a4a2-9e950337a329} event:/PE_weapon/ep/PE_weapon_ep_shoot
+{f62af040-8f79-4601-abe5-39dc6df67d6f} event:/PE_weapon/smg/PE_weapon_smg_reload
+{004851d8-5e78-49ab-8635-542e87f6427a} event:/PE_shooter/PE_shooter_camlost
+{4e4816c1-464f-48f1-b15d-4484e6e66977} event:/PE_shooter/PE_shooter_keypress
+{caca961c-f199-4929-9d99-aa90a6fe4c76} event:/PE_shooter/PE_shooter_camcatch
+{36e46c60-662d-4440-bbb5-5217c580fc69} event:/PE_shooter/PE_shooter_alarm_loop
+{31d18259-8f24-4483-b63d-7cda885343d3} event:/PE_hacker/PE_hacker_dataflow_start
+{76d495dd-c95e-47e9-8fa4-29386a89a0a9} event:/PE_hacker/PE_hacker_dataflow_stop
+{5aade594-d3d5-4ab1-a1f1-4c7fb4b9f1b2} event:/PE_hacker/PE_hacker_datagain
+{88b57835-effa-4792-9a46-332c2e3cff5c} event:/PE_hacker/PE_hacker_door_open
+{6dc5e157-2ece-4f4d-8dbc-db4bac069d78} event:/PE_hacker/PE_hacker_door_close
+{adaa7b4f-931b-4be7-8bd9-aeabed119a8c} event:/PE_hacker/PE_hacker_door_access
+{b54a0da7-11a0-4d15-b64f-a5feea377110} event:/PE_hacker/PE_hacker_door_denied
+{898ebaf5-df13-4b64-99d2-cda443298efd} event:/PE_hacker/PE_hacker_cameramove_start
+{1ab2b426-45e7-420a-a8e6-9928c3b9206c} event:/PE_hacker/PE_hacker_cameramove_stop
+{6eb74cb0-857d-41aa-a4fb-f1aaf7ffb873} event:/PE_hacker/PE_hacker_map_zoom
+{952b1221-fce1-4a12-aef1-7f1c91f085ea} event:/PE_hacker/PE_hacker_admin_death
+{122d790c-40fb-4704-bc41-6ead02292df6} event:/PE_hacker/PE_hacker_buttonclick
+{a1febe50-36e9-406c-96f7-1192ccd02ecb} event:/PE_hacker/PE_hacker_hackpositive_gui
+{72f6a074-28fa-484f-bb7b-78d7bf1da9fb} event:/PE_hacker/PE_hacker_hacknegative_gui
+{7b1392eb-2293-4bcd-89b8-a24e324778e4} event:/PE_envi/PE_envi_cameramove
+{be7eebd6-4068-4eb9-b9e1-4eebc4f321f7} event:/PE_envi/PE_envi_firewall_destroy_start
+{fed9c7c5-c7c8-4f9a-aa9b-36d67bbcd580} event:/PE_envi/PE_envi_dispenser_use
+{71d8f26c-87a1-4d48-8387-fe194e7a3cb7} event:/PE_envi/PE_envi_dispenser_denied
+{d34dbc64-4351-4ae4-a5fa-7093fc78aab9} bus:/
+{2e9f2042-d1c3-438a-adf9-41faac62ce52} bus:/Music Hacker
+{eb6b531c-cda1-4526-8bab-6ca6c7181ad6} bus:/Music Shooter
+{3782f167-0ed0-4299-86b7-a1a974845632} bus:/SFX Hacker
+{d8eac7e2-c005-4a93-a70a-b48c2593cdd1} bus:/SFX Shooter
+{aa2104f0-f4dc-4d24-9738-3062a715be88} bus:/Vox AI
+{71fa1f32-354d-4d7c-ad13-d5c85a23a99a} bus:/Vox Drone
+{f7f203bb-02b9-42b0-b5b2-187c1c1fa21c} bus:/Hacker Walkie Talkie
+{40404d18-2078-4ba9-86b3-f334442d6f93} bank:/PE_musicsystem_hacker
+{f37b6433-6266-40e1-a3c5-8b2912159a29} bank:/PE_musicsystem_shooter
+{a5a83d51-9d15-446c-9910-d845e5399b95} bank:/PE_sfx_hacker
+{41b066d4-8d8c-4b82-90d8-7a33f29d6796} bank:/PE_sfx_shooter
+{3d2a188f-8584-44c9-8199-38ea747667d1} bank:/PE_vox
+{aca30ada-f477-4475-b69f-bece755d2a2f} bank:/PE_menu
