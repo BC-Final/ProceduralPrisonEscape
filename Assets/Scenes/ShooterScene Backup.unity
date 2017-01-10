@@ -6727,7 +6727,7 @@ Prefab:
     - target: {fileID: 114000011183055284, guid: c9002cb61645c2148bc7eadb54667a8c,
         type: 2}
       propertyPath: _connections.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224000012720484700, guid: c9002cb61645c2148bc7eadb54667a8c,
         type: 2}
@@ -6834,11 +6834,6 @@ Prefab:
       propertyPath: _connections.Array.data[2]
       value: 
       objectReference: {fileID: 1927385381}
-    - target: {fileID: 114000011183055284, guid: c9002cb61645c2148bc7eadb54667a8c,
-        type: 2}
-      propertyPath: _connections.Array.data[3]
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c9002cb61645c2148bc7eadb54667a8c, type: 2}
   m_IsPrefabParent: 0
