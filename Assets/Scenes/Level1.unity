@@ -4791,7 +4791,7 @@ GameObject:
   - component: {fileID: 299624169}
   - component: {fileID: 299624168}
   - component: {fileID: 299624167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26707,7 +26707,7 @@ Prefab:
     - target: {fileID: 20000012408901992, guid: 3edaffae7915986459ebafcff9e475b8,
         type: 2}
       propertyPath: orthographic size
-      value: 40
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3edaffae7915986459ebafcff9e475b8, type: 2}
