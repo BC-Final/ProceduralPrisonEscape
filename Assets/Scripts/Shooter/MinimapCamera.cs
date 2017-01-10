@@ -13,14 +13,14 @@ public class MinimapCamera : MonoBehaviour {
 	}
 
 	private byte[] getMinimapData () {
-		RenderTexture rt = new RenderTexture(512, 512, 24);
+		RenderTexture rt = new RenderTexture(2048, 2048, 24);
 
 		_camera.targetTexture = rt;
 		_camera.Render();
 
 		RenderTexture.active = rt;
-		Texture2D tex2d = new Texture2D(512, 512, TextureFormat.RGB24, false);
-		tex2d.ReadPixels(new Rect(0, 0, 512, 512), 0, 0);
+		Texture2D tex2d = new Texture2D(2048, 2048, TextureFormat.RGB24, false);
+		tex2d.ReadPixels(new Rect(0, 0, 2048, 2048), 0, 0);
 
 		RenderTexture.active = null;
 		_camera.targetTexture = null;
