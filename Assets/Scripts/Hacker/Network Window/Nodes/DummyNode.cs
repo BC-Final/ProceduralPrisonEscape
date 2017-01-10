@@ -67,11 +67,16 @@ public class DummyNode : MonoBehaviour, INetworked {
 	}
 
 	public void ClearConnections () {
-		foreach (DummyNode d in _connections) {
-			d.RemoveConnection(this);
-		}
-
+		_connections.ForEach(x => x.RemoveConnection(this));
 		_connections.Clear();
+	}
+
+	public void ClearEmptyConnections () {
+		_connections = _connections.Where(x => x != null).ToList();
+	}
+
+	public void ClearDuplicateConnections () {
+		_connections = _connections.Distinct().ToList();
 	}
 
 	private void OnDrawGizmos () {

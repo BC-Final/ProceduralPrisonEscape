@@ -53,7 +53,7 @@ public class NetworkNodeTools : MonoBehaviour {
 		}
 	}
 
-	[MenuItem("Node Tools/Clear Connections %b")]
+	[MenuItem("Node Tools/Clear Connections %j")]
 	static void ClearConnections () {
 		List<DummyNode> selectedNodes = new List<DummyNode>();
 
@@ -64,7 +64,44 @@ public class NetworkNodeTools : MonoBehaviour {
 		}
 
 		foreach (DummyNode n in selectedNodes) {
+			Undo.RecordObject(n, "Cleared connections");
 			n.ClearConnections();
+			EditorUtility.SetDirty(n);
+		}
+	}
+
+
+	[MenuItem("Node Tools/Clear Empty Connections")]
+	static void ClearEmptyConnections () {
+		List<DummyNode> selectedNodes = new List<DummyNode>();
+
+		foreach (GameObject n in Selection.gameObjects) {
+			if (n.GetComponent<DummyNode>() != null) {
+				selectedNodes.Add(n.GetComponent<DummyNode>());
+			}
+		}
+
+		foreach (DummyNode n in selectedNodes) {
+			Undo.RecordObject(n, "Cleared empty connections");
+			n.ClearEmptyConnections();
+			EditorUtility.SetDirty(n);
+		}
+	}
+
+	[MenuItem("Node Tools/Clear Duplicate Connections")]
+	static void ClearDuplicateConnections () {
+		List<DummyNode> selectedNodes = new List<DummyNode>();
+
+		foreach (GameObject n in Selection.gameObjects) {
+			if (n.GetComponent<DummyNode>() != null) {
+				selectedNodes.Add(n.GetComponent<DummyNode>());
+			}
+		}
+
+		foreach (DummyNode n in selectedNodes) {
+			Undo.RecordObject(n, "Cleared duplicate connections");
+			n.ClearDuplicateConnections();
+			EditorUtility.SetDirty(n);
 		}
 	}
 }
