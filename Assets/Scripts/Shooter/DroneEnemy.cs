@@ -87,6 +87,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private Transform _model;
 	public Transform Model { get { return _model; } }
 
+	[SerializeField]
+	private GameObject _droneExplode;
+	public GameObject DroneExplode { get { return _droneExplode; } }
+
 	private bool _chase = false;
 	public bool Chase { get { return _chase; } }
 

@@ -19,8 +19,8 @@ TagManager:
   - Minimap
   - Weapons
   - SeeThrough
-  - 
-  - 
+  - Player
+  - NoPlayerCollide
   - 
   - 
   - 

@@ -5,11 +5,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 446412}
-  - 114: {fileID: 114000012751741174}
-  m_Layer: 0
+  - component: {fileID: 446412}
+  - component: {fileID: 114000012751741174}
+  m_Layer: 11
   m_Name: Weapon Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21,19 +21,19 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 442856}
-  - 33: {fileID: 3370486}
-  - 23: {fileID: 2312918}
-  - 143: {fileID: 14306518}
-  - 114: {fileID: 11477922}
-  - 136: {fileID: 13635018}
-  - 114: {fileID: 114000011813892628}
-  - 54: {fileID: 54000010998407230}
-  - 114: {fileID: 114000012939861438}
-  - 114: {fileID: 114000010217067718}
-  m_Layer: 0
+  - component: {fileID: 442856}
+  - component: {fileID: 3370486}
+  - component: {fileID: 2312918}
+  - component: {fileID: 14306518}
+  - component: {fileID: 11477922}
+  - component: {fileID: 13635018}
+  - component: {fileID: 114000011813892628}
+  - component: {fileID: 54000010998407230}
+  - component: {fileID: 114000012939861438}
+  - component: {fileID: 114000010217067718}
+  m_Layer: 11
   m_Name: pfb_character_player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -45,14 +45,14 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 474348}
-  - 20: {fileID: 2071576}
-  - 92: {fileID: 9225650}
-  - 124: {fileID: 12402502}
-  - 81: {fileID: 8114174}
-  m_Layer: 0
+  - component: {fileID: 474348}
+  - component: {fileID: 2071576}
+  - component: {fileID: 9225650}
+  - component: {fileID: 12402502}
+  - component: {fileID: 8114174}
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -64,12 +64,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 498980}
-  - 33: {fileID: 3309400}
-  - 23: {fileID: 2300178}
-  m_Layer: 0
+  - component: {fileID: 498980}
+  - component: {fileID: 3309400}
+  - component: {fileID: 2300178}
+  m_Layer: 11
   m_Name: Visor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,12 +81,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 470614}
-  - 114: {fileID: 11485642}
-  - 114: {fileID: 114000012951694904}
-  m_Layer: 0
+  - component: {fileID: 470614}
+  - component: {fileID: 11485642}
+  - component: {fileID: 114000012951694904}
+  m_Layer: 11
   m_Name: Camera Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,10 +98,10 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 407354}
-  m_Layer: 0
+  - component: {fileID: 407354}
+  m_Layer: 11
   m_Name: Aim Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,10 +117,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0, z: 1.095}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 470614}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &442856
 Transform:
   m_ObjectHideFlags: 1
@@ -130,12 +130,12 @@ Transform:
   m_LocalRotation: {x: -0, y: -0.68782973, z: -0, w: 0.72587216}
   m_LocalPosition: {x: 22.43, y: 1, z: 27.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: -87.007, z: 0}
   m_Children:
   - {fileID: 470614}
   - {fileID: 498980}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -87.007, z: 0}
 --- !u!4 &446412
 Transform:
   m_ObjectHideFlags: 1
@@ -145,10 +145,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.73, y: -0.419, z: 1.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 470614}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &470614
 Transform:
   m_ObjectHideFlags: 1
@@ -158,13 +158,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 474348}
   - {fileID: 407354}
   - {fileID: 446412}
   m_Father: {fileID: 442856}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &474348
 Transform:
   m_ObjectHideFlags: 1
@@ -174,11 +174,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000014060222042}
   m_Father: {fileID: 470614}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &498980
 Transform:
   m_ObjectHideFlags: 1
@@ -188,10 +188,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0.24}
   m_LocalScale: {x: 0.95, y: 0.25, z: 0.5}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 442856}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &2071576
 Camera:
   m_ObjectHideFlags: 1
@@ -240,7 +240,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: d876951d1f1f6fd4aa0b215e6f6e4cdd, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -248,7 +250,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -269,7 +271,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -277,7 +281,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -323,9 +327,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce9d9c093abbdcf49bcac853d3be883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 6
-  _jumpSpeed: 5
-  _gravity: 20
+  walkSpeed: 4
+  runSpeed: 6
+  limitDiagonalSpeed: 1
+  toggleRun: 0
+  jumpSpeed: 5
+  gravity: 20
+  fallingDamageThreshold: 10
+  slideWhenOverSlopeLimit: 1
+  slideOnTaggedObjects: 0
+  slideSpeed: 12
+  airControl: 1
+  antiBumpFactor: 0.75
+  antiBunnyHopFactor: 1
 --- !u!114 &11485642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -395,15 +409,15 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014060222042}
-  - 20: {fileID: 20000011365843894}
-  - 124: {fileID: 124000010754132612}
-  - 92: {fileID: 92000012053114966}
-  m_Layer: 0
+  - component: {fileID: 4000014060222042}
+  - component: {fileID: 20000011365843894}
+  - component: {fileID: 124000010754132612}
+  - component: {fileID: 92000012053114966}
+  m_Layer: 11
   m_Name: Weapon Camera
-  m_TagString: Untagged
+  m_TagString: WeaponCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,10 +431,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 474348}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20000011365843894
 Camera:
   m_ObjectHideFlags: 1

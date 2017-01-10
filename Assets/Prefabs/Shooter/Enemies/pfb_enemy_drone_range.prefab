@@ -1655,6 +1655,8 @@ MonoBehaviour:
   _route: {fileID: 0}
   _lookPos: {fileID: 4253675348413106}
   _model: {fileID: 4993154598825560}
+  _droneExplode: {fileID: 1383778363432852, guid: c682ef7adc874664db21a5694c0d5892,
+    type: 2}
   _attackType: 0
   _spreadConeLength: 10
   _spreadConeRadius: 3

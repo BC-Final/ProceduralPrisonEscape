@@ -28,7 +28,7 @@ public class NetworkNodeTools : MonoBehaviour {
 		}
 	}
 
-	[MenuItem("Node Tools/Deconnect Selected Nodes %h")]
+	[MenuItem("Node Tools/Disconnect Selected Nodes %h")]
 	static void DisconnectSelectedNodes() {
 		List<DummyNode> selectedNodes = new List<DummyNode>();
 
@@ -50,6 +50,21 @@ public class NetworkNodeTools : MonoBehaviour {
 			}
 		} else {
 			Debug.LogError("Wrong amount of Nodes selected: " + selectedNodes.Count + " of 2");
+		}
+	}
+
+	[MenuItem("Node Tools/Clear Connections %b")]
+	static void ClearConnections () {
+		List<DummyNode> selectedNodes = new List<DummyNode>();
+
+		foreach (GameObject n in Selection.gameObjects) {
+			if (n.GetComponent<DummyNode>() != null) {
+				selectedNodes.Add(n.GetComponent<DummyNode>());
+			}
+		}
+
+		foreach (DummyNode n in selectedNodes) {
+			n.ClearConnections();
 		}
 	}
 }
