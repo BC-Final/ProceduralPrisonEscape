@@ -11246,7 +11246,7 @@ Prefab:
     - target: {fileID: 114000010023536696, guid: dfde06c83e2803c4d9d51bbdf7b9db19,
         type: 2}
       propertyPath: _connections.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224000011264985214, guid: dfde06c83e2803c4d9d51bbdf7b9db19,
         type: 2}
