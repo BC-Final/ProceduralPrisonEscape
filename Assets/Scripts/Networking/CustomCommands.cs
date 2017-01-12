@@ -10,14 +10,13 @@ namespace CustomCommands {
         [System.Serializable]
         public class AlarmUpdate : AbstractPackage
         {
-            public bool state;
-            
-            public AlarmUpdate (bool nState)
+            public AlarmUpdate ()
             {
-                state = nState;
+
             }
         }
 
+		//TODO Send this at beginning of game
         [System.Serializable]
         public class AlarmTimerUpdate : AbstractPackage
         {
@@ -92,15 +91,15 @@ namespace CustomCommands {
         public class CameraUpdate : AbstractPackage
         {
             public int id;
-            public int hpPercent;
             public float x;
             public float z;
             public float rotation;
+			public bool seesPlayer;
 
-            public CameraUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
+            public CameraUpdate(int nID, Vector3 pos, float nRotation, bool pSeesPlayer)
             {
                 id = nID;
-                hpPercent = nHpPercent;
+                seesPlayer = pSee;
                 x = pos.x;
                 z = pos.z;
                 rotation = nRotation;
