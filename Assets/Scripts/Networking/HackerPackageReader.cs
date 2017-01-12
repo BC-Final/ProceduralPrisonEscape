@@ -180,6 +180,7 @@ public class HackerPackageReader : MonoBehaviour {
 		MinimapEnemy.UpdateEnemy(package);
 	}
 
+	/*
     private void ReadResponse(CustomCommands.Update.CameraUpdate package)
     {
         MinimapEnemy.UpdateEnemy(package);
@@ -189,7 +190,7 @@ public class HackerPackageReader : MonoBehaviour {
     {
         MinimapEnemy.UpdateEnemy(package);
     }
-
+	*/
 
     private void ReadResponse (CustomCommands.RefuseConnectionPackage package) {
 		HackerPackageSender.SilentlyDisconnect();

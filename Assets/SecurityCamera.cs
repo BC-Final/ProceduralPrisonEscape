@@ -89,7 +89,8 @@ public class SecurityCamera : MonoBehaviour, INetworked {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, 1, transform.position, _lookPoint.rotation.eulerAngles.y));
+
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, transform.position, _lookPoint.rotation.eulerAngles.y, _fsm.GetState() is CameraDetectState));
 		}
 
 

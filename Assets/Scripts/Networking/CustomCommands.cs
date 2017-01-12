@@ -99,7 +99,7 @@ namespace CustomCommands {
             public CameraUpdate(int nID, Vector3 pos, float nRotation, bool pSeesPlayer)
             {
                 id = nID;
-                seesPlayer = pSee;
+                seesPlayer = pSeesPlayer;
                 x = pos.x;
                 z = pos.z;
                 rotation = nRotation;

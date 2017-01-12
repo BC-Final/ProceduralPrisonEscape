@@ -137,7 +137,7 @@ public class MinimapEnemy : MonoBehaviour {
 		}
 	}
 
-
+	/*
 	public static void UpdateEnemy(CustomCommands.Update.CameraUpdate package)
 	{
 	    Vector3 pos = new Vector3(package.x, 1, package.z);
@@ -183,4 +183,5 @@ public class MinimapEnemy : MonoBehaviour {
 	        enemy.InitialPosition(pos / MinimapManager.GetInstance().scale);
 	    }
 	}
+	*/
 }
