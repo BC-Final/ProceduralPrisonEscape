@@ -38,7 +38,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 
 		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
-		if (package is CustomCommands.DisconnectPackage) { debugMessage = "Package Received : DisconnectPackage"; ReadPackage(package as CustomCommands.DisconnectPackage); return; }
+		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
 
 		if (_showReceivedPackets) {
 			Debug.Log(debugMessage);
@@ -49,8 +49,8 @@ public class ShooterPackageReader : MonoBehaviour {
 		ShooterDoor.UpdateDoor(package);
 	}
 
-	private void ReadPackage (CustomCommands.DisconnectPackage package) {
-		Debug.Log("Client disconnected.");
-		//ShooterPackageSender.SilentlyDisconnect();
+	private void ReadPackage (CustomCommands.Update.DisableCamera package) {
+		//HACK This is very hacky, create liost of all cameras
+		new List<ShooterCamera>(FindObjectsOfType<ShooterCamera>()).Find(x => x.Id == package.Id).SetDisabled(package.Time);
 	}
 }

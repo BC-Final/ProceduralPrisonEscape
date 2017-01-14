@@ -4,19 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DoorContext : NodeContext {
+
+	/*
 	[SerializeField]
 	private Button _hackButton;
 
 	[SerializeField]
 	private Button _openCloseButton;
-
-	public static DoorContext Instance;
-
-	protected override void Awake () {
-		base.Awake();
-
-		Instance = this;
-	}
 
 	public void RegisterHackButton (UnityEngine.Events.UnityAction pDelegate) {
 		_hackButton.onClick.AddListener(pDelegate);
@@ -33,4 +27,5 @@ public class DoorContext : NodeContext {
 	public void UnregisterToggleButton () {
 		_openCloseButton.onClick.RemoveAllListeners();
 	}
+	*/
 }

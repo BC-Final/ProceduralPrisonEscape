@@ -90,7 +90,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// <param name="pClient"></param>
 	private void ClientInitialize (TcpClient pClient) {
 		ShooterNetworkWindow.Instance.gameObject.SetActive(true);
-		FindObjectOfType<MinimapCamera>().SendUpdate();
+		FindObjectOfType<ShooterMinimapCamera>().SendUpdate();
 
 		foreach (INetworked n in _networkObjects) {
 			n.Initialize();

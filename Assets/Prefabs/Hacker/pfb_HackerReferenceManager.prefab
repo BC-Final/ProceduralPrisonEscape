@@ -54,9 +54,9 @@ MonoBehaviour:
   KeycardIcon: {fileID: 21300000, guid: 4cdfb7c8780de2144b99efc958d2aeef, type: 3}
   HealthpackIcon: {fileID: 21300000, guid: 5372e1d8d5fcc2846b9d71393cc5e430, type: 3}
   AmmobagIcon: {fileID: 21300000, guid: 55d52a9ace751d849a29654d59dbf7f1, type: 3}
-  EnemyIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
+  DroneIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
   CameraIcon: {fileID: 1000011898351382, guid: 3c6aaacbf9f9b854b92fc0a375aa2248, type: 2}
-  TurretIcon: {fileID: 1000011632251998, guid: 7df9fb8a248174040911c22f6d3b0f9c, type: 2}
+  TurretIcon: {fileID: 1989628938402834, guid: 553c2b4a27bd34841a988dbd84ca5a3e, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
   HackerAvatar: {fileID: 1000011567829896, guid: 7447c3b7f9b75f543a8bb6256b478f62,
     type: 2}

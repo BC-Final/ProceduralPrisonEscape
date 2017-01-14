@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-public class ShooterFireWall : MonoBehaviour, IDamageable, INetworked {
-	private static List<ShooterFireWall> _firewalls = new List<ShooterFireWall>();
-	public static List<ShooterFireWall> GetFirewallList() { return _firewalls; }
+public class ShooterFirewall : MonoBehaviour, IDamageable, INetworked {
+	private static List<ShooterFirewall> _firewalls = new List<ShooterFirewall>();
+	public static List<ShooterFirewall> GetFirewallList() { return _firewalls; }
 
 	private int _id;
 	public int Id {

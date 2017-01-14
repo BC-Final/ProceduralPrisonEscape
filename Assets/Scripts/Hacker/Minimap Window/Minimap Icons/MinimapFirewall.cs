@@ -12,7 +12,7 @@ public class MinimapFirewall : MonoBehaviour {
 
 	#region References
 	private SpriteRenderer _renderer;
-	private HackerFireWall _associatedFirewall;
+	private HackerFirewall _associatedFirewall;
 	#endregion
 
 
@@ -21,7 +21,7 @@ public class MinimapFirewall : MonoBehaviour {
 	/// <summary>
 	/// Sets the associated Firewall and subscribes to its state change
 	/// </summary>
-	public HackerFireWall AssociatedFirewall {
+	public HackerFirewall AssociatedFirewall {
 		set {
 			_associatedFirewall = value;
 			_associatedFirewall.Destroyed.OnValueChange += () => changedState();

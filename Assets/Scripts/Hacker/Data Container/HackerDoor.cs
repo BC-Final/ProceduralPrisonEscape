@@ -10,10 +10,8 @@ public class HackerDoor {
 	#endregion
 
 	#region References
-	#pragma warning disable 0414
 	private MinimapDoor _minimapDoor;
 	private DoorNode _doorNode;
-#pragma warning restore 0414
 	#endregion
 
 	#region Private Fields
@@ -103,7 +101,7 @@ public class HackerDoor {
 		HackerDoor door = new HackerDoor();
 		door._id = pPackage.ID;
 
-		MinimapDoor minimapDoor = MinimapManager.GetInstance().CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
+		MinimapDoor minimapDoor = MinimapManager.Instance.CreateMinimapDoor(new Vector3(pPackage.x, 0, pPackage.z), pPackage.rotationY, pPackage.ID);
 
 		door._requireKeycard = pPackage.requireKeycard;
 		door._state = new ObservedValue<DoorState>((DoorState)pPackage.state);

@@ -19,6 +19,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
 		if (_currentSuspicion >= _maxSuspicion) {
 			//TODO Send Admin to investigsate
+			//TODO Activate alarm!
 		}
 	}
 

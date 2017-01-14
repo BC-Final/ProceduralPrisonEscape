@@ -21,7 +21,7 @@ namespace StateFramework {
 
 		private int _currentDirection;
 
-		public CameraGuardState (SecurityCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
+		public CameraGuardState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_startRotation = _camera.Base.rotation.eulerAngles;
 

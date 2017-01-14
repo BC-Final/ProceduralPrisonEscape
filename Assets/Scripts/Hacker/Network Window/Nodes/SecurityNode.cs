@@ -30,12 +30,13 @@ public class SecurityNode : AbstractNode {
 	public override void ToggleContext (bool pShow, HackerAvatar pAvatar) {
 		base.ToggleContext(pShow, pAvatar);
 
-		SecurityContext.Instance.gameObject.SetActive(pShow);
+
+		ContextWindow.Instance.GetContext<SecurityContext>().gameObject.SetActive(pShow);
 
 		if (pShow) {
-			(SecurityContext.Instance as SecurityContext).RegisterHackButton(() => StartHack(pAvatar));
+			ContextWindow.Instance.GetContext<SecurityContext>().RegisterButton("hack", () => StartHack(pAvatar));
 		} else {
-			(SecurityContext.Instance as SecurityContext).UnregisterHackButton();
+			ContextWindow.Instance.GetContext<SecurityContext>().UnregisterAllButtons();
 		}
 	}
 
@@ -54,7 +55,7 @@ public class SecurityNode : AbstractNode {
 		base.OnGUI();
 
 		if (_currentNode) {
-			SecurityContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
+			ContextWindow.Instance.GetContext<SecurityContext>().SetHackProgress(_hackTimer.FinishedPercent);
 		}
 	}
 }

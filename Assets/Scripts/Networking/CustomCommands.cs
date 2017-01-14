@@ -7,28 +7,24 @@ namespace CustomCommands {
 	/// </summary>
 	namespace Update {
 
-        [System.Serializable]
-        public class AlarmUpdate : AbstractPackage
-        {
-            public AlarmUpdate ()
-            {
+		[System.Serializable]
+		public class AlarmUpdate : AbstractPackage {
+			public AlarmUpdate () {
 
-            }
-        }
+			}
+		}
 
 		//TODO Send this at beginning of game
-        [System.Serializable]
-        public class AlarmTimerUpdate : AbstractPackage
-        {
-            public float timer;
+		[System.Serializable]
+		public class AlarmTimerUpdate : AbstractPackage {
+			public float timer;
 
-            public AlarmTimerUpdate(float nTimer)
-            {
-                timer = nTimer;
-            }
-        }
+			public AlarmTimerUpdate (float nTimer) {
+				timer = nTimer;
+			}
+		}
 
-        [System.Serializable]
+		[System.Serializable]
 		public class DoorUpdate : AbstractPackage {
 			public int ID;
 			public int state;
@@ -71,14 +67,14 @@ namespace CustomCommands {
 			}
 		}
 		[System.Serializable]
-		public class EnemyUpdate : AbstractPackage {
+		public class DroneUpdate : AbstractPackage {
 			public int id;
 			public int hpPercent;
 			public float x;
 			public float z;
 			public float rotation;
 
-			public EnemyUpdate (int nID, int nHpPercent, Vector3 pos, float nRotation) {
+			public DroneUpdate (int nID, int nHpPercent, Vector3 pos, float nRotation) {
 				id = nID;
 				hpPercent = nHpPercent;
 				x = pos.x;
@@ -87,57 +83,73 @@ namespace CustomCommands {
 			}
 		}
 
-        [System.Serializable]
-        public class CameraUpdate : AbstractPackage
-        {
-            public int id;
-            public float x;
-            public float z;
-            public float rotation;
+		[System.Serializable]
+		public class CameraUpdate : AbstractPackage {
+			public int id;
+			public float x;
+			public float z;
+			public float rotation;
 			public bool seesPlayer;
 
-            public CameraUpdate(int nID, Vector3 pos, float nRotation, bool pSeesPlayer)
-            {
-                id = nID;
-                seesPlayer = pSeesPlayer;
-                x = pos.x;
-                z = pos.z;
-                rotation = nRotation;
-            }
-        }
+			public CameraUpdate (int nID, Vector3 pos, float nRotation, bool pSeesPlayer) {
+				id = nID;
+				seesPlayer = pSeesPlayer;
+				x = pos.x;
+				z = pos.z;
+				rotation = nRotation;
+			}
+		}
 
-        [System.Serializable]
-        public class TurretUpdate : AbstractPackage
-        {
-            public int id;
-            public int hpPercent;
-            public float x;
-            public float z;
-            public float rotation;
+		[System.Serializable]
+		public class DisableCamera : AbstractPackage {
+			public int Id;
+			public float Time;
 
-            public TurretUpdate(int nID, int nHpPercent, Vector3 pos, float nRotation)
-            {
-                id = nID;
-                hpPercent = nHpPercent;
-                x = pos.x;
-                z = pos.z;
-                rotation = nRotation;
-            }
-        }
+			public DisableCamera (int pId, float pTime) {
+				Id = pId;
+				Time = pTime;
+			}
+		}
 
-        namespace Items {
+		[System.Serializable]
+		public class EnableCamera : AbstractPackage {
+			public int Id;
+
+			public EnableCamera (int pId) {
+				Id = pId;
+			}
+		}
+
+		[System.Serializable]
+		public class TurretUpdate : AbstractPackage {
+			public int id;
+			public int hpPercent;
+			public float x;
+			public float z;
+			public float rotation;
+
+			public TurretUpdate (int nID, int nHpPercent, Vector3 pos, float nRotation) {
+				id = nID;
+				hpPercent = nHpPercent;
+				x = pos.x;
+				z = pos.z;
+				rotation = nRotation;
+			}
+		}
+
+		namespace Items {
 			[System.Serializable]
 			public class ItemUpdate : AbstractPackage {
 				public int ID;
 				public bool collected;
-                public float x;
-                public float z;
+				public float x;
+				public float z;
 
-                public ItemUpdate (int nID, bool nCollected, Vector3 pos) {
+				public ItemUpdate (int nID, bool nCollected, Vector3 pos) {
 					ID = nID;
 					collected = nCollected;
-                    x = pos.x;
-                    z = pos.z;
+					x = pos.x;
+					z = pos.z;
 				}
 			}
 		}
@@ -204,21 +216,69 @@ namespace CustomCommands {
 				state = nState;
 			}
 		}
+
+		[System.Serializable]
+		public class CameraCreation : AbstractPackage {
+			public int Id;
+			public float Rot;
+			public float X;
+			public float Z;
+			public bool State;
+
+			public CameraCreation (int pId, float pRot, float pX, float pZ, bool pState) {
+				Id = pId;
+				Rot = pRot;
+				X = pX;
+				Z = pZ;
+				State = pState;
+			}
+		}
+
+		[System.Serializable]
+		public class DroneCreation : AbstractPackage {
+			public int Id;
+			public int HealthPercent;
+			public float X;
+			public float Z;
+			public float Rot;
+
+			public DroneCreation (int pId, int pHealthPercent, Vector3 pPos, float pRot) {
+				Id = pId;
+				HealthPercent = pHealthPercent;
+				X = pPos.x;
+				Z = pPos.z;
+				Rot = pRot;
+			}
+		}
+
+		[System.Serializable]
+		public class TurretCreation : AbstractPackage {
+			public int Id;
+			public float X;
+			public float Z;
+
+			public TurretCreation (int pId, float pX, float pZ) {
+				Id = pId;
+				X = pX;
+				Z = pZ;
+			}
+		}
+
 		namespace Items {
 			[System.Serializable]
 			public class KeyCardCreation : AbstractPackage {
 				public int ID;
 				public float x;
 				public float z;
-                public int color;
-                public int[] doorArray;
+				public int color;
+				public int[] doorArray;
 
 				public KeyCardCreation (int nID, int[] nDoorArray, float nX, float nZ, int nColor) {
 					ID = nID;
-                    doorArray = nDoorArray;
+					doorArray = nDoorArray;
 					x = nX;
 					z = nZ;
-                    color = nColor;
+					color = nColor;
 				}
 			}
 
@@ -267,6 +327,7 @@ namespace CustomCommands {
 				}
 			}
 		}
+
 		namespace Shots {
 			[System.Serializable]
 			public class LaserShotCreation : AbstractPackage {
@@ -284,52 +345,27 @@ namespace CustomCommands {
 
 			}
 		}
-        namespace Messaging
-        {
-            [System.Serializable]
-            public class TextMessage : AbstractPackage
-            {
-                public string message;
-                public TextMessage (string nMessage)
-                {
-                    message = nMessage;
-                }
-            }
-        }
 	}
 
-    namespace Communication
-    {
-        namespace Hacker
-        {
-            [System.Serializable]
-            public class EnemyWaveDispatched : AbstractPackage
-            {
-            }
-        }
+	namespace Communication {
+		namespace Hacker {
+			[System.Serializable]
+			public class EnemyWaveDispatched : AbstractPackage {
+			}
+		}
 
-        namespace Shooter
-        {
-            [System.Serializable]
-            public class NeedHealth : AbstractPackage
-            {
-            }
-            [System.Serializable]
-            public class NeedHelp : AbstractPackage
-            {
-            }
-            [System.Serializable]
-            public class NeedAmmo : AbstractPackage
-            {
-            }
-        }
-    }
-
-	[System.Serializable]
-	public abstract class AbstractPackage { }
-
-	[System.Serializable]
-	public class DisconnectPackage : AbstractPackage { }
+		namespace Shooter {
+			[System.Serializable]
+			public class NeedHealth : AbstractPackage {
+			}
+			[System.Serializable]
+			public class NeedHelp : AbstractPackage {
+			}
+			[System.Serializable]
+			public class NeedAmmo : AbstractPackage {
+			}
+		}
+	}
 
 	[System.Serializable]
 	public class RefuseConnectionPackage : AbstractPackage { }
@@ -338,7 +374,5 @@ namespace CustomCommands {
 	public class ServerShutdownPackage : AbstractPackage { }
 
 	[System.Serializable]
-	public class NotImplementedMessage : AbstractPackage {
-		public string message = "Not implemented";
-	}
+	public abstract class AbstractPackage { }
 }

@@ -31,6 +31,7 @@ public class HackerAvatar : AbstractAvatar {
 		base.Start();
 		_spawnNode = FindObjectOfType<HackerNode>();
 		_currentNode = _spawnNode;
+		_currentNode.ToggleContext(true, this);
 		NetworkWindow.Instance.RecalculateAccesibleNodes();
 	}
 

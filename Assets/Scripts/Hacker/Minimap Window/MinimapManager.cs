@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Gamelogic.Extensions;
 
-public class MinimapManager : MonoBehaviour {
-
-	public static MinimapManager _instance;
-
+public class MinimapManager : Singleton<MinimapManager> {
+	//TODO Move to Reference manager
 	[SerializeField]
 	private GameObject _playerPrefab;
 	[SerializeField]
@@ -66,41 +65,50 @@ public class MinimapManager : MonoBehaviour {
 		}
 	}
 
+	//TODO Revamp these functions
 	public MinimapDoor CreateMinimapDoor (Vector3 pos, float rotation, int ID) {
-		pos.y = _iconHeight;
+		//pos.y = _iconHeight;
 		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos / scale, Quaternion.Euler(0, rotation, 0));
-		MinimapDoor miniDoor = gameObject.GetComponent<MinimapDoor>();
-		return miniDoor;
+		return gameObject.GetComponent<MinimapDoor>();
 	}
 
 	public MinimapFirewall CreateMinimapFirewall (Vector3 pos, int ID) {
-		pos.y = _iconHeight;
-		GameObject gameObject = (GameObject)Instantiate(_minimapFirewallPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
-		MinimapFirewall miniWall = gameObject.GetComponent<MinimapFirewall>();
-		return miniWall;
+		//pos.y = _iconHeight;
+		GameObject go = (GameObject)Instantiate(_minimapFirewallPrefab, pos / scale, Quaternion.identity);
+		return go.GetComponent<MinimapFirewall>();
 	}
 
 	public MinimapPickupIcon CreateMinimapIcon (Vector3 pos) {
-		GameObject gameObject = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.Euler(0, 0, 0));
-		return gameObject.GetComponent<MinimapPickupIcon>();
-	}
-	public MinimapEnemy CreateMinimapEnemy (Vector3 pos) {
-		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.EnemyIcon, pos / scale, Quaternion.Euler(0, 0, 0));
-		return gameObject.GetComponent<MinimapEnemy>();
+		GameObject go = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.identity);
+		return go.GetComponent<MinimapPickupIcon>();
 	}
 
+	public MinimapDrone CreateMinimapDrone (float pX, float pZ, float pRot) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pX, 0, pZ) / scale, Quaternion.Euler(0, pRot, 0));
+		return go.GetComponent<MinimapDrone>();
+	}
+
+	public MinimapCamera CreateMinimapCamera (float pX, float pZ, float pRot) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, new Vector3(pX, 0 ,pZ) / scale, Quaternion.Euler(0, pRot, 0));
+		return go.GetComponent<MinimapCamera>();
+	}
+
+	public MinimapCamera CreateMinimapTurret (float pX, float pZ, float pRot) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, new Vector3(pX, 0, pZ) / scale, Quaternion.Euler(0, pRot, 0));
+		return go.GetComponent<MinimapCamera>();
+	}
 
 
+	//TODO THis belongs somehweewreelse boiii
 	public void UpdateMinimapPlayer (CustomCommands.Update.PlayerPositionUpdate package) {
 		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
 
 		if (_player == null) {
 			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos / scale, Quaternion.Euler(0, package.rotation, 0));
 			_player = gameObject.GetComponent<MinimapPlayer>();
-			_player.InitialPosition(pos / scale);
+			_player.InitialTransform(pos / scale, package.rotation);
 		} else {
-			_player.UpdatePosition(pos / scale);
-			_player.UpdateRotation(package.rotation);
+			_player.UpdateTransform(pos / scale, package.rotation);
 		}
 	}
 
@@ -111,16 +119,5 @@ public class MinimapManager : MonoBehaviour {
 		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.LaserShot, startPos / scale, Quaternion.Euler(0, 0, 0));
 		LaserShot shot = gameObject.GetComponent<LaserShot>();
 		shot.SetTargetPos(endPos / scale);
-	}
-
-	//Static
-	public static MinimapManager GetInstance () {
-		if (_instance == null) {
-			_instance = FindObjectOfType<MinimapManager>();
-			if (_instance == null) {
-				Debug.Log("ERROR!!! MINIMAP MANAGER NOT FOUND");
-			}
-		}
-		return _instance;
 	}
 }
