@@ -1,5 +1,5 @@
 [LOG] SystemI::init                            : FMOD Studio Version: 00010814 (80900)
-[LOG] SystemI::init                            : maxchannels = 1024, flags = 00030000, extradriverdata = 0000000000000000
+[LOG] SystemI::init                            : maxchannels = 128, flags = 00030000, extradriverdata = 00000000
 [LOG] SystemI::close                           : 
 [LOG] SystemI::close                           : Stop all sounds
 [LOG] SystemI::close                           : done.
@@ -8,42 +8,422 @@
 [LOG] OutputWASAPI::init                       : Mix Format (WAVEFORMATEXTENSIBLE): wValidBitsPerSample=32, dwChannelMask=0x00000003, SubFormat=00000003-0000-0010-8000-00AA00389B71.
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Initializing FMOD mixer thread.  priority 3
-[LOG] Thread::initThread                       : - Stacksize 49152.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 0
+[LOG] Thread::initThread                       : - Stacksize 49152.  Stack pointer 00000000 : usesemaphore = 0 : sleeptime = 0
 [LOG] Thread::callback                         : * FMOD mixer thread started
 [LOG] SystemI::init                            : Set up emulated output
 [LOG] SystemI::init                            : create the channel pool
 [LOG] Thread::initThread                       : Initializing FMOD stream thread.  priority 2
-[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 10
+[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 00000000 : usesemaphore = 0 : sleeptime = 10
 [LOG] Thread::callback                         : * FMOD stream thread started
 [LOG] Thread::initThread                       : Initializing FMOD Studio update thread.  priority 0
-[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
+[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 00000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio update thread started
 [LOG] Thread::initThread                       : Initializing FMOD Studio sample load thread.  priority 0
-[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
+[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 00000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio sample load thread started
 [LOG] LiveUpdate::init                         : 
 [LOG] Thread::initThread                       : Initializing FMOD Studio bank load thread.  priority 0
-[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 0000000000000000 : usesemaphore = 0 : sleeptime = 1
+[LOG] Thread::initThread                       : - Stacksize 65536.  Stack pointer 00000000 : usesemaphore = 0 : sleeptime = 1
 [LOG] Thread::callback                         : * FMOD Studio bank load thread started
-[ERR] FMOD_OS_Net_Listen                       : bind failed 10048
-[ERR] AsyncManager::asyncThreadLoop            : System::update returned error 43.
-[ERR] FMOD_OS_Net_Listen                       : bind failed 10048
-[ERR] AsyncManager::asyncThreadLoop            : System::update returned error 43.
-[ERR] system_release                           : Failed to call stopRecordCommands during system release (Error code 43)
-[ERR] system_release                           : Failed to call flushCommands during system release (Error code 43)
+[LOG] Profile::init                            : Profiler listening on port: 9264
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 3
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] Manager::readBank                        : fileversion = 80, compatVersion = 70 (oldest = 44, newest = 80)
+[LOG] LiveUpdate::clientConnected              : client = 12D26B50
+[LOG] LiveUpdate::readPacket                   : Accepting init message for client 12D26B50
+[LOG] LiveUpdate::acceptInitPacket             : Client 12D26B50 connected, entering sync state
+[LOG] Manager::sendConnectTimeHash             : 
+[LOG] LiveUpdate::sendConnectTimeHash          : 
+[LOG] Manager::finishSync                      : 
+[LOG] LiveUpdate::transitionToConnected        : 
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 4160
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 11808
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12D120E0
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 24000 samples, lengthbytes 4032
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 24000, lengthbytes 4032, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 138149 samples, lengthbytes 8448
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 138149, lengthbytes 8448, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 158400 samples, lengthbytes 8608
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 158400, lengthbytes 8608, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 161440 samples, lengthbytes 44864
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 161440, lengthbytes 44864, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 557857 samples, lengthbytes 135232
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 557857, lengthbytes 135232, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 14000 samples, lengthbytes 3936
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 14000, lengthbytes 3936, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 171900 samples, lengthbytes 10528
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 171900, lengthbytes 10528, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 168000 samples, lengthbytes 41632
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 168000, lengthbytes 41632, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA6C90
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 161440 samples, lengthbytes 9824
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 161440, lengthbytes 9824, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for Routable: {da9ec0be-12bb-4f64-b3b4-1fbaed8dc752}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #2 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for WaveformInstrumentModel: {da9ec0be-12bb-4f64-b3b4-1fbaed8dc752}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #131 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for WaveformInstrumentModel: {da9ec0be-12bb-4f64-b3b4-1fbaed8dc752}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute update command #130 due to error 30
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for Routable: {fff7e94d-e515-4ef7-95c2-7df70718a6dd}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #2 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for WaveformInstrumentModel: {fff7e94d-e515-4ef7-95c2-7df70718a6dd}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #131 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for WaveformInstrumentModel: {fff7e94d-e515-4ef7-95c2-7df70718a6dd}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute update command #130 due to error 30
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #1 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for EventModel: {b0a7f8a3-0059-4828-a620-b83d17938cce}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #225 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #84 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #84 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #2 due to invalid handle
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #131 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #1 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for EventModel: {b0a7f8a3-0059-4828-a620-b83d17938cce}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #225 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #1 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for EventModel: {b0a7f8a3-0059-4828-a620-b83d17938cce}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #225 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #84 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #84 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #2 due to invalid handle
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #131 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusWithInputs: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #1 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #83 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for TimelineModel: {2e7a9602-7500-4c77-a225-e58310d5c0cc}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #82 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for EventModel: {b0a7f8a3-0059-4828-a620-b83d17938cce}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #225 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusModel: {08f237cd-b35b-0013-0ede-6e4a08017330}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #233 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for Routable: {08f237cd-b35b-0013-0ede-6e4a08017330}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #232 due to invalid handle
+[WRN] ObjectLookup::get                        : Lookup failed for BusModel: {d1737ceb-98aa-4c75-a0e5-cd379b5e64b0}
+[WRN] LiveUpdate::processCommandPacket         : Failed to execute live update command #233 due to invalid handle
+[LOG] SystemI::createSoundInternal             : filename =  : mode 02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 148
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 950784
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 47200
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 1432F600
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 6C8EB2F0
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 6C8EB2C0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 6C8EB380
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 6C8EB410
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 12DA8198
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::createSoundInternal             : Format has 1 subsounds.
+[LOG] SystemI::createSoundInternal             : Create as FMOD_CREATESAMPLE
+[LOG] SystemI::createSoundInternal             : Multi-sample sound (1 subsounds), create a sample container.
+[LOG] SystemI::createSoundInternal             : creating subsound 0/1
+[LOG] SystemI::createSample                    : mode 02000202 length 17999 samples, lengthbytes 1408
+[LOG] SystemI::createSample                    : channels = 1
+[LOG] SystemI::createSample                    : output = 0F79B720
+[LOG] OutputSoftware::createSample             : lengthpcm 17999, lengthbytes 1408, channels 1, format 2, freq 48000, mode 0200020a
+[LOG] SystemI::createSoundInternal             : No name found in file, use filename.
+[LOG] SystemI::createSoundInternal             : done.  OpenState now = FMOD_OPENSTATE_READY.
+
+[LOG] SoundI::release                          :  (0F745018)
+[LOG] SoundI::release                          : release subsounds. (0F745018)
+[LOG] SoundI::release                          :     PE_menu_button_click (12CF19E0)
+[LOG] SoundI::release                          : release codec. (0F745018)
+[LOG] SoundI::release                          :  (0F7453F8)
+[LOG] SoundI::release                          : release subsounds. (0F7453F8)
+[LOG] SoundI::release                          :     PE_drones_engine_stand_octave (12D94F98)
+[LOG] SoundI::release                          : release codec. (0F7453F8)
+[LOG] SoundI::release                          :  (12DB1890)
+[LOG] SoundI::release                          : release subsounds. (12DB1890)
+[LOG] SoundI::release                          :     PE_drones_engine_move (12D93AD0)
+[LOG] SoundI::release                          : release codec. (12DB1890)
+[LOG] SoundI::release                          :  (12DB1E60)
+[LOG] SoundI::release                          : release subsounds. (12DB1E60)
+[LOG] SoundI::release                          :     PE_drones_engine_stand (12D944A8)
+[LOG] SoundI::release                          : release codec. (12DB1E60)
+[LOG] SoundI::release                          :  (12DB16A0)
+[LOG] SoundI::release                          : release subsounds. (12DB16A0)
+[LOG] SoundI::release                          :     PE_drones_engine_stand_maj3rd (12D938A0)
+[LOG] SoundI::release                          : release codec. (12DB16A0)
+[LOG] SoundI::release                          :  (0F7454F0)
+[LOG] SoundI::release                          : release subsounds. (0F7454F0)
+[LOG] SoundI::release                          :     PE_drones_engine_stand_5th (12D94048)
+[LOG] SoundI::release                          : release codec. (0F7454F0)
+[LOG] SoundI::release                          :  (12DB0FD8)
+[LOG] SoundI::release                          : release subsounds. (12DB0FD8)
+[LOG] SoundI::release                          :     PE_hacker_cameramove_stop (18760C70)
+[LOG] SoundI::release                          : release codec. (12DB0FD8)
+[LOG] SoundI::release                          :  (12DB10D0)
+[LOG] SoundI::release                          : release subsounds. (12DB10D0)
+[LOG] SoundI::release                          :     PE_shooter_alarm_loop (12D953F8)
+[LOG] SoundI::release                          : release codec. (12DB10D0)
+[LOG] SoundI::release                          :  (12DB2528)
+[LOG] SoundI::release                          : release subsounds. (12DB2528)
+[LOG] SoundI::release                          :     PE_hacker_cameramove_start (12D93F30)
+[LOG] SoundI::release                          : release codec. (12DB2528)
+[LOG] SoundI::release                          :  (12DB1988)
+[LOG] SoundI::release                          : release subsounds. (12DB1988)
+[LOG] SoundI::release                          :     PE_hacker_cameramove_loop (12D945C0)
+[LOG] SoundI::release                          : release codec. (12DB1988)
 [LOG] Thread::callback                         : * FMOD Studio update thread finished
 [LOG] Thread::close                            : FMOD Studio update thread thread destroyed
 [LOG] Thread::callback                         : * FMOD Studio bank load thread finished
 [LOG] Thread::close                            : FMOD Studio bank load thread thread destroyed
+[LOG] LiveUpdate::clientDisconnected           : client = 12D26B50
+[LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] Profile::disconnectAll                   : Profiler disconnecting all clients
 [LOG] Thread::callback                         : * FMOD Studio sample load thread finished
 [LOG] Thread::close                            : FMOD Studio sample load thread thread destroyed
 [LOG] LiveUpdate::release                      : 
 [LOG] LiveUpdate::reset                        : Reset connection (reason Disconnected)
 [LOG] SystemI::close                           : 
-[ERR] FMOD_OS_Net_Listen                       : bind failed 10048
 [LOG] SystemI::close                           : Stop all sounds
-[ERR] FMOD_OS_Net_Listen                       : bind failed 10048
 [LOG] Thread::callback                         : * FMOD stream thread finished
 [LOG] Thread::close                            : FMOD stream thread thread destroyed
 [LOG] SystemI::close                           : Stream thread destroyed
@@ -56,4 +436,3 @@
 [LOG] SystemI::close                           : Free channel pool.
 [LOG] SystemI::close                           : done.
 
-[LOG] System::create                           : Header version = 1.08.14. Current version = 1.08.14.
