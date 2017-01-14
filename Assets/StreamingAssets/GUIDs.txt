@@ -54,6 +54,7 @@
 {aa2104f0-f4dc-4d24-9738-3062a715be88} bus:/Vox AI
 {71fa1f32-354d-4d7c-ad13-d5c85a23a99a} bus:/Vox Drone
 {f7f203bb-02b9-42b0-b5b2-187c1c1fa21c} bus:/Hacker Walkie Talkie
+{dc7a91e4-01d3-41f6-a3be-42e974f2f993} snapshot:/snapkilltobi
 {40404d18-2078-4ba9-86b3-f334442d6f93} bank:/PE_musicsystem_hacker
 {f37b6433-6266-40e1-a3c5-8b2912159a29} bank:/PE_musicsystem_shooter
 {a5a83d51-9d15-446c-9910-d845e5399b95} bank:/PE_sfx_hacker
