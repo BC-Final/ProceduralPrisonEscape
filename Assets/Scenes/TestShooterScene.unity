@@ -2947,7 +2947,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 8114174, guid: bf7f0afcece604440a60e574696915b2, type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
@@ -11997,7 +11997,7 @@ Prefab:
 GameObject:
   m_PrefabParentObject: {fileID: 167664, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_PrefabInternal: {fileID: 256108441}
---- !u!114 &1260999509
+--- !u!114 &1260999514
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}

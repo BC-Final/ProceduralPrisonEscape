@@ -56,6 +56,11 @@ public class KeyCard : MonoBehaviour, IInteractable, INetworked {
 
 	public void Interact() {
 		FindObjectOfType<Inventory>().AddKeyCard(_doors);
+
+		FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickkeycard");
+		FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
+		ins.start();
+
 		Destroy(gameObject);
 	}
 

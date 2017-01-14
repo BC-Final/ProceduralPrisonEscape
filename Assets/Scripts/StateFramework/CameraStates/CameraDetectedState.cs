@@ -11,16 +11,16 @@ namespace StateFramework {
 
 		public CameraDetectState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-			_detectSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camcatch");
-			_loseSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camlost");
 
-			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_detectSound, _camera.transform, _camera.GetComponent<Rigidbody>());
-			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_loseSound, _camera.transform, _camera.GetComponent<Rigidbody>());
+
 		}
 
 		public override void Enter () {
-			_camera.GetComponentInChildren<Light>().color = Color.yellow;
+			_detectSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camcatch");
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_detectSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 			_detectSound.start();
+
+			_camera.GetComponentInChildren<Light>().color = Color.yellow;
 		}
 
 		public override void Step () {
@@ -32,6 +32,8 @@ namespace StateFramework {
 		}
 
 		public override void Exit () {
+			_loseSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camlost");
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_loseSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 			_loseSound.start();
 		}
 	}
