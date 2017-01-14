@@ -58,12 +58,19 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void SetTobias (bool pState) {
-		//FMOD.Studio.EventInstance s = FMODUnity.RuntimeManager.CreateInstance("snapshot:/snapkilltobi");
+		/*
+		FMOD.Studio.EventInstance s = FMODUnity.RuntimeManager.CreateInstance("snapshot:/snapkilltobi");
 
-		//if (pState) {
-		//	s.start();
-		//} else {
-		//	s.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-		//}
+		if (pState) {
+			s.start();
+		} else {
+			s.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+		}
+		*/
+
+		FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
+		FMOD.Studio.EventInstance evnt;
+		desc.createInstance(out evnt);
+		evnt.start();
 	}
 }

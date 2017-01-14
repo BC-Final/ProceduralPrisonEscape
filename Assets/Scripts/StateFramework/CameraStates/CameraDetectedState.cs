@@ -11,8 +11,6 @@ namespace StateFramework {
 
 		public CameraDetectState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
-
-
 		}
 
 		public override void Enter () {
