@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using StateFramework;
 using System.Net.Sockets;
+using UnityEngine.AI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
@@ -122,6 +123,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		}
 	}
 
+	private NavMeshAgent _agent;
+
+	private FMOD.Studio.EventInstance _hoverSound;
+
 	public void Initialize () {
 		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DroneCreation(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 	}
@@ -147,7 +152,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		_fsm.AddState(new DroneReturnState(this, _fsm));
 		_fsm.AddState(new DroneAttackState(this, _fsm));
 
-		
+		_agent = GetComponent<NavMeshAgent>();
 
 		_currentHealth = _maxHealth;
 
@@ -156,6 +161,11 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		} else {
 			_fsm.SetState<DroneIdleState>();
 		}
+
+
+		_hoverSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_drone/PE_drone_engine");
+		FMODUnity.RuntimeManager.AttachInstanceToGameObject(_hoverSound, transform, GetComponent<Rigidbody>());
+		_hoverSound.start();
 	}
 
 	public void SetTarget () {
@@ -168,6 +178,12 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _postionUpdateRate;
 			ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+		}
+
+		if (_agent.velocity.magnitude > 0.2f) {
+			_hoverSound.setParameterValue("p_drone_move", 1.0f);
+		} else {
+			_hoverSound.setParameterValue("p_drone_move", 0.0f);
 		}
 
 
