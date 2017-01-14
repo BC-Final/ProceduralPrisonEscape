@@ -25,6 +25,9 @@ namespace StateFramework {
 		public override void Interact () {
 			if ((_door.RequireKeycard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door.RequireKeycard) && _door.Openable) {
 				_fsm.SetState<DoorOpenState>();
+				FMODUnity.RuntimeManager.CreateInstance("event:/PE_envi/PE_envi_door_access").start();
+			} else {
+				FMODUnity.RuntimeManager.CreateInstance("event:/PE_envi/PE_envi_door_denied").start();
 			}
 		}
 	}

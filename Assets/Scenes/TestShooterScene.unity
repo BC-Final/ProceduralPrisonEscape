@@ -2945,6 +2945,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8114174, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_IsPrefabParent: 0
@@ -11989,6 +11993,22 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 398f6ea9372c21a40a9e5e837a7b5f77, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1260999508 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 167664, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+  m_PrefabInternal: {fileID: 256108441}
+--- !u!114 &1260999509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1260999508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!4 &1261869574 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400002, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
@@ -12985,6 +13005,7 @@ GameObject:
   - component: {fileID: 1422132087}
   - component: {fileID: 1422132086}
   - component: {fileID: 1422132088}
+  - component: {fileID: 1422132089}
   m_Layer: 0
   m_Name: pfb_ShooterGamestateManager
   m_TagString: Untagged
@@ -13038,6 +13059,23 @@ MonoBehaviour:
   _maxWaveEnemyCount: 3
   _enemyPrefab: {fileID: 1000012459772106, guid: 4ba773ba204f16a4e88057ad91882b72,
     type: 2}
+--- !u!114 &1422132089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1422132085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 2
+  Banks:
+  - PE_sfx_shooter
+  CollisionTag: 
+  PreloadSamples: 0
 --- !u!1001 &1427054513
 Prefab:
   m_ObjectHideFlags: 0

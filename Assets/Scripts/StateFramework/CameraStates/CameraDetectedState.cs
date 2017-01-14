@@ -6,12 +6,21 @@ namespace StateFramework {
 	public class CameraDetectState : AbstractCameraState {
 		private GameObject _player;
 
+		private FMOD.Studio.EventInstance _detectSound;
+		private FMOD.Studio.EventInstance _loseSound;
+
 		public CameraDetectState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
+			_detectSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camcatch");
+			_loseSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camlost");
+
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_detectSound, _camera.transform, _camera.GetComponent<Rigidbody>());
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_loseSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 		}
 
 		public override void Enter () {
 			_camera.GetComponentInChildren<Light>().color = Color.yellow;
+			_detectSound.start();
 		}
 
 		public override void Step () {
@@ -23,7 +32,7 @@ namespace StateFramework {
 		}
 
 		public override void Exit () {
-
+			_loseSound.start();
 		}
 	}
 }
