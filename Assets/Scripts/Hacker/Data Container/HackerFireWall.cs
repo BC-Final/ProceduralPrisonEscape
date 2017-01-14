@@ -75,7 +75,14 @@ public class HackerFirewall {
 	/// <param name="pPackage">The information about the firewall</param>
 	public static void UpdateFireWall (CustomCommands.Update.FireWallUpdate pPackage) {
 		HackerFirewall firewall = GetFireWallByID(pPackage.ID);
+
 		firewall._destroyed.Value = pPackage.destroyed;
+
+		if (pPackage.destroyed) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_firewall_shutdown").start();
+		} else {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_firewall_startup").start();
+		}
 	}
 
 

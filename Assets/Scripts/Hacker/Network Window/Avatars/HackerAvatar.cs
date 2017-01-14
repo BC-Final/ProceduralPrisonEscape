@@ -90,6 +90,7 @@ public class HackerAvatar : AbstractAvatar {
 			_currentNode.AbortHack(this);
 			_currentNode.ToggleContext(false, this);
 			base.OnTriggerEnter2D(pOther);
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_avatar_death").start();
 		}
 	}
 

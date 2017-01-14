@@ -68,11 +68,27 @@ MonoBehaviour:
   - {fileID: 114195131166384660}
   - {fileID: 114363033032945674}
   - {fileID: 114703554405079284}
+  - {fileID: 114159558888205344}
   MasterBankRef: {fileID: 114327868053963220}
   StringsBankRef: {fileID: 114268223997819880}
-  stringsBankWriteTime: 636199878184388175
+  stringsBankWriteTime: 636199951404230698
   cacheVersion: 2
 --- !u!114 &114001019083276348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_camerastate
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114001320511107312
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -122,7 +138,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 9.6
 --- !u!114 &114045580653340738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +303,27 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114159558888205344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: snapshot:/snapkilltobi
+  guid: e4917adcd301f641a3be42e974f2f993
+  Banks:
+  - {fileID: 114327868053963220}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114178205324350126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,11 +340,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114688941438097196}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114195131166384660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,11 +439,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
-  lastModified: 636199878184388175
+  lastModified: 636199951404230698
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 3526
+    Value: 3580
   Exists: 1
 --- !u!114 &114272504621486902
 MonoBehaviour:
@@ -505,11 +542,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
     Stereo\PE_menu.bank
-  lastModified: 636199878184368153
+  lastModified: 636199951404215687
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 15488
+    Value: 15968
   Exists: 1
 --- !u!114 &114355743218479352
 MonoBehaviour:
@@ -572,6 +609,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114375346789076242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114376890048495078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,11 +737,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114688941438097196}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114507370792304202
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,7 +803,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114014049326628640}
+  - {fileID: 114375346789076242}
   MinDistance: 1
   MaxDistance: 20
 --- !u!114 &114547124890026002
@@ -994,11 +1046,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
     Stereo\PE_sfx_shooter.bank
-  lastModified: 636199878184943703
+  lastModified: 636199942643616885
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 997696
+    Value: 997984
   Exists: 1
 --- !u!114 &114699922667479128
 MonoBehaviour:
@@ -1349,7 +1401,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114001019083276348}
+  - {fileID: 114001320511107312}
   MinDistance: 1
   MaxDistance: 20
 --- !u!114 &114982121215749476

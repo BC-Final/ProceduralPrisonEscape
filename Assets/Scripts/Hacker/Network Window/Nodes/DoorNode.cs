@@ -48,6 +48,7 @@ public class DoorNode : AbstractNode {
 
 	void OnMouseOver () {
 		if(Input.GetMouseButtonDown(1)){
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_open").start();
 			FindObjectOfType<CameraDragAndDrop>().SetTargetPos(_associatedDoor.MapDoor.transform.position);
 			FindObjectOfType<MapSelectionHighlight>().IndicateSelection(_associatedDoor.MapDoor.transform.position);
 		}

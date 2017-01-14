@@ -9,16 +9,25 @@ public class GameStateManager : Singleton<GameStateManager> {
 
 	private bool _alarm;
 
+	private FMOD.Studio.EventInstance _alarmLoop;
+
+	private void Start () {
+		_alarmLoop = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_alarm_loop");
+	}
 
 	public void TriggerAlarm () {
-		_alarm = true;
-		_currentSuspicion = 0;
-		HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(true));
+		if (!_alarm) {
+			_alarm = true;
+			_currentSuspicion = 0;
+			HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(true));
+
+			_alarmLoop.start();
+		}
 	}
 
 	public void DisableAlarm () {
-		Debug.Log("Disable Alarm");
 		_alarm = false;
+		_alarmLoop.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(false));
 	}
 

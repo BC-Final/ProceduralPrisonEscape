@@ -88,6 +88,9 @@ public class HackerDoor {
 		if (_doorNode.Hacked.Value) {
 			_state.Value = pState;
 			HackerPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)_state.Value));
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_access").start();
+		} else {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();
 		}
 	}
 

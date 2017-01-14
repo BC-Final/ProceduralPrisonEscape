@@ -44,11 +44,21 @@ public class ShooterFirewall : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		_destroyed = true;
+		if(!_destroyed) {
+			FMOD.Studio.EventInstance startDest = FMODUnity.RuntimeManager.CreateInstance("event:/PE_envi/PE_envi_firewall_destroy_start");
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(startDest, transform, GetComponent<Rigidbody>());
+			startDest.start();
 
-		ParticleSystem.EmissionModule em = _particleSystem.emission;
-		em.enabled = true;
+			FMOD.Studio.EventInstance loopDest = FMODUnity.RuntimeManager.CreateInstance("event:/PE_envi/PE_envi_firewall_destroy_loop");
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(loopDest, transform, GetComponent<Rigidbody>());
+			loopDest.start();
 
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.FireWallUpdate(Id, _destroyed));
+			_destroyed = true;
+
+			ParticleSystem.EmissionModule em = _particleSystem.emission;
+			em.enabled = true;
+
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.FireWallUpdate(Id, _destroyed));
+		}
 	}
 }

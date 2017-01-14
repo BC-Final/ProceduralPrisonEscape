@@ -29,6 +29,8 @@ public class MenuManager : MonoBehaviour {
 	public void UIOnPlayShooter () {
 		int port = 55556;
 
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+
 		if (!int.TryParse(_hostPortInputField.text, out port)) {
 			Debug.LogWarning("Invalid Host Port.");
 		} else {
@@ -37,6 +39,8 @@ public class MenuManager : MonoBehaviour {
 		}
 	}
 	public void UIOnPlayHacker () {
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+
 		if (new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
 			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
 
@@ -54,6 +58,12 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void SetTobias (bool pState) {
+		//FMOD.Studio.EventInstance s = FMODUnity.RuntimeManager.CreateInstance("snapshot:/snapkilltobi");
 
+		//if (pState) {
+		//	s.start();
+		//} else {
+		//	s.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+		//}
 	}
 }

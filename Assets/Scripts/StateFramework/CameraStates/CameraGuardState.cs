@@ -21,12 +21,16 @@ namespace StateFramework {
 
 		private int _currentDirection;
 
+		private FMOD.Studio.EventInstance _moveSound;
+
 		public CameraGuardState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_startRotation = _camera.Base.rotation.eulerAngles;
 
 			_leftPos = _startRotation + new Vector3(0f, _camera.RotationAngle / 2f, 0f);
 			_rightPos = _startRotation + new Vector3(0f,  - _camera.RotationAngle / 2f, 0f);
+
+			
 		}
 
 		public override void Enter () {
@@ -40,6 +44,11 @@ namespace StateFramework {
 			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _camera.RotationSpeed;
 
 			_camera.GetComponentInChildren<Light>().color = Color.green;
+
+			_moveSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_start");
+			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveSound, _camera.transform, _camera.GetComponent<Rigidbody>());
+
+			_moveSound.start();
 		}
 
 		public override void Step () {
@@ -77,6 +86,7 @@ namespace StateFramework {
 		}
 
 		public override void Exit () {
+			_moveSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		}
 	}
 }

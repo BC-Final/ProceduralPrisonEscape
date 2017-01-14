@@ -24,6 +24,9 @@ public class SecurityNode : AbstractNode {
 
 		GameStateManager.Instance.DisableAlarm();
 		_avatar.Deactivate(_adminDeactivateDuration);
+
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_admin_disable").start();
+
 		_knownHackedNodes.AddFirst(this);
 	}
 
