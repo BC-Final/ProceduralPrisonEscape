@@ -180,7 +180,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 			ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 		}
 
-		if (_agent.velocity.magnitude > 0.2f) {
+		if (_agent.velocity.magnitude > 0.3f) {
 			_hoverSound.setParameterValue("p_drone_move", 1.0f);
 		} else {
 			_hoverSound.setParameterValue("p_drone_move", 0.0f);
@@ -200,6 +200,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 
 			if (_currentHealth <= 0.0f) {
 				OnDestroy();
+				_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 				_fsm.SetState<DroneDeadState>();
 			}
 

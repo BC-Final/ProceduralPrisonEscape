@@ -29,7 +29,7 @@ public class MenuManager : MonoBehaviour {
 	public void UIOnPlayShooter () {
 		int port = 55556;
 
-		if(!int.TryParse(_hostPortInputField.text, out port)) {
+		if (!int.TryParse(_hostPortInputField.text, out port)) {
 			Debug.LogWarning("Invalid Host Port.");
 		} else {
 			PlayerPrefs.SetInt("HostPort", port);
@@ -37,12 +37,12 @@ public class MenuManager : MonoBehaviour {
 		}
 	}
 	public void UIOnPlayHacker () {
-		if(new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
+		if (new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
 			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
 
 			int port = 55556;
 
-			if(!int.TryParse(_hostPortInputField.text, out port)) {
+			if (!int.TryParse(_hostPortInputField.text, out port)) {
 				Debug.LogWarning("Invalid Connection Port.");
 			} else {
 				PlayerPrefs.SetInt("ConnectionPort", port);
@@ -51,5 +51,9 @@ public class MenuManager : MonoBehaviour {
 		} else {
 			Debug.LogWarning("Invalid Connection IP-Adress.");
 		}
+	}
+
+	public void SetTobias (bool pState) {
+
 	}
 }
