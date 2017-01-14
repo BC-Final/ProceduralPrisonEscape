@@ -22,7 +22,7 @@ public class SecurityNode : AbstractNode {
 	protected override void GotHacked() {
 		base.GotHacked();
 
-		GameStateManager.Instance.Alarm = false;
+		GameStateManager.Instance.DisableAlarm();
 		_avatar.Deactivate(_adminDeactivateDuration);
 		_knownHackedNodes.AddFirst(this);
 	}
@@ -45,7 +45,10 @@ public class SecurityNode : AbstractNode {
 	public override void ReceivePacket(AbstractNode pSender, Packet pPacket) {
 		if (pPacket is AlarmPacket) {
 			_knownHackedNodes.AddFirst(pSender);
-			GameStateManager.Instance.Alarm = true;
+			GameStateManager.Instance.TriggerAlarm();
+		} else if (pPacket is SuspicionPacket) {
+			_knownHackedNodes.AddFirst(pSender);
+			GameStateManager.Instance.IncreaseSuspicion();
 		} else {
 			//Debug.Log("What should " + this.GetType().Name + "do with " + pPacket.GetType().Name + "?");
 		}

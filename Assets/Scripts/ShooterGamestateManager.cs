@@ -5,7 +5,7 @@ using Gamelogic.Extensions;
 using DG.Tweening;
 
 public class ShooterGamestateManager : Singleton<ShooterGamestateManager> {
-	/*
+	
 	private bool _alarm;
 
 	[SerializeField]
@@ -17,6 +17,8 @@ public class ShooterGamestateManager : Singleton<ShooterGamestateManager> {
 	Sequence _seq;
 
 	public void TriggerAlarm () {
+		Debug.Log("Enabled lights");
+
 		_alarm = true;
 
 		_seq = DOTween.Sequence();
@@ -28,9 +30,14 @@ public class ShooterGamestateManager : Singleton<ShooterGamestateManager> {
 	}
 
 	public void DisableAlarm () {
+
+		Debug.Log("Disabled lights");
 		_alarm = false;
 
-		_seq.Kill(true);
+		_seq.Kill();
+
+
+		//_alarmLight1.DOIntensity(0.0f, 0.5f);
+		//_alarmLight2.DOIntensity(0.0f, 0.5f);
 	}
-	*/
 }

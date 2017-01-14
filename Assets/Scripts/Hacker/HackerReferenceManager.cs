@@ -23,6 +23,7 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	[Header("Network Packet Prefabs")]
 	public GameObject AlarmPacket;
 	public GameObject FeedbackPacket;
+	public GameObject SuspicionPacket;
 
 	[Header("Network Node Prefabs")]
 	public GameObject BaseNode;
@@ -32,6 +33,8 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject DispenserNode;
 	public GameObject HackerNode;
 	public GameObject SecurityNode;
+	public GameObject CameraNode;
+	public GameObject TurretNode;
 
 	[Header("Other Network Prefabs")]
 	public GameObject ConnenctionLine;

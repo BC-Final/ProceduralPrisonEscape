@@ -2164,35 +2164,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224055214351682316, guid: 7dac041d2f5dac24b90d46170da65824,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224275843558136812, guid: 7dac041d2f5dac24b90d46170da65824,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224683048213797024, guid: 7dac041d2f5dac24b90d46170da65824,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 224221783347926990, guid: 7dac041d2f5dac24b90d46170da65824,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 224172281381896086, guid: 7dac041d2f5dac24b90d46170da65824,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1426105019207778, guid: 7dac041d2f5dac24b90d46170da65824, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7dac041d2f5dac24b90d46170da65824, type: 2}
   m_IsPrefabParent: 0
@@ -2350,12 +2321,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012177118110, guid: 5d017512e6140ca4aa97c3a4e9f866ec,
-        type: 2}
-      propertyPath: DroneIcon
-      value: 
-      objectReference: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d017512e6140ca4aa97c3a4e9f866ec, type: 2}
   m_IsPrefabParent: 0
@@ -2753,10 +2718,6 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1507004656332668, guid: a31c443c9be164a40b0f1d522fafee90, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a31c443c9be164a40b0f1d522fafee90, type: 2}
@@ -3381,7 +3342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1109a44d63ceca47961dfb89d4916e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSuspicion: 0
+  _maxSuspicion: 4
 --- !u!4 &1930137623
 Transform:
   m_ObjectHideFlags: 0

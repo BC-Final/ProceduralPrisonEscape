@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
 public class HackerDrone {
 	private static List<HackerDrone> _drones = new List<HackerDrone>();
 
 	private MinimapDrone _minimapDrone;
 
-	private float _healthPercent;
+	private ObservedValue<int>  _healthPercent = new ObservedValue<int>(0);
 	private int _id;
 
 	public int Id {
@@ -21,7 +22,8 @@ public class HackerDrone {
 		MinimapDrone minimapDrone = MinimapManager.Instance.CreateMinimapDrone(pPackage.X, pPackage.Z, pPackage.Rot);
 		minimapDrone.InitialTransform(new Vector3(pPackage.X, 0, pPackage.Z) / MinimapManager.Instance.scale, pPackage.Rot);
 
-		drone._healthPercent = pPackage.HealthPercent;
+		drone._healthPercent.OnValueChange += () => minimapDrone.HealthChanged(drone._healthPercent.Value);
+		drone._healthPercent.Value = pPackage.HealthPercent;
 
 		minimapDrone.AssociatedDrone = drone;
 		drone._minimapDrone = minimapDrone;

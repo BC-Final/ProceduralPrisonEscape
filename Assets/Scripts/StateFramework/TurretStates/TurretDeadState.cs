@@ -9,7 +9,7 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			Debug.Log("Dead");
+			//Debug.Log("Dead");
 			//TODO Play death animation
 		}
 

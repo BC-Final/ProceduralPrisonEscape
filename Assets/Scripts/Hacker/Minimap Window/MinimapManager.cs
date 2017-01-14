@@ -93,9 +93,9 @@ public class MinimapManager : Singleton<MinimapManager> {
 		return go.GetComponent<MinimapCamera>();
 	}
 
-	public MinimapCamera CreateMinimapTurret (float pX, float pZ, float pRot) {
-		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.CameraIcon, new Vector3(pX, 0, pZ) / scale, Quaternion.Euler(0, pRot, 0));
-		return go.GetComponent<MinimapCamera>();
+	public MinimapTurret CreateMinimapTurret (float pX, float pZ, float pRot) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.TurretIcon, new Vector3(pX, 0, pZ) / scale, Quaternion.Euler(0, pRot, 0));
+		return go.GetComponent<MinimapTurret>();
 	}
 
 

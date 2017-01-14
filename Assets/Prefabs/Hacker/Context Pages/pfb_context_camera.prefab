@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1549200515670700
 GameObject:
   m_ObjectHideFlags: 1
@@ -260,6 +260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 932201a8660b3dc45b79cce954335ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _contextButtons:
+  - Name: hack
+    Button: {fileID: 114646873269172336}
+  - Name: disable
+    Button: {fileID: 114769801025451700}
 --- !u!114 &114133268691746550
 MonoBehaviour:
   m_ObjectHideFlags: 1

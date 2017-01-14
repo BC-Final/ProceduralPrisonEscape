@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33219503077402350}
   - component: {fileID: 135410413069128010}
   - component: {fileID: 23793896865014422}
-  - component: {fileID: 114062319521589480}
+  - component: {fileID: 114095382174416148}
   m_Layer: 0
   m_Name: pfb_minimap_turret
   m_TagString: Untagged
@@ -163,7 +163,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114062319521589480
+--- !u!114 &114095382174416148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -171,10 +171,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1989628938402834}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c19642fa1ecc934792a6f0223e7ab68, type: 3}
+  m_Script: {fileID: 11500000, guid: ce6f72116b64c4d4d9f243a1c249f437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
 --- !u!135 &135410413069128010
 SphereCollider:
   m_ObjectHideFlags: 1

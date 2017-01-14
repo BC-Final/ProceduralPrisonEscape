@@ -2,6 +2,7 @@
 using System.Collections;
 
 namespace CustomCommands {
+
 	/// <summary>
 	/// Update Packages
 	/// </summary>
@@ -9,8 +10,10 @@ namespace CustomCommands {
 
 		[System.Serializable]
 		public class AlarmUpdate : AbstractPackage {
-			public AlarmUpdate () {
+			public bool state;
 
+			public AlarmUpdate (bool pState) {
+				state = pState;
 			}
 		}
 
@@ -103,11 +106,9 @@ namespace CustomCommands {
 		[System.Serializable]
 		public class DisableCamera : AbstractPackage {
 			public int Id;
-			public float Time;
 
-			public DisableCamera (int pId, float pTime) {
+			public DisableCamera (int pId) {
 				Id = pId;
-				Time = pTime;
 			}
 		}
 
@@ -116,6 +117,24 @@ namespace CustomCommands {
 			public int Id;
 
 			public EnableCamera (int pId) {
+				Id = pId;
+			}
+		}
+
+		[System.Serializable]
+		public class DisableTurret : AbstractPackage {
+			public int Id;
+
+			public DisableTurret (int pId) {
+				Id = pId;
+			}
+		}
+
+		[System.Serializable]
+		public class EnableTurret : AbstractPackage {
+			public int Id;
+
+			public EnableTurret (int pId) {
 				Id = pId;
 			}
 		}
@@ -256,11 +275,15 @@ namespace CustomCommands {
 			public int Id;
 			public float X;
 			public float Z;
+			public float Rot;
+			public int HealthPercent;
 
-			public TurretCreation (int pId, float pX, float pZ) {
+			public TurretCreation (int pId, float pX, float pZ, float pRot, int pHealthPercent) {
 				Id = pId;
 				X = pX;
 				Z = pZ;
+				Rot = pRot;
+				HealthPercent = pHealthPercent;
 			}
 		}
 

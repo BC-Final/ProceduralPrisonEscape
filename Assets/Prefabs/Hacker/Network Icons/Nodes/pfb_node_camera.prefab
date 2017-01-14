@@ -38,6 +38,8 @@ GameObject:
   - component: {fileID: 224000013073684754}
   - component: {fileID: 222000010996275864}
   - component: {fileID: 114000011839977920}
+  - component: {fileID: 114593418572274528}
+  - component: {fileID: 61560929405291552}
   m_Layer: 5
   m_Name: pfb_node_camera
   m_TagString: Untagged
@@ -45,6 +47,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &61560929405291552
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012373574618}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 32, y: 32}
 --- !u!114 &114000010420384874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,7 +113,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 159854dadc8f86541b27399c2fe8b737, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e74ae0a86c5b15148ba2ec94f7033b14, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -105,6 +121,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114593418572274528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012373574618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452780af62828c94d83a801cfcbab97e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _connections: []
+  _hackable: 1
+  _hackTime: 5
+  _adminProtectTime: 5
+  _hackedAlarmPacketChance: 0
+  _feedbackIntervall: 0
+  _suspicionPacketIntervall: 4
 --- !u!222 &222000010996275864
 CanvasRenderer:
   m_ObjectHideFlags: 1

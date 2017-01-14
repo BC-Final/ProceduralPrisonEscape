@@ -59,6 +59,11 @@ public class MinimapDrone : MonoBehaviour {
 		_newRot = Quaternion.Euler(0, pRot, 0);
 	}
 
+	public void HealthChanged (float pHealth) {
+		if (pHealth <= 0) {
+			GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
+		}
+	}
 	/*
 	private void SetHealth (int nHealth) {
 		health = nHealth;

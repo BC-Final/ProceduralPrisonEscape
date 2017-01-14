@@ -52,7 +52,7 @@ public class AlarmManager : Singleton<AlarmManager> {
 
 	private void spawnWave () {
 		_waveTimer.SetLoop(-1).Start();
-		Debug.Log("Started Wave");
+		//Debug.Log("Started Wave");
 		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount + 1)).Start();
 	}
 
@@ -71,7 +71,7 @@ public class AlarmManager : Singleton<AlarmManager> {
 		GameObject drone = GameObject.Instantiate(_enemyPrefab, droneSpawners[index].transform.position, droneSpawners[index].transform.rotation);
 		drone.GetComponent<DroneEnemy>().SetTarget();
 
-		Debug.Log("Spawned Enemy");
+		//Debug.Log("Spawned Enemy");
 	}
 
 
@@ -80,6 +80,8 @@ public class AlarmManager : Singleton<AlarmManager> {
 	public void ActivateAlarm () {
 		_alarmActive = true;
 
+		GetComponent<ShooterGamestateManager>().TriggerAlarm();
+
 		spawnWave();
 
 		//TODO Send Min Alarm Time
@@ -87,13 +89,20 @@ public class AlarmManager : Singleton<AlarmManager> {
 	}
 
 	public void DeactivateAlarm () {
+		Debug.Log("Disabled Alarm");
+
 		_alarmActive = false;
+
+		GetComponent<ShooterGamestateManager>().DisableAlarm();
+
 		_waveTimer.Stop();
 		_spawnTimer.Stop();
 		//TODO Send Update
 	}
 
+	/*
 	public void SetAlarm (bool pState) {
 		_alarmActive = pState;
 	}
+	*/
 }

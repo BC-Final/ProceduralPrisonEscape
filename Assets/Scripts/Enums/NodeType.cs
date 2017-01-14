@@ -5,5 +5,7 @@
 	Dispenser,
 	Security,
 	Hacker,
-	Database
+	Database,
+	Turret,
+	Camera
 }

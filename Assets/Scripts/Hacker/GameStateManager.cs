@@ -8,9 +8,18 @@ public class GameStateManager : Singleton<GameStateManager> {
 	private int _currentSuspicion;
 
 	private bool _alarm;
-	public bool Alarm {
-		get { return _alarm; }
-		set { _alarm = value; }
+
+
+	public void TriggerAlarm () {
+		_alarm = true;
+		_currentSuspicion = 0;
+		HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(true));
+	}
+
+	public void DisableAlarm () {
+		Debug.Log("Disable Alarm");
+		_alarm = false;
+		HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(false));
 	}
 
 	//Suggestion Should this be in the Security node?
@@ -19,7 +28,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 
 		if (_currentSuspicion >= _maxSuspicion) {
 			//TODO Send Admin to investigsate
-			//TODO Activate alarm!
+			TriggerAlarm();
 		}
 	}
 

@@ -48,6 +48,10 @@ public class ShooterCamera : MonoBehaviour, INetworked {
 	private float _positionSendRate = 0.5f;
 	private float _positionSendTimer = 0.0f;
 
+	[SerializeField]
+	private float _disabledTime = 5.0f;
+	public float DisabledTime { get { return _disabledTime; } }
+
 	private StateMachine<AbstractCameraState> _fsm;
 
 	private int _id;
@@ -96,8 +100,7 @@ public class ShooterCamera : MonoBehaviour, INetworked {
 		_fsm.Step();
 	}
 
-	public void SetDisabled (float pTime) {
-		//TODO Use the time
+	public void Disable () {
 		_fsm.SetState<CameraDisabledState>();
 	}
 

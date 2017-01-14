@@ -41,7 +41,7 @@ public abstract class AbstractNode : MonoBehaviour {
 	protected Timers.Timer _hackTimer;
 	private Timers.Timer _protectTimer;
 
-	private SecurityNode _nearestSecurityNode;
+	protected SecurityNode _nearestSecurityNode;
 
 	protected bool _currentNode;
 	public bool CurrentNode {
@@ -144,9 +144,13 @@ public abstract class AbstractNode : MonoBehaviour {
 	//TODO Add chance to spawn alarm packet
 	protected virtual void GotHacked () {
 		if (Random.Range(0.0f, 1.0f) < _hackedAlarmPacketChance) {
-			GameObject go = (Instantiate(HackerReferenceManager.Instance.AlarmPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
-			go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
+			SendAlarmPacket();
 		}
+	}
+
+	protected void SendAlarmPacket() {
+		GameObject go = (Instantiate(HackerReferenceManager.Instance.AlarmPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
+		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 	}
 
 	protected virtual void GotUnhacked () { }

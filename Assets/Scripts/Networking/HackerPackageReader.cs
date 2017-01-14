@@ -86,7 +86,7 @@ public class HackerPackageReader : MonoBehaviour {
 		//Creation Methods
 		if (package is CustomCommands.Creation.DroneCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.DroneCreation); }
 		if (package is CustomCommands.Creation.CameraCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.CameraCreation); }
-		if (package is CustomCommands.Creation.CameraCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.TurretCreation); }
+		if (package is CustomCommands.Creation.TurretCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.TurretCreation); }
 
 		if (package is CustomCommands.Creation.DoorCreation) { debugMessage = "Package Received : DoorCreation"; ReadResponse(package as CustomCommands.Creation.DoorCreation); }
 		if (package is CustomCommands.Creation.FireWallCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.FireWallCreation); }
@@ -177,18 +177,15 @@ public class HackerPackageReader : MonoBehaviour {
 
 
 	private void ReadResponse (CustomCommands.Update.DroneUpdate package) {
-		//TODO Update Drone
 		HackerDrone.UpdateDrone(package);
 	}
 
 	private void ReadResponse (CustomCommands.Update.CameraUpdate package) {
-		//TODO Update Camera
 		HackerCamera.UpdateCamera(package.id, package.rotation, package.seesPlayer);
 	}
 
 	private void ReadResponse (CustomCommands.Update.TurretUpdate package) {
-		//TODO Update Turret
-		// MinimapEnemy.UpdateEnemy(package);
+		HackerTurret.UpdateTurret(package);
 	}
 
 
@@ -198,6 +195,10 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void ReadResponse (CustomCommands.Creation.CameraCreation package) {
 		HackerCamera.CreateCamera(package);
+	}
+
+	private void ReadResponse (CustomCommands.Creation.TurretCreation package) {
+		HackerTurret.CreateTurret(package);
 	}
 
 

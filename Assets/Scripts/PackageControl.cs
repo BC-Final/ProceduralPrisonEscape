@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PackageControl : MonoBehaviour {
 
-    private FeedbackPacket _storedPackage;
+    private Packet _storedPackage;
 
     private bool _copyModeActivated;
     private bool _blockModeActivated;
@@ -33,7 +33,7 @@ public class PackageControl : MonoBehaviour {
     public void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log("Triggered");
-        FeedbackPacket packet = other.GetComponent<FeedbackPacket>();
+        Packet packet = other.GetComponent<Packet>();
         if (packet != null)
         {
             if (CopyModeActivated) { _storedPackage = packet; }

@@ -38,7 +38,10 @@ public class ShooterPackageReader : MonoBehaviour {
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 
 		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
-		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
+		if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
+		if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
+		if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
+
 
 		if (_showReceivedPackets) {
 			Debug.Log(debugMessage);
@@ -50,7 +53,20 @@ public class ShooterPackageReader : MonoBehaviour {
 	}
 
 	private void ReadPackage (CustomCommands.Update.DisableCamera package) {
-		//HACK This is very hacky, create liost of all cameras
-		new List<ShooterCamera>(FindObjectsOfType<ShooterCamera>()).Find(x => x.Id == package.Id).SetDisabled(package.Time);
+		//HACK This is very hacky, create list of all cameras
+		new List<ShooterCamera>(FindObjectsOfType<ShooterCamera>()).Find(x => x.Id == package.Id).Disable();
+	}
+
+	private void ReadPackage (CustomCommands.Update.DisableTurret package) {
+		//HACK This is very hacky, create list of all cameras
+		new List<Turret>(FindObjectsOfType<Turret>()).Find(x => x.Id == package.Id).Disable();
+	}
+
+	private void ReadPackage (CustomCommands.Update.AlarmUpdate package) {
+		if (package.state) {
+			AlarmManager.Instance.ActivateAlarm();
+		} else {
+			AlarmManager.Instance.DeactivateAlarm();
+		}
 	}
 }

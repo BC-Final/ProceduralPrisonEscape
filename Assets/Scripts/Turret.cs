@@ -80,6 +80,10 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	private bool _visualizeView;
 
 	[SerializeField]
+	private float _disabledTime = 5.0f;
+	public float DisabledTime { get { return _disabledTime; } }
+
+	[SerializeField]
 	private Transform _shootPos;
 	public Transform ShootPos { get { return _shootPos; } }
 
@@ -105,7 +109,7 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	public void Initialize () {
-		//TODO Create init package??
+		ShooterPackageSender.SendPackage(new CustomCommands.Creation.TurretCreation(Id, transform.position.x, transform.position.z, _rotaryBase.eulerAngles.y, (int)(_currentHealth / _maxHealth * 100)));
 	}
 
 	private void Awake () {
@@ -128,6 +132,7 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 		_fsm.AddState(new TurretScanState(this, _fsm));
 		_fsm.AddState(new TurretHideState(this, _fsm));
 		_fsm.AddState(new TurretDeadState(this, _fsm));
+		_fsm.AddState(new TurretDisabledState(this, _fsm));
 
 		_fsm.SetState<TurretIdleState>();
 
@@ -138,11 +143,15 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
-			//ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
+			ShooterPackageSender.SendPackage(new CustomCommands.Update.TurretUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
 		}
 
 
 		_fsm.Step();
+	}
+
+	public void Disable () {
+		_fsm.SetState<TurretDisabledState>();
 	}
 
 	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
