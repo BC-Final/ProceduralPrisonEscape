@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	private InputField _hostPortInputField;
 
+	FMOD.Studio.EventInstance evnt;
+
 	private void Start () {
 		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
 
@@ -24,6 +26,10 @@ public class MenuManager : MonoBehaviour {
 
 		_portInputField.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
 		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
+
+
+		FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
+		desc.createInstance(out evnt);
 	}
 
 	public void UIOnPlayShooter () {
@@ -58,19 +64,10 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void SetTobias (bool pState) {
-		/*
-		FMOD.Studio.EventInstance s = FMODUnity.RuntimeManager.CreateInstance("snapshot:/snapkilltobi");
-
 		if (pState) {
-			s.start();
+			evnt.start();
 		} else {
-			s.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+			evnt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 		}
-		*/
-
-		FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
-		FMOD.Studio.EventInstance evnt;
-		desc.createInstance(out evnt);
-		evnt.start();
 	}
 }
