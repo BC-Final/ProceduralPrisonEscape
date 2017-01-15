@@ -1,5 +1,4 @@
 {7d7c3460-43f5-4fe9-8635-717e738b3c2f} event:/PE_drone/PE_drone_engine
-{7b1392eb-2293-4bcd-89b8-a24e324778e4} event:/PE_envi/PE_envi_cameramove
 {71d8f26c-87a1-4d48-8387-fe194e7a3cb7} event:/PE_envi/PE_envi_dispenser_denied
 {fed9c7c5-c7c8-4f9a-aa9b-36d67bbcd580} event:/PE_envi/PE_envi_dispenser_use
 {75e1fd64-cd3a-4194-9d1e-4058f6285d6c} event:/PE_envi/PE_envi_door_access
@@ -50,10 +49,13 @@
 {2e9f2042-d1c3-438a-adf9-41faac62ce52} bus:/Music Hacker
 {eb6b531c-cda1-4526-8bab-6ca6c7181ad6} bus:/Music Shooter
 {3782f167-0ed0-4299-86b7-a1a974845632} bus:/SFX Hacker
+{2773793f-4916-4c27-9318-53832d0f8ec9} bus:/SFX Hacker/Tobi Hack
 {d8eac7e2-c005-4a93-a70a-b48c2593cdd1} bus:/SFX Shooter
+{1e1ae8aa-a584-4e5d-83b2-0457a47bb5fc} bus:/SFX Shooter/Tobi Shoot
 {aa2104f0-f4dc-4d24-9738-3062a715be88} bus:/Vox AI
 {71fa1f32-354d-4d7c-ad13-d5c85a23a99a} bus:/Vox Drone
 {f7f203bb-02b9-42b0-b5b2-187c1c1fa21c} bus:/Hacker Walkie Talkie
+{ee0ccb50-b1ce-4717-8f00-50cb9ba5b9a0} bus:/Reverb
 {dc7a91e4-01d3-41f6-a3be-42e974f2f993} snapshot:/snapkilltobi
 {40404d18-2078-4ba9-86b3-f334442d6f93} bank:/PE_musicsystem_hacker
 {f37b6433-6266-40e1-a3c5-8b2912159a29} bank:/PE_musicsystem_shooter

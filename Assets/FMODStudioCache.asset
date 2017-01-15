@@ -29,7 +29,6 @@ MonoBehaviour:
   - {fileID: 114373497925579422}
   - {fileID: 114814458730288196}
   - {fileID: 114272504621486902}
-  - {fileID: 114978865777791146}
   - {fileID: 114917871701405018}
   - {fileID: 114976962021532420}
   - {fileID: 114072893901142862}
@@ -71,7 +70,7 @@ MonoBehaviour:
   - {fileID: 114159558888205344}
   MasterBankRef: {fileID: 114025304145706242}
   StringsBankRef: {fileID: 114268223997819880}
-  stringsBankWriteTime: 636200048667075855
+  stringsBankWriteTime: 636201077179141527
   cacheVersion: 2
 --- !u!114 &114001019083276348
 MonoBehaviour:
@@ -103,6 +102,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114003215774765474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114014049326628640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,11 +145,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_menu.bank
-  lastModified: 636200048667045840
+  lastModified: 636201077179106506
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 15968
+    Value: 17280
   Exists: 1
 --- !u!114 &114038440290074530
 MonoBehaviour:
@@ -157,7 +171,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 9.6
+  MaxDistance: 10
 --- !u!114 &114045580653340738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +192,7 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 6
 --- !u!114 &114046895433970078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,13 +283,28 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_stop
   guid: 26b4b21ae7450a42a8e69928c3b9206c
   Banks:
-  - {fileID: 114174847303867078}
+  - {fileID: 114797433371251368}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 6.8
+--- !u!114 &114087339604461152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114115705530504666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +366,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114154790707031348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114159558888205344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,11 +415,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_sfx_hacker.bank
-  lastModified: 636200048668582037
+  lastModified: 636201077180597470
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 2663232
+    Value: 2614208
   Exists: 1
 --- !u!114 &114178205324350126
 MonoBehaviour:
@@ -459,6 +503,21 @@ MonoBehaviour:
   - Name: 
     Value: 2662624
   Exists: 1
+--- !u!114 &114254622467330362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114264652420080378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,11 +551,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
-  lastModified: 636200048667075855
+  lastModified: 636201077179141527
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 3580
+    Value: 3680
   Exists: 1
 --- !u!114 &114272504621486902
 MonoBehaviour:
@@ -518,7 +577,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 10
 --- !u!114 &114277065998780532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +619,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 4.8
 --- !u!114 &114282566813074000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,6 +641,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114296521011658928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114327868053963220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,7 +688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_musicsystem_hacker.bank
-  lastModified: 636200048667105866
+  lastModified: 636201077179166541
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -772,6 +846,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114461341384008290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114493463877548432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,9 +964,9 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114069839304088248}
+  - {fileID: 114461341384008290}
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 23
 --- !u!114 &114547124890026002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,6 +1152,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114651793587142636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114654045888066560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1105,6 +1209,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114680042208433758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114688941438097196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1187,6 +1306,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114732287943336680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114760141313625536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,6 +1355,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114794213344307102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114797433371251368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,11 +1383,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_sfx_shooter.bank
-  lastModified: 636200048670718446
+  lastModified: 636201077182853972
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 997984
+    Value: 1003808
   Exists: 1
 --- !u!114 &114814458730288196
 MonoBehaviour:
@@ -1260,7 +1409,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 6
 --- !u!114 &114829212332531698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1316,7 +1465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_musicsystem_shooter.bank
-  lastModified: 636200048667135881
+  lastModified: 636201077179191565
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -1380,11 +1529,11 @@ MonoBehaviour:
   Banks:
   - {fileID: 114174847303867078}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 4.8
 --- !u!114 &114915945338573260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,13 +1588,28 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_start
   guid: f5ba8e8913df644b99d2cda443298efd
   Banks:
-  - {fileID: 114174847303867078}
+  - {fileID: 114797433371251368}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114958682503654966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114959738182974886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,6 +1714,21 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114985889327087070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114989460088681046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1742,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_vox.bank
-  lastModified: 636200048670743465
+  lastModified: 636201077182878996
   LoadResult: 0
   FileSizes:
   - Name: 
