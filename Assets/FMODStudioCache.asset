@@ -70,7 +70,7 @@ MonoBehaviour:
   - {fileID: 114159558888205344}
   MasterBankRef: {fileID: 114025304145706242}
   StringsBankRef: {fileID: 114268223997819880}
-  stringsBankWriteTime: 636201077179141527
+  stringsBankWriteTime: 636201086760569503
   cacheVersion: 2
 --- !u!114 &114001019083276348
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_menu.bank
-  lastModified: 636201077179106506
+  lastModified: 636201086760539483
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_sfx_hacker.bank
-  lastModified: 636201077180597470
+  lastModified: 636201086762056050
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
-  lastModified: 636201077179141527
+  lastModified: 636201086760569503
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -656,6 +656,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114306086841122146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114327868053963220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -688,7 +703,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_musicsystem_hacker.bank
-  lastModified: 636201077179166541
+  lastModified: 636201086760589516
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -964,7 +979,7 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114461341384008290}
+  - {fileID: 114306086841122146}
   MinDistance: 1
   MaxDistance: 23
 --- !u!114 &114547124890026002
@@ -1383,11 +1398,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_sfx_shooter.bank
-  lastModified: 636201077182853972
+  lastModified: 636201086764172463
   LoadResult: 0
   FileSizes:
   - Name: 
-    Value: 1003808
+    Value: 1005376
   Exists: 1
 --- !u!114 &114814458730288196
 MonoBehaviour:
@@ -1465,7 +1480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_musicsystem_shooter.bank
-  lastModified: 636201077179191565
+  lastModified: 636201086760614531
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -1742,7 +1757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: C:\Users\Nico Dilz\Work\Projects\Daniel Henseler_ Procedural Prisonescape\Procedural
     Prisonescape_git rep\Assets\StreamingAssets\Desktop Stereo\PE_vox.bank
-  lastModified: 636201077182878996
+  lastModified: 636201086764197473
   LoadResult: 0
   FileSizes:
   - Name: 
