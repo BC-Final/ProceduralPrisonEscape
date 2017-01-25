@@ -36,7 +36,8 @@ public class ShooterGamestateManager : Singleton<ShooterGamestateManager> {
 
 		_seq.Kill();
 
-
+		_alarmLight1.intensity = 0.0f;
+		_alarmLight1.intensity = 0.0f;
 		//_alarmLight1.DOIntensity(0.0f, 0.5f);
 		//_alarmLight2.DOIntensity(0.0f, 0.5f);
 	}

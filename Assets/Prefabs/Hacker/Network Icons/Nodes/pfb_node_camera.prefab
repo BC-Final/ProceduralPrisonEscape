@@ -93,7 +93,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: C
+  m_Text: 
 --- !u!114 &114000011839977920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,7 +138,7 @@ MonoBehaviour:
   _adminProtectTime: 5
   _hackedAlarmPacketChance: 0
   _feedbackIntervall: 0
-  _suspicionPacketIntervall: 4
+  _suspicionPacketIntervall: 1
 --- !u!222 &222000010996275864
 CanvasRenderer:
   m_ObjectHideFlags: 1

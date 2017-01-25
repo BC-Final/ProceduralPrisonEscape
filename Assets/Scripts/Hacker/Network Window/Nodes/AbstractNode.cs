@@ -88,6 +88,7 @@ public abstract class AbstractNode : MonoBehaviour {
 	}
 
 	protected virtual void Start () {
+		_dataFlow = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_dataflow_start");
 		if (_connections.Count > 4) {
 			Debug.LogError("Too many connections on Node: " + gameObject.name + "; Only 4 connections allowed.");
 		}
@@ -166,7 +167,6 @@ public abstract class AbstractNode : MonoBehaviour {
 		if (pAvatar is HackerAvatar && !_hacked.Value) {
 			(pAvatar as HackerAvatar).StartHack();
 			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_hackinit").start();
-			_dataFlow = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_dataflow_start");
 			_dataFlow.start();
 		}
 

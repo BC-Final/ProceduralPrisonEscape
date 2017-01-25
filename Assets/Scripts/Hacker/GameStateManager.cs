@@ -33,11 +33,13 @@ public class GameStateManager : Singleton<GameStateManager> {
 
 	//Suggestion Should this be in the Security node?
 	public void IncreaseSuspicion() {
-		_currentSuspicion++;
+		if (!_alarm) {
+			_currentSuspicion++;
 
-		if (_currentSuspicion >= _maxSuspicion) {
-			//TODO Send Admin to investigsate
-			TriggerAlarm();
+			if (_currentSuspicion >= _maxSuspicion) {
+				//TODO Send Admin to investigsate
+				TriggerAlarm();
+			}
 		}
 	}
 

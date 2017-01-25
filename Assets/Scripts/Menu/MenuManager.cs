@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour {
 			Debug.LogWarning("Invalid Host Port.");
 		} else {
 			PlayerPrefs.SetInt("HostPort", port);
-			SceneManager.LoadScene("Level1");
+			SceneManager.LoadScene("ShooterScene");
 		}
 	}
 	public void UIOnPlayHacker () {
