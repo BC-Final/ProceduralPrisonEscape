@@ -6,6 +6,9 @@ public class MinimapPlayer : MonoBehaviour {
 	private Vector3 _oldPos;
 	private Vector3 _newPos;
 
+	private Quaternion _oldRot;
+	private Quaternion _newRot;
+
 	private float _lastUpdateTime = 0.0f;
 
 	private float _currentLerpTime = 0.0f;
@@ -18,25 +21,35 @@ public class MinimapPlayer : MonoBehaviour {
 			_currentLerpTime = _lerpTime;
 		}
 
+		if (_lerpTime == 0.0f) {
+			_lerpTime = 0.5f;
+		}
+
 		float perc = _currentLerpTime / _lerpTime;
+
 		transform.position = Vector3.Lerp(_oldPos, _newPos, perc);
+		transform.rotation = Quaternion.Slerp(_oldRot, _newRot, perc);
 	}
 
-	public void InitialPosition (Vector3 pPos) {
+	public void InitialTransform (Vector3 pPos, float pRot) {
 		_lastUpdateTime = Time.time;
+
 		_oldPos = pPos;
 		_newPos = pPos;
+
+		_oldRot = Quaternion.Euler(0, pRot, 0);
+		_newRot = Quaternion.Euler(0, pRot, 0);
 	}
 
-	public void UpdatePosition (Vector3 pPos) {
+	public void UpdateTransform (Vector3 pPos, float pRot) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;
+
 		_oldPos = transform.position;
 		_newPos = pPos;
-	}
 
-	public void UpdateRotation (float pRot) {
-		transform.rotation = Quaternion.Euler(0, pRot, 0);
+		_oldRot = transform.rotation;
+		_newRot = Quaternion.Euler(0, pRot, 0);
 	}
 }

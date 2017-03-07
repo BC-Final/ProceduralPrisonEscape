@@ -123,6 +123,10 @@ public abstract class AbstractAvatar : MonoBehaviour {
 		yield return new WaitForSeconds(pTime);
 		_moveTweener.Play();
 		_active = true;
+
+		if (this is AdminAvatar) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_admin_enable").start();
+		} 
 	}
 
 	/// <summary>

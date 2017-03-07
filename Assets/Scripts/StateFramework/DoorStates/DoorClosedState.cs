@@ -25,6 +25,15 @@ namespace StateFramework {
 		public override void Interact () {
 			if ((_door.RequireKeycard && GameObject.FindObjectOfType<Inventory>().Contains(_door) || !_door.RequireKeycard) && _door.Openable) {
 				_fsm.SetState<DoorOpenState>();
+
+				FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_envi/PE_envi_door_access");
+				FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, _door.transform, _door.GetComponent<Rigidbody>());
+				ins.start();
+				
+			} else {
+				FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_close");
+				FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, _door.transform, _door.GetComponent<Rigidbody>());
+				ins.start();
 			}
 		}
 	}

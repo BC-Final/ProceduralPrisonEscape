@@ -54,9 +54,9 @@ MonoBehaviour:
   KeycardIcon: {fileID: 21300000, guid: 4cdfb7c8780de2144b99efc958d2aeef, type: 3}
   HealthpackIcon: {fileID: 21300000, guid: 5372e1d8d5fcc2846b9d71393cc5e430, type: 3}
   AmmobagIcon: {fileID: 21300000, guid: 55d52a9ace751d849a29654d59dbf7f1, type: 3}
-  EnemyIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
+  DroneIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
   CameraIcon: {fileID: 1000011898351382, guid: 3c6aaacbf9f9b854b92fc0a375aa2248, type: 2}
-  TurretIcon: {fileID: 1000011632251998, guid: 7df9fb8a248174040911c22f6d3b0f9c, type: 2}
+  TurretIcon: {fileID: 1989628938402834, guid: 553c2b4a27bd34841a988dbd84ca5a3e, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
   HackerAvatar: {fileID: 1000011567829896, guid: 7447c3b7f9b75f543a8bb6256b478f62,
     type: 2}
@@ -65,6 +65,8 @@ MonoBehaviour:
   AlarmPacket: {fileID: 1000012066582348, guid: d783e7b363f66f34f956eebccc958ad7,
     type: 2}
   FeedbackPacket: {fileID: 1000012423294436, guid: 06f93921059fc4b438df31b4d84125f2,
+    type: 2}
+  SuspicionPacket: {fileID: 1000012423294436, guid: 5a4be71fba4526b4485f33b9577fca88,
     type: 2}
   BaseNode: {fileID: 1000010141412244, guid: 4176fa6ec95d4e449920b17c149f3d71, type: 2}
   DatabaseNode: {fileID: 1000013761418876, guid: 3af5372c15496244e966601fda0c8d70,
@@ -77,5 +79,7 @@ MonoBehaviour:
   HackerNode: {fileID: 1000013153228002, guid: 5ccc64d24b6b6a94caeb54ed9e48b2c4, type: 2}
   SecurityNode: {fileID: 1000012317260312, guid: cc670b08eb0030a459dcbfecc862134b,
     type: 2}
+  CameraNode: {fileID: 1000012373574618, guid: 36007c63dacd2794599c3a5b00600d74, type: 2}
+  TurretNode: {fileID: 1000011632251998, guid: 7df9fb8a248174040911c22f6d3b0f9c, type: 2}
   ConnenctionLine: {fileID: 1000010131538874, guid: a8971cc87d6cc6c47bd5563a00b2a23f,
     type: 2}

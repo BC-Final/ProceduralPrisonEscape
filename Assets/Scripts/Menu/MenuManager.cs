@@ -14,6 +14,8 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	private InputField _hostPortInputField;
 
+	FMOD.Studio.EventInstance evnt;
+
 	private void Start () {
 		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
 
@@ -24,12 +26,18 @@ public class MenuManager : MonoBehaviour {
 
 		_portInputField.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
 		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
+
+
+		FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
+		desc.createInstance(out evnt);
 	}
 
 	public void UIOnPlayShooter () {
 		int port = 55556;
 
-		if(!int.TryParse(_hostPortInputField.text, out port)) {
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+
+		if (!int.TryParse(_hostPortInputField.text, out port)) {
 			Debug.LogWarning("Invalid Host Port.");
 		} else {
 			PlayerPrefs.SetInt("HostPort", port);
@@ -37,12 +45,14 @@ public class MenuManager : MonoBehaviour {
 		}
 	}
 	public void UIOnPlayHacker () {
-		if(new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+
+		if (new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
 			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
 
 			int port = 55556;
 
-			if(!int.TryParse(_hostPortInputField.text, out port)) {
+			if (!int.TryParse(_hostPortInputField.text, out port)) {
 				Debug.LogWarning("Invalid Connection Port.");
 			} else {
 				PlayerPrefs.SetInt("ConnectionPort", port);
@@ -50,6 +60,14 @@ public class MenuManager : MonoBehaviour {
 			}
 		} else {
 			Debug.LogWarning("Invalid Connection IP-Adress.");
+		}
+	}
+
+	public void SetTobias (bool pState) {
+		if (pState) {
+			evnt.start();
+		} else {
+			evnt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 		}
 	}
 }

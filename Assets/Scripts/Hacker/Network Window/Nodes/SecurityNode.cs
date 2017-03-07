@@ -22,20 +22,24 @@ public class SecurityNode : AbstractNode {
 	protected override void GotHacked() {
 		base.GotHacked();
 
-		GameStateManager.Instance.Alarm = false;
+		GameStateManager.Instance.DisableAlarm();
 		_avatar.Deactivate(_adminDeactivateDuration);
+
+		FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_admin_disable").start();
+
 		_knownHackedNodes.AddFirst(this);
 	}
 
 	public override void ToggleContext (bool pShow, HackerAvatar pAvatar) {
 		base.ToggleContext(pShow, pAvatar);
 
-		SecurityContext.Instance.gameObject.SetActive(pShow);
+
+		ContextWindow.Instance.GetContext<SecurityContext>().gameObject.SetActive(pShow);
 
 		if (pShow) {
-			(SecurityContext.Instance as SecurityContext).RegisterHackButton(() => StartHack(pAvatar));
+			ContextWindow.Instance.GetContext<SecurityContext>().RegisterButton("hack", () => StartHack(pAvatar));
 		} else {
-			(SecurityContext.Instance as SecurityContext).UnregisterHackButton();
+			ContextWindow.Instance.GetContext<SecurityContext>().UnregisterAllButtons();
 		}
 	}
 
@@ -44,7 +48,10 @@ public class SecurityNode : AbstractNode {
 	public override void ReceivePacket(AbstractNode pSender, Packet pPacket) {
 		if (pPacket is AlarmPacket) {
 			_knownHackedNodes.AddFirst(pSender);
-			GameStateManager.Instance.Alarm = true;
+			GameStateManager.Instance.TriggerAlarm();
+		} else if (pPacket is SuspicionPacket) {
+			_knownHackedNodes.AddFirst(pSender);
+			GameStateManager.Instance.IncreaseSuspicion();
 		} else {
 			//Debug.Log("What should " + this.GetType().Name + "do with " + pPacket.GetType().Name + "?");
 		}
@@ -54,7 +61,7 @@ public class SecurityNode : AbstractNode {
 		base.OnGUI();
 
 		if (_currentNode) {
-			SecurityContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
+			ContextWindow.Instance.GetContext<SecurityContext>().SetHackProgress(_hackTimer.FinishedPercent);
 		}
 	}
 }

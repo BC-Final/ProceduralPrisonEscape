@@ -6,7 +6,7 @@ namespace StateFramework {
 	public class CameraIdleState : AbstractCameraState {
 		private GameObject _player;
 
-		public CameraIdleState (SecurityCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
+		public CameraIdleState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_player = GameObject.FindGameObjectWithTag("Player");
 		}
 

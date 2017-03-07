@@ -56,6 +56,12 @@ public class NetworkWindow : MonoBehaviour {
 				case NodeType.Security:
 					prefab = HackerReferenceManager.Instance.SecurityNode;
 					break;
+				case NodeType.Turret:
+					prefab = HackerReferenceManager.Instance.TurretNode;
+					break;
+				case NodeType.Camera:
+					prefab = HackerReferenceManager.Instance.CameraNode;
+					break;
 				default:
 					Debug.LogError("Node Type Not known!");
 					break;

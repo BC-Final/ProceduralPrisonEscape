@@ -5,9 +5,9 @@ using UnityEngine;
 namespace StateFramework {
 	public class AbstractCameraState : AbstractState {
 		protected StateMachine<AbstractCameraState> _fsm;
-		protected SecurityCamera _camera;
+		protected ShooterCamera _camera;
 
-		public AbstractCameraState (SecurityCamera pCamera, StateMachine<AbstractCameraState> pFsm) {
+		public AbstractCameraState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) {
 			_camera = pCamera;
 			_fsm = pFsm;
 		}

@@ -31,6 +31,7 @@ public class HackerAvatar : AbstractAvatar {
 		base.Start();
 		_spawnNode = FindObjectOfType<HackerNode>();
 		_currentNode = _spawnNode;
+		_currentNode.ToggleContext(true, this);
 		NetworkWindow.Instance.RecalculateAccesibleNodes();
 	}
 
@@ -89,6 +90,7 @@ public class HackerAvatar : AbstractAvatar {
 			_currentNode.AbortHack(this);
 			_currentNode.ToggleContext(false, this);
 			base.OnTriggerEnter2D(pOther);
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_avatar_death").start();
 		}
 	}
 

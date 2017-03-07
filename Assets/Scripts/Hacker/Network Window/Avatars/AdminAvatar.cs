@@ -96,6 +96,7 @@ public class AdminAvatar : AbstractAvatar {
 	protected override void OnTriggerEnter2D(Collider2D pOther) {
 		if (!_active && pOther.GetComponent<HackerAvatar>() != null) {
 			base.OnTriggerEnter2D(pOther);
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_admin_death").start();
 		}
 	}
 }

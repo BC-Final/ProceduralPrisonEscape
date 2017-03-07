@@ -61,13 +61,11 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	}
 
 	private void OnApplicationQuit () {
-		SendPackage(new CustomCommands.DisconnectPackage());
 		disconnectHost();
 	}
 
 	#if UNITY_EDITOR
 	private void OnDestroy () {
-		SendPackage(new CustomCommands.DisconnectPackage());
 		disconnectHost();
 	}
 	#endif

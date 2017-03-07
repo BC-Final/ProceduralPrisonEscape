@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Gamelogic.Extensions;
 
-public class HackerFireWall {
+public class HackerFirewall {
 	#region Static Fields
-	private static List<HackerFireWall> _firewalls = new List<HackerFireWall>();
+	private static List<HackerFirewall> _firewalls = new List<HackerFirewall>();
 	#endregion
 
 	#region References
@@ -54,10 +54,10 @@ public class HackerFireWall {
 	/// </summary>
 	/// <param name="pPackage">The information of the firewall</param>
 	public static void CreateFireWall (CustomCommands.Creation.FireWallCreation pPackage) {
-		HackerFireWall firewall = new HackerFireWall();
+		HackerFirewall firewall = new HackerFirewall();
 		firewall._id = pPackage.ID;
 
-		MinimapFirewall minimapFirewall = MinimapManager.GetInstance().CreateMinimapFirewall(new Vector3(pPackage.x, 0, pPackage.z), pPackage.ID);
+		MinimapFirewall minimapFirewall = MinimapManager.Instance.CreateMinimapFirewall(new Vector3(pPackage.x, 0, pPackage.z), pPackage.ID);
 
 		firewall._destroyed = new ObservedValue<bool>(pPackage.state);
 
@@ -74,8 +74,15 @@ public class HackerFireWall {
 	/// </summary>
 	/// <param name="pPackage">The information about the firewall</param>
 	public static void UpdateFireWall (CustomCommands.Update.FireWallUpdate pPackage) {
-		HackerFireWall firewall = GetFireWallByID(pPackage.ID);
+		HackerFirewall firewall = GetFireWallByID(pPackage.ID);
+
 		firewall._destroyed.Value = pPackage.destroyed;
+
+		if (pPackage.destroyed) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_firewall_shutdown").start();
+		} else {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_firewall_startup").start();
+		}
 	}
 
 
@@ -85,7 +92,7 @@ public class HackerFireWall {
 	/// </summary>
 	/// <param name="pId">The id of the searched firewall</param>
 	/// <returns>The found firewall, otherwise null</returns>
-	public static HackerFireWall GetFireWallByID (int pId) {
+	public static HackerFirewall GetFireWallByID (int pId) {
 		return _firewalls.Find(x => x.Id == pId);
 	}
 }

@@ -41,7 +41,7 @@ public abstract class AbstractNode : MonoBehaviour {
 	protected Timers.Timer _hackTimer;
 	private Timers.Timer _protectTimer;
 
-	private SecurityNode _nearestSecurityNode;
+	protected SecurityNode _nearestSecurityNode;
 
 	protected bool _currentNode;
 	public bool CurrentNode {
@@ -88,6 +88,7 @@ public abstract class AbstractNode : MonoBehaviour {
 	}
 
 	protected virtual void Start () {
+		_dataFlow = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_dataflow_start");
 		if (_connections.Count > 4) {
 			Debug.LogError("Too many connections on Node: " + gameObject.name + "; Only 4 connections allowed.");
 		}
@@ -144,14 +145,18 @@ public abstract class AbstractNode : MonoBehaviour {
 	//TODO Add chance to spawn alarm packet
 	protected virtual void GotHacked () {
 		if (Random.Range(0.0f, 1.0f) < _hackedAlarmPacketChance) {
-			GameObject go = (Instantiate(HackerReferenceManager.Instance.AlarmPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
-			go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
+			SendAlarmPacket();
 		}
+	}
+
+	protected void SendAlarmPacket() {
+		GameObject go = (Instantiate(HackerReferenceManager.Instance.AlarmPacket, transform.position, Quaternion.identity, GetComponentInParent<Canvas>().transform) as GameObject);
+		go.GetComponent<Packet>().Send(this, _nearestSecurityNode);
 	}
 
 	protected virtual void GotUnhacked () { }
 
-
+	private FMOD.Studio.EventInstance _dataFlow;
 
 	public virtual bool StartHack (AbstractAvatar pAvatar) {
 		if (_hackTimer.IsPlaying) {
@@ -159,8 +164,10 @@ public abstract class AbstractNode : MonoBehaviour {
 			return false;
 		}
 
-		if (pAvatar is HackerAvatar) {
+		if (pAvatar is HackerAvatar && !_hacked.Value) {
 			(pAvatar as HackerAvatar).StartHack();
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_hackinit").start();
+			_dataFlow.start();
 		}
 
 		if (pAvatar is AdminAvatar || _hackable && !_protected && !_hacked.Value) {
@@ -187,6 +194,9 @@ public abstract class AbstractNode : MonoBehaviour {
 		_hackTimer.Stop();
 
 		if (pAvatar is HackerAvatar) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_hacknegative_gui").start();
+			_dataFlow.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_dataflow_stop").start();
 			(pAvatar as HackerAvatar).AbortHack();
 		}
 
@@ -216,6 +226,9 @@ public abstract class AbstractNode : MonoBehaviour {
 		_hacked.Value = !_hacked.Value;
 
 		if (_hacked.Value) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_hackpositive_gui").start();
+			_dataFlow.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_dataflow_stop").start();
 			GotHacked();
 		} else {
 			GotUnhacked();

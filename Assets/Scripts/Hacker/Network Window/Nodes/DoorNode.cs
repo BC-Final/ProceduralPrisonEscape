@@ -27,14 +27,14 @@ public class DoorNode : AbstractNode {
 	public override void ToggleContext (bool pShow, HackerAvatar pAvatar) {
 		base.ToggleContext(pShow, pAvatar);
 
-		DoorContext.Instance.gameObject.SetActive(pShow);
+		ContextWindow.Instance.GetContext<DoorContext>().gameObject.SetActive(pShow);
 
 		if (pShow) {
-			(DoorContext.Instance as DoorContext).RegisterHackButton(() => StartHack(pAvatar));
-			(DoorContext.Instance as DoorContext).RegisterToggleButton(() => toggleDoor());
+			ContextWindow.Instance.GetContext<DoorContext>().RegisterButton("hack", () => StartHack(pAvatar));
+			ContextWindow.Instance.GetContext<DoorContext>().RegisterButton("toggle", () => toggleDoor());
+			//TODO Add Reinforce
 		} else {
-			(DoorContext.Instance as DoorContext).UnregisterHackButton();
-			(DoorContext.Instance as DoorContext).UnregisterToggleButton();
+			ContextWindow.Instance.GetContext<DoorContext>().UnregisterAllButtons();
 		}
 	}
 
@@ -48,6 +48,7 @@ public class DoorNode : AbstractNode {
 
 	void OnMouseOver () {
 		if(Input.GetMouseButtonDown(1)){
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_open").start();
 			FindObjectOfType<CameraDragAndDrop>().SetTargetPos(_associatedDoor.MapDoor.transform.position);
 			FindObjectOfType<MapSelectionHighlight>().IndicateSelection(_associatedDoor.MapDoor.transform.position);
 		}
@@ -57,7 +58,7 @@ public class DoorNode : AbstractNode {
 		base.OnGUI();
 
 		if (_currentNode) {
-			DoorContext.Instance.SetHackProgress(_hackTimer.FinishedPercent);
+			ContextWindow.Instance.GetContext<DoorContext>().SetHackProgress(_hackTimer.FinishedPercent);
 		}
 	}
 

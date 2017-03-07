@@ -4,16 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SecurityContext : NodeContext {
+	/*
 	[SerializeField]
 	private Button _hackButton;
-
-	public static SecurityContext Instance;
-
-	protected override void Awake () {
-		base.Awake();
-
-		Instance = this;
-	}
 
 	public void RegisterHackButton (UnityEngine.Events.UnityAction pDelegate) {
 		_hackButton.onClick.AddListener(pDelegate);
@@ -22,4 +15,5 @@ public class SecurityContext : NodeContext {
 	public void UnregisterHackButton () {
 		_hackButton.onClick.RemoveAllListeners();
 	}
+	*/
 }

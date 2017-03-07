@@ -21,7 +21,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable {
 		_currentHealth = Mathf.Max(0.0f, _currentHealth - pDamage);
 
 		if (_currentHealth == 0.0f) {
-			Debug.Log("You are dead!");
+			//Debug.Log("You are dead!");
 			//Debug.Break();
 		}
 	

@@ -115,6 +115,7 @@ public class MinimapDoor : MonoBehaviour {
 
 	void OnMouseOver () {
 		if (Input.GetMouseButtonDown(1)) {
+			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_open").start();
 			FindObjectOfType<CameraMove>().MoveTo(_associatedDoor.DoorNode.transform.position.x, _associatedDoor.DoorNode.transform.position.y);
 			FindObjectOfType<NetworkSelectionHighlight>().IndicateSelection(_associatedDoor.DoorNode.GetComponent<RectTransform>().anchoredPosition);
 		}

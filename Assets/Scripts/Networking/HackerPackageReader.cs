@@ -19,8 +19,8 @@ public class HackerPackageReader : MonoBehaviour {
 	private Texture _minimapTexture;
 	private MinimapPlayer _player;
 
-    bool loadingFinished = false;
-    private static List<CustomCommands.AbstractPackage> _latePackages = new List<CustomCommands.AbstractPackage>();
+	bool loadingFinished = false;
+	private static List<CustomCommands.AbstractPackage> _latePackages = new List<CustomCommands.AbstractPackage>();
 
 	[SerializeField]
 	private bool _showReceivedPackets;
@@ -34,45 +34,41 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	void Update () {
-		try {
+		//try {
 			while (HackerPackageSender.Host.Available > 0) {
 				CustomCommands.AbstractPackage response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as CustomCommands.AbstractPackage;
 				ReadResponse(response);
 			}
-		} catch (Exception e) {
-			Debug.LogError("Error" + e.ToString());
-		}
+		//} catch (Exception e) {
+			//Debug.LogError("Error" + e.ToString());
+		//}
 	}
-	
-    ///Late Package handling
-    ///packages that need to be read after door and other important packages, will be stored here and are being read after all packaged have been received
 
-    private void AddLatePackage(CustomCommands.AbstractPackage package)
-    {
-        _latePackages.Add(package);
-    }
+	///Late Package handling
+	///packages that need to be read after door and other important packages, will be stored here and are being read after all packaged have been received
 
-    private void ReadLatePackages()
-    {
-        foreach(CustomCommands.AbstractPackage package in _latePackages)
-        {
-            ReadResponse(package);
-        }
-        _latePackages.Clear();
-    }
+	private void AddLatePackage (CustomCommands.AbstractPackage package) {
+		_latePackages.Add(package);
+	}
 
-    private void OnCreationEnd()
-    {
-        loadingFinished = true;
-        ReadLatePackages();
-    }
+	private void ReadLatePackages () {
+		foreach (CustomCommands.AbstractPackage package in _latePackages) {
+			ReadResponse(package);
+		}
+		_latePackages.Clear();
+	}
 
-    /// <summary>
-    /// Incoming Packages are read here. They first enter as Abstrac Package.
-    /// Then they get transmitted to another method that is made for their specific package.
-    /// </summary>
-    /// <param name="response"></param>
-    private void ReadResponse (CustomCommands.AbstractPackage package) {
+	private void OnCreationEnd () {
+		loadingFinished = true;
+		ReadLatePackages();
+	}
+
+	/// <summary>
+	/// Incoming Packages are read here. They first enter as Abstrac Package.
+	/// Then they get transmitted to another method that is made for their specific package.
+	/// </summary>
+	/// <param name="response"></param>
+	private void ReadResponse (CustomCommands.AbstractPackage package) {
 		//Debug.Log("Package Received : Abstract");
 
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
@@ -82,12 +78,17 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Update.Items.ItemUpdate) { debugMessage = "Package Received : FireWallUpdate"; ReadResponse(package as CustomCommands.Update.Items.ItemUpdate); }
 		if (package is CustomCommands.Update.MinimapUpdate) { debugMessage = "Package Received : MinimapUpdate"; ReadResponse(package as CustomCommands.Update.MinimapUpdate); }
 		if (package is CustomCommands.Update.PlayerPositionUpdate) { debugMessage = "Package Received : PlayerPositionUpdate"; ReadResponse(package as CustomCommands.Update.PlayerPositionUpdate); }
-        if (package is CustomCommands.Update.EnemyUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.EnemyUpdate); }
-        if (package is CustomCommands.Update.CameraUpdate) { debugMessage = "Package Received : CameraUpdate"; ReadResponse(package as CustomCommands.Update.CameraUpdate); }
-        if (package is CustomCommands.Update.TurretUpdate) { debugMessage = "Package Received : TurretUpdate"; ReadResponse(package as CustomCommands.Update.TurretUpdate); }
 
-        //Creation Methods
-        if (package is CustomCommands.Creation.DoorCreation) { debugMessage = "Package Received : DoorCreation"; ReadResponse(package as CustomCommands.Creation.DoorCreation); }
+		if (package is CustomCommands.Update.DroneUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.DroneUpdate); }
+		if (package is CustomCommands.Update.CameraUpdate) { debugMessage = "Package Received : CameraUpdate"; ReadResponse(package as CustomCommands.Update.CameraUpdate); }
+		if (package is CustomCommands.Update.TurretUpdate) { debugMessage = "Package Received : TurretUpdate"; ReadResponse(package as CustomCommands.Update.TurretUpdate); }
+
+		//Creation Methods
+		if (package is CustomCommands.Creation.DroneCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.DroneCreation); }
+		if (package is CustomCommands.Creation.CameraCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.CameraCreation); }
+		if (package is CustomCommands.Creation.TurretCreation) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Creation.TurretCreation); }
+
+		if (package is CustomCommands.Creation.DoorCreation) { debugMessage = "Package Received : DoorCreation"; ReadResponse(package as CustomCommands.Creation.DoorCreation); }
 		if (package is CustomCommands.Creation.FireWallCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.FireWallCreation); }
 		if (package is CustomCommands.Creation.Items.KeyCardCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.KeyCardCreation); }
 		if (package is CustomCommands.Creation.Items.HealthKitCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.HealthKitCreation); }
@@ -111,29 +112,25 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
-        if (loadingFinished)
-        {
-        HackerFireWall.CreateFireWall(package);
-        }else{
-            AddLatePackage(package);
-        }
+		if (loadingFinished) {
+			HackerFirewall.CreateFireWall(package);
+		} else {
+			AddLatePackage(package);
+		}
 
 	}
 
 	private void ReadResponse (CustomCommands.Creation.Shots.LaserShotCreation package) {
-		MinimapManager.GetInstance().CreateShot(package);
+		MinimapManager.Instance.CreateShot(package);
 	}
 
 	//Item Creation Methods
 	private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
-        if (loadingFinished)
-        {
-            ItemDisplayIcon.CreateItem(package);
-        }
-        else
-        {
-            AddLatePackage(package);
-        }    
+		if (loadingFinished) {
+			ItemDisplayIcon.CreateItem(package);
+		} else {
+			AddLatePackage(package);
+		}
 	}
 
 	private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
@@ -150,7 +147,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
-		HackerFireWall.UpdateFireWall(package);
+		HackerFirewall.UpdateFireWall(package);
 	}
 
 	private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
@@ -164,7 +161,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
-		MinimapManager.GetInstance().UpdateMinimapPlayer(package);
+		MinimapManager.Instance.UpdateMinimapPlayer(package);
 	}
 
 	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
@@ -172,26 +169,43 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void ReadResponse (CustomCommands.Creation.OnCreationEnd pPackage) {
-        OnCreationEnd();
-        NetworkWindow.Instance.FinishedReceivingAll();
+		OnCreationEnd();
+		NetworkWindow.Instance.FinishedReceivingAll();
 	}
 
-	private void ReadResponse (CustomCommands.Update.EnemyUpdate package) {
-		MinimapEnemy.UpdateEnemy(package);
+
+
+
+	private void ReadResponse (CustomCommands.Update.DroneUpdate package) {
+		HackerDrone.UpdateDrone(package);
 	}
 
-    private void ReadResponse(CustomCommands.Update.CameraUpdate package)
-    {
-        MinimapEnemy.UpdateEnemy(package);
-    }
-    
-    private void ReadResponse(CustomCommands.Update.TurretUpdate package)
-    {
-        MinimapEnemy.UpdateEnemy(package);
-    }
+	private void ReadResponse (CustomCommands.Update.CameraUpdate package) {
+		HackerCamera.UpdateCamera(package.id, package.rotation, package.seesPlayer);
+	}
+
+	private void ReadResponse (CustomCommands.Update.TurretUpdate package) {
+		HackerTurret.UpdateTurret(package);
+	}
 
 
-    private void ReadResponse (CustomCommands.RefuseConnectionPackage package) {
+	private void ReadResponse (CustomCommands.Creation.DroneCreation package) {
+		HackerDrone.CreateDrone(package);
+	}
+
+	private void ReadResponse (CustomCommands.Creation.CameraCreation package) {
+		HackerCamera.CreateCamera(package);
+	}
+
+	private void ReadResponse (CustomCommands.Creation.TurretCreation package) {
+		HackerTurret.CreateTurret(package);
+	}
+
+
+
+
+
+	private void ReadResponse (CustomCommands.RefuseConnectionPackage package) {
 		HackerPackageSender.SilentlyDisconnect();
 	}
 
