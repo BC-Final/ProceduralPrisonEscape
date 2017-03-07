@@ -10,9 +10,6 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 public class HackerPackageReader : MonoBehaviour {
-	[SerializeField]
-	private Transform _minimap;
-
 	private Vector2 _minimapScale;
 	private MinimapManager _minimapManager;
 	private HackerPackageSender _networkManager;
@@ -157,7 +154,7 @@ public class HackerPackageReader : MonoBehaviour {
 	private void ReadResponse (CustomCommands.Update.MinimapUpdate package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
-		_minimap.GetComponent<Renderer>().material.mainTexture = tex;
+		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
 	}
 
 	private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {

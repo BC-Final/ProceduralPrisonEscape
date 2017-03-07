@@ -14,13 +14,6 @@ using UnityEngine.SceneManagement;
 using Gamelogic.Extensions;
 
 public class HackerPackageSender : Singleton<HackerPackageSender> {
-
-	[SerializeField]
-	private ChatBoxScreen _chatBoxScreen;
-	[SerializeField]
-	private Transform _minimap;
-	private Texture _minimapTexture;
-
 	private static TcpClient _host;
 	public static TcpClient Host { get { return _host; } }
 	private static BinaryFormatter _formatter = new BinaryFormatter();
