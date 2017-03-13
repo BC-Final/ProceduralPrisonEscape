@@ -268,7 +268,7 @@ MonoBehaviour:
   _minimapPickupIconPrefab: {fileID: 1000012495054524, guid: 1af382110b6dd9b4c8f9beed53787a39,
     type: 2}
   scale: 2
-  _camera: {fileID: 0}
+  _camera: {fileID: 114951423181502154}
   _sender: {fileID: 0}
   _iconHeight: 1
 --- !u!114 &114951423181502154

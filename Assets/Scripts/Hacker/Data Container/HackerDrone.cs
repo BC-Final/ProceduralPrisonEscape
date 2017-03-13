@@ -31,9 +31,34 @@ public class HackerDrone {
 		_drones.Add(drone);
 	}
 
-	public static void UpdateDrone (CustomCommands.Update.DroneUpdate pPackage) {
-		GetDroneById(pPackage.id)._minimapDrone.UpdateTransform(new Vector3(pPackage.x, 0, pPackage.z) / MinimapManager.Instance.scale, pPackage.rotation);
+    public static void CreateDrone (CustomCommands.Update.DroneUpdate pPackage) {
+        HackerDrone drone = new HackerDrone();
+        drone._id = pPackage.id;
+
+        MinimapDrone minimapDrone = MinimapManager.Instance.CreateMinimapDrone(pPackage.x, pPackage.z, 0);
+        minimapDrone.InitialTransform(new Vector3(pPackage.x, 0, pPackage.z) / MinimapManager.Instance.scale, 0);
+
+        drone._healthPercent.OnValueChange += () => minimapDrone.HealthChanged(drone._healthPercent.Value);
+        drone._healthPercent.Value = 100;
+
+        minimapDrone.AssociatedDrone = drone;
+        drone._minimapDrone = minimapDrone;
+
+        _drones.Add(drone);
+    }
+
+    public static void UpdateDrone (CustomCommands.Update.DroneUpdate pPackage) {
+        HackerDrone drone = GetDroneById(pPackage.id);
+        if(drone != null)
+        {
+            drone._minimapDrone.UpdateTransform(new Vector3(pPackage.x, 0, pPackage.z) / MinimapManager.Instance.scale, pPackage.rotation);
+        }else{
+            CreateDrone(pPackage);
+        }
+
 	}
+
+    
 
 	public static HackerDrone GetDroneById (int pId) {
 		return _drones.Find(x => x.Id == pId);
