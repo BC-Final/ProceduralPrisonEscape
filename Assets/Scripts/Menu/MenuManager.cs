@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour {
 			Debug.LogWarning("Invalid Host Port.");
 		} else {
 			PlayerPrefs.SetInt("HostPort", port);
-			SceneManager.LoadScene("ShooterScene");
+			SceneManager.LoadScene("Level1");
 		}
 	}
 	public void UIOnPlayHacker () {
@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour {
 				Debug.LogWarning("Invalid Connection Port.");
 			} else {
 				PlayerPrefs.SetInt("ConnectionPort", port);
-				SceneManager.LoadScene("HackerScene");
+				SceneManager.LoadScene("HackerSceneNew");
 			}
 		} else {
 			Debug.LogWarning("Invalid Connection IP-Adress.");

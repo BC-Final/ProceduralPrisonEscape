@@ -89,14 +89,14 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// </summary>
 	/// <param name="pClient"></param>
 	private void ClientInitialize (TcpClient pClient) {
-		ShooterNetworkWindow.Instance.gameObject.SetActive(true);
+		//ShooterNetworkWindow.Instance.gameObject.SetActive(true);
 		FindObjectOfType<ShooterMinimapCamera>().SendUpdate();
 
 		foreach (INetworked n in _networkObjects) {
 			n.Initialize();
 		}
 
-		ShooterNetworkWindow.Instance.gameObject.SetActive(false);
+		//ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
 		SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
