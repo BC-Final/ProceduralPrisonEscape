@@ -161,9 +161,11 @@ public class HackerPackageReader : MonoBehaviour {
 		MinimapManager.Instance.UpdateMinimapPlayer(package);
 	}
 
+	/*
 	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
 		NetworkWindow.Instance.AddNode(pPackage);
 	}
+	*/
 
 	private void ReadResponse (CustomCommands.Creation.OnCreationEnd pPackage) {
 		OnCreationEnd();

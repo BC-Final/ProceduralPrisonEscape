@@ -55,6 +55,7 @@ public class HackerDoor {
 	/// <summary>
 	/// Sets the reference to the door node
 	/// </summary>
+	
 	public DoorNode DoorNode {
 		get { return _doorNode; }
 		set {
@@ -62,6 +63,7 @@ public class HackerDoor {
 			_doorNode.Hacked.OnValueChange += () => { _hacked.Value = _doorNode.Hacked.Value; };
 		}
 	}
+	
 
 	public MinimapDoor MapDoor {
 		get { return _minimapDoor; }
