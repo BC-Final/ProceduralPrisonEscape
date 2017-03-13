@@ -298,10 +298,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1000010072007470, guid: 5d017512e6140ca4aa97c3a4e9f866ec, type: 2}
-      propertyPath: m_Name
-      value: pfb_HackerReferenceManager
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d017512e6140ca4aa97c3a4e9f866ec, type: 2}
   m_IsPrefabParent: 0
@@ -448,6 +444,26 @@ Prefab:
       propertyPath: _sender
       value: 
       objectReference: {fileID: 35045762}
+    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: _playerPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: _minimapDoorPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: _minimapFirewallPrefab
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: _minimapPickupIconPrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
   m_IsPrefabParent: 0
