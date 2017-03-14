@@ -11,7 +11,7 @@ public class HackerDoor {
 
 	#region References
 	private MinimapDoor _minimapDoor;
-	private DoorNode _doorNode;
+	//private DoorNode _doorNode;
 	#endregion
 
 	#region Private Fields
@@ -19,8 +19,7 @@ public class HackerDoor {
 	private ObservedValue<bool> _accessible;
 	private ObservedValue<DoorState> _state;
 	private int _id;
-	#endregion
-
+    #endregion
 
 	private bool _requireKeycard;
 	public bool RequireKeycard { get { return _requireKeycard; } }
@@ -56,13 +55,13 @@ public class HackerDoor {
 	/// Sets the reference to the door node
 	/// </summary>
 	
-	public DoorNode DoorNode {
-		get { return _doorNode; }
-		set {
-			_doorNode = value;
-			_doorNode.Hacked.OnValueChange += () => { _hacked.Value = _doorNode.Hacked.Value; };
-		}
-	}
+	//public DoorNode DoorNode {
+	//	//get { return _doorNode; }
+	//	//set {
+	//	//	_doorNode = value;
+	//	//	_doorNode.Hacked.OnValueChange += () => { _hacked.Value = _doorNode.Hacked.Value; };
+	//	//}
+	//}
 	
 
 	public MinimapDoor MapDoor {
@@ -87,7 +86,7 @@ public class HackerDoor {
 	/// </summary>
 	/// <param name="pState"></param>
 	public void SetState (DoorState pState) {
-		if (_doorNode.Hacked.Value) {
+		if (_hacked.Value) {
 			_state.Value = pState;
 			HackerPackageSender.SendPackage(new CustomCommands.Update.DoorUpdate(Id, (int)_state.Value));
 			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_access").start();

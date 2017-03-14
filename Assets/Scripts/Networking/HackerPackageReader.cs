@@ -91,7 +91,6 @@ public class HackerPackageReader : MonoBehaviour {
 		if (package is CustomCommands.Creation.Items.HealthKitCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.HealthKitCreation); }
 		if (package is CustomCommands.Creation.Items.AmmoPackCreation) { debugMessage = "Package Received : FireWallCreation"; ReadResponse(package as CustomCommands.Creation.Items.AmmoPackCreation); }
 		if (package is CustomCommands.Creation.Shots.LaserShotCreation) { debugMessage = "Package Received : LaserShotCreation"; ReadResponse(package as CustomCommands.Creation.Shots.LaserShotCreation); }
-		//if (package is CustomCommands.Creation.NodeCreation) { debugMessage = "Package Received : NodeCreation"; ReadResponse(package as CustomCommands.Creation.NodeCreation); }
 		if (package is CustomCommands.Creation.OnCreationEnd) { debugMessage = "Package Received : OnCreationEnd"; ReadResponse(package as CustomCommands.Creation.OnCreationEnd); }
 
 		if (package is CustomCommands.ServerShutdownPackage) { debugMessage = "Package Received : ServerShutdownPackage"; ReadResponse(package as CustomCommands.ServerShutdownPackage); }

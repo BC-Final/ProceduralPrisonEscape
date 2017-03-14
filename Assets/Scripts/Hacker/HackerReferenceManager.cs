@@ -8,7 +8,11 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public Sprite HealthpackIcon;
 	public Sprite AmmobagIcon;
 
-	[Header("Minimap Icon Prefabs")]
+    [Header("Minimap Icon Prefabs")]
+    public GameObject PlayerIcon;
+    public GameObject DoorIcon;
+    public GameObject FireWallIcon;
+    public GameObject PickupIcon;
 	public GameObject DroneIcon;
     public GameObject CameraIcon;
     public GameObject TurretIcon;

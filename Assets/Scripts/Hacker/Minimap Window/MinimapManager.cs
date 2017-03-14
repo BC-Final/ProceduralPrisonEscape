@@ -4,14 +4,6 @@ using Gamelogic.Extensions;
 
 public class MinimapManager : Singleton<MinimapManager> {
 	//TODO Move to Reference manager
-	[SerializeField]
-	private GameObject _playerPrefab;
-	[SerializeField]
-	private GameObject _minimapDoorPrefab;
-	[SerializeField]
-	private GameObject _minimapFirewallPrefab;
-	[SerializeField]
-	private GameObject _minimapPickupIconPrefab;
 
 	MinimapPlayer _player;
 
@@ -27,7 +19,7 @@ public class MinimapManager : Singleton<MinimapManager> {
 	}
 
 	public void SetScale (float scale) {
-		//this.scale = scale;
+        //this.scale = scale;
 	}
 
 	public void SetSender (HackerPackageSender sender) {
@@ -68,18 +60,18 @@ public class MinimapManager : Singleton<MinimapManager> {
 	//TODO Revamp these functions
 	public MinimapDoor CreateMinimapDoor (Vector3 pos, float rotation, int ID) {
 		//pos.y = _iconHeight;
-		GameObject gameObject = (GameObject)Instantiate(_minimapDoorPrefab, pos / scale, Quaternion.Euler(0, rotation, 0));
+		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.instance.DoorIcon, pos / scale, Quaternion.Euler(0, rotation, 0));
 		return gameObject.GetComponent<MinimapDoor>();
 	}
 
 	public MinimapFirewall CreateMinimapFirewall (Vector3 pos, int ID) {
 		//pos.y = _iconHeight;
-		GameObject go = (GameObject)Instantiate(_minimapFirewallPrefab, pos / scale, Quaternion.identity);
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.instance.FireWallIcon, pos / scale, Quaternion.identity);
 		return go.GetComponent<MinimapFirewall>();
 	}
 
 	public MinimapPickupIcon CreateMinimapIcon (Vector3 pos) {
-		GameObject go = (GameObject)Instantiate(_minimapPickupIconPrefab, pos / scale, Quaternion.identity);
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.instance.PickupIcon, pos / scale, Quaternion.identity);
 		return go.GetComponent<MinimapPickupIcon>();
 	}
 
@@ -104,7 +96,7 @@ public class MinimapManager : Singleton<MinimapManager> {
 		Vector3 pos = new Vector3(package.x, _iconHeight, package.z);
 
 		if (_player == null) {
-			GameObject gameObject = (GameObject)Instantiate(_playerPrefab, pos / scale, Quaternion.Euler(0, package.rotation, 0));
+			GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.instance.PlayerIcon, pos / scale, Quaternion.Euler(0, package.rotation, 0));
 			_player = gameObject.GetComponent<MinimapPlayer>();
 			_player.InitialTransform(pos / scale, package.rotation);
 		} else {

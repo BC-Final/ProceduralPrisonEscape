@@ -89,9 +89,9 @@ public class MinimapDoor : MonoBehaviour {
 		switch (_associatedDoor.State.Value) {
 			case DoorState.Open: {
                     spriteRenderer.sprite = openSprite;
-                    if (!_associatedDoor.Accessible.Value) {
-                        SetColor(lockedColor);
-					} else if(_associatedDoor.Hacked.Value){
+                    //if (!_associatedDoor.Accessible.Value) {
+                    //    SetColor(lockedColor);
+					if(_associatedDoor.Hacked.Value){
                         SetColor(hackedColor);
 					}else {
                         SetColor(neutralColor);
@@ -100,9 +100,9 @@ public class MinimapDoor : MonoBehaviour {
 				}
 			case DoorState.Closed: {
                     spriteRenderer.sprite = closedSprite;
-                    if (!_associatedDoor.Accessible.Value) {
-                        SetColor(lockedColor);
-					} else if (_associatedDoor.Hacked.Value) {
+                    //if (!_associatedDoor.Accessible.Value) {
+                    //    SetColor(lockedColor);
+					if (_associatedDoor.Hacked.Value) {
                         SetColor(hackedColor);
                     }
                     else {
@@ -115,9 +115,12 @@ public class MinimapDoor : MonoBehaviour {
 
 	void OnMouseOver () {
 		if (Input.GetMouseButtonDown(1)) {
-			FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_open").start();
-			FindObjectOfType<CameraMove>().MoveTo(_associatedDoor.DoorNode.transform.position.x, _associatedDoor.DoorNode.transform.position.y);
-			FindObjectOfType<NetworkSelectionHighlight>().IndicateSelection(_associatedDoor.DoorNode.GetComponent<RectTransform>().anchoredPosition);
+			//FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_open").start();
+            //FindObjectOfType<CameraMove>().MoveTo(_associatedDoor.DoorNode.transform.position.x, _associatedDoor.DoorNode.transform.position.y);
+            //FindObjectOfType<NetworkSelectionHighlight>().IndicateSelection(_associatedDoor.DoorNode.GetComponent<RectTransform>().anchoredPosition);
+            if(!_keyProtected)
+            _associatedDoor.Hacked.Value = true;
+            changedState();
 		}
 	}
 

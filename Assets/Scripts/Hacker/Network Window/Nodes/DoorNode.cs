@@ -10,7 +10,7 @@ public class DoorNode : AbstractNode {
 
 	public override void SetReferences (int pAssocId) {
 		_associatedDoor = HackerDoor.GetDoorByID(pAssocId);
-		_associatedDoor.DoorNode = this;
+		//_associatedDoor.DoorNode = this;
 		_associatedDoor.State.OnValueChange += () => changedState();
 
 		if (!_associatedDoor.RequireKeycard) {

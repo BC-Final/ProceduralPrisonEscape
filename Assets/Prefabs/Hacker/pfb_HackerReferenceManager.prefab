@@ -54,6 +54,10 @@ MonoBehaviour:
   KeycardIcon: {fileID: 21300000, guid: 4cdfb7c8780de2144b99efc958d2aeef, type: 3}
   HealthpackIcon: {fileID: 21300000, guid: 5372e1d8d5fcc2846b9d71393cc5e430, type: 3}
   AmmobagIcon: {fileID: 21300000, guid: 55d52a9ace751d849a29654d59dbf7f1, type: 3}
+  PlayerIcon: {fileID: 150788, guid: b6ec244a9e3f33649b4b96c9fc2110b3, type: 2}
+  DoorIcon: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
+  FireWallIcon: {fileID: 140550, guid: 5e6f61cc9e8425245882f6250470af96, type: 2}
+  PickupIcon: {fileID: 1000012495054524, guid: 1af382110b6dd9b4c8f9beed53787a39, type: 2}
   DroneIcon: {fileID: 1000011898351382, guid: 487456394cdd6504cb5db2132be0dcdb, type: 2}
   CameraIcon: {fileID: 1000011898351382, guid: 3c6aaacbf9f9b854b92fc0a375aa2248, type: 2}
   TurretIcon: {fileID: 1989628938402834, guid: 553c2b4a27bd34841a988dbd84ca5a3e, type: 2}
