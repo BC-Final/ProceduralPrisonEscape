@@ -98,7 +98,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
-		SendPackage(new CustomCommands.Creation.OnCreationEnd());
+		//SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
 
 	/// <summary>
@@ -134,10 +134,6 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		disconnectClient();
 	}
 #endif
-
-	public static void SilentlyDisconnect () {
-		disconnectClient();
-	}
 
 	private static void disconnectClient () {
 		if (_client != null) {
