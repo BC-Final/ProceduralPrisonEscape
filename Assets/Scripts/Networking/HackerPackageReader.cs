@@ -14,7 +14,8 @@ public class HackerPackageReader : MonoBehaviour {
 	private MinimapManager _minimapManager;
 	private HackerPackageSender _networkManager;
 	private Texture _minimapTexture;
-	private MinimapPlayer _player;
+
+	//private MinimapPlayer _player;
 
 	bool loadingFinished = false;
 	private static List<CustomCommands.AbstractPackage> _latePackages = new List<CustomCommands.AbstractPackage>();
@@ -103,52 +104,52 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	//Creation Methods
-	private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
-		HackerDoor.CreateDoor(package);
-	}
+	//private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
+	//	HackerDoor.CreateDoor(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
-		if (loadingFinished) {
-			HackerFirewall.CreateFireWall(package);
-		} else {
-			AddLatePackage(package);
-		}
+	//private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
+	//	if (loadingFinished) {
+	//		HackerFirewall.CreateFireWall(package);
+	//	} else {
+	//		AddLatePackage(package);
+	//	}
 
-	}
+	//}
 
 	private void ReadResponse (CustomCommands.Creation.Shots.LaserShotCreation package) {
 		MinimapManager.Instance.CreateShot(package);
 	}
 
 	//Item Creation Methods
-	private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
-		if (loadingFinished) {
-			ItemDisplayIcon.CreateItem(package);
-		} else {
-			AddLatePackage(package);
-		}
-	}
+	//private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
+	//	if (loadingFinished) {
+	//		ItemDisplayIcon.CreateItem(package);
+	//	} else {
+	//		AddLatePackage(package);
+	//	}
+	//}
 
-	private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
-		ItemDisplayIcon.CreateItem(package);
-	}
+	//private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
+	//	ItemDisplayIcon.CreateItem(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Creation.Items.AmmoPackCreation package) {
-		ItemDisplayIcon.CreateItem(package);
-	}
+	//private void ReadResponse (CustomCommands.Creation.Items.AmmoPackCreation package) {
+	//	ItemDisplayIcon.CreateItem(package);
+	//}
 
 
-	private void ReadResponse (CustomCommands.Update.DoorUpdate package) {
-		HackerDoor.UpdateDoor(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.DoorUpdate package) {
+	//	HackerDoor.UpdateDoor(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
-		HackerFirewall.UpdateFireWall(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
+	//	HackerFirewall.UpdateFireWall(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
-		ItemDisplayIcon.UpdateItem(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
+	//	ItemDisplayIcon.UpdateItem(package);
+	//}
 
 	private void ReadResponse (CustomCommands.Update.MinimapUpdate package) {
 		Texture2D tex = new Texture2D(2, 2);
@@ -156,9 +157,9 @@ public class HackerPackageReader : MonoBehaviour {
 		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
 	}
 
-	private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
-		MinimapManager.Instance.UpdateMinimapPlayer(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
+	//	MinimapManager.Instance.UpdateMinimapPlayer(package);
+	//}
 
 	/*
 	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
@@ -173,31 +174,32 @@ public class HackerPackageReader : MonoBehaviour {
 
 
 
+	//TODO Replace
+	//private void ReadResponse (CustomCommands.Update.DroneUpdate package) {
+	//	HackerDrone.UpdateDrone(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Update.DroneUpdate package) {
-		HackerDrone.UpdateDrone(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.CameraUpdate package) {
+	//	HackerCamera.UpdateCamera(package.id, package.rotation, package.seesPlayer);
+	//}
 
-	private void ReadResponse (CustomCommands.Update.CameraUpdate package) {
-		HackerCamera.UpdateCamera(package.id, package.rotation, package.seesPlayer);
-	}
-
-	private void ReadResponse (CustomCommands.Update.TurretUpdate package) {
-		HackerTurret.UpdateTurret(package);
-	}
+	//private void ReadResponse (CustomCommands.Update.TurretUpdate package) {
+	//	HackerTurret.UpdateTurret(package);
+	//}
 
 
-	private void ReadResponse (CustomCommands.Creation.DroneCreation package) {
-		HackerDrone.CreateDrone(package);
-	}
+	//TODO REPLACE
+	//private void ReadResponse (CustomCommands.Creation.DroneCreation package) {
+	//	HackerDrone.CreateDrone(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Creation.CameraCreation package) {
-		HackerCamera.CreateCamera(package);
-	}
+	//private void ReadResponse (CustomCommands.Creation.CameraCreation package) {
+	//	HackerCamera.CreateCamera(package);
+	//}
 
-	private void ReadResponse (CustomCommands.Creation.TurretCreation package) {
-		HackerTurret.CreateTurret(package);
-	}
+	//private void ReadResponse (CustomCommands.Creation.TurretCreation package) {
+	//	HackerTurret.CreateTurret(package);
+	//}
 
 
 

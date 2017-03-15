@@ -11,11 +11,6 @@ namespace StateFramework {
 		}
 
 		public override void Enter() {
-			DropBeacon db = _drone.GetComponent<DropBeacon>();
-
-			if (db != null) {
-				db.Drop();
-			}
 
 			_agent.enabled = false;
 

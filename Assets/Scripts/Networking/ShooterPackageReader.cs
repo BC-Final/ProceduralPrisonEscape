@@ -37,10 +37,10 @@ public class ShooterPackageReader : MonoBehaviour {
 	private void ReadPackage (CustomCommands.AbstractPackage package) {
 		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 
-		if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
-		if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
-		if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
-		if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
+		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
+		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
+		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
+		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
 
 
 		if (_showReceivedPackets) {

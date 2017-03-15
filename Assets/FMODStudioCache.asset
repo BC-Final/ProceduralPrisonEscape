@@ -12,64 +12,64 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 114268223997819880}
-  - {fileID: 114919092114528876}
-  - {fileID: 114770460224390988}
-  - {fileID: 114553200828169204}
-  - {fileID: 114839997118621426}
-  - {fileID: 114441447705297696}
-  - {fileID: 114522652885772090}
+  - {fileID: 114017215997948646}
+  - {fileID: 114101719312422092}
+  - {fileID: 114542069733318766}
+  - {fileID: 114074054262265632}
+  - {fileID: 114110337746355154}
+  - {fileID: 114278030765742134}
+  - {fileID: 114600264158958688}
   EditorEvents:
-  - {fileID: 114277065998780532}
-  - {fileID: 114038440290074530}
-  - {fileID: 114522741202316230}
-  - {fileID: 114972706134935692}
-  - {fileID: 114264652420080378}
-  - {fileID: 114122214593867568}
-  - {fileID: 114373497925579422}
-  - {fileID: 114814458730288196}
-  - {fileID: 114272504621486902}
-  - {fileID: 114917871701405018}
-  - {fileID: 114976962021532420}
-  - {fileID: 114072893901142862}
-  - {fileID: 114046895433970078}
-  - {fileID: 114050837597650756}
-  - {fileID: 114646718969551072}
-  - {fileID: 114416957722998614}
-  - {fileID: 114853422327100052}
-  - {fileID: 114637568223222274}
-  - {fileID: 114928057150543724}
-  - {fileID: 114829212332531698}
-  - {fileID: 114880017236917478}
-  - {fileID: 114205785911847376}
-  - {fileID: 114376890048495078}
-  - {fileID: 114498908678980574}
-  - {fileID: 114538232133777518}
-  - {fileID: 114280721410341714}
-  - {fileID: 114178205324350126}
-  - {fileID: 114045580653340738}
-  - {fileID: 114892713549141900}
-  - {fileID: 114493463877548432}
-  - {fileID: 114594904928432512}
-  - {fileID: 114600379324620602}
-  - {fileID: 114982121215749476}
-  - {fileID: 114135248639326882}
-  - {fileID: 114507370792304202}
-  - {fileID: 114591743165328492}
-  - {fileID: 114654045888066560}
-  - {fileID: 114564723197178866}
-  - {fileID: 114282566813074000}
-  - {fileID: 114607560437618634}
-  - {fileID: 114195131166384660}
-  - {fileID: 114363033032945674}
-  - {fileID: 114703554405079284}
-  - {fileID: 114159558888205344}
-  - {fileID: 114081383213719156}
-  - {fileID: 114038578924807946}
-  - {fileID: 114296498654902546}
-  MasterBankRef: {fileID: 114441447705297696}
-  StringsBankRef: {fileID: 114268223997819880}
-  stringsBankWriteTime: 636245096532577316
+  - {fileID: 114382234152355398}
+  - {fileID: 114647843398206402}
+  - {fileID: 114910469970299178}
+  - {fileID: 114176068045750276}
+  - {fileID: 114590745571355936}
+  - {fileID: 114975120758335844}
+  - {fileID: 114792318525083194}
+  - {fileID: 114718443158103016}
+  - {fileID: 114816436968444218}
+  - {fileID: 114804372971649090}
+  - {fileID: 114337482559230828}
+  - {fileID: 114422846428721548}
+  - {fileID: 114499312125518368}
+  - {fileID: 114732060104453950}
+  - {fileID: 114821484008726590}
+  - {fileID: 114148455324225120}
+  - {fileID: 114175160487301690}
+  - {fileID: 114745407762098550}
+  - {fileID: 114377470426233426}
+  - {fileID: 114371875096886402}
+  - {fileID: 114032824158339866}
+  - {fileID: 114543090666668412}
+  - {fileID: 114915670721516346}
+  - {fileID: 114377715227416276}
+  - {fileID: 114780109964226356}
+  - {fileID: 114059897638725088}
+  - {fileID: 114792090845078878}
+  - {fileID: 114782159891358380}
+  - {fileID: 114185573903028000}
+  - {fileID: 114345674544532120}
+  - {fileID: 114215282852512378}
+  - {fileID: 114582035792337146}
+  - {fileID: 114474320996201890}
+  - {fileID: 114660085124711374}
+  - {fileID: 114609496596805726}
+  - {fileID: 114071292462109168}
+  - {fileID: 114409978853077674}
+  - {fileID: 114404133240143160}
+  - {fileID: 114159730910120074}
+  - {fileID: 114826246142944326}
+  - {fileID: 114190703013285036}
+  - {fileID: 114154761563244608}
+  - {fileID: 114548039372108574}
+  - {fileID: 114788891846616400}
+  - {fileID: 114272881456011736}
+  - {fileID: 114582267217475364}
+  - {fileID: 114371199059809256}
+  MasterBankRef: {fileID: 114278030765742134}
+  StringsBankRef: {fileID: 114017215997948646}
+  stringsBankWriteTime: 636245092015266486
   cacheVersion: 2
 --- !u!114 &114001019083276348
 MonoBehaviour:
@@ -131,6 +131,24 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114017215997948646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
+  lastModified: 636245092015266486
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 3644
+  Exists: 1
 --- !u!114 &114025304145706242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,6 +168,27 @@ MonoBehaviour:
   - Name: 
     Value: 17280
   Exists: 0
+--- !u!114 &114032824158339866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_pickhealth
+  guid: f0d91ade72873644ae6786a8d6e71019
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114038440290074530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +203,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_camcatch
   guid: 1c96caca99f129499d99aa90a6fe4c76
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -185,7 +224,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_progressbar_start
   guid: 5982d131248f8344b63d7cda885343d3
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -206,7 +245,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_firewall_destroy_loop
   guid: 8ea05dfcac73d24caeac989d5a386fd1
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -227,7 +266,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_door_access
   guid: 4f7baaad1b93e74b8bd9aeabed119a8c
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -248,7 +287,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hackpositive_gui
   guid: 50befea1e9366c4096f71192ccd02ecb
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -274,6 +313,27 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
+--- !u!114 &114059897638725088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_hackinit
+  guid: 187dae57bef7aa4db9e2ad711ccad720
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114069839304088248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,6 +349,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114071292462109168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_datagain
+  guid: 94e5ad5ad5d3b14aa1f14c7fb4b9f1b2
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114072893901142862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,13 +384,32 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_stop
   guid: 26b4b21ae7450a42a8e69928c3b9206c
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 6.8
+--- !u!114 &114074054262265632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_sfx_shooter.bank
+  lastModified: 636245092015771758
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 997632
+  Exists: 1
 --- !u!114 &114081383213719156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +424,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_autofocus
   guid: 3578b588faef92479a46332c2e3cff5c
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -384,6 +484,25 @@ MonoBehaviour:
   - Name: 
     Value: 2605888
   Exists: 1
+--- !u!114 &114101719312422092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_vox.bank
+  lastModified: 636199878184963722
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
 --- !u!114 &114105460921094430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +522,25 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 0
+--- !u!114 &114110337746355154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_sfx_hacker.bank
+  lastModified: 636245092015626227
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 2605888
+  Exists: 1
 --- !u!114 &114110807466577176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,7 +612,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_keypress
   guid: c116484e4f46f148b15d4484e6e66977
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -495,7 +633,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hackinit
   guid: 187dae57bef7aa4db9e2ad711ccad720
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -521,6 +659,48 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
+--- !u!114 &114148455324225120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_keypress
+  guid: c116484e4f46f148b15d4484e6e66977
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+--- !u!114 &114154761563244608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_admin_enable
+  guid: cec5ca58d9d06643892d32e478d306af
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114154790707031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,7 +730,28 @@ MonoBehaviour:
   Path: snapshot:/snapkilltobi
   guid: e4917adcd301f641a3be42e974f2f993
   Banks:
-  - {fileID: 114441447705297696}
+  - {fileID: 114110807466577176}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114159730910120074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_map_move
+  guid: ae83b8ae65198449a59327b056259097
+  Banks:
+  - {fileID: 114110337746355154}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -610,6 +811,48 @@ MonoBehaviour:
   - Name: 
     Value: 2614208
   Exists: 0
+--- !u!114 &114175160487301690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_dispenser_use
+  guid: c5c7d9fec8c79a4faa9b36d67bbcd580
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+--- !u!114 &114176068045750276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_melee_impact
+  guid: 2f9d8467438aaa4da0d561fb105baada
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114178205324350126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,7 +867,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/ep/PE_weapon_ep_reload
   guid: 798ad080ec98bb4284052dc4fc32540b
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -650,6 +893,48 @@ MonoBehaviour:
   - Name: 
     Value: 2605888
   Exists: 0
+--- !u!114 &114185573903028000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_autofocus
+  guid: 3578b588faef92479a46332c2e3cff5c
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114190703013285036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_button_denied
+  guid: b735fee3809a734fb58c0822e66353b6
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114195131166384660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,7 +949,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_enable
   guid: cec5ca58d9d06643892d32e478d306af
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -704,13 +989,34 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_door_denied
   guid: 40d90f87081d044cb0b676397ecb95d9
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114215282852512378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_avatar_move
+  guid: 50a310a8b7de8c41b209b86b3e561f69
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114234305528480630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,7 +1084,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_dispenser_denied
   guid: 6cf2d871a187484d8387fe194e7a3cb7
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -797,7 +1103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
-  lastModified: 636245096532577316
+  lastModified: 636245092015266486
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -836,13 +1142,34 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_camlost
   guid: d8514800785eab498635542e87f6427a
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 10
+--- !u!114 &114272881456011736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_shooter_death
+  guid: f565020a32dabb41b13c6a637ba4c269
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114277065998780532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -857,13 +1184,32 @@ MonoBehaviour:
   Path: event:/PE_weapon/ep/PE_weapon_ep_shoot
   guid: 172ba2f142f2fd40a4a29e950337a329
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114278030765742134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_menu.bank
+  lastModified: 636201097567547515
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 17280
+  Exists: 1
 --- !u!114 &114280721410341714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -878,7 +1224,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_door_access
   guid: 64fde1753acd94419d1e4058f6285d6c
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -899,7 +1245,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_map_move
   guid: ae83b8ae65198449a59327b056259097
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -920,7 +1266,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_progressbar_stop
   guid: dd95d4765ec9e9478fa429386a89a0a9
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -995,6 +1341,48 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 0
+--- !u!114 &114337482559230828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_door_access
+  guid: 64fde1753acd94419d1e4058f6285d6c
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 4.8
+--- !u!114 &114345674544532120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_door_access
+  guid: 4f7baaad1b93e74b8bd9aeabed119a8c
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114355743218479352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1028,7 +1416,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_alarm_loop
   guid: dd3addaa1eb9f348baa99044039821d0
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1073,6 +1461,48 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
+--- !u!114 &114371199059809256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: snapshot:/snapkilltobi
+  guid: e4917adcd301f641a3be42e974f2f993
+  Banks:
+  - {fileID: 114278030765742134}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114371875096886402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_melee_move
+  guid: df57b233a5e7c34986ef59187f366597
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114373497925579422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1087,7 +1517,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_dispenser_use
   guid: c5c7d9fec8c79a4faa9b36d67bbcd580
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1142,7 +1572,70 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_pickkeycard
   guid: 442471f2029fdc4a82ed279e4ba26061
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114377470426233426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_camlost
+  guid: d8514800785eab498635542e87f6427a
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 10
+--- !u!114 &114377715227416276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_buttonclick
+  guid: 0c792d12fb400447bc416ead02292df6
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114382234152355398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_weapon/ep/PE_weapon_ep_shoot
+  guid: 172ba2f142f2fd40a4a29e950337a329
+  Banks:
+  - {fileID: 114074054262265632}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1183,6 +1676,48 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
+--- !u!114 &114404133240143160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_door_denied
+  guid: a70d4ab5a011154db64fa5feea377110
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114409978853077674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_admin_disable
+  guid: 9a6b248286eb02429b05099ce8d8fc8c
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114416957722998614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1197,14 +1732,14 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_datagain
   guid: 94e5ad5ad5d3b14aa1f14c7fb4b9f1b2
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
---- !u!114 &114441447705297696
+--- !u!114 &114419025702350138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1212,17 +1747,34 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_menu.bank
-  lastModified: 636245011808875553
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 17280
-  Exists: 1
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114422846428721548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_dispenser_denied
+  guid: 6cf2d871a187484d8387fe194e7a3cb7
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114461341384008290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1238,6 +1790,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114474320996201890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_progressbar_start
+  guid: 5982d131248f8344b63d7cda885343d3
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114493463877548432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1252,7 +1825,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_melee_move
   guid: df57b233a5e7c34986ef59187f366597
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1273,7 +1846,28 @@ MonoBehaviour:
   Path: event:/PE_weapon/smg/PE_weapon_smg_shot
   guid: 4f43d0b44f887e4a98d9f52f0230707a
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114499312125518368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_weapon/ep/PE_weapon_ep_reload
+  guid: 798ad080ec98bb4284052dc4fc32540b
+  Banks:
+  - {fileID: 114074054262265632}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1309,7 +1903,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_firewall_startup
   guid: 2363b19bb2a1024d93638885647eb0f7
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1354,25 +1948,6 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
---- !u!114 &114522652885772090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_musicsystem_shooter.bank
-  lastModified: 636245011808893911
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 404
-  Exists: 1
 --- !u!114 &114522741202316230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,7 +1962,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/smg/PE_weapon_smg_reload
   guid: 40f02af6798f0146abe539dc6df67d6f
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1427,14 +2002,54 @@ MonoBehaviour:
   Path: event:/PE_drone/PE_drone_engine
   guid: 60347c7df543e94f8635717e738b3c2f
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114685307327504412}
+  - {fileID: 114815800029927668}
   MinDistance: 1
   MaxDistance: 23
+--- !u!114 &114542069733318766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_musicsystem_hacker.bank
+  lastModified: 636199878184408207
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
+--- !u!114 &114543090666668412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_cameramove_start
+  guid: f5ba8e8913df644b99d2cda443298efd
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114547124890026002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,7 +2069,7 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
---- !u!114 &114553200828169204
+--- !u!114 &114548039372108574
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1462,17 +2077,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_sfx_shooter.bank
-  lastModified: 636245096532907537
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 997632
-  Exists: 1
+  Path: event:/PE_hacker/PE_hacker_alarm_loop
+  guid: dd3addaa1eb9f348baa99044039821d0
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114564723197178866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1487,7 +2104,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_disable
   guid: 9a6b248286eb02429b05099ce8d8fc8c
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1528,6 +2145,69 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114582035792337146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_hackpositive_gui
+  guid: 50befea1e9366c4096f71192ccd02ecb
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114582267217475364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_menu/PE_menu_buttonclick
+  guid: 623bdf476cd0ff4cb88c2af1d36b5b5f
+  Banks:
+  - {fileID: 114278030765742134}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114590745571355936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_door_denied
+  guid: 40d90f87081d044cb0b676397ecb95d9
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
 --- !u!114 &114591743165328492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1542,7 +2222,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_avatar_move
   guid: 50a310a8b7de8c41b209b86b3e561f69
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1563,7 +2243,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_pickhealth
   guid: f0d91ade72873644ae6786a8d6e71019
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1589,6 +2269,25 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 1
+--- !u!114 &114600264158958688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_musicsystem_shooter.bank
+  lastModified: 636199878184423282
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
 --- !u!114 &114600379324620602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,7 +2302,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_firewall_shutdown
   guid: 05ae937bbde4974f9d8d1ffe6e3635f2
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1624,7 +2323,28 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_button_denied
   guid: b735fee3809a734fb58c0822e66353b6
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114609496596805726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_button_standard
+  guid: 871473e7290fc949a19b62c193e344df
+  Banks:
+  - {fileID: 114110337746355154}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1664,7 +2384,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_map_zoom
   guid: b04cb76e7d85aa41a4fbf1aaf7ffb873
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1685,13 +2405,34 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hacknegative_gui
   guid: 74a0f672fa284f48bb7b78d7bf1da9fb
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114647843398206402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_camcatch
+  guid: 1c96caca99f129499d99aa90a6fe4c76
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 10
 --- !u!114 &114651793587142636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1721,7 +2462,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_button_standard
   guid: 871473e7290fc949a19b62c193e344df
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1767,6 +2508,27 @@ MonoBehaviour:
   - Name: 
     Value: 997632
   Exists: 0
+--- !u!114 &114660085124711374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_hacknegative_gui
+  guid: 74a0f672fa284f48bb7b78d7bf1da9fb
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114668592023948464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1787,21 +2549,6 @@ MonoBehaviour:
     Value: 17280
   Exists: 0
 --- !u!114 &114680042208433758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: p_drone_move
-  Min: 0
-  Max: 1
-  Default: 0
---- !u!114 &114685307327504412
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1869,7 +2616,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_shooter_death
   guid: f565020a32dabb41b13c6a637ba4c269
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1896,6 +2643,48 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114718443158103016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_weapon/smg/PE_weapon_smg_shot
+  guid: 4f43d0b44f887e4a98d9f52f0230707a
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114732060104453950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_firewall_destroy_loop
+  guid: 8ea05dfcac73d24caeac989d5a386fd1
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 6
 --- !u!114 &114732287943336680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1911,6 +2700,27 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114745407762098550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_envi/PE_envi_firewall_destroy_start
+  guid: d6eb7ebe6840b94eb9e14eebc4f321f7
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 6
 --- !u!114 &114760141313625536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1945,7 +2755,7 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
---- !u!114 &114770460224390988
+--- !u!114 &114780109964226356
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1953,17 +2763,103 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_musicsystem_hacker.bank
-  lastModified: 636245011808888909
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 404
-  Exists: 1
+  Path: event:/PE_hacker/PE_hacker_avatar_death
+  guid: 13f167cc60157541a19f9f5c61769b4f
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114782159891358380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_firewall_startup
+  guid: 2363b19bb2a1024d93638885647eb0f7
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114788891846616400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_progressbar_stop
+  guid: dd95d4765ec9e9478fa429386a89a0a9
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114792090845078878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_admin_death
+  guid: 21122b95e1fc124aaef17f1c91f085ea
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+--- !u!114 &114792318525083194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_pickkeycard
+  guid: 442471f2029fdc4a82ed279e4ba26061
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114793038392776856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2017,6 +2913,27 @@ MonoBehaviour:
   - Name: 
     Value: 1005376
   Exists: 0
+--- !u!114 &114804372971649090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_shooter/PE_shooter_alarm_loop
+  guid: 606ce4362d664044bbb55217c580fc69
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114814458730288196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,7 +2948,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_firewall_destroy_start
   guid: d6eb7ebe6840b94eb9e14eebc4f321f7
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2053,6 +2970,70 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114816436968444218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_drone/PE_drone_engine
+  guid: 60347c7df543e94f8635717e738b3c2f
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 114419025702350138}
+  MinDistance: 1
+  MaxDistance: 23
+--- !u!114 &114821484008726590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_weapon/Mining Laser/PE_weapon_mininglaser
+  guid: 991244cd1097534bb73d149e5528b938
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+--- !u!114 &114826246142944326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_map_zoom
+  guid: b04cb76e7d85aa41a4fbf1aaf7ffb873
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114829212332531698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2067,7 +3048,7 @@ MonoBehaviour:
   Path: event:/PE_menu/PE_menu_buttonclick
   guid: 623bdf476cd0ff4cb88c2af1d36b5b5f
   Banks:
-  - {fileID: 114441447705297696}
+  - {fileID: 114110807466577176}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2092,25 +3073,6 @@ MonoBehaviour:
   FileSizes:
   - Name: 
     Value: 404
-  Exists: 1
---- !u!114 &114839997118621426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_sfx_hacker.bank
-  lastModified: 636245096532807471
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 2605888
   Exists: 1
 --- !u!114 &114847513595262494
 MonoBehaviour:
@@ -2141,7 +3103,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_door_denied
   guid: a70d4ab5a011154db64fa5feea377110
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2181,7 +3143,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_melee_impact
   guid: 2f9d8467438aaa4da0d561fb105baada
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2202,7 +3164,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/Mining Laser/PE_weapon_mininglaser
   guid: 991244cd1097534bb73d149e5528b938
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2267,6 +3229,48 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 0
+--- !u!114 &114910469970299178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_cameramove_stop
+  guid: 26b4b21ae7450a42a8e69928c3b9206c
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 6.8
+--- !u!114 &114915670721516346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_hacker/PE_hacker_firewall_shutdown
+  guid: 05ae937bbde4974f9d8d1ffe6e3635f2
+  Banks:
+  - {fileID: 114110337746355154}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114915945338573260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2300,32 +3304,13 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_buttonclick
   guid: 0c792d12fb400447bc416ead02292df6
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
---- !u!114 &114919092114528876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: C:\Users\RTSch\Documents\Projects\Minor\Git\Assets\StreamingAssets\Desktop
-    Stereo\PE_vox.bank
-  lastModified: 636245011809224130
-  LoadResult: 0
-  FileSizes:
-  - Name: 
-    Value: 404
-  Exists: 1
 --- !u!114 &114926037151714740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2359,7 +3344,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_start
   guid: f5ba8e8913df644b99d2cda443298efd
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -2452,7 +3437,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_alarm_loop
   guid: 606ce4362d664044bbb55217c580fc69
   Banks:
-  - {fileID: 114553200828169204}
+  - {fileID: 114893243174314266}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -2478,6 +3463,27 @@ MonoBehaviour:
   - Name: 
     Value: 997632
   Exists: 1
+--- !u!114 &114975120758335844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: event:/PE_weapon/smg/PE_weapon_smg_reload
+  guid: 40f02af6798f0146abe539dc6df67d6f
+  Banks:
+  - {fileID: 114074054262265632}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
 --- !u!114 &114976962021532420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2492,7 +3498,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_death
   guid: 21122b95e1fc124aaef17f1c91f085ea
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2535,7 +3541,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_avatar_death
   guid: 13f167cc60157541a19f9f5c61769b4f
   Banks:
-  - {fileID: 114839997118621426}
+  - {fileID: 114097049229758992}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
