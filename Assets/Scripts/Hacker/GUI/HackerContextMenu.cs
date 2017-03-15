@@ -76,7 +76,7 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 	*/
 
 	private void hide () {
-		//Destroy(this.gameObject);
+		Destroy(this.gameObject);
 	}
 
 	private void display (AbstractMapIcon.ActionData[] pActionData) {

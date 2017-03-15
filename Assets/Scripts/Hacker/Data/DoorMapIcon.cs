@@ -3,67 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DoorMapIcon : AbstractMapIcon {
-	public static void CreateInstance (Vector2 pPos, float rot, DoorState pState) {
-        GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, rot, 0));
-        go.GetComponent<DoorMapIcon>()._currentDoorState = pState;
-        go.GetComponent<DoorMapIcon>().StateChanged();
-    }
-
-	public enum DoorState {
-		Open,
-		Closed,
-		Locked
+	public static void CreateInstance (Vector2 pPos, float pRot, bool pOpen, bool pLocked) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, pRot, 0));
+		go.GetComponent<DoorMapIcon>()._open = pOpen;
+		go.GetComponent<DoorMapIcon>()._locked = pLocked;
+		go.GetComponent<DoorMapIcon>().StateChanged();
 	}
 
-    #region Sprites
-    [Header("Sprites")]
-    [SerializeField]
-    private Sprite openSprite;
-    [SerializeField]
-    private Sprite closedSprite;
-    [SerializeField]
-    private Sprite lockedSprite;
-    #endregion
 
-    private DoorState _currentDoorState;
+	private bool _open;
+	private bool _locked;
+
+	#region Sprites
+	[Header("Sprites")]
+	[SerializeField]
+	private Sprite _openSprite;
+	[SerializeField]
+	private Sprite _closedSprite;
+	[SerializeField]
+	private Sprite _lockedOpenSprite;
+	[SerializeField]
+	private Sprite _lockedClosedSprite;
+	#endregion
 
 	public void Toggle () {
-		if(_currentDoorState == DoorState.Open)
-        {
-            _currentDoorState = DoorState.Closed;
-        }
-        else
-        {
-            _currentDoorState = DoorState.Open;
-        }
-        StateChanged();
-    }
+		_open = !_open;
+
+		StateChanged();
+	}
 
 	public void Lock () {
-        _currentDoorState = DoorState.Locked;
-        StateChanged();
-    }
+		_locked = true;
 
-   	private void StateChanged()
-    {
-   	
-   	   switch (_currentDoorState)
-        { 
-   		    case DoorState.Open:
-                {
-                    spriteRenderer.sprite = openSprite;
-                    break;
-   		        }
-   		    case DoorState.Closed:
-                {
-                    spriteRenderer.sprite = closedSprite;
-                    break;
-                }
-            case DoorState.Locked:
-                {
-                    spriteRenderer.sprite = lockedSprite;
-                    break;
-                }
-        }
-    }
+		StateChanged();
+	}
+
+	private void StateChanged () {
+		if (_open) {
+			if (_locked) {
+				changeSprite(_lockedOpenSprite);
+			} else {
+				changeSprite(_openSprite);
+			}
+		} else {
+			if (_locked) {
+				changeSprite(_lockedClosedSprite);
+			} else {
+				changeSprite(_closedSprite);
+			}
+		}
+	}
 }

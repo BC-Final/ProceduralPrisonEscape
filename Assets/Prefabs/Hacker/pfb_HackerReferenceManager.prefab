@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerIcon: {fileID: 0}
-  DoorIcon: {fileID: 0}
+  DoorIcon: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
   DroneIcon: {fileID: 0}
   CameraIcon: {fileID: 0}
   TurretIcon: {fileID: 0}
