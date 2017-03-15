@@ -8,7 +8,7 @@ public class MinimapManager : Singleton<MinimapManager> {
 	//MinimapPlayer _player;
 
 	[SerializeField]
-	public float scale = 2;
+	static public float scale = 2;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
 	[SerializeField]
