@@ -20,4 +20,8 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 
 	[Header("Minimap Prefabs")]
 	public GameObject LaserShot;
+
+	[Header("Misc Prefabs")]
+	public GameObject ContextMenu;
+	public GameObject ContextMenuOption;
 }

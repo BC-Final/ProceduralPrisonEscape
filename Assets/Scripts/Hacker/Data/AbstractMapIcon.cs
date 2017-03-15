@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(BoxCollider))]
 public abstract class AbstractMapIcon : MonoBehaviour {
 	[System.Serializable]
 	public struct ActionData {
@@ -24,5 +25,12 @@ public abstract class AbstractMapIcon : MonoBehaviour {
 		}
 	}
 
-	public ActionData[] Actions;
+	[SerializeField]
+	protected ActionData[] actions;
+
+	private void OnMouseDown () {
+		if (!CanvasHoverListener.Instance.MouseOverUI) {
+			HackerContextMenu.Display(actions);
+		}
+	}
 }

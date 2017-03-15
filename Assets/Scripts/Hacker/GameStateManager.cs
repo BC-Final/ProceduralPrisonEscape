@@ -3,6 +3,7 @@ using System.Collections;
 using Gamelogic.Extensions;
 
 public class GameStateManager : Singleton<GameStateManager> {
+	//TODO Rewrite Alarm code!!
 	[SerializeField]
 	private int _maxSuspicion;
 	private int _currentSuspicion;
