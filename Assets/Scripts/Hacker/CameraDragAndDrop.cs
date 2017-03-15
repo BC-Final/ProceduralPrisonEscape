@@ -59,7 +59,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 
 				_currentLerpTime = 0f;
 				_newPos = _startPos - Input.mousePosition;
-				_targetPos = new Vector3(_startTransformPos.x + _newPos.x * scrollPos * (_mouseSensitivity / 10000), 0, _startTransformPos.z + _newPos.y * scrollPos * (_mouseSensitivity / 10000));
+				_targetPos = new Vector3(_startTransformPos.x + _newPos.x * scrollPos * (_mouseSensitivity / 10000), _startTransformPos.y + _newPos.y * scrollPos * (_mouseSensitivity / 10000), 0);
 			}
 
             //if camera is following play target position is always the player
@@ -74,7 +74,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 			float perc = _currentLerpTime / _lerpTime;
 
             //Set target position to 1 else camer might be buggy
-             _targetPos.y = 5;
+             _targetPos.z = -5;
 			this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 		
 

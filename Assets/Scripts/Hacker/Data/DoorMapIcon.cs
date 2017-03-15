@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class DoorMapIcon : AbstractMapIcon {
 	public static void CreateInstance (Vector2 pPos, float rot, DoorState pState) {
-		//TODO Assign values
-	}
+        GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, rot, 0));
+        go.GetComponent<DoorMapIcon>()._currentDoorState = pState;
+        go.GetComponent<DoorMapIcon>().StateChanged();
+    }
 
 	public enum DoorState {
 		Open,
@@ -13,22 +15,55 @@ public class DoorMapIcon : AbstractMapIcon {
 		Locked
 	}
 
-	[SerializeField]
-	private Sprite _openSprite;
+    #region Sprites
+    [Header("Sprites")]
+    [SerializeField]
+    private Sprite openSprite;
+    [SerializeField]
+    private Sprite closedSprite;
+    [SerializeField]
+    private Sprite lockedSprite;
+    #endregion
 
-	[SerializeField]
-	private Sprite _closedSprite;
-
-	[SerializeField]
-	private Sprite _lockedSprite;
-
-	private DoorState _currentDoorState;
+    private DoorState _currentDoorState;
 
 	public void Toggle () {
-		//TODO Assign what to do
-	}
+		if(_currentDoorState == DoorState.Open)
+        {
+            _currentDoorState = DoorState.Closed;
+        }
+        else
+        {
+            _currentDoorState = DoorState.Open;
+        }
+        StateChanged();
+    }
 
 	public void Lock () {
-		//TODO Assign what to do
-	}
+        _currentDoorState = DoorState.Locked;
+        StateChanged();
+    }
+
+   	private void StateChanged()
+    {
+   	
+   	   switch (_currentDoorState)
+        { 
+   		    case DoorState.Open:
+                {
+                    spriteRenderer.sprite = openSprite;
+                    break;
+   		        }
+   		    case DoorState.Closed:
+                {
+                    spriteRenderer.sprite = closedSprite;
+                    break;
+                }
+            case DoorState.Locked:
+                {
+                    spriteRenderer.sprite = lockedSprite;
+                    break;
+                }
+        }
+    }
 }

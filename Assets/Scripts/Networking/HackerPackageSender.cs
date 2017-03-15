@@ -32,7 +32,7 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
-			SceneManager.LoadScene("MenuScene");
+			//SceneManager.LoadScene("MenuScene");
 		}
 	}
 
