@@ -153,7 +153,7 @@ public class ShooterDoor : MonoBehaviour, INetworked {
 	/// </summary>
 	/// <param name="pPacket">The received packet</param>
 	public static void UpdateDoor (NetworkPacket.Update.Door pPacket) {
-		ShooterDoor door = ShooterPackageSender.Instance.GetNetworkedObject<ShooterDoor>(pPacket.Id);
+		ShooterDoor door = ShooterPackageSender.GetNetworkedObject<ShooterDoor>(pPacket.Id);
 
 		if (door != null) {
 			door._open.Value = pPacket.Open;

@@ -25,6 +25,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	}
 
 	private TcpListener _listener;
+	private static bool _clientInitialized = false;
 
 	/// <summary>
 	/// Adds a networked object to the reference list
@@ -34,7 +35,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		_networkObjects.Add(pObject);
 
 		//FIX Hacky fix for a initializing rtuntime objects over the network
-		if (_client != null) {
+		if (_clientInitialized) {
 			pObject.Initialize();
 		}
 	}
@@ -96,12 +97,14 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 			n.Initialize();
 		}
 
+		_clientInitialized = true;
+
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
 		//SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
 
-	public T GetNetworkedObject<T> (int pId) where T : class, INetworked {
+	public static T GetNetworkedObject<T> (int pId) where T : class, INetworked {
 		INetworked temp = _networkObjects.Find(x => x.Id == pId);
 		return temp is T ? temp as T : default(T);
 	}

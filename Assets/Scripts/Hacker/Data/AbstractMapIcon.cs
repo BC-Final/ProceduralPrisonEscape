@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider))]
-public abstract class AbstractMapIcon : MonoBehaviour {
+public abstract class AbstractMapIcon : MonoBehaviour, INetworked {
 	[System.Serializable]
 	public struct ActionData {
 		public string DisplayName;

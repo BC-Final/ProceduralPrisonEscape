@@ -42,6 +42,17 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
+		public class Drone : AbstractPacket {
+			public int Id;
+			public float PosX, PosY, Rot;
+			public float Health;
+
+			public Drone (int pId, float pPosX, float pPosY, float pRot, float pHealth) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Health = pHealth;
+			}
+		}
+
+		[System.Serializable]
 		public class Pipe : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;

@@ -20,7 +20,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 		if (!_alarm) {
 			_alarm = true;
 			_currentSuspicion = 0;
-			HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(true));
+			//HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(true));
 
 			_alarmLoop.start();
 		}
@@ -29,7 +29,7 @@ public class GameStateManager : Singleton<GameStateManager> {
 	public void DisableAlarm () {
 		_alarm = false;
 		_alarmLoop.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-		HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(false));
+		//HackerPackageSender.SendPackage(new CustomCommands.Update.AlarmUpdate(false));
 	}
 
 	//Suggestion Should this be in the Security node?
