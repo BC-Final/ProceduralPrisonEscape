@@ -32,7 +32,7 @@ public class CameraDragAndDrop : MonoBehaviour {
         {
             if(_player == null)
             {
-                //_player = GameObject.FindObjectOfType<MinimapPlayer>().transform;
+                _player = GameObject.FindObjectOfType<PlayerMapIcon>().transform;
             }
             _followPlayer = !_followPlayer;
             _currentLerpTime = 0f;
