@@ -10,6 +10,7 @@ GameObject:
   - component: {fileID: 412498}
   - component: {fileID: 212192673359649376}
   - component: {fileID: 114857229198108460}
+  - component: {fileID: 65507284463967702}
   m_Layer: 0
   m_Name: pfb_minimap_player
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 150788}
   m_IsPrefabParent: 1
+--- !u!65 &65507284463967702
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 150788}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.6, y: 1.6, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114857229198108460
 MonoBehaviour:
   m_ObjectHideFlags: 1

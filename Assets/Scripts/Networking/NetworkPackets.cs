@@ -57,6 +57,14 @@ namespace NetworkPacket {
 				Id = pId; ExplodeType = pExplodeType;
 			}
 		}
+
+		[System.Serializable]
+		public class Minimap : AbstractPacket {
+			public byte[] bytes;
+			public Minimap (byte[] nBytes) {
+				bytes = nBytes;
+			}
+		}
 	}
 
 	namespace Message {

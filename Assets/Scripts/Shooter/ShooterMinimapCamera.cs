@@ -9,7 +9,7 @@ public class ShooterMinimapCamera : MonoBehaviour {
 	}
 
 	public void SendUpdate () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Update.MinimapUpdate(getMinimapData()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Minimap(getMinimapData()));
 	}
 
 	private byte[] getMinimapData () {

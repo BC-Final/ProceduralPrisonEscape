@@ -32,14 +32,14 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 				Debug.Log("Could not connect to server. Errorcode : " + e.ErrorCode);
 			}
 
-			//SceneManager.LoadScene("MenuScene");
+			SceneManager.LoadScene("MenuScene");
 		}
 	}
 
-	public static void SendPackage (CustomCommands.AbstractPackage package) {
+	public static void SendPackage (NetworkPacket.AbstractPacket pPacket) {
 		if (_host != null) {
 			try {
-				_formatter.Serialize(_host.GetStream(), package);
+				_formatter.Serialize(_host.GetStream(), pPacket);
 			} catch (SerializationException e) {
 				Debug.LogError("Failed to serialize. Reason: " + e.Message);
 				throw;

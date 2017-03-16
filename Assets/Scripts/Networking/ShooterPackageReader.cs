@@ -33,7 +33,6 @@ public class ShooterPackageReader : MonoBehaviour {
 	/// <param name="pPacket"></param>
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
-		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 
 		
@@ -48,12 +47,8 @@ public class ShooterPackageReader : MonoBehaviour {
 		ShooterDoor.UpdateDoor(pPacket);
 	}
 
-	private void readPacket (NetworkPacket.Update.Player pPacket) {
-		//ShooterDoor.UpdateDoor(pPacket);
-	}
-
 	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
-		//ShooterDoor.UpdateDoor(pPacket);
+		
 	}
 
 
@@ -66,25 +61,25 @@ public class ShooterPackageReader : MonoBehaviour {
 
 
 
-	private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
-		//ShooterDoor.UpdateDoor(package);
-	}
+	//private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
+	//	//ShooterDoor.UpdateDoor(package);
+	//}
 
-	private void ReadPackage (CustomCommands.Update.DisableCamera package) {
-		//HACK This is very hacky, create list of all cameras
-		new List<ShooterCamera>(FindObjectsOfType<ShooterCamera>()).Find(x => x.Id == package.Id).Disable();
-	}
+	//private void ReadPackage (CustomCommands.Update.DisableCamera package) {
+	//	//HACK This is very hacky, create list of all cameras
+	//	new List<ShooterCamera>(FindObjectsOfType<ShooterCamera>()).Find(x => x.Id == package.Id).Disable();
+	//}
 
-	private void ReadPackage (CustomCommands.Update.DisableTurret package) {
-		//HACK This is very hacky, create list of all cameras
-		new List<Turret>(FindObjectsOfType<Turret>()).Find(x => x.Id == package.Id).Disable();
-	}
+	//private void ReadPackage (CustomCommands.Update.DisableTurret package) {
+	//	//HACK This is very hacky, create list of all cameras
+	//	new List<Turret>(FindObjectsOfType<Turret>()).Find(x => x.Id == package.Id).Disable();
+	//}
 
-	private void ReadPackage (CustomCommands.Update.AlarmUpdate package) {
-		if (package.state) {
-			AlarmManager.Instance.ActivateAlarm();
-		} else {
-			AlarmManager.Instance.DeactivateAlarm();
-		}
-	}
+	//private void ReadPackage (CustomCommands.Update.AlarmUpdate package) {
+	//	if (package.state) {
+	//		AlarmManager.Instance.ActivateAlarm();
+	//	} else {
+	//		AlarmManager.Instance.DeactivateAlarm();
+	//	}
+	//}
 }
