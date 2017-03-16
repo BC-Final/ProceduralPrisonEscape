@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMapIcon : AbstractMapIcon
-{
-    public static void CreateInstance(Vector2 pPos, float rot)
-    {
-        GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, rot, 0));
-    }
+public class PlayerMapIcon : AbstractMapIcon {
+	public static void CreateInstance (Vector2 pPos, float rot) {
+		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, rot, 0));
+	}
 
-    private Vector3 _oldPos;
+	private Vector3 _oldPos;
 	private Vector3 _newPos;
 
 	private Quaternion _oldRot;

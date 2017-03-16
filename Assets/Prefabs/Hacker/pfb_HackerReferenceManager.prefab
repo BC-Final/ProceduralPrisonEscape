@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58392b16b3ad9fe4aa4f1376619bb178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerIcon: {fileID: 0}
+  PlayerIcon: {fileID: 150788, guid: 4526ac653de4c5e43a2d0e26cd79a604, type: 2}
   DoorIcon: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
   DroneIcon: {fileID: 0}
   CameraIcon: {fileID: 0}
