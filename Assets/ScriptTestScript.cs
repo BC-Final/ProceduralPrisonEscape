@@ -26,7 +26,7 @@ public class ScriptTestScript : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            DoorMapIcon.CreateInstance(new Vector2(0,0),0, true, false);
+            DoorMapIcon.CreateInstance(new Vector2(0,0),0, true, true);
         }
     }
 }
