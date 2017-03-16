@@ -25,7 +25,7 @@ public class ShooterFirewall : MonoBehaviour, IDamageable, INetworked {
 	private ParticleSystem _particleSystem;
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.FireWallCreation(Id, transform.position.x, transform.position.z, _destroyed));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.FireWallCreation(Id, transform.position.x, transform.position.z, _destroyed));
 	}
 
 	private void Awake() {
@@ -58,7 +58,7 @@ public class ShooterFirewall : MonoBehaviour, IDamageable, INetworked {
 			ParticleSystem.EmissionModule em = _particleSystem.emission;
 			em.enabled = true;
 
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.FireWallUpdate(Id, _destroyed));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Update.FireWallUpdate(Id, _destroyed));
 		}
 	}
 }

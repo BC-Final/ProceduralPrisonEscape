@@ -27,7 +27,7 @@ namespace StateFramework {
 		}
 
 		public override void Exit () {
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.EnableTurret(_turret.Id));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Update.EnableTurret(_turret.Id));
 		}
 	}
 }

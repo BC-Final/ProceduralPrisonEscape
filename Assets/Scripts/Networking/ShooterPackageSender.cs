@@ -76,7 +76,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 				Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 				ClientInitialize(connectingClient);
 			} else {
-				sendPackage(new CustomCommands.RefuseConnectionPackage(), connectingClient);
+				sendPackage(new NetworkPacket.Message.RefuseConnection(), connectingClient);
 				connectingClient.GetStream().Close();
 				connectingClient.Close();
 				Debug.Log("Connecting client refused.");
@@ -101,22 +101,27 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		//SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
 
-	/// <summary>
-	/// Sends a package to all known clients
-	/// </summary>
-	/// <param name="package">Sendable data</param>
-	public static void SendPackage (CustomCommands.AbstractPackage package) {
-		sendPackage(package, _client);
+	public T GetNetworkedObject<T> (int pId) where T : class, INetworked {
+		INetworked temp = _networkObjects.Find(x => x.Id == pId);
+		return temp is T ? temp as T : default(T);
 	}
 
 	/// <summary>
 	/// Sends a package to all known clients
 	/// </summary>
 	/// <param name="package">Sendable data</param>
-	private static void sendPackage (CustomCommands.AbstractPackage package, TcpClient pClient) {
+	public static void SendPackage (NetworkPacket.AbstractPacket pPacket) {
+		sendPackage(pPacket, _client);
+	}
+
+	/// <summary>
+	/// Sends a package to all known clients
+	/// </summary>
+	/// <param name="package">Sendable data</param>
+	private static void sendPackage (NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
 		if (pClient != null && pClient.Connected) {
 			try {
-				_formatter.Serialize(pClient.GetStream(), package);
+				_formatter.Serialize(pClient.GetStream(), pPacket);
 			} catch (Exception e) {
 				Debug.LogError("Failed to serialize. Reason: " + e.Message);
 			}
@@ -124,13 +129,13 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	}
 
 	private void OnApplicationQuit () {
-		SendPackage(new CustomCommands.ServerShutdownPackage());
+		SendPackage(new NetworkPacket.Message.ServerShutdown());
 		disconnectClient();
 	}
 
 	#if UNITY_EDITOR
 	void OnDestroy () {
-		SendPackage(new CustomCommands.ServerShutdownPackage());
+		SendPackage(new NetworkPacket.Message.ServerShutdown());
 		disconnectClient();
 	}
 #endif

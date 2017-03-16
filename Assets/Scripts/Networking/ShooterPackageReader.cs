@@ -10,9 +10,6 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 public class ShooterPackageReader : MonoBehaviour {
-	[SerializeField]
-	private bool _showReceivedPackets;
-
 	/// <summary>
 	/// Read incomming packages
 	/// </summary>
@@ -21,8 +18,8 @@ public class ShooterPackageReader : MonoBehaviour {
 			try {
 				if (ShooterPackageSender.Client.Available != 0) {
 					//FIX Does this really only read one package per frame???
-					CustomCommands.AbstractPackage response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as CustomCommands.AbstractPackage;
-					ReadPackage(response);
+					NetworkPacket.AbstractPacket response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as NetworkPacket.AbstractPacket;
+					readPacket(response);
 				}
 			} catch (SocketException e) {
 				Debug.LogError("Error" + e.ToString());
@@ -33,23 +30,44 @@ public class ShooterPackageReader : MonoBehaviour {
 	/// <summary>
 	/// Checks a package for its type and
 	/// </summary>
-	/// <param name="package"></param>
-	private void ReadPackage (CustomCommands.AbstractPackage package) {
-		string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
+	/// <param name="pPacket"></param>
+	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
+		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
+		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
+		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 
+		
 		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
 		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
 		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
 		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
-
-
-		if (_showReceivedPackets) {
-			Debug.Log(debugMessage);
-		}
+		
 	}
 
+	private void readPacket (NetworkPacket.Update.Door pPacket) {
+		ShooterDoor.UpdateDoor(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Player pPacket) {
+		//ShooterDoor.UpdateDoor(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
+		//ShooterDoor.UpdateDoor(pPacket);
+	}
+
+
+
+
+
+
+
+
+
+
+
 	private void ReadPackage (CustomCommands.Update.DoorUpdate package) {
-		ShooterDoor.UpdateDoor(package);
+		//ShooterDoor.UpdateDoor(package);
 	}
 
 	private void ReadPackage (CustomCommands.Update.DisableCamera package) {

@@ -17,7 +17,7 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.AmmoPackCreation(Id, transform.position.x, transform.position.z, false));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.AmmoPackCreation(Id, transform.position.x, transform.position.z, false));
 	}
 
 	public virtual void Interact() {
@@ -29,7 +29,7 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, INetworked {
 	}
 
 	private void OnDestroy () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true, this.transform.position));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true, this.transform.position));
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 }

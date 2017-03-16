@@ -109,7 +109,7 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.TurretCreation(Id, transform.position.x, transform.position.z, _rotaryBase.eulerAngles.y, (int)(_currentHealth / _maxHealth * 100)));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.TurretCreation(Id, transform.position.x, transform.position.z, _rotaryBase.eulerAngles.y, (int)(_currentHealth / _maxHealth * 100)));
 	}
 
 	private void Awake () {
@@ -143,7 +143,7 @@ public class Turret : MonoBehaviour, IDamageable, INetworked {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.TurretUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Update.TurretUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
 		}
 
 

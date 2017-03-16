@@ -66,7 +66,7 @@ public class ShooterCamera : MonoBehaviour, INetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.CameraCreation(Id, transform.rotation.eulerAngles.y, transform.position.x, transform.position.z, _fsm.GetState() is CameraDetectState));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.CameraCreation(Id, transform.rotation.eulerAngles.y, transform.position.x, transform.position.z, _fsm.GetState() is CameraDetectState));
 	}
 
 	private void Awake () {
@@ -93,7 +93,7 @@ public class ShooterCamera : MonoBehaviour, INetworked {
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
 
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, transform.position, _lookPoint.rotation.eulerAngles.y, _fsm.GetState() is CameraDetectState));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, transform.position, _lookPoint.rotation.eulerAngles.y, _fsm.GetState() is CameraDetectState));
 		}
 
 

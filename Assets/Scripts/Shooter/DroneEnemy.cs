@@ -128,7 +128,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private FMOD.Studio.EventInstance _hoverSound;
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new CustomCommands.Creation.DroneCreation(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.DroneCreation(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 	}
 
 	private void Awake () {
@@ -138,6 +138,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private void OnDestroy () {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
+
+	//TODO Create scriptable object for different AI types
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractDroneState>();
@@ -170,14 +172,13 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 
 	public void SetTarget () {
 		_chase = true;
-		
 	}
 
 	private void Update () {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _postionUpdateRate;
-			ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
 		}
 
 		if (_agent.velocity.magnitude > 0.3f) {
@@ -199,7 +200,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 #endif
 
 			if (_currentHealth <= 0.0f) {
-				OnDestroy();
 				_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 				_fsm.SetState<DroneDeadState>();
 			}
@@ -208,6 +208,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		}
 	}
 
+
+#if UNITY_EDITOR
 	private struct HitInfo {
 		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
 			Point = pPoint;
@@ -218,7 +220,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		public Vector3 Direction;
 	}
 
-#if UNITY_EDITOR
 	private List<HitInfo> _hitInfo = new List<HitInfo>();
 
 	private void OnDrawGizmos () {

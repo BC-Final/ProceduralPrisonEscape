@@ -159,13 +159,13 @@ public abstract class Weapon : MonoBehaviour {
 		if (Physics.Raycast(Camera.main.transform.position, calulateShootDirection(), out hit, _shootRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
 			spawnBullet(hit.point);
 			spawnDecal(hit.point, hit.normal, hit.transform);
-			ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
 			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
 				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(Camera.main.transform.forward, hit.point, _shootDamage);
 			}
 		} else {
 			spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
-			ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
+			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 		}
 
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));

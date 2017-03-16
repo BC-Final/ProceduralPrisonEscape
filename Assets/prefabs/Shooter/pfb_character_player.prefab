@@ -31,7 +31,6 @@ GameObject:
   - component: {fileID: 13635018}
   - component: {fileID: 114000011813892628}
   - component: {fileID: 54000010998407230}
-  - component: {fileID: 114000012939861438}
   - component: {fileID: 114000010217067718}
   m_Layer: 11
   m_Name: pfb_character_player
@@ -529,17 +528,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aimPosition: {fileID: 407354}
   _weaponSwitchSpeed: 0
---- !u!114 &114000012939861438
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 119446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f091c1335b1e442a484702aced386d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012951694904
 MonoBehaviour:
   m_ObjectHideFlags: 1
