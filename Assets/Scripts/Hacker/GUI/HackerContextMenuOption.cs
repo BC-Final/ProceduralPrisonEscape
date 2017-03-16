@@ -6,50 +6,93 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
 public class HackerContextMenuOption : MonoBehaviour {
-	private UnityEvent _callback;
+	/// <summary>
+	/// Action data for this context menu option
+	/// </summary>
+	private AbstractMapIcon.ActionData _actionData;
 
+
+
+	/// <summary>
+	/// Reference to own button component
+	/// </summary>
+	private Button _button;
+
+
+
+	/// <summary>
+	/// Set up references and add callbacks
+	/// </summary>
 	private void Start () {
-		GetComponent<Button>().onClick.AddListener(() => onClick());
+		_button = GetComponent<Button>();
+		_button.onClick.AddListener(() => _actionData.Action.Invoke());
+		_button.onClick.AddListener(() => HackerResourceManager.Instance.RemoveHackerPoints(_actionData.HackerPointsCost));
 	}
 
-	private void onClick () {
-		_callback.Invoke();
-	}
 
-	public void Initialize (string pDisplayName, UnityEvent pCallback, float pSpacing, int pPos, float pContentHeight) {
-		_callback = pCallback;
 
-		GetComponentInChildren<Text>().text = pDisplayName;
+	/// <summary>
+	/// 
+	/// </summary>
+	/// <param name="pDisplayName"></param>
+	/// <param name="pCallback"></param>
+	/// <param name="pSpacing"></param>
+	/// <param name="pPos"></param>
+	/// <param name="pContentHeight"></param>
+	/// <param name="pHackerPointsCost"></param>
+	public void Initialize (AbstractMapIcon.ActionData pActionData, int pOrderPos, float pSpacing,  float pContentHeight) {
+		_actionData = pActionData;
+		//Determine if I need to display hp cost
+		//TODO Improve the HP cost display
+		string hpCost = "";
+
+		if (pActionData.HackerPointsCost > 0) {
+			hpCost = " " + pActionData.HackerPointsCost + " HP";
+		}
+
+		GetComponentInChildren<Text>().text = pActionData.DisplayName + hpCost;
 
 		//This was for spacing around button
 		//(transform as RectTransform).anchoredPosition3D = new Vector3(pSpacing, -((pPos + 1) * pSpacing + pPos * contentHeight), -5.0f);
 		//(transform as RectTransform).sizeDelta = new Vector2(contentHeight, (transform as RectTransform).sizeDelta.y);
 
-		(transform as RectTransform).anchoredPosition3D = new Vector3(0.0f, -(pPos * pContentHeight), -5.0f);
+		(transform as RectTransform).anchoredPosition3D = new Vector3(0.0f, -(pOrderPos * pContentHeight), -5.0f);
 		(transform as RectTransform).sizeDelta = new Vector2(GetPreferedWidth() + 2 * pSpacing, pContentHeight);
 		(GetComponentInChildren<Text>().transform as RectTransform).sizeDelta = new Vector2(GetPreferedWidth(), pContentHeight - 2 * pSpacing);
 
 		transform.localScale = Vector3.one;
 	}
 
-	public void AdjustWidth (float pWidth, float pContentHeight) {
-		(transform as RectTransform).sizeDelta = new Vector2(pWidth, pContentHeight);
+
+
+	/// <summary>
+	/// Adjusts the width of the context menu option
+	/// </summary>
+	/// <param name="pWidth">The desired width</param>
+	public void AdjustWidth (float pWidth) {
+		(transform as RectTransform).sizeDelta = new Vector2(pWidth, (transform as RectTransform).sizeDelta.y);
 	}
 
+
+
+	/// <summary>
+	/// Gets the preffered width of the text component of the context menu option
+	/// </summary>
+	/// <returns>The preffered width</returns>
 	public float GetPreferedWidth () {
 		return GetComponentInChildren<Text>().preferredWidth;
 	}
 
-	/*
-	public void SetValues (string pDisplayName, HackerContextMenu pMenu) {
-		GetComponent<UnityEngine.UI.Text>().text = pDisplayName;
-		_menu = pMenu;
-	}
 
-	public void OnPointerClick (PointerEventData pData) {
-		if (pData.button == PointerEventData.InputButton.Left) {
-			_menu.Callback(this.gameObject);
+
+	/// <summary>
+	/// Determines if a option should be displayed as clickable based on hackerpoints cost
+	/// </summary>
+	private void OnGUI () {
+		if (HackerResourceManager.Instance.HackerPoints < _actionData.HackerPointsCost && _button.interactable) {
+			_button.interactable = false;
+		} else if (HackerResourceManager.Instance.HackerPoints >= _actionData.HackerPointsCost && !_button.interactable) {
+			_button.interactable = true;
 		}
 	}
-	*/
 }
