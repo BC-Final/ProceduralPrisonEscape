@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
 
-public class Turret : MonoBehaviour, IDamageable, INetworked {
+public class Turret : MonoBehaviour, IDamageable, IShooterNetworked {
 	[SerializeField]
 	private Transform _rotaryBase;
 	public Transform RotaryBase { get { return _rotaryBase; } }

@@ -1,18 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
 public class DoorMapIcon : AbstractMapIcon {
-	public static void CreateInstance (Vector2 pPos, float pRot, bool pOpen, bool pLocked) {
-		GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, pRot, 0));
-		go.GetComponent<DoorMapIcon>()._open = pOpen;
-		go.GetComponent<DoorMapIcon>()._locked = pLocked;
-		go.GetComponent<DoorMapIcon>().StateChanged();
+	public static void ProcessPacket (NetworkPacket.Update.Door pPacket) {
+		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+
+		if (icon == null) {
+			createInstance(pPacket);
+		} else {
+			icon.updateInstance(pPacket);
+		}
+	}
+
+	private static void createInstance (NetworkPacket.Update.Door pPacket) {
+		DoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DoorMapIcon>();
+
+		icon.Id = pPacket.Id;
+		icon._open.Value = pPacket.Open;
+		icon._locked.Value = pPacket.Locked;
+
+		//TODO Research why onValueChanged is not called
+		icon.stateChanged();
+	}
+
+	private void updateInstance (NetworkPacket.Update.Door pPacket) {
+		_open.Value = pPacket.Open;
+		_locked.Value = pPacket.Locked;
+	}
+
+	private void Awake () {
+		_open.OnValueChange += stateChanged;
+		_locked.OnValueChange += stateChanged;
 	}
 
 
-	private bool _open;
-	private bool _locked;
+	private ObservedValue<bool> _open = new ObservedValue<bool>(false);
+	private ObservedValue<bool> _locked = new ObservedValue<bool>(false);
 
 	#region Sprites
 	[Header("Sprites")]
@@ -27,26 +52,30 @@ public class DoorMapIcon : AbstractMapIcon {
 	#endregion
 
 	public void Toggle () {
-		_open = !_open;
+		_open.Value = !_open.Value;
 
-		StateChanged();
+		sendUpdate();
 	}
 
 	public void Lock () {
-		_locked = true;
+		_locked.Value = true;
 
-		StateChanged();
+		sendUpdate();
 	}
 
-	private void StateChanged () {
-		if (_open) {
-			if (_locked) {
+	private void sendUpdate () {
+		HackerPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value, _locked.Value));
+	}
+
+	private void stateChanged () {
+		if (_open.Value) {
+			if (_locked.Value) {
 				changeSprite(_lockedOpenSprite);
 			} else {
 				changeSprite(_openSprite);
 			}
 		} else {
-			if (_locked) {
+			if (_locked.Value) {
 				changeSprite(_lockedClosedSprite);
 			} else {
 				changeSprite(_closedSprite);

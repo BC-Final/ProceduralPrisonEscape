@@ -66,9 +66,14 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
-		if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
-		if (pPacket is NetworkPacket.Message.ServerShutdown) { readPacket(pPacket as NetworkPacket.Message.ServerShutdown); }
-		if (pPacket is NetworkPacket.Message.RefuseConnection) { readPacket(pPacket as NetworkPacket.Message.RefuseConnection); }
+		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
+		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
+		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
+		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
+
+		//if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
+
+		if (pPacket is NetworkPacket.Message.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Message.DisconnectRequest); }
 
 		//string debugMessage = "ERROR!!! PACKAGE METHOD NOT FOUND OR IMPLEMENTED";
 		////Update Methods
@@ -100,11 +105,27 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void readPacket (NetworkPacket.Update.Door pPacket) {
-		//DoorMapIcon.CreateInstance();
+		DoorMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Player pPacket) {
-		//PlayerMapIcon.CreateInstance();
+		PlayerMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Drone pPacket) {
+		DroneMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Turret pPacket) {
+		//DroneMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Camera pPacket) {
+		//DroneMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
+		//DroneMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (CustomCommands.Update.MinimapUpdate package) {
@@ -113,11 +134,7 @@ public class HackerPackageReader : MonoBehaviour {
 		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
 	}
 
-	private void readPacket (NetworkPacket.Message.RefuseConnection pPacket) {
-		HackerPackageSender.SilentlyDisconnect();
-	}
-
-	private void readPacket (NetworkPacket.Message.ServerShutdown pPacket) {
+	private void readPacket (NetworkPacket.Message.DisconnectRequest pPacket) {
 		HackerPackageSender.SilentlyDisconnect();
 	}
 

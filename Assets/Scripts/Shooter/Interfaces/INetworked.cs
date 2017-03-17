@@ -1,8 +1,12 @@
 ﻿using System.Net.Sockets;
 
-public interface INetworked {
+public interface IShooterNetworked {
 	void Initialize ();
 	int Id { get; }
 	//TODO Add this line to only send discovered objects
 	//bool Discovered { get; }
+}
+
+public interface IHackerNetworked {
+	int Id { get; set; }
 }

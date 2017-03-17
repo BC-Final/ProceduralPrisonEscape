@@ -5,7 +5,26 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider))]
-public abstract class AbstractMapIcon : MonoBehaviour, INetworked {
+public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
+
+	private int _id = 0;
+
+	public int Id {
+		get { return _id; }
+		set {
+			if (_id == 0) {
+				_id = value;
+				HackerPackageSender.RegisterNetworkObject(this);
+			} else {
+				Debug.LogError("Why are you trying to assign an already set network id?");
+			}
+		}
+	}
+
+	private void OnDestroy () {
+		HackerPackageSender.UnregisterNetworkedObject(this);
+	}
+
 	[System.Serializable]
 	public struct ActionData {
 		public string DisplayName;

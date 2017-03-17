@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
+public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	[SerializeField]
 	private float _maxHealth;
 	private float _currentHealth;
@@ -128,7 +128,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	private FMOD.Studio.EventInstance _hoverSound;
 
 	public void Initialize () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.DroneCreation(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+		sendUpdate();
 	}
 
 	private void Awake () {
@@ -136,6 +136,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 	}
 
 	private void OnDestroy () {
+		sendUpdate();
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
@@ -174,11 +175,16 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		_chase = true;
 	}
 
+	private void sendUpdate () {
+		//TODO Include the current drone state
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _maxHealth, EnemyState.None));
+	}
+
 	private void Update () {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _postionUpdateRate;
-			//ShooterPackageSender.SendPackage(new CustomCommands.Update.DroneUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, transform.rotation.eulerAngles.y));
+			sendUpdate();
 		}
 
 		if (_agent.velocity.magnitude > 0.3f) {
@@ -186,7 +192,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, INetworked {
 		} else {
 			_hoverSound.setParameterValue("p_drone_move", 0.0f);
 		}
-
 
 		_fsm.Step();
 	}

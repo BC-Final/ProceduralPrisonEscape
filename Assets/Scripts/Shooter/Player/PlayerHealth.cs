@@ -37,8 +37,8 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable {
 	/// <summary>
 	/// Sets health to maxhealth
 	/// </summary>
-	private void Start() {
-		_currentHealth.Value = _maxHealth;
+	private void Awake() {
+		_currentHealth = new ObservedValue<float>(_maxHealth);
 	}
 
 

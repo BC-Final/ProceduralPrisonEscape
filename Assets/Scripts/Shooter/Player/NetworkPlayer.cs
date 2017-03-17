@@ -3,7 +3,7 @@ using System.Collections;
 using System.Net.Sockets;
 using Gamelogic.Extensions;
 
-public class NetworkPlayer : MonoBehaviour, INetworked {
+public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	[Tooltip("How often per second should the player be updated")]
 	private float _transformUpdateInterval;
@@ -86,7 +86,7 @@ public class NetworkPlayer : MonoBehaviour, INetworked {
 		.SetTime(1.0f / _transformUpdateInterval)
 		.SetLoop(-1)
 		.UseRealTime(true)
-		.SetCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(_id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value)))
+		.SetCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
 		.Start();
 	}
 }

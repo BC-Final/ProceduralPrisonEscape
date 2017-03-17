@@ -241,19 +241,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114996872252753416, guid: 1eb016d9c7be3fd43a79203ac615cc46,
+    - target: {fileID: 108762938121143094, guid: 1eb016d9c7be3fd43a79203ac615cc46,
         type: 2}
-      propertyPath: _visualizeView
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1126648614340688, guid: 1eb016d9c7be3fd43a79203ac615cc46, type: 2}
-      propertyPath: m_Name
-      value: pfb_enemy_turret (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4351445112036004, guid: 1eb016d9c7be3fd43a79203ac615cc46, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Flare
+      value: 
+      objectReference: {fileID: 12100000, guid: 9bdb18c49d114cb4300035184241aa39,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1eb016d9c7be3fd43a79203ac615cc46, type: 2}
   m_IsPrefabParent: 0
@@ -422,38 +415,6 @@ Prefab:
     - target: {fileID: 442856, guid: bf7f0afcece604440a60e574696915b2, type: 2}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010605477144, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_TagString
-      value: WeaponCamera
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: toggleRun
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: walkSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: runSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: slideWhenOverSlopeLimit
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: airControl
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11477922, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: jumpSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 442856, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
@@ -1209,46 +1170,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95d9db65da4b2594f82d89a09987c534, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1339855576 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012563405470, guid: 95d9db65da4b2594f82d89a09987c534,
-    type: 2}
-  m_PrefabInternal: {fileID: 1339855575}
---- !u!1 &1339855577 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000010708880590, guid: 95d9db65da4b2594f82d89a09987c534,
-    type: 2}
-  m_PrefabInternal: {fileID: 1339855575}
---- !u!208 &1339855578
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1339855576}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
---- !u!208 &1339855579
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1339855577}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &1350386321 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1364825874442948, guid: 7435436a1791a964483c40d4108ff296,

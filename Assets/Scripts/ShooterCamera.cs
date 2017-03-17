@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
 
-public class ShooterCamera : MonoBehaviour, INetworked {
+public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private Transform _base;
 	public Transform Base { get { return _base; } }

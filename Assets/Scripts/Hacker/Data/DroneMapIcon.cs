@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
-public class PlayerMapIcon : AbstractMapIcon {
-	public static void ProcessPacket (NetworkPacket.Update.Player pPacket) {
-		PlayerMapIcon icon = HackerPackageSender.GetNetworkedObject<PlayerMapIcon>(pPacket.Id);
+public class DroneMapIcon : AbstractMapIcon {
+	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
+		DroneMapIcon icon = HackerPackageSender.GetNetworkedObject<DroneMapIcon>(pPacket.Id);
 
 		if (icon == null) {
 			createInstance(pPacket);
@@ -13,25 +14,29 @@ public class PlayerMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.Player pPacket) {
-		PlayerMapIcon icon = Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<PlayerMapIcon>();
+	private static void createInstance (NetworkPacket.Update.Drone pPacket) {
+		DroneMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DroneMapIcon>();
 
-		icon._health = pPacket.Health;
+		icon._health.Value = pPacket.Health;
 		icon.Id = pPacket.Id;
 	}
 
-	private void updateInstance (NetworkPacket.Update.Player pPacket) {
+	private void updateInstance (NetworkPacket.Update.Drone pPacket) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;
 
 		_oldPos = transform.position;
-		_newPos = new Vector3(pPacket.PosX, pPacket.PosY, 0.0f) / MinimapManager.scale;
+		_newPos = new Vector3(pPacket.PosX, pPacket.PosY , 0.0f) / MinimapManager.scale;
 
 		_oldRot = transform.rotation;
 		_newRot = Quaternion.Euler(0, 0, -pPacket.Rot);
 
-		_health = pPacket.Health;
+		_health.Value = pPacket.Health;
+	}
+
+	private void Awake () {
+		_health.OnValueChange += changedHealth;
 	}
 
 	private void Start () {
@@ -44,7 +49,7 @@ public class PlayerMapIcon : AbstractMapIcon {
 		_newRot = Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z);
 	}
 
-	private float _health;
+	private ObservedValue<float> _health = new ObservedValue<float>(1.0f);
 
 	private Vector3 _oldPos;
 	private Vector3 _newPos;
@@ -56,7 +61,6 @@ public class PlayerMapIcon : AbstractMapIcon {
 
 	private float _currentLerpTime = 0.0f;
 	private float _lerpTime = 0.5f;
-
 
 	private void Update () {
 		_currentLerpTime += Time.deltaTime;
@@ -73,4 +77,11 @@ public class PlayerMapIcon : AbstractMapIcon {
 		transform.position = Vector3.Lerp(_oldPos, _newPos, perc);
 		transform.rotation = Quaternion.Slerp(_oldRot, _newRot, perc);
 	}
+
+	private void changedHealth () {
+		if (_health.Value <= 0) {
+			GetComponent<SpriteRenderer>().color = Color.black;
+		}
+	}
 }
+

@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 212316889584953098}
   - component: {fileID: 65021344052229170}
   m_Layer: 0
-  m_Name: pfb_minimap_enemy
+  m_Name: pfb_minimap_drone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

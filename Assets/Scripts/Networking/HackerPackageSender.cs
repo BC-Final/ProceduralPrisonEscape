@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 using Gamelogic.Extensions;
 
 public class HackerPackageSender : Singleton<HackerPackageSender> {
-	private static List<INetworked> _networkObjects = new List<INetworked>();
+	private static List<IHackerNetworked> _networkObjects = new List<IHackerNetworked>();
 
 	private static TcpClient _host;
 	private static BinaryFormatter _formatter = new BinaryFormatter();
@@ -22,8 +22,8 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	public static TcpClient Host { get { return _host; } }
 	public static BinaryFormatter Formatter { get { return _formatter; } }
 
-	public static T GetNetworkedObject<T> (int pId) where T : class, INetworked {
-		INetworked temp = _networkObjects.Find(x => x.Id == pId);
+	public static T GetNetworkedObject<T> (int pId) where T : class, IHackerNetworked {
+		IHackerNetworked temp = _networkObjects.Find(x => x.Id == pId);
 		return temp is T ? temp as T : default(T);
 	}
 
@@ -31,7 +31,7 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	/// Adds a networked object to the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void RegisterNetworkObject (INetworked pObject) {
+	public static void RegisterNetworkObject (IHackerNetworked pObject) {
 		_networkObjects.Add(pObject);
 	}
 
@@ -39,7 +39,7 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	/// Removes a networked object from the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void UnregisterNetworkedObject (INetworked pObject) {
+	public static void UnregisterNetworkedObject (IHackerNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 

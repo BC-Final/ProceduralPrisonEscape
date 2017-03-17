@@ -11,7 +11,7 @@ using Gamelogic.Extensions;
 
 public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	//Networking Variables
-	private static List<INetworked> _networkObjects = new List<INetworked>();
+	private static List<IShooterNetworked> _networkObjects = new List<IShooterNetworked>();
 
 	private static TcpClient _client;
 	private static BinaryFormatter _formatter = new BinaryFormatter();
@@ -31,7 +31,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Adds a networked object to the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void RegisterNetworkObject (INetworked pObject) {
+	public static void RegisterNetworkObject (IShooterNetworked pObject) {
 		_networkObjects.Add(pObject);
 
 		//FIX Hacky fix for a initializing rtuntime objects over the network
@@ -44,7 +44,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Removes a networked object from the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void UnregisterNetworkedObject (INetworked pObject) {
+	public static void UnregisterNetworkedObject (IShooterNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
@@ -77,7 +77,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 				Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 				ClientInitialize(connectingClient);
 			} else {
-				sendPackage(new NetworkPacket.Message.RefuseConnection(), connectingClient);
+				sendPackage(new NetworkPacket.Message.DisconnectRequest(), connectingClient);
 				connectingClient.GetStream().Close();
 				connectingClient.Close();
 				Debug.Log("Connecting client refused.");
@@ -93,7 +93,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(true);
 		FindObjectOfType<ShooterMinimapCamera>().SendUpdate();
 
-		foreach (INetworked n in _networkObjects) {
+		foreach (IShooterNetworked n in _networkObjects) {
 			n.Initialize();
 		}
 
@@ -104,8 +104,8 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		//SendPackage(new CustomCommands.Creation.OnCreationEnd());
 	}
 
-	public static T GetNetworkedObject<T> (int pId) where T : class, INetworked {
-		INetworked temp = _networkObjects.Find(x => x.Id == pId);
+	public static T GetNetworkedObject<T> (int pId) where T : class, IShooterNetworked {
+		IShooterNetworked temp = _networkObjects.Find(x => x.Id == pId);
 		return temp is T ? temp as T : default(T);
 	}
 
@@ -132,13 +132,13 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	}
 
 	private void OnApplicationQuit () {
-		SendPackage(new NetworkPacket.Message.ServerShutdown());
+		SendPackage(new NetworkPacket.Message.DisconnectRequest());
 		disconnectClient();
 	}
 
 	#if UNITY_EDITOR
-	void OnDestroy () {
-		SendPackage(new NetworkPacket.Message.ServerShutdown());
+	private void OnDestroy () {
+		SendPackage(new NetworkPacket.Message.DisconnectRequest());
 		disconnectClient();
 	}
 #endif

@@ -8,7 +8,7 @@ using DG.Tweening;
 using UnityEngine.AI;
 
 [SelectionBase]
-public class ShooterDoor : MonoBehaviour, INetworked {
+public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// <summary>
 	/// Netowork Identification
 	/// </summary>
@@ -36,7 +36,7 @@ public class ShooterDoor : MonoBehaviour, INetworked {
 	/// </summary>
 	public void Initialize () {
 		//TODO Only initialze when shooter saw object or database
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(_id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
 	}
 
 
@@ -116,7 +116,7 @@ public class ShooterDoor : MonoBehaviour, INetworked {
 	/// Sends the current state to the hacker
 	/// </summary>
 	private void sendStateUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(_id, _open.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
 	}
 
 
@@ -128,8 +128,8 @@ public class ShooterDoor : MonoBehaviour, INetworked {
 	private void OnTriggerEnter (Collider pOther) {
 		//TODO Notify drone when door is locked
 		if (pOther.GetComponent<DroneEnemy>() != null && !_locked && !_open.Value) {
-			sendStateUpdate();
 			_open.Value = true;
+			sendStateUpdate();
 		}
 	}
 
@@ -141,8 +141,8 @@ public class ShooterDoor : MonoBehaviour, INetworked {
 	/// <param name="pOther"></param>
 	private void OnTriggerExit (Collider pOther) {
 		if (pOther.GetComponent<DroneEnemy>() != null && !_locked && _open.Value) {
-			sendStateUpdate();
 			_open.Value = false;
+			sendStateUpdate();
 		}
 	}
 

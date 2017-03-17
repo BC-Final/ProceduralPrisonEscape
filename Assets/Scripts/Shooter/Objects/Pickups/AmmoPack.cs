@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AmmoPack : MonoBehaviour, IInteractable, INetworked {
+public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked {
 	[SerializeField]
 	protected int _amount;
 

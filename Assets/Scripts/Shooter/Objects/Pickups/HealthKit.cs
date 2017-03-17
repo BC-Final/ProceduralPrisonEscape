@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthKit : MonoBehaviour, IInteractable, INetworked {
+public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 	[SerializeField]
 	private int _amount;
 

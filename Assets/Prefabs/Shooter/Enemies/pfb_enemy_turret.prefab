@@ -361,14 +361,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126648614340688}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 14.2, y: 3.497, z: 9.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -24.4, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4928176425177534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4366747598699198
 Transform:
   m_ObjectHideFlags: 1
@@ -1084,7 +1084,7 @@ Light:
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
-  m_Flare: {fileID: 12100000, guid: 9bdb18c49d114cb4300035184241aa39, type: 2}
+  m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
@@ -1123,9 +1123,11 @@ MonoBehaviour:
   _scanRotationSpeed: 50
   _scanRotationAngle: 120
   _maxHealth: 1000
-  _visualizeView: 1
+  _visualizeView: 0
+  _disabledTime: 5
   _shootPos: {fileID: 4556587462458800}
   _maxGunRotation: 30
+  _positionSendRate: 0.5
 --- !u!136 &136445745441841352
 CapsuleCollider:
   m_ObjectHideFlags: 1
