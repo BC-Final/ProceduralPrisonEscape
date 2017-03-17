@@ -25,7 +25,6 @@ public class HackerPackageReader : MonoBehaviour {
 		_networkManager = FindObjectOfType<HackerPackageSender>();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
 		_minimapManager.SetScale(2);
-		_minimapManager.SetSender(_networkManager);
 	}
 
 	void Update () {
@@ -117,15 +116,15 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	private void readPacket (NetworkPacket.Update.Turret pPacket) {
-		//DroneMapIcon.ProcessPacket(pPacket);
+		TurretMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Camera pPacket) {
-		//DroneMapIcon.ProcessPacket(pPacket);
+		CameraMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
-		//DroneMapIcon.ProcessPacket(pPacket);
+		GaspipeMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (CustomCommands.Update.MinimapUpdate package) {

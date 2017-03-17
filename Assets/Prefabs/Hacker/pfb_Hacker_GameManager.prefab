@@ -21,8 +21,9 @@ GameObject:
   - component: {fileID: 4887828390741132}
   - component: {fileID: 114561226974164832}
   - component: {fileID: 114003526411673912}
+  - component: {fileID: 114239643658093782}
   m_Layer: 0
-  m_Name: Gamestate Manager
+  m_Name: pfb_Hacker_GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,6 +59,18 @@ MonoBehaviour:
   - PE_sfx_hacker
   CollisionTag: 
   PreloadSamples: 0
+--- !u!114 &114239643658093782
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013017682968972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a7b1b6241b2e94bb473f28049d831f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hackerPoints: 0
 --- !u!114 &114561226974164832
 MonoBehaviour:
   m_ObjectHideFlags: 1

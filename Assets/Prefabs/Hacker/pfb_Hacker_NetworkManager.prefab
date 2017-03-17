@@ -16,13 +16,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012042281160}
-  - 114: {fileID: 114000013639604578}
-  - 114: {fileID: 114000011991839528}
+  - component: {fileID: 4000012042281160}
+  - component: {fileID: 114000013639604578}
+  - component: {fileID: 114000011991839528}
   m_Layer: 0
-  m_Name: pfb_HackerNetworkManager
+  m_Name: pfb_Hacker_NetworkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,12 +35,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011598062998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.22, y: 1.18, z: 1.47}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011991839528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +52,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f71c5db15dc23f45955d44359756ef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minimap: {fileID: 0}
 --- !u!114 &114000013639604578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -64,5 +63,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d297feaabe5f24e8d377778badb343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chatBoxScreen: {fileID: 0}
-  _minimap: {fileID: 0}

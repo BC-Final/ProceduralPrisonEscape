@@ -34,23 +34,32 @@ public class ShooterPackageReader : MonoBehaviour {
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
+		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
+		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
 
-		
+
 		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
 		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
 		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
 		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
-		
+
 	}
 
 	private void readPacket (NetworkPacket.Update.Door pPacket) {
-		ShooterDoor.UpdateDoor(pPacket);
+		ShooterDoor.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Turret pPacket) {
+		Turret.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Camera pPacket) {
+		ShooterCamera.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
-		
-	}
 
+	}
 
 
 

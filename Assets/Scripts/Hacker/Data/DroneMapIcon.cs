@@ -4,6 +4,18 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 public class DroneMapIcon : AbstractMapIcon {
+	[SerializeField]
+	private Sprite _neutralSprite;
+
+	[SerializeField]
+	private Sprite _seesPlayerSprite;
+
+	[SerializeField]
+	private Sprite _deadSprite;
+
+	[SerializeField]
+	private Sprite _shieldSprite;
+
 	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon icon = HackerPackageSender.GetNetworkedObject<DroneMapIcon>(pPacket.Id);
 
@@ -17,6 +29,7 @@ public class DroneMapIcon : AbstractMapIcon {
 	private static void createInstance (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DroneMapIcon>();
 
+		icon._health.OnValueChange += icon.changedHealth;
 		icon._health.Value = pPacket.Health;
 		icon.Id = pPacket.Id;
 	}
@@ -27,16 +40,12 @@ public class DroneMapIcon : AbstractMapIcon {
 		_currentLerpTime = 0f;
 
 		_oldPos = transform.position;
-		_newPos = new Vector3(pPacket.PosX, pPacket.PosY , 0.0f) / MinimapManager.scale;
+		_newPos = new Vector3(pPacket.PosX, pPacket.PosY, 0.0f) / MinimapManager.scale;
 
 		_oldRot = transform.rotation;
 		_newRot = Quaternion.Euler(0, 0, -pPacket.Rot);
 
 		_health.Value = pPacket.Health;
-	}
-
-	private void Awake () {
-		_health.OnValueChange += changedHealth;
 	}
 
 	private void Start () {
@@ -80,6 +89,7 @@ public class DroneMapIcon : AbstractMapIcon {
 
 	private void changedHealth () {
 		if (_health.Value <= 0) {
+			//TODO Replace with actuall sprite
 			GetComponent<SpriteRenderer>().color = Color.black;
 		}
 	}

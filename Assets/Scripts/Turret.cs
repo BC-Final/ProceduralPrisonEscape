@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
 
-public class Turret : MonoBehaviour, IDamageable, IShooterNetworked {
+public class Turret : MonoBehaviour, IShooterNetworked {
+	//TODO Put into scriptable object
+
 	[SerializeField]
 	private Transform _rotaryBase;
 	public Transform RotaryBase { get { return _rotaryBase; } }
@@ -72,9 +74,6 @@ public class Turret : MonoBehaviour, IDamageable, IShooterNetworked {
 	private float _scanRotationAngle;
 	public float ScanRotationAngle { get { return _scanRotationAngle; } }
 
-	[SerializeField]
-	private float _maxHealth;
-	private float _currentHealth;
 
 	[SerializeField]
 	private bool _visualizeView;
@@ -108,8 +107,25 @@ public class Turret : MonoBehaviour, IDamageable, IShooterNetworked {
 		}
 	}
 
+	public static void ProcessPacket (NetworkPacket.Update.Turret pPacket) {
+		Turret tur = ShooterPackageSender.GetNetworkedObject<Turret>(pPacket.Id);
+
+		if (tur != null) {
+			switch (pPacket.State) {
+				case EnemyState.Stunned:
+					tur.disable();
+					break;
+				case EnemyState.Controlled:
+					tur.control();
+					break;
+			}
+		} else {
+			Debug.LogError("Trying to access non existent networked object with id " + pPacket.Id);
+		}
+	}
+
 	public void Initialize () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.TurretCreation(Id, transform.position.x, transform.position.z, _rotaryBase.eulerAngles.y, (int)(_currentHealth / _maxHealth * 100)));
+		sendUpdate();
 	}
 
 	private void Awake () {
@@ -131,41 +147,33 @@ public class Turret : MonoBehaviour, IDamageable, IShooterNetworked {
 		_fsm.AddState(new TurretAttackState(this, _fsm));
 		_fsm.AddState(new TurretScanState(this, _fsm));
 		_fsm.AddState(new TurretHideState(this, _fsm));
-		_fsm.AddState(new TurretDeadState(this, _fsm));
 		_fsm.AddState(new TurretDisabledState(this, _fsm));
 
 		_fsm.SetState<TurretIdleState>();
+	}
 
-		_currentHealth = _maxHealth;
+	private void sendUpdate () {
+		//TODO Include the current turret state
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, EnemyState.None));
 	}
 
 	private void Update () {
 		//HACK Remove this later
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
-			//ShooterPackageSender.SendPackage(new CustomCommands.Update.TurretUpdate(Id, (int)(_currentHealth / _maxHealth * 100), transform.position, _rotaryBase.eulerAngles.y));
+			sendUpdate();
 		}
 
 
 		_fsm.Step();
 	}
 
-	public void Disable () {
-		_fsm.SetState<TurretDisabledState>();
+	private void control () {
+		//TODO Implement controlling
 	}
 
-	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		if (_currentHealth > 0.0f) {
-			_currentHealth -= pDamage;
-
-
-			if (_currentHealth <= 0.0f) {
-				OnDestroy();
-				_fsm.SetState<TurretDeadState>();
-			}
-
-			_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
-		}
+	private void disable () {
+		_fsm.SetState<TurretDisabledState>();
 	}
 
 #if UNITY_EDITOR

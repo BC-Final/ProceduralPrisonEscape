@@ -152,7 +152,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// Computes a Door Update Packet to update a corrresponding door
 	/// </summary>
 	/// <param name="pPacket">The received packet</param>
-	public static void UpdateDoor (NetworkPacket.Update.Door pPacket) {
+	public static void ProcessPacket (NetworkPacket.Update.Door pPacket) {
 		ShooterDoor door = ShooterPackageSender.GetNetworkedObject<ShooterDoor>(pPacket.Id);
 
 		if (door != null) {

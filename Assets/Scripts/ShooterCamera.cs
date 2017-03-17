@@ -4,6 +4,8 @@ using UnityEngine;
 using StateFramework;
 
 public class ShooterCamera : MonoBehaviour, IShooterNetworked {
+	//TODO Maybe put into scriptable object
+
 	[SerializeField]
 	private Transform _base;
 	public Transform Base { get { return _base; } }
@@ -65,8 +67,26 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 		}
 	}
 
+	public static void ProcessPacket (NetworkPacket.Update.Camera pPacket) {
+		ShooterCamera cam = ShooterPackageSender.GetNetworkedObject<ShooterCamera>(pPacket.Id);
+
+		if (cam != null) {
+			switch (pPacket.State) {
+				case EnemyState.Stunned: cam.disable(); break;
+				case EnemyState.Controlled: cam.control(); break;
+			}
+		} else {
+			Debug.LogError("Trying to access non existent networked object with id " + pPacket.Id);
+		}
+	}
+
 	public void Initialize () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.CameraCreation(Id, transform.rotation.eulerAngles.y, transform.position.x, transform.position.z, _fsm.GetState() is CameraDetectState));
+		sendUpdate();
+	}
+
+	private void sendUpdate () {
+		//TODO Include the current camera state
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, transform.position.x, transform.position.z, _base.rotation.eulerAngles.y, EnemyState.None));
 	}
 
 	private void Awake () {
@@ -93,15 +113,19 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 		if (_positionSendTimer - Time.time <= 0.0f) {
 			_positionSendTimer = Time.time + _positionSendRate;
 
-			//ShooterPackageSender.SendPackage(new CustomCommands.Update.CameraUpdate(Id, transform.position, _lookPoint.rotation.eulerAngles.y, _fsm.GetState() is CameraDetectState));
+			sendUpdate();
 		}
 
 
 		_fsm.Step();
 	}
 
-	public void Disable () {
+	private void disable () {
 		_fsm.SetState<CameraDisabledState>();
+	}
+
+	private void control () {
+		//TODO Implement camera controlling
 	}
 
 

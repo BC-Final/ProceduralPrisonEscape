@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4359026215760026}
   - component: {fileID: 114631218890410542}
   - component: {fileID: 212337163112845958}
+  - component: {fileID: 65182760828866416}
   m_Layer: 0
   m_Name: pfb_minimap_camera
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65182760828866416
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969725631634920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.56, y: 2.56, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114631218890410542
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,7 +65,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c04fb01eef99624b9be28e54ad3f4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: []
+  actions:
+  - DisplayName: Disable
+    HackerPointsCost: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114631218890410542}
+          m_MethodName: Disable
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  - DisplayName: Control
+    HackerPointsCost: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114631218890410542}
+          m_MethodName: Control
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  _neutralSprite: {fileID: 0}
+  _disabledSprite: {fileID: 0}
+  _controlledSprite: {fileID: 0}
+  _seesPlayerSprite: {fileID: 0}
 --- !u!212 &212337163112845958
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -11,8 +11,6 @@ public class MinimapManager : Singleton<MinimapManager> {
 	static public float scale = 2;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
-	[SerializeField]
-	protected HackerPackageSender _sender;
 	// Use this for initialization
 	protected virtual void Start () {
 		_camera = GetComponentInChildren<CameraDragAndDrop>();
@@ -22,9 +20,6 @@ public class MinimapManager : Singleton<MinimapManager> {
 		//this.scale = scale;
 	}
 
-	public void SetSender (HackerPackageSender sender) {
-		_sender = sender;
-	}
 
 	public void CameraGoToPosition (Vector3 pos) {
 		_camera.SetTargetPos(pos);

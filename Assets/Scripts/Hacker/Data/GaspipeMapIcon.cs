@@ -1,53 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
 public class GaspipeMapIcon : AbstractMapIcon {
-    public static void CreateInstance(Vector2 pPos, float pRot, bool pOpen, bool pUsed)
-    {
-        GameObject go = (GameObject)Instantiate(HackerReferenceManager.Instance.GasPipeIcon, new Vector3(pPos.x / MinimapManager.scale, pPos.y / MinimapManager.scale, 0), Quaternion.Euler(0, pRot, 0));
-        go.GetComponent<GaspipeMapIcon>()._used = pUsed;
-        go.GetComponent<GaspipeMapIcon>().StateChanged();
-    }
+	#region Sprites
+	[Header("Sprites")]
 
-    private bool _used = false;
+	[SerializeField]
+	private Sprite _normalSprite;
 
-    #region Sprites
-    [Header("Sprites")]
-    [SerializeField]
-    private Sprite _normalSprite;
-    [SerializeField]
-    private Sprite _usedSprite;
-    #endregion
+	[SerializeField]
+	private Sprite _explodedSprite;
+	#endregion
 
-    public void NormalExplosion()
-    {
-        if (!_used)
-        {
-            _used = true;
-        }
+	public static void ProcessPacket (NetworkPacket.Update.Pipe pPacket) {
+		GaspipeMapIcon icon = HackerPackageSender.GetNetworkedObject<GaspipeMapIcon>(pPacket.Id);
 
-        StateChanged();
-    }
+		if (icon == null) {
+			createInstance(pPacket);
+		}
+	}
 
-    public void BigExplosion()
-    {
-        if (!_used)
-        {
-            _used = true;
-        }
+	private static void createInstance (NetworkPacket.Update.Pipe pPacket) {
+		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
 
-        StateChanged();
-    }
+		icon._used.OnValueChange += icon.changedState;
 
-    private void StateChanged()
-    {
-        if (!_used)
-        {
-            changeSprite(_normalSprite);
-        }else
-        {
-            changeSprite(_usedSprite);
-        }
-    }
+		icon.Id = pPacket.Id;
+		icon._used.Value = pPacket.Exploded;
+	}
+
+	private ObservedValue<bool> _used = new ObservedValue<bool>(false);
+
+	public void NormalExplosion () {
+		if (!_used.Value) {
+			_used.Value = true;
+			sendUpdate(PipeExplodeType.Normal);
+		}
+	}
+
+	public void BigExplosion () {
+		//TODO Set timer and then explode
+		if (!_used.Value) {
+			_used.Value = true;
+			sendUpdate(PipeExplodeType.Charged);
+		}
+	}
+
+	private void sendUpdate (PipeExplodeType pType) {
+		HackerPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, pType));
+	}
+
+	private void changedState () {
+		if (!_used.Value) {
+			changeSprite(_normalSprite);
+		} else {
+			changeSprite(_explodedSprite);
+		}
+	}
 }

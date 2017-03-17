@@ -60,11 +60,10 @@ namespace NetworkPacket {
 		public class Turret : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
-			public float Health;
 			public EnemyState State;
 
-			public Turret (int pId, float pPosX, float pPosY, float pRot, float pHealth, EnemyState pState) {
-				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Health = pHealth; State = pState;
+			public Turret (int pId, float pPosX, float pPosY, float pRot, EnemyState pState) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; State = pState;
 			}
 
 			public Turret (int pId, EnemyState pState) {
