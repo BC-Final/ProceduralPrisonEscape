@@ -102,10 +102,10 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  _neutralSprite: {fileID: 0}
-  _disabledSprite: {fileID: 0}
-  _controlledSprite: {fileID: 0}
-  _seesPlayerSprite: {fileID: 0}
+  _neutralSprite: {fileID: 21300000, guid: de6fea43c3da7ce4ea6a833420da87fa, type: 3}
+  _disabledSprite: {fileID: 21300000, guid: 2fd9410e38a5a3c458c9fe55eb99cb31, type: 3}
+  _controlledSprite: {fileID: 21300000, guid: f64c63ae408990340b6de79bc0ba75a5, type: 3}
+  _seesPlayerSprite: {fileID: 21300000, guid: cfcb1929b4b22794f8e3cfe89b882b88, type: 3}
 --- !u!212 &212458858421243922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -137,7 +137,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2f57f9b0ea6108e4cbafdd7cabfcf286, type: 3}
+  m_Sprite: {fileID: 21300000, guid: de6fea43c3da7ce4ea6a833420da87fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
