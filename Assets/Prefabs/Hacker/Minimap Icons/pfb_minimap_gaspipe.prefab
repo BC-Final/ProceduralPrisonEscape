@@ -66,8 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: []
-  _normalSprite: {fileID: 21300000, guid: d024a69f64ba107448ba61f7a4310d0c, type: 3}
-  _usedSprite: {fileID: 21300000, guid: 41b5c256dfd156c4d97b70a60a30503c, type: 3}
+  _normalSprite: {fileID: 21300000, guid: b0ea35b2ba30a234ab53a73124cf1e56, type: 3}
+  _explodedSprite: {fileID: 21300000, guid: d91bbc390fe54ae49a29871abc5146e0, type: 3}
 --- !u!212 &212629502752817330
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d024a69f64ba107448ba61f7a4310d0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0ea35b2ba30a234ab53a73124cf1e56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

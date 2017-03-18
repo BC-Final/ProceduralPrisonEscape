@@ -66,6 +66,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions: []
+  _neutralSprite: {fileID: 21300000, guid: 9b40799e2bf9ff8468532bb9d6e15db1, type: 3}
+  _seesPlayerSprite: {fileID: 21300000, guid: f431a0cbeb088da47aa0437e45a7b893, type: 3}
+  _deadSprite: {fileID: 21300000, guid: d00d734f7f75ea949b24d2885edc1f23, type: 3}
+  _shieldSprite: {fileID: 21300000, guid: 7c5488931a8fc2441a69d58ea0d8aa23, type: 3}
 --- !u!212 &212316889584953098
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -97,7 +101,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a9093df68b908084faca393594d28792, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b40799e2bf9ff8468532bb9d6e15db1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
