@@ -25,7 +25,7 @@ public class GaspipeMapIcon : AbstractMapIcon {
 	}
 
 	private static void createInstance (NetworkPacket.Update.Pipe pPacket) {
-		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
+		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GasPipeIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
 
 		icon._used.OnValueChange += icon.changedState;
 

@@ -29,7 +29,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private bool _visualize;
 
-	private bool _broken = false;
+	private ObservedValue<bool> _broken = new ObservedValue<bool>(false);
 
 	public static void ProcessPacket (NetworkPacket.Update.Pipe pPacket) {
 		ShooterPipe pipe = ShooterPackageSender.GetNetworkedObject<ShooterPipe>(pPacket.Id);
@@ -61,6 +61,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
+		_broken.OnValueChange += sendUpdate;
 	}
 
 
@@ -75,7 +76,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 	private void explode (bool pCharged) {
 		_normalModel.SetActive(false);
 		_brokenModel.SetActive(true);
-		_broken = true;
+		_broken.Value = true;
 
 		//FIX If this causes lag, replace with a collider or try using layers
 		Collider[] coll = Physics.OverlapSphere(transform.position, pCharged ? _chargedExplosionRadius : _normalExplosionRadius);
@@ -86,7 +87,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 				RaycastHit hit;
 				if (Physics.Raycast(transform.position, c.transform.position - transform.position, out hit, pCharged ? _chargedExplosionRadius : _normalExplosionRadius)) {
 					//TODO Create explosion effect
-					d.ReceiveDamage(transform.position - c.transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
+					d.ReceiveDamage(c.transform.position - transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
 				}
 			}
 		}
@@ -98,7 +99,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void sendUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _broken));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _broken.Value));
 	}
 
 	private void OnDrawGizmosSelected () {
