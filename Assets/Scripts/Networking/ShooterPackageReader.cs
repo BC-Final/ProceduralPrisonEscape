@@ -58,7 +58,7 @@ public class ShooterPackageReader : MonoBehaviour {
 	}
 
 	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
-
+		ShooterPipe.ProcessPacket(pPacket);
 	}
 
 

@@ -91,15 +91,14 @@ namespace NetworkPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
 			public bool Exploded;
-			public PipeExplodeType ExplodeType;
+			public bool ChargedExplosion;
 
 			public Pipe (int pId, float pPosX, float pPosY, float pRot, bool pExploded) {
 				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Exploded = pExploded;
-				ExplodeType = PipeExplodeType.None;
 			}
 
-			public Pipe (int pId, PipeExplodeType pExplodeType) {
-				Id = pId; ExplodeType = pExplodeType;
+			public Pipe (int pId, bool pChargedExplosion) {
+				Id = pId; ChargedExplosion = pChargedExplosion;
 			}
 		}
 

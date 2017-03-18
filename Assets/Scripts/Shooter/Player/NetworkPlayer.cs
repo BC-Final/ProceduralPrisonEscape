@@ -82,7 +82,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	private void Start () {
 		_playerHealth = FindObjectOfType<PlayerHealth>();
 
-		_updateTimer = Timers.CreateTimer()
+		_updateTimer = Timers.CreateTimer("Player Online Update")
 		.SetTime(1.0f / _transformUpdateInterval)
 		.SetLoop(-1)
 		.UseRealTime(true)

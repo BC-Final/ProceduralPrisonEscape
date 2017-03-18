@@ -6,7 +6,7 @@ using DG.Tweening;
 namespace StateFramework {
 	public class TurretDisabledState : AbstractTurretState {
 		public TurretDisabledState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) {
-			_disableTimer = Timers.CreateTimer().SetTime(pTurret.DisabledTime).SetCallback(() => _fsm.SetState<TurretGuardState>()).ResetOnFinish();
+			_disableTimer = Timers.CreateTimer("Turret disable").SetTime(pTurret.DisabledTime).SetCallback(() => _fsm.SetState<TurretGuardState>()).ResetOnFinish();
 		}
 
 		private Sequence _sequence;

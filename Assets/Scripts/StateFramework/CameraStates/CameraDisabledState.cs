@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StateFramework {
 	public class CameraDisabledState : AbstractCameraState {
 		public CameraDisabledState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
-			_disableTimer = Timers.CreateTimer().SetTime(pCamera.DisabledTime).SetCallback(() => _fsm.SetState<CameraGuardState>()).ResetOnFinish();
+			_disableTimer = Timers.CreateTimer("Camera disable").SetTime(pCamera.DisabledTime).SetCallback(() => _fsm.SetState<CameraGuardState>()).ResetOnFinish();
 		}
 
 		Timers.Timer _disableTimer;
