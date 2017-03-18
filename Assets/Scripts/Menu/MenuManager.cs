@@ -44,6 +44,22 @@ public class MenuManager : MonoBehaviour {
 			SceneManager.LoadScene("Proto_Level");
 		}
 	}
+    public void UIOnplayLevel1()
+    {
+        int port = 55556;
+
+        FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+
+        if (!int.TryParse(_hostPortInputField.text, out port))
+        {
+            Debug.LogWarning("Invalid Host Port.");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HostPort", port);
+            SceneManager.LoadScene("Level1");
+        }
+    }
 	public void UIOnPlayHacker () {
 		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
 

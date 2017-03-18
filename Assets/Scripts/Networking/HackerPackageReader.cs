@@ -79,7 +79,7 @@ public class HackerPackageReader : MonoBehaviour {
 		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadResponse(package as CustomCommands.Update.DoorUpdate); }
 		//if (package is CustomCommands.Update.FireWallUpdate) { debugMessage = "Package Received : FireWallUpdate"; ReadResponse(package as CustomCommands.Update.FireWallUpdate); }
 		//if (package is CustomCommands.Update.Items.ItemUpdate) { debugMessage = "Package Received : FireWallUpdate"; ReadResponse(package as CustomCommands.Update.Items.ItemUpdate); }
-		//if (package is CustomCommands.Update.MinimapUpdate) { debugMessage = "Package Received : MinimapUpdate"; ReadResponse(package as CustomCommands.Update.MinimapUpdate); }
+		if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
 		//if (package is CustomCommands.Update.PlayerPositionUpdate) { debugMessage = "Package Received : PlayerPositionUpdate"; ReadResponse(package as CustomCommands.Update.PlayerPositionUpdate); }
 
 		//if (package is CustomCommands.Update.DroneUpdate) { debugMessage = "Package Received : EnemyUpdate"; ReadResponse(package as CustomCommands.Update.DroneUpdate); }
@@ -127,7 +127,7 @@ public class HackerPackageReader : MonoBehaviour {
 		GaspipeMapIcon.ProcessPacket(pPacket);
 	}
 
-	private void readPacket (CustomCommands.Update.MinimapUpdate package) {
+	private void readPacket (NetworkPacket.Update.Minimap package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
 		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;

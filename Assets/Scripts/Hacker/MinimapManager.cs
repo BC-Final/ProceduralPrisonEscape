@@ -3,12 +3,12 @@ using System.Collections;
 using Gamelogic.Extensions;
 
 public class MinimapManager : Singleton<MinimapManager> {
-	//TODO Move to Reference manager
+    //TODO Move to Reference manager
 
-	//MinimapPlayer _player;
+    //MinimapPlayer _player;
 
-	[SerializeField]
-	static public float scale = 2;
+    [SerializeField]
+    static public float scale = 2f;
 	[SerializeField]
 	protected CameraDragAndDrop _camera;
 	// Use this for initialization
