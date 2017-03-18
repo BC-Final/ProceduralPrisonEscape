@@ -14,6 +14,13 @@ public class DroneMapIcon : AbstractMapIcon {
 	private Sprite _deadSprite;
 
 	[SerializeField]
+	private Sprite _stunnedSprite;
+
+	[SerializeField]
+	private Sprite _controlledSprite;
+
+	//TODO Add another image on top
+	[SerializeField]
 	private Sprite _shieldSprite;
 
 	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
@@ -29,9 +36,11 @@ public class DroneMapIcon : AbstractMapIcon {
 	private static void createInstance (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DroneMapIcon>();
 
-		icon._health.OnValueChange += icon.changedHealth;
+		icon._health.OnValueChange += icon.determineSprite;
 		icon._health.Value = pPacket.Health;
 		icon.Id = pPacket.Id;
+
+		icon.determineSprite(pPacket.State);
 	}
 
 	private void updateInstance (NetworkPacket.Update.Drone pPacket) {
@@ -46,6 +55,8 @@ public class DroneMapIcon : AbstractMapIcon {
 		_newRot = Quaternion.Euler(0, 0, -pPacket.Rot);
 
 		_health.Value = pPacket.Health;
+
+		determineSprite(pPacket.State);
 	}
 
 	private void Start () {
@@ -87,10 +98,26 @@ public class DroneMapIcon : AbstractMapIcon {
 		transform.rotation = Quaternion.Slerp(_oldRot, _newRot, perc);
 	}
 
-	private void changedHealth () {
-		if (_health.Value <= 0) {
-			//TODO Replace with actuall sprite
-			GetComponent<SpriteRenderer>().color = Color.black;
+	private void determineSprite () {
+		determineSprite(EnemyState.None);
+	}
+
+	private void determineSprite (EnemyState pState) {
+		if (_health.Value > 0.0f) {
+			switch (pState) {
+				case EnemyState.None:
+					changeSprite(_neutralSprite);
+					break;
+				case EnemyState.SeesPlayer:
+					changeSprite(_seesPlayerSprite);
+					break;
+				case EnemyState.Stunned:
+					break;
+				case EnemyState.Controlled:
+					break;
+			}
+		} else {
+			changeSprite(_deadSprite);
 		}
 	}
 }

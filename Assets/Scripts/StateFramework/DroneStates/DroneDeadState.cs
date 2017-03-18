@@ -14,6 +14,8 @@ namespace StateFramework {
 
 			_agent.enabled = false;
 
+			_drone.SeesPlayer = false;
+
 			//GameObject.Instantiate(_drone.DroneExplode, _drone.transform.position, _drone.transform.rotation);
 
 			//GameObject.Destroy(_drone.gameObject);

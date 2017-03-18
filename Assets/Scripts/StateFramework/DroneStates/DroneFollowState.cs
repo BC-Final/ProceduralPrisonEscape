@@ -16,6 +16,8 @@ namespace StateFramework {
 		public override void Enter() {
 			_agent.SetDestination(_player.transform.position);
 			_seeTimer = 0.0f;
+
+			_drone.SeesPlayer = true;
 		}
 
 		public override void Step() {

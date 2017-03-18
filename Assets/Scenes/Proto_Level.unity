@@ -787,7 +787,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &436960012
 Transform:
@@ -1491,8 +1491,8 @@ MonoBehaviour:
   _brokenModel: {fileID: 226265486}
   _normalExplosionRadius: 6
   _chargedExplosionRadius: 10
-  _normalExplosionDamage: 100
-  _chargedExplosionDamage: 300
+  _normalExplosionDamage: 300
+  _chargedExplosionDamage: 600
   _chargedExplodeDelay: 4
   _visualize: 1
 --- !u!1 &1250873604
@@ -1630,7 +1630,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013988486696, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.16
+      value: 28.21
       objectReference: {fileID: 0}
     - target: {fileID: 4000013988486696, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
       propertyPath: m_LocalPosition.y

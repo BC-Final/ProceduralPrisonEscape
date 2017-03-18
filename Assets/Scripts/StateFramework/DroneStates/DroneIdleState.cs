@@ -10,7 +10,7 @@ namespace StateFramework {
 		}
 
 		public override void Enter() {
-
+			_drone.SeesPlayer = false;
 		}
 
 		public override void Step() {

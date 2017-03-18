@@ -26,6 +26,8 @@ namespace StateFramework {
 			_agent.stoppingDistance = 0.0f;
 			_agent.SetDestination(_startPosition);
 			_seeTimer = 0.0f;
+
+			_drone.SeesPlayer = false;
 		}
 
 		public override void Step() {

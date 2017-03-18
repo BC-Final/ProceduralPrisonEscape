@@ -112,6 +112,7 @@ namespace NetworkPacket {
 	}
 
 	namespace Message {
+		[System.Serializable]
 		public class DisconnectRequest : AbstractPacket { }
 	}
 }
