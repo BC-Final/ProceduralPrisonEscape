@@ -22,7 +22,7 @@ TagManager:
   - Player
   - NoPlayerCollide
   - Terrain
-  - 
+  - InteractionTrigger
   - 
   - 
   - 
