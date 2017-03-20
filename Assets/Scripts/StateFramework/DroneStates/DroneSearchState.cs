@@ -19,6 +19,8 @@ namespace StateFramework {
 		public override void Enter() {
 			_searchCounter = _drone.SearchCount;
 			_seeTimer = 0.0f;
+
+			_drone.SeesPlayer = true;
 		}
 
 		//TODO Make the direction to choose more intelligent

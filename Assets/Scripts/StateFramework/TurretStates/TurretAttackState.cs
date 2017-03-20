@@ -15,6 +15,8 @@ namespace StateFramework {
 
 		public override void Enter () {
 			_nextAttackTime = 0.0f;
+
+			_turret.SeesPlayer = true;
 		}
 
 		public override void Step () {

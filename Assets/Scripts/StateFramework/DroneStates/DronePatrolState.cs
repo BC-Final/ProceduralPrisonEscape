@@ -28,6 +28,8 @@ namespace StateFramework {
 
 			_normalStopDist = _agent.stoppingDistance;
 			_agent.stoppingDistance = 0.5f;
+
+			_drone.SeesPlayer = false;
 		}
 
 		public override void Step () {

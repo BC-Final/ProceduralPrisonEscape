@@ -4,6 +4,8 @@ using System;
 
 partial class Timers {
 	public class Timer {
+		private string _name;
+
 		private float _time;
 		private float _minTime;
 		private float _maxTime;
@@ -23,7 +25,9 @@ partial class Timers {
 
 
 
-		internal Timer () {
+		internal Timer (string pName) {
+			_name = pName;
+
 			_time = 0.0f;
 
 			_loopCount = 0;
@@ -103,13 +107,20 @@ partial class Timers {
 		}
 
 
+		public string Name {
+			get { return _name; }
+		}
 
 		public bool IsPlaying {
 			get { return _playing; }
 		}
 
-		public int LoopCount {
+		public int CurrentLoopCount {
 			get { return _currentloopCount; }
+		}
+
+		public int LoopCount {
+			get { return _loopCount; }
 		}
 
 		public float CurrentTime {
@@ -118,6 +129,10 @@ partial class Timers {
 
 		public float RemainingTime {
 			get { return _time - _currentTime; }
+		}
+
+		public float TimerTime {
+			get { return _time; }
 		}
 
 		public bool IsKilled {

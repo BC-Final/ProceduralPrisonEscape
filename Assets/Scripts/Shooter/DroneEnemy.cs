@@ -110,6 +110,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	private float _spreadConeRadius;
 	public float SpreadConeRadius { get { return _spreadConeRadius; } }
 
+	private bool _seesPlayer = false;
+	public bool SeesPlayer { set { _seesPlayer = value; } }
+
 	private StateMachine<AbstractDroneState> _fsm;
 
 	private int _id;
@@ -154,6 +157,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 		_fsm.AddState(new DroneSearchState(this, _fsm));
 		_fsm.AddState(new DroneReturnState(this, _fsm));
 		_fsm.AddState(new DroneAttackState(this, _fsm));
+		//TODO Add controlled states
+		//TODO Add stunned state
 
 		_agent = GetComponent<NavMeshAgent>();
 
@@ -176,8 +181,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	}
 
 	private void sendUpdate () {
-		//TODO Include the current drone state
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _maxHealth, EnemyState.None));
+		//TODO Include all drone states
+		EnemyState currState = _seesPlayer ? EnemyState.SeesPlayer : EnemyState.None;
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _maxHealth, currState));
 	}
 
 	private void Update () {

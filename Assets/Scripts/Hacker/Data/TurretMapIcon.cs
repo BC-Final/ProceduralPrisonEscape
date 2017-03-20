@@ -29,10 +29,9 @@ public class TurretMapIcon : AbstractMapIcon {
 	private static void createInstance (NetworkPacket.Update.Turret pPacket) {
 		TurretMapIcon icon = Instantiate(HackerReferenceManager.Instance.TurretIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<TurretMapIcon>();
 
-		icon._state.OnValueChange += icon.changedState;
-
 		icon.Id = pPacket.Id;
-		icon._state.Value = pPacket.State;
+
+		icon.determineSprite(pPacket.State);
 	}
 
 	private void updateInstance (NetworkPacket.Update.Turret pPacket) {
@@ -42,6 +41,8 @@ public class TurretMapIcon : AbstractMapIcon {
 
 		_oldRot = transform.rotation;
 		_newRot = Quaternion.Euler(0, 0, -pPacket.Rot);
+
+		determineSprite(pPacket.State);
 	}
 
 	private void Start () {
@@ -59,8 +60,6 @@ public class TurretMapIcon : AbstractMapIcon {
 	private float _currentLerpTime = 0.0f;
 	private float _lerpTime = 0.5f;
 
-	private ObservedValue<EnemyState> _state = new ObservedValue<EnemyState>(EnemyState.None);
-
 	private void Update () {
 		_currentLerpTime += Time.deltaTime;
 		if (_currentLerpTime > _lerpTime) {
@@ -76,16 +75,31 @@ public class TurretMapIcon : AbstractMapIcon {
 		transform.rotation = Quaternion.Slerp(_oldRot, _newRot, perc);
 	}
 
-	private void changedState () {
-		//TODO Display a state change
+	private void determineSprite (EnemyState pState) {
+		switch (pState) {
+			case EnemyState.None:
+				changeSprite(_neutralSprite);
+				break;
+			case EnemyState.SeesPlayer:
+				changeSprite(_seesPlayerSprite);
+				break;
+			case EnemyState.Stunned:
+				changeSprite(_disabledSprite);
+				break;
+			case EnemyState.Controlled:
+				changeSprite(_controlledSprite);
+				break;
+		}
 	}
 
 	public void Disable () {
 		sendUpdate(EnemyState.Stunned);
+		determineSprite(EnemyState.Stunned);
 	}
 
 	public void Control () {
 		sendUpdate(EnemyState.Controlled);
+		determineSprite(EnemyState.Controlled);
 	}
 
 	private void sendUpdate (EnemyState pState) {

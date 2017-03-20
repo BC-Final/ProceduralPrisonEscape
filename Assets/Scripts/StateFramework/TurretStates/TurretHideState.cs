@@ -18,6 +18,8 @@ namespace StateFramework {
 			_sequence = DOTween.Sequence();
 			_sequence.Append(_turret.RotaryBase.DOLocalMove(new Vector3(0.0f, 0.1f, 0.0f), _turret.DeployTime).SetEase(Ease.Linear));
 			_sequence.Join(_turret.Gun.DOLocalRotate(new Vector3(-90.0f, 0.0f, 0.0f), _turret.DeployTime).SetEase(Ease.Linear));
+
+			_turret.SeesPlayer = false;
 		}
 
 		public override void Step () {

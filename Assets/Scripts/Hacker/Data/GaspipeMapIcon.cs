@@ -19,11 +19,13 @@ public class GaspipeMapIcon : AbstractMapIcon {
 
 		if (icon == null) {
 			createInstance(pPacket);
+		} else {
+			icon.updateInstance(pPacket);
 		}
 	}
 
 	private static void createInstance (NetworkPacket.Update.Pipe pPacket) {
-		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
+		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GasPipeIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
 
 		icon._used.OnValueChange += icon.changedState;
 
@@ -31,25 +33,27 @@ public class GaspipeMapIcon : AbstractMapIcon {
 		icon._used.Value = pPacket.Exploded;
 	}
 
+	private void updateInstance (NetworkPacket.Update.Pipe pPacket) {
+		_used.Value = pPacket.Exploded;
+	}
+
 	private ObservedValue<bool> _used = new ObservedValue<bool>(false);
 
 	public void NormalExplosion () {
 		if (!_used.Value) {
-			_used.Value = true;
-			sendUpdate(PipeExplodeType.Normal);
+			sendUpdate(false);
 		}
 	}
 
 	public void BigExplosion () {
-		//TODO Set timer and then explode
+		//TODO Start ticking animation
 		if (!_used.Value) {
-			_used.Value = true;
-			sendUpdate(PipeExplodeType.Charged);
+			sendUpdate(true);
 		}
 	}
 
-	private void sendUpdate (PipeExplodeType pType) {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, pType));
+	private void sendUpdate (bool pChargedExplosion) {
+		HackerPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, pChargedExplosion));
 	}
 
 	private void changedState () {

@@ -65,7 +65,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbebcb73a65651f42b184bf8e019ff94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actions: []
+  actions:
+  - DisplayName: Explosion
+    HackerPointsCost: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114261787068110412}
+          m_MethodName: NormalExplosion
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+  - DisplayName: Charged Explosion
+    HackerPointsCost: 0
+    Action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 114261787068110412}
+          m_MethodName: BigExplosion
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+      m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
   _normalSprite: {fileID: 21300000, guid: b0ea35b2ba30a234ab53a73124cf1e56, type: 3}
   _explodedSprite: {fileID: 21300000, guid: d91bbc390fe54ae49a29871abc5146e0, type: 3}
 --- !u!212 &212629502752817330

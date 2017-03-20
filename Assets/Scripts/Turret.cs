@@ -96,6 +96,15 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 
 	private StateMachine<AbstractTurretState> _fsm;
 
+	[SerializeField]
+	private float _controllTime = 10.0f;
+
+	private bool _controlled = false;
+	public bool Controlled { get { return _controlled; } }
+
+	private bool _seesPlayer = false;
+	public bool SeesPlayer { set { _seesPlayer = value; } }
+
 	private int _id;
 	public int Id {
 		get {
@@ -148,13 +157,15 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 		_fsm.AddState(new TurretScanState(this, _fsm));
 		_fsm.AddState(new TurretHideState(this, _fsm));
 		_fsm.AddState(new TurretDisabledState(this, _fsm));
+		//TODO Add Controlled state
 
 		_fsm.SetState<TurretIdleState>();
 	}
 
 	private void sendUpdate () {
-		//TODO Include the current turret state
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, EnemyState.None));
+		//TODO Make the state check easier!!!
+		EnemyState currState = _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_controlled ? EnemyState.Controlled : (_seesPlayer ? EnemyState.SeesPlayer : EnemyState.None)); 
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, currState));
 	}
 
 	private void Update () {
@@ -169,7 +180,9 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void control () {
-		//TODO Implement controlling
+		_controlled = true;
+		Timers.CreateTimer("Turret Controll").SetTime(_controllTime).SetCallback(() => _controlled = false).Start();
+		//TODO Switch to controlled state
 	}
 
 	private void disable () {

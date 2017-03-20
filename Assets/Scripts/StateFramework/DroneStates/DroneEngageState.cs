@@ -17,6 +17,8 @@ namespace StateFramework {
 
 		public override void Enter() {
 			_nextPathTick = 0.0f;
+
+			_drone.SeesPlayer = true;
 		}
 
 		public override void Step() {

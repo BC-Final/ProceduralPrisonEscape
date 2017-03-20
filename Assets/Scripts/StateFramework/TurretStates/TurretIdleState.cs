@@ -10,6 +10,7 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
+			_turret.SeesPlayer = false;
 		}
 
 		public override void Step () {

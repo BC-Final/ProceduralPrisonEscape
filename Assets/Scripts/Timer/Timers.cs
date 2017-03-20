@@ -20,11 +20,15 @@ public partial class Timers : MonoBehaviour {
 		}
 	}
 
-	public static Timer CreateTimer () {
-		return new Timer();
+	public static Timer CreateTimer (string pName) {
+		return new Timer(pName);
 	}
 
 	private List<Timer> _timers;
+
+	public Timer[] TimerList {
+		get { return _timers.ToArray(); }
+	}
 
 	private Timers () {
 		_timers = new List<Timer>();

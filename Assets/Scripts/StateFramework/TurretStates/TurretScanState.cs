@@ -37,6 +37,8 @@ namespace StateFramework {
 
 			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _turret.ScanRotaionSpeed;
 
+			_turret.SeesPlayer = false;
+
 			//TODO Replace with lerp
 			//_sequence.Append(_turret.Gun.DORotate(new Vector3(0.0f, 0.0f, 0.0f), 0.25f));
 			//_sequence = DOTween.Sequence();

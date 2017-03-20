@@ -13,6 +13,8 @@ namespace StateFramework {
 		public override void Enter () {
 			_turret.GetComponentInChildren<Light>().intensity = 1.5f;
 			_turret.GetComponentInChildren<Light>().color = Color.red;
+
+			_turret.SeesPlayer = true;
 		}
 
 		public override void Step () {

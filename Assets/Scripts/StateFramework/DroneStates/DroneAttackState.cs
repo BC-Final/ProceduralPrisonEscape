@@ -19,6 +19,8 @@ namespace StateFramework {
 			_agent.Stop();
 			_agent.ResetPath();
 			_nextAttackTime = 0.0f;
+
+			_drone.SeesPlayer = true;
 		}
 
 		public override void Step() {

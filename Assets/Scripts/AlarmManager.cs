@@ -47,8 +47,8 @@ public class AlarmManager : Singleton<AlarmManager> {
 	private FMOD.Studio.EventInstance _alarmSound;
 
 	private void Start () {
-		_waveTimer = Timers.CreateTimer().SetCallback(() => spawnWave()).SetMinMaxTime(_minWaveDelay, _maxWaveDelay);
-		_spawnTimer = Timers.CreateTimer().ResetOnFinish().SetCallback(() => spawnEnemy()).SetMinMaxTime(_minEnemySpawnDelay, _maxEnemySpawnDelay);
+		_waveTimer = Timers.CreateTimer("Alarm Wave").SetCallback(() => spawnWave()).SetMinMaxTime(_minWaveDelay, _maxWaveDelay);
+		_spawnTimer = Timers.CreateTimer("Alarm Spawn").ResetOnFinish().SetCallback(() => spawnEnemy()).SetMinMaxTime(_minEnemySpawnDelay, _maxEnemySpawnDelay);
 
 		_alarmSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_alarm_loop");
 	}
