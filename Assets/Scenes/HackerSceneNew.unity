@@ -364,6 +364,30 @@ Prefab:
       propertyPath: _iconHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4636273665379990, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 41.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.13235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.13235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0.13235295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
   m_IsPrefabParent: 0

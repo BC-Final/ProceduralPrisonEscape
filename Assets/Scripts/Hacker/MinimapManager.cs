@@ -102,9 +102,9 @@ public class MinimapManager : Singleton<MinimapManager> {
 	//}
 
 
-	public void CreateShot (CustomCommands.Creation.Shots.LaserShotCreation package) {
-		Vector3 startPos = new Vector3(package.startX, 1, package.startZ);
-		Vector3 endPos = new Vector3(package.targetX, 1, package.targetZ);
+	public void CreateShot (NetworkPacket.Create.LaserShotCreation pPacket) {
+		Vector3 startPos = new Vector3(pPacket.startX, 1, pPacket.startZ);
+		Vector3 endPos = new Vector3(pPacket.targetX, 1, pPacket.targetZ);
 		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.LaserShot, startPos / scale, Quaternion.Euler(0, 0, 0));
 		LaserShot shot = gameObject.GetComponent<LaserShot>();
 		shot.SetTargetPos(endPos / scale);

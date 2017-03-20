@@ -40,15 +40,16 @@ public class GaspipeMapIcon : AbstractMapIcon {
 	private ObservedValue<bool> _used = new ObservedValue<bool>(false);
 
 	public void NormalExplosion () {
-		if (!_used.Value) {
-			sendUpdate(false);
-		}
+        if (!_used.Value)
+        {          
+            sendUpdate(false);
+        }      
 	}
 
 	public void BigExplosion () {
 		//TODO Start ticking animation
 		if (!_used.Value) {
-			sendUpdate(true);
+            sendUpdate(true);
 		}
 	}
 
@@ -60,7 +61,8 @@ public class GaspipeMapIcon : AbstractMapIcon {
 		if (!_used.Value) {
 			changeSprite(_normalSprite);
 		} else {
-			changeSprite(_explodedSprite);
+            Instantiate(HackerReferenceManager.Instance.Explosion, this.transform.position, Quaternion.identity);
+            changeSprite(_explodedSprite);
 		}
 	}
 }
