@@ -1425,30 +1425,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013915544718, guid: 4ba773ba204f16a4e88057ad91882b72,
-        type: 2}
-      propertyPath: keyColor
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000013988486696, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000013988486696, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114000011423508484, guid: 4ba773ba204f16a4e88057ad91882b72,
         type: 2}
       propertyPath: _route
       value: 
       objectReference: {fileID: 1554683717}
-    - target: {fileID: 4000013988486696, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1554683715

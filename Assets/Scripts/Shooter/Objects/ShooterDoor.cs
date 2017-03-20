@@ -117,6 +117,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void sendStateUpdate () {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
+		Debug.Log("Send door update");
 	}
 
 
@@ -125,11 +126,13 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// Checks if Drone is trying to pass door and opens it if not locked or already open
 	/// </summary>
 	/// <param name="pOther">Other Collider</param>
-	private void OnTriggerEnter (Collider pOther) {
+	private void OnTriggerStay (Collider pOther) {
+		Debug.Log("Trigger enter");
 		//TODO Notify drone when door is locked
-		if (pOther.GetComponent<DroneEnemy>() != null && !_locked && !_open.Value) {
+		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value) {
 			_open.Value = true;
 			sendStateUpdate();
+			Debug.Log("Drone opened door");
 		}
 	}
 
@@ -140,9 +143,11 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	/// <param name="pOther"></param>
 	private void OnTriggerExit (Collider pOther) {
-		if (pOther.GetComponent<DroneEnemy>() != null && !_locked && _open.Value) {
+		Debug.Log("Trigger exit");
+		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && _open.Value) {
 			_open.Value = false;
 			sendStateUpdate();
+			Debug.Log("Drone closed door");
 		}
 	}
 

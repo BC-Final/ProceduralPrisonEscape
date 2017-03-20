@@ -52,6 +52,7 @@ public class DoorMapIcon : AbstractMapIcon {
 	#endregion
 
 	public void Toggle () {
+		//TODO Send state update but only change when receiving (if it causes problems)
 		_open.Value = !_open.Value;
 
 		sendUpdate();

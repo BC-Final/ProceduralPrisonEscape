@@ -9,14 +9,14 @@ namespace NetworkPacket {
     namespace Create
     {
         [System.Serializable]
-        public class LaserShotCreation : AbstractPacket
+        public class LaserShot : AbstractPacket
         {
             public float startX;
             public float startZ;
             public float targetX;
             public float targetZ;
 
-            public LaserShotCreation(Vector3 startPos, Vector3 endPos)
+            public LaserShot(Vector3 startPos, Vector3 endPos)
             {
                 startX = startPos.x;
                 startZ = startPos.z;

@@ -160,11 +160,13 @@ public abstract class Weapon : MonoBehaviour {
 			spawnBullet(hit.point);
 			spawnDecal(hit.point, hit.normal, hit.transform);
 			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
+			ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
 			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
 				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(Camera.main.transform.forward, hit.point, _shootDamage);
 			}
 		} else {
 			spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
+			ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 		}
 

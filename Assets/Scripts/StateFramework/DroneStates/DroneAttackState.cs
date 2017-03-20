@@ -57,11 +57,13 @@ namespace StateFramework {
 						}
 
 						//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, hit.point));
+						ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(_drone.transform.position, hit.point));
 					} else {
 						GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange, Quaternion.identity) as GameObject;
 						laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_drone.transform.GetChild(0).GetChild(1).position));
 						GameObject.Destroy(laser, 0.05f);
 						//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_drone.transform.position, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange));
+						ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(_drone.transform.position, _drone.transform.GetChild(0).GetChild(1).position + _drone.transform.GetChild(0).forward * _drone.AttackRange));
 					}
 				} else if (_drone.AttackType == DroneEnemy.eAttackType.Melee) {
 					_player.GetComponent<IDamageable>().ReceiveDamage((_drone.transform.position - _player.transform.position).normalized, _player.transform.position, _drone.AttackDamage);
