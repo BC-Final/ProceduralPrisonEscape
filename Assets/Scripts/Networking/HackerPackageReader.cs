@@ -70,6 +70,7 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
         if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
+        if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
 
         //if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
 
@@ -138,7 +139,7 @@ public class HackerPackageReader : MonoBehaviour {
 		HackerPackageSender.SilentlyDisconnect();
 	}
 
-    private void ReadResponse (NetworkPacket.Create.LaserShot pPacket) {
+    private void readPacket(NetworkPacket.Create.LaserShot pPacket) {
     	MinimapManager.Instance.CreateShot(pPacket);
     }
 
