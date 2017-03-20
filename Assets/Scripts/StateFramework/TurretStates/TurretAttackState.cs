@@ -20,7 +20,7 @@ namespace StateFramework {
 		}
 
 		public override void Step () {
-			Transform target = _turret.Controlled ? getClosestSeeableObject(_turret.Targets.ToArray(), _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle).transform : _player.transform;
+			Transform target = _turret.Controlled ? getClosestSeeableObject(_turret.Targets, _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle).transform : _player.transform;
 
 			if (!canSeeObject(_player, _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle) && !_turret.Controlled || _turret.Controlled && target != null) {
 				_fsm.SetState<TurretEngageState>();

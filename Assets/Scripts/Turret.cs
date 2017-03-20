@@ -107,8 +107,8 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	public bool SeesTarget { set { _seesTarget = value; } }
 
 	private List<GameObject> _targets = new List<GameObject>();
-	public List<GameObject> Targets {
-		get { return _targets; }
+	public GameObject[] Targets {
+		get { return _targets.ToArray(); }
 	}
 
 
@@ -167,6 +167,14 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 		//TODO Add Controlled state
 
 		_fsm.SetState<TurretIdleState>();
+
+		SphereCollider[] sc = GetComponentsInChildren<SphereCollider>();
+
+		foreach (SphereCollider s in sc) {
+			if (s.gameObject.layer == LayerMask.NameToLayer("InteractionTrigger")) {
+				s.radius = _seeRange;
+			}
+		}
 	}
 
 	private void sendUpdate () {
@@ -201,13 +209,16 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 
 	private void OnTriggerEnter (Collider other) {
 		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
-			_targets.Add(other.gameObject);
+			Debug.Log("Added");
+			//HACK
+			_targets.Add(other.GetComponentInParent<DroneEnemy>().gameObject);
 		}
 	}
 
 	private void OnTriggerExit (Collider other) {
 		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
-			_targets.Remove(other.gameObject);
+			Debug.Log("Removed");
+			_targets.RemoveAll(x => x == other.GetComponentInParent<DroneEnemy>().gameObject);
 		}
 	}
 

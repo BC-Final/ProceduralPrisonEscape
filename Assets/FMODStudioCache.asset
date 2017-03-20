@@ -13,12 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114017215997948646}
-  - {fileID: 114230611882183716}
-  - {fileID: 114272166292383674}
-  - {fileID: 114665830216536008}
-  - {fileID: 114643339918852566}
-  - {fileID: 114453286253677824}
-  - {fileID: 114857613021793144}
+  - {fileID: 114915877293408284}
+  - {fileID: 114626850306899572}
+  - {fileID: 114374957206845532}
+  - {fileID: 114161755097938820}
+  - {fileID: 114175798474825944}
+  - {fileID: 114732822992354954}
   EditorEvents:
   - {fileID: 114382234152355398}
   - {fileID: 114647843398206402}
@@ -67,9 +67,9 @@ MonoBehaviour:
   - {fileID: 114272881456011736}
   - {fileID: 114582267217475364}
   - {fileID: 114371199059809256}
-  MasterBankRef: {fileID: 114453286253677824}
+  MasterBankRef: {fileID: 114175798474825944}
   StringsBankRef: {fileID: 114017215997948646}
-  stringsBankWriteTime: 636256212983497801
+  stringsBankWriteTime: 636245092015266486
   cacheVersion: 2
 --- !u!114 &114001019083276348
 MonoBehaviour:
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: Assets\StreamingAssets\Desktop Stereo\PE_menu.strings.bank
-  lastModified: 636256212983497801
+  lastModified: 636245092015266486
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -250,7 +250,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_pickhealth
   guid: f0d91ade72873644ae6786a8d6e71019
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -395,7 +395,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hackinit
   guid: 187dae57bef7aa4db9e2ad711ccad720
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -469,7 +469,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_datagain
   guid: 94e5ad5ad5d3b14aa1f14c7fb4b9f1b2
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -923,7 +923,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_keypress
   guid: c116484e4f46f148b15d4484e6e66977
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -944,7 +944,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_enable
   guid: cec5ca58d9d06643892d32e478d306af
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1001,13 +1001,32 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_map_move
   guid: ae83b8ae65198449a59327b056259097
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114161755097938820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_sfx_hacker.bank
+  lastModified: 636245092015626227
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 2605888
+  Exists: 1
 --- !u!114 &114170775359050428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1094,13 +1113,32 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_dispenser_use
   guid: c5c7d9fec8c79a4faa9b36d67bbcd580
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
+--- !u!114 &114175798474825944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_menu.bank
+  lastModified: 636201097567547515
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 17280
+  Exists: 1
 --- !u!114 &114176068045750276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,7 +1153,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_melee_impact
   guid: 2f9d8467438aaa4da0d561fb105baada
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1176,7 +1214,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_autofocus
   guid: 3578b588faef92479a46332c2e3cff5c
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1197,7 +1235,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_button_denied
   guid: b735fee3809a734fb58c0822e66353b6
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1279,7 +1317,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_avatar_move
   guid: 50a310a8b7de8c41b209b86b3e561f69
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1508,7 +1546,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_shooter_death
   guid: f565020a32dabb41b13c6a637ba4c269
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1772,7 +1810,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_door_access
   guid: 64fde1753acd94419d1e4058f6285d6c
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1793,7 +1831,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_door_access
   guid: 4f7baaad1b93e74b8bd9aeabed119a8c
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1892,7 +1930,7 @@ MonoBehaviour:
   Path: snapshot:/snapkilltobi
   guid: e4917adcd301f641a3be42e974f2f993
   Banks:
-  - {fileID: 114453286253677824}
+  - {fileID: 114175798474825944}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1913,7 +1951,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_melee_move
   guid: df57b233a5e7c34986ef59187f366597
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1979,6 +2017,25 @@ MonoBehaviour:
   - Name: 
     Value: 997632
   Exists: 0
+--- !u!114 &114374957206845532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_sfx_shooter.bank
+  lastModified: 636245092015771758
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 997632
+  Exists: 1
 --- !u!114 &114375346789076242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2029,7 +2086,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_camlost
   guid: d8514800785eab498635542e87f6427a
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2050,7 +2107,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_buttonclick
   guid: 0c792d12fb400447bc416ead02292df6
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2090,7 +2147,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/ep/PE_weapon_ep_shoot
   guid: 172ba2f142f2fd40a4a29e950337a329
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2145,7 +2202,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_door_denied
   guid: a70d4ab5a011154db64fa5feea377110
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2166,7 +2223,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_disable
   guid: 9a6b248286eb02429b05099ce8d8fc8c
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2223,7 +2280,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_dispenser_denied
   guid: 6cf2d871a187484d8387fe194e7a3cb7
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2378,6 +2435,21 @@ MonoBehaviour:
   - Name: 
     Value: 17280
   Exists: 0
+--- !u!114 &114473584444087664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: p_drone_move
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114474320996201890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2464,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_progressbar_start
   guid: 5982d131248f8344b63d7cda885343d3
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -2474,7 +2546,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/ep/PE_weapon_ep_reload
   guid: 798ad080ec98bb4284052dc4fc32540b
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2688,7 +2760,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_start
   guid: f5ba8e8913df644b99d2cda443298efd
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -2728,7 +2800,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_alarm_loop
   guid: dd3addaa1eb9f348baa99044039821d0
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -2876,7 +2948,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hackpositive_gui
   guid: 50befea1e9366c4096f71192ccd02ecb
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2897,7 +2969,7 @@ MonoBehaviour:
   Path: event:/PE_menu/PE_menu_buttonclick
   guid: 623bdf476cd0ff4cb88c2af1d36b5b5f
   Banks:
-  - {fileID: 114453286253677824}
+  - {fileID: 114175798474825944}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2937,7 +3009,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_door_denied
   guid: 40d90f87081d044cb0b676397ecb95d9
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3099,7 +3171,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_button_standard
   guid: 871473e7290fc949a19b62c193e344df
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3125,6 +3197,25 @@ MonoBehaviour:
   - Name: 
     Value: 404
   Exists: 0
+--- !u!114 &114626850306899572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_musicsystem_hacker.bank
+  lastModified: 636199878184408207
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
 --- !u!114 &114637568223222274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3219,7 +3310,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_camcatch
   guid: 1c96caca99f129499d99aa90a6fe4c76
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3315,7 +3406,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_hacknegative_gui
   guid: 74a0f672fa284f48bb7b78d7bf1da9fb
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3526,7 +3617,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/smg/PE_weapon_smg_shot
   guid: 4f43d0b44f887e4a98d9f52f0230707a
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3604,7 +3695,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_firewall_destroy_loop
   guid: 8ea05dfcac73d24caeac989d5a386fd1
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -3626,6 +3717,25 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114732822992354954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_musicsystem_shooter.bank
+  lastModified: 636199878184423282
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
 --- !u!114 &114745407762098550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3640,7 +3750,7 @@ MonoBehaviour:
   Path: event:/PE_envi/PE_envi_firewall_destroy_start
   guid: d6eb7ebe6840b94eb9e14eebc4f321f7
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -3733,7 +3843,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_avatar_death
   guid: 13f167cc60157541a19f9f5c61769b4f
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3754,7 +3864,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_firewall_startup
   guid: 2363b19bb2a1024d93638885647eb0f7
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3775,7 +3885,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_progressbar_stop
   guid: dd95d4765ec9e9478fa429386a89a0a9
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3796,7 +3906,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_admin_death
   guid: 21122b95e1fc124aaef17f1c91f085ea
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3817,7 +3927,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_pickkeycard
   guid: 442471f2029fdc4a82ed279e4ba26061
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -3891,7 +4001,7 @@ MonoBehaviour:
   Path: event:/PE_shooter/PE_shooter_alarm_loop
   guid: 606ce4362d664044bbb55217c580fc69
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -3963,12 +4073,12 @@ MonoBehaviour:
   Path: event:/PE_drone/PE_drone_engine
   guid: 60347c7df543e94f8635717e738b3c2f
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters:
-  - {fileID: 114003793933501886}
+  - {fileID: 114473584444087664}
   MinDistance: 1
   MaxDistance: 23
 --- !u!114 &114821484008726590
@@ -3985,7 +4095,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/Mining Laser/PE_weapon_mininglaser
   guid: 991244cd1097534bb73d149e5528b938
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -4021,7 +4131,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_map_zoom
   guid: b04cb76e7d85aa41a4fbf1aaf7ffb873
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -4328,7 +4438,7 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_cameramove_stop
   guid: 26b4b21ae7450a42a8e69928c3b9206c
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -4349,13 +4459,32 @@ MonoBehaviour:
   Path: event:/PE_hacker/PE_hacker_firewall_shutdown
   guid: 05ae937bbde4974f9d8d1ffe6e3635f2
   Banks:
-  - {fileID: 114643339918852566}
+  - {fileID: 114161755097938820}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 0
   MaxDistance: 0
+--- !u!114 &114915877293408284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Users\Daniel Henseler\Projekte\Unity\Git\ProceduralPrisonEscape\Assets\StreamingAssets\Desktop
+    Stereo\PE_vox.bank
+  lastModified: 636199878184963722
+  LoadResult: 0
+  FileSizes:
+  - Name: 
+    Value: 404
+  Exists: 1
 --- !u!114 &114915945338573260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4619,7 +4748,7 @@ MonoBehaviour:
   Path: event:/PE_weapon/smg/PE_weapon_smg_reload
   guid: 40f02af6798f0146abe539dc6df67d6f
   Banks:
-  - {fileID: 114665830216536008}
+  - {fileID: 114374957206845532}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1

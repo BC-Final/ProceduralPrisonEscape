@@ -21,11 +21,11 @@ namespace StateFramework {
 			rotateTowards(_player.transform);
 
 			if (_turret.Controlled) {
-				if (getClosestSeeableObject(_turret.Targets.ToArray(), _turret.transform, _turret.SeeRange, 360.0f) == null) {
+				if (getClosestSeeableObject(_turret.Targets, _turret.transform, _turret.SeeRange, 360.0f) == null) {
 					_fsm.SetState<TurretScanState>();
 				}
 
-				if (getClosestSeeableObject(_turret.Targets.ToArray(), _turret.transform, _turret.AttackRange, _turret.AttackAngle) != null) {
+				if (getClosestSeeableObject(_turret.Targets, _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle) != null) {
 					_fsm.SetState<TurretAttackState>();
 				}
 			} else {

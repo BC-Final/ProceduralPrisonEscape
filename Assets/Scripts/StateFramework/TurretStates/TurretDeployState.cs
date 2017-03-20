@@ -22,7 +22,7 @@ namespace StateFramework {
 
 		public override void Step () {
 			if (!_sequence.IsPlaying()) {
-				if (Vector3.Distance(_turret.transform.position, _player.transform.position) > _turret.SeeRange && !_turret.Controlled || _turret.Targets.Count > 0 && _turret.Controlled) {
+				if (Vector3.Distance(_turret.transform.position, _player.transform.position) > _turret.SeeRange && !_turret.Controlled || _turret.Targets.Length > 0 && _turret.Controlled) {
 					_fsm.SetState<TurretEngageState>();
 				} else {
 					_fsm.SetState<TurretScanState>();

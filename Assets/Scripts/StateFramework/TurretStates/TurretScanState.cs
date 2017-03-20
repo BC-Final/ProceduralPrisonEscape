@@ -55,7 +55,7 @@ namespace StateFramework {
 				_fsm.SetState<TurretHideState>();
 			}
 
-			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f) && !_turret.Controlled || getClosestSeeableObject(_turret.Targets.ToArray(), _turret.transform, _turret.SeeRange, 360.0f) != null && _turret.Controlled) {
+			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f) && !_turret.Controlled || getClosestSeeableObject(_turret.Targets, _turret.transform, _turret.SeeRange, 360.0f) != null && _turret.Controlled) {
 				_fsm.SetState<TurretEngageState>();
 			}
 

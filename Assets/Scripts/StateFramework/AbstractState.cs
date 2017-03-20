@@ -54,36 +54,42 @@ namespace StateFramework {
 
 		protected bool canSeeObject (GameObject pTarget, Transform pOrigin, float pRange, float pAngle) {
 			if (Vector3.Distance(pOrigin.position, pTarget.transform.position) < pRange) {
+				Debug.Log("Close enough");
+
 				if (pAngle < 360.0f) {
 					float angle = Vector3.Angle(pTarget.transform.position - pOrigin.position, pOrigin.forward);
 					float sign = Mathf.Sign(Vector3.Dot(pTarget.transform.position - pOrigin.position, pOrigin.right));
 					float finalAngle = sign * angle;
 
 					if (!(finalAngle <= pAngle / 2f && finalAngle >= -pAngle / 2f)) {
+						Debug.Log("Not in fov");
 						return false;
 					}
 				}
 
-				Collider[] coll = pOrigin.GetComponentsInChildren<Collider>();
+				//Collider[] coll = pOrigin.GetComponentsInChildren<Collider>();
 
-				foreach (Collider c in coll) {
-					c.enabled = false;
-				}
+				//foreach (Collider c in coll) {
+				//	c.enabled = false;
+				//}
 
 				RaycastHit hit;
+				//TODO Only use interaction triggers
 				if (Physics.Raycast(pOrigin.position, (pTarget.transform.position - pOrigin.position).normalized, out hit, pRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
 					if (hit.collider.gameObject == pTarget) {
-						foreach (Collider c in coll) {
-							c.enabled = true;
-						}
+						//foreach (Collider c in coll) {
+						//	c.enabled = true;
+						//}
 
 						return true;
 					}
+
+					Debug.Log("View blocked by " + hit.collider.name);
 				}
 
-				foreach (Collider c in coll) {
-					c.enabled = true;
-				}
+				//foreach (Collider c in coll) {
+				//	c.enabled = true;
+				//}
 			}
 
 			return false;
