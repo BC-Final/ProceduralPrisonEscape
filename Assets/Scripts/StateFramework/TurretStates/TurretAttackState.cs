@@ -62,6 +62,7 @@ namespace StateFramework {
 					}
 
 					//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_turret.transform.position, hit.point));
+					ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(_turret.transform.position, hit.point));
 				} else {
 					//Shooting laser
 					//GameObject laser = GameObject.Instantiate(ShooterReferenceManager.Instance.LaserShot, _turret.ShootPos.position + _turret.RotaryBase.forward * _turret.AttackRange, Quaternion.identity) as GameObject;
@@ -74,6 +75,7 @@ namespace StateFramework {
 					GameObject.Destroy(tracer, 1.0f);
 					_turret.GetComponentInChildren<ParticleSystem>().Play();
 
+					ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(_turret.transform.position, _turret.ShootPos.transform.position + _turret.RotaryBase.forward * _turret.AttackRange));
 					//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_turret.transform.position, _turret.ShootPos.transform.position + _turret.RotaryBase.forward * _turret.AttackRange));
 				}
 			}

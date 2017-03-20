@@ -138,7 +138,7 @@ public class HackerPackageReader : MonoBehaviour {
 		HackerPackageSender.SilentlyDisconnect();
 	}
 
-    private void ReadResponse (NetworkPacket.Create.LaserShotCreation pPacket) {
+    private void ReadResponse (NetworkPacket.Create.LaserShot pPacket) {
     	MinimapManager.Instance.CreateShot(pPacket);
     }
 
