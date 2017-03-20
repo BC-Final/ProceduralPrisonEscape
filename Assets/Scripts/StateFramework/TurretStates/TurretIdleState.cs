@@ -10,11 +10,11 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			_turret.SeesPlayer = false;
+			_turret.SeesTarget = false;
 		}
 
 		public override void Step () {
-			if (Vector3.Distance(_turret.transform.position, _player.transform.position) < _turret.QuitIdleRange) {
+			if (Vector3.Distance(_turret.transform.position, _player.transform.position) < _turret.QuitIdleRange || _turret.Controlled) {
 				_fsm.SetState<TurretGuardState>();
 			}
 		}

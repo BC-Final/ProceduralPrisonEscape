@@ -11,13 +11,13 @@ namespace StateFramework {
 		}
 
 		public override void Enter () {
-			_turret.SeesPlayer = false;
+			_turret.SeesTarget = false;
 		}
 
 		public override void Step () {
 			//TODO Rotate
 
-			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f)) {
+			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f) || _turret.Controlled) {
 				_fsm.SetState<TurretDeployState>();
 			}
 

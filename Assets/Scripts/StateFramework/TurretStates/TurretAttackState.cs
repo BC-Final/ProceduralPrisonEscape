@@ -16,11 +16,17 @@ namespace StateFramework {
 		public override void Enter () {
 			_nextAttackTime = 0.0f;
 
-			_turret.SeesPlayer = true;
+			_turret.SeesTarget = true;
 		}
 
 		public override void Step () {
-			rotateTowards(_player.transform);
+			Transform target = _turret.Controlled ? getClosestSeeableObject(_turret.Targets.ToArray(), _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle).transform : _player.transform;
+
+			if (!canSeeObject(_player, _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle) && !_turret.Controlled || _turret.Controlled && target != null) {
+				_fsm.SetState<TurretEngageState>();
+			}
+
+			rotateTowards(target);
 
 			if (_nextAttackTime - Time.time <= 0.0f) {
 				_nextAttackTime = Time.time + _turret.FireRate;
@@ -57,8 +63,8 @@ namespace StateFramework {
 					GameObject.Destroy(decal, 10);
 
 					//Inflict damage
-					if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null && hit.rigidbody.GetComponent<IDamageable>() is PlayerHealth) {
-						hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage((_turret.ShootPos.position - _player.transform.position).normalized, hit.point, _turret.Damage);
+					if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
+						hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage((_turret.ShootPos.position - target.transform.position).normalized, hit.point, _turret.Damage);
 					}
 
 					//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_turret.transform.position, hit.point));
@@ -78,10 +84,6 @@ namespace StateFramework {
 					ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(_turret.transform.position, _turret.ShootPos.transform.position + _turret.RotaryBase.forward * _turret.AttackRange));
 					//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(_turret.transform.position, _turret.ShootPos.transform.position + _turret.RotaryBase.forward * _turret.AttackRange));
 				}
-			}
-
-			if (!canSeeObject(_player, _turret.ShootPos, _turret.AttackRange, _turret.AttackAngle)) {
-				_fsm.SetState<TurretEngageState>();
 			}
 		}
 

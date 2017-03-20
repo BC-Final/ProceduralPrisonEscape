@@ -17,12 +17,12 @@ namespace StateFramework {
 			_sequence.Append(_turret.RotaryBase.DOLocalMove(new Vector3(0.0f, 0.8f, 0.0f), _turret.DeployTime).SetEase(Ease.Linear));
 			_sequence.Join(_turret.Gun.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _turret.DeployTime).SetEase(Ease.Linear));
 
-			_turret.SeesPlayer = true;
+			_turret.SeesTarget = true;
 		}
 
 		public override void Step () {
 			if (!_sequence.IsPlaying()) {
-				if (Vector3.Distance(_turret.transform.position, _player.transform.position) > _turret.SeeRange) {
+				if (Vector3.Distance(_turret.transform.position, _player.transform.position) > _turret.SeeRange && !_turret.Controlled || _turret.Targets.Count > 0 && _turret.Controlled) {
 					_fsm.SetState<TurretEngageState>();
 				} else {
 					_fsm.SetState<TurretScanState>();

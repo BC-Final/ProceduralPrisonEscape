@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 namespace StateFramework {
 	public abstract class AbstractState {
@@ -39,6 +40,16 @@ namespace StateFramework {
 			while (angle < 0)
 				angle += 360;
 			return angle;
+		}
+
+		protected GameObject getClosestSeeableObject (GameObject[] pTargets, Transform pOrigin, float pRange, float pAngle) {
+			foreach (GameObject go in pTargets) {
+				if (canSeeObject(go, pOrigin, pRange, pAngle)) {
+					return go;
+				}
+			}
+
+			return null;
 		}
 
 		protected bool canSeeObject (GameObject pTarget, Transform pOrigin, float pRange, float pAngle) {

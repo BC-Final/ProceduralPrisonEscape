@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
+using System.Linq;
 
 public class Turret : MonoBehaviour, IShooterNetworked {
 	//TODO Put into scriptable object
@@ -102,8 +103,14 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	private bool _controlled = false;
 	public bool Controlled { get { return _controlled; } }
 
-	private bool _seesPlayer = false;
-	public bool SeesPlayer { set { _seesPlayer = value; } }
+	private bool _seesTarget = false;
+	public bool SeesTarget { set { _seesTarget = value; } }
+
+	private List<GameObject> _targets = new List<GameObject>();
+	public List<GameObject> Targets {
+		get { return _targets; }
+	}
+
 
 	private int _id;
 	public int Id {
@@ -164,7 +171,7 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 
 	private void sendUpdate () {
 		//TODO Make the state check easier!!!
-		EnemyState currState = _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_controlled ? EnemyState.Controlled : (_seesPlayer ? EnemyState.SeesPlayer : EnemyState.None)); 
+		EnemyState currState = _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_controlled ? EnemyState.Controlled : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None)); 
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, currState));
 	}
 
@@ -175,18 +182,33 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 			sendUpdate();
 		}
 
+		if (_controlled) {
+			_targets = _targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).ToList();
+		}
 
 		_fsm.Step();
 	}
 
 	private void control () {
 		_controlled = true;
-		Timers.CreateTimer("Turret Controll").SetTime(_controllTime).SetCallback(() => _controlled = false).Start();
+		//Timers.CreateTimer("Turret Controll").SetTime(_controllTime).SetCallback(() => _controlled = false).Start();
 		//TODO Switch to controlled state
 	}
 
 	private void disable () {
 		_fsm.SetState<TurretDisabledState>();
+	}
+
+	private void OnTriggerEnter (Collider other) {
+		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
+			_targets.Add(other.gameObject);
+		}
+	}
+
+	private void OnTriggerExit (Collider other) {
+		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
+			_targets.Remove(other.gameObject);
+		}
 	}
 
 #if UNITY_EDITOR

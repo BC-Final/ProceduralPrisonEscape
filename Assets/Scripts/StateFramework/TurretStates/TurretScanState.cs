@@ -37,7 +37,7 @@ namespace StateFramework {
 
 			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _turret.ScanRotaionSpeed;
 
-			_turret.SeesPlayer = false;
+			_turret.SeesTarget = false;
 
 			//TODO Replace with lerp
 			//_sequence.Append(_turret.Gun.DORotate(new Vector3(0.0f, 0.0f, 0.0f), 0.25f));
@@ -51,11 +51,11 @@ namespace StateFramework {
 		public override void Step () {
 			_scanTimer += Time.deltaTime;
 
-			if (_scanTimer >= _turret.ScanTime) {
+			if (_scanTimer >= _turret.ScanTime && !_turret.Controlled) {
 				_fsm.SetState<TurretHideState>();
 			}
 
-			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f)) {
+			if (canSeeObject(_player, _turret.transform, _turret.SeeRange, 360.0f) && !_turret.Controlled || getClosestSeeableObject(_turret.Targets.ToArray(), _turret.transform, _turret.SeeRange, 360.0f) != null && _turret.Controlled) {
 				_fsm.SetState<TurretEngageState>();
 			}
 

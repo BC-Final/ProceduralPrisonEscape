@@ -22,8 +22,7 @@ namespace StateFramework {
 		}
 
 		public override void Exit () {
-			//ShooterPackageSender.SendPackage(new CustomCommands.Update.EnableCamera(_camera.Id));
-			//_camera.GetComponentInChildren<Light>().intensity = _prevIntensity;
+			_camera.GetComponentInChildren<Light>().intensity = _prevIntensity;
 		}
 	}
 }
