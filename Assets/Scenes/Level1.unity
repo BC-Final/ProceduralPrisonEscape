@@ -18094,7 +18094,7 @@ Prefab:
     - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
         type: 2}
       propertyPath: _doors.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011546033156, guid: 107b6695c8a385541a050f1f940f9822, type: 2}
       propertyPath: m_LocalPosition.x
@@ -18169,7 +18169,27 @@ Prefab:
     - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
         type: 2}
       propertyPath: keyColor
-      value: 2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
+        type: 2}
+      propertyPath: keyColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
+        type: 2}
+      propertyPath: keyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
+        type: 2}
+      propertyPath: keyColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012335944678, guid: 107b6695c8a385541a050f1f940f9822,
+        type: 2}
+      propertyPath: keyColor.a
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 107b6695c8a385541a050f1f940f9822, type: 2}

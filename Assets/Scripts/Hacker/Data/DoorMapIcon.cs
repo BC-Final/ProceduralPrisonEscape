@@ -4,6 +4,9 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 public class DoorMapIcon : AbstractMapIcon {
+
+
+
 	public static void ProcessPacket (NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 
@@ -35,7 +38,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		_locked.OnValueChange += stateChanged;
 	}
 
-
+    private bool _keycardLocked = false;
 	private ObservedValue<bool> _open = new ObservedValue<bool>(false);
 	private ObservedValue<bool> _locked = new ObservedValue<bool>(false);
 
@@ -63,6 +66,11 @@ public class DoorMapIcon : AbstractMapIcon {
 
 		sendUpdate();
 	}
+
+    public void KeycardLock()
+    {
+
+    }
 
 	private void sendUpdate () {
 		HackerPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value, _locked.Value));

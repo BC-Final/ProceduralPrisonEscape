@@ -25,6 +25,28 @@ namespace NetworkPacket {
             }
 
         }
+        [System.Serializable]
+        public class KeyCard : AbstractPacket
+        {
+            public int ID;
+            public int[] intArray;
+            public Vector3 pos;
+            public float colorR;
+            public float colorG;
+            public float colorB;
+
+            public KeyCard(int pID, int[] pIntArray, Vector3 pPos, float pColorR, float pColorG, float pColorB)
+            {
+                ID = pID;
+                intArray = pIntArray;
+                pos = pPos;
+                colorR = pColorR;
+                colorG = pColorG;
+                colorB = pColorB;
+            }
+
+        }
+
     }
 	namespace Update {
 		[System.Serializable]
@@ -129,7 +151,19 @@ namespace NetworkPacket {
 				bytes = nBytes;
 			}
 		}
-	}
+
+        [System.Serializable]
+        public class Icon : AbstractPacket
+        {
+            public int ID;
+            public bool active;
+            public Icon(int pID, bool pActive)
+            {
+                ID = pID;
+                active = pActive;
+            }
+        }
+    }
 
 	namespace Message {
 		[System.Serializable]
