@@ -63,7 +63,7 @@ public class KeyCard : MonoBehaviour, IInteractable {
 		Destroy(gameObject);
 	}
 
-	public void SetDoors(List<ShooterDoor> pDoors) {
-		_doors = pDoors;
-	}
+	//public void SetDoors(List<ShooterDoor> pDoors) {
+	//	_doors = pDoors;
+	//}
 }
