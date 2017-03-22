@@ -170,5 +170,8 @@ namespace NetworkPacket {
 	namespace Message {
 		[System.Serializable]
 		public class DisconnectRequest : AbstractPacket { }
-	}
+
+        [System.Serializable]
+        public class CreationEnd : AbstractPacket { }
+    }
 }

@@ -70,6 +70,7 @@ public class DoorMapIcon : AbstractMapIcon {
     {
         _keycardLocked = true;
         _keyColor = nColor;
+        stateChanged();
     }
 
 	private void sendUpdate () {

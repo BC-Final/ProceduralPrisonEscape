@@ -42,6 +42,7 @@ public class KeycardMapIcon : AbstractMapIcon {
     private void SetKeyColor(Color nKeyColor)
     {
         _keyColor = nKeyColor;
+        changeColor(nKeyColor);
     }
 
     private void SetDoorArray(int[] nArray)
@@ -49,7 +50,7 @@ public class KeycardMapIcon : AbstractMapIcon {
         _doorList = new List<DoorMapIcon>();
         for(int i = 0; i<nArray.Length; i++)
         {
-            _doorList.Add(HackerPackageSender.GetNetworkedObject<DoorMapIcon>(nArray[Id]));
+            _doorList.Add(HackerPackageSender.GetNetworkedObject<DoorMapIcon>(nArray[i]));
         }
 
         foreach(DoorMapIcon d in _doorList)

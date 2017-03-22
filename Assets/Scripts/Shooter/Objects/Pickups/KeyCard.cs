@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Net.Sockets;
 
-public class KeyCard : MonoBehaviour, IInteractable {
+public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 	private static List<KeyCard> _keyCards = new List<KeyCard>();
 	public static List<KeyCard> GetKeyCardList() { return _keyCards; }
 
@@ -39,12 +39,13 @@ public class KeyCard : MonoBehaviour, IInteractable {
 	private void Awake() {
 		_keyCards.Add(this);
         gameObject.GetComponentInChildren<Renderer>().material.SetColor("_Color", keyColor);
-	}
+        ShooterPackageSender.RegisterNetworkObject(this);
+    }
 
 	private void OnDestroy() {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(_id, true));
 		_keyCards.Remove(this);
-		//ShooterPackageSender.UnregisterNetworkedObject(this);
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
 	private void Start() {
@@ -54,7 +55,7 @@ public class KeyCard : MonoBehaviour, IInteractable {
 	}
 
 	public void Interact() {
-		//FindObjectOfType<Inventory>().AddKeyCard(_doors);
+		FindObjectOfType<Inventory>().AddKeyCard(_doors);
 
 		FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickkeycard");
 		FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
