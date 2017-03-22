@@ -5,9 +5,6 @@ using UnityEngine.AI;
 
 namespace StateFramework {
 	public class DronePatrolState : AbstractDroneState {
-		private GameObject _player;
-		private NavMeshAgent _agent;
-
 		private float _seeTimer;
 
 		private int _currentWaypointIndex;
@@ -15,28 +12,39 @@ namespace StateFramework {
 
 		private float _normalStopDist;
 
-		public DronePatrolState (DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
-		}
+		public DronePatrolState (DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter () {
 			_seeTimer = 0.0f;
 
 			_currentWaypointIndex = _drone.Route.GetNearestWaypointIndex(_drone.transform.position);
-			_agent.SetDestination(_drone.Route.GetWaypoint(_currentWaypointIndex).transform.position);
+			_drone.Agent.SetDestination(_drone.Route.GetWaypoint(_currentWaypointIndex).transform.position);
 
-			_normalStopDist = _agent.stoppingDistance;
-			_agent.stoppingDistance = 0.5f;
+			_normalStopDist = _drone.Agent.stoppingDistance;
+			_drone.Agent.stoppingDistance = 0.5f;
 
-			_drone.SeesPlayer = false;
+			_drone.SeesTarget = false;
+			_drone.LastTarget = null;
 		}
 
 		public override void Step () {
-			//TODO This might be buggy
-			if (!_agent.pathPending) {
-				if (_agent.remainingDistance <= _agent.stoppingDistance) {
-					if (!_agent.hasPath || _agent.velocity.sqrMagnitude == 0f) {
+			GameObject target = Utilities.AI.GetClosestObjectInView(_drone.transform, _drone.PossibleTargets, _drone.Parameters.ViewRange, _drone.Parameters.ViewAngle, _drone.Parameters.AwarenessRange);
+
+			if (target != null) {
+				_seeTimer += Time.deltaTime;
+
+				if (_seeTimer > _drone.Parameters.IdleReactionTime) {
+					_fsm.SetState<DroneEngangeState>();
+				}
+			} else {
+				_seeTimer = Mathf.Max(_seeTimer - Time.deltaTime, 0.0f);
+			}
+
+
+			//TODO This waypoint finding might be very buggy
+			if (!_drone.Agent.pathPending) {
+				if (_drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance) {
+					if (!_drone.Agent.hasPath || _drone.Agent.velocity.sqrMagnitude == 0f) {
 						if (_reverse) {
 							_currentWaypointIndex--;
 						} else {
@@ -52,40 +60,30 @@ namespace StateFramework {
 							}
 						} else if (_currentWaypointIndex < 0) {
 							if (_drone.Route.Looping) {
-								_currentWaypointIndex = _drone.Route.WaypointCount() -1 ;
+								_currentWaypointIndex = _drone.Route.WaypointCount() - 1;
 							} else {
 								_reverse = false;
 								_currentWaypointIndex += 2;
 							}
 						}
 
-						_agent.SetDestination(_drone.Route.GetWaypoint(_currentWaypointIndex).transform.position);
+						_drone.Agent.SetDestination(_drone.Route.GetWaypoint(_currentWaypointIndex).transform.position);
 					}
 				}
-			}
-
-
-			if (canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) || Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius) {
-				_seeTimer += Time.deltaTime;
-
-				if (_seeTimer > _drone.IdleReactionTime) {
-					_fsm.SetState<DroneEngangeState>();
-				}
-			} else {
-				_seeTimer = 0.0f;
-			}
-
-			if (Vector3.Distance(_drone.transform.position, _player.transform.position) > _drone.QuitIdleRange) {
-				_fsm.SetState<DroneIdleState>();
 			}
 		}
 
 		public override void Exit () {
-			_agent.stoppingDistance = _normalStopDist;
+			_drone.Agent.stoppingDistance = _normalStopDist;
 		}
 
-		public override void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			_fsm.SetState<DroneFollowState>();
+		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			if (pSender != null && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction)) {
+				_drone.LastTarget = pSender.GameObject;
+				_fsm.SetState<DroneFollowState>();
+			} else if (pSender == null) {
+				_fsm.SetState<DroneSearchState>();
+			}
 		}
 	}
 }

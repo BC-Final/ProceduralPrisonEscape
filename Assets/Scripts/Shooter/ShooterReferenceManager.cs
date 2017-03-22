@@ -15,4 +15,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	public GameObject BulletHole;
 	public GameObject LaserShot;
 	public GameObject BulletTracer;
+
+	[Header("Other Prefabs")]
+	public GameObject ExplodingDrone;
 }

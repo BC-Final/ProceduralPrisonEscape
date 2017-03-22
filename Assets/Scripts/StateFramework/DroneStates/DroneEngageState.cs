@@ -3,43 +3,45 @@ using System.Collections;
 
 namespace StateFramework {
 	public class DroneEngangeState : AbstractDroneState {
-		private GameObject _player;
-		private GameObject _droneModel;
-		private UnityEngine.AI.NavMeshAgent _agent;
-
 		private float _nextPathTick;
 
-		public DroneEngangeState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
-			_droneModel = _drone.transform.GetChild(0).gameObject;
-			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
-		}
+		public DroneEngangeState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
 			_nextPathTick = 0.0f;
-
-			_drone.SeesPlayer = true;
+			_drone.SeesTarget = true;
 		}
 
 		public override void Step() {
-			rotateTowards(_droneModel, _player.transform);
+			GameObject target = Utilities.AI.GetClosestObjectInView(_drone.transform, _drone.PossibleTargets, _drone.Parameters.ViewRange, _drone.Parameters.ViewAngle, _drone.Parameters.AwarenessRange);
 
-			if (_nextPathTick - Time.time <= 0.0f) {
-				_nextPathTick = Time.time + _drone.PathTickRate;
-				_agent.SetDestination(_player.transform.position);
-			}
+			if (target != null) {
+				_drone.LastTarget = target;
 
-			if (canSeeObject(_player, _drone.LookPos, _drone.AttackRange, _drone.SeeAngle)) {
-				_fsm.SetState<DroneAttackState>();
-			}
+				rotateTowards(_drone.Model.gameObject, target.transform);
 
-			if(!canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) && !(Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius)) {
+				if (Utilities.AI.ObjectInView(_drone.transform, target.transform, _drone.Parameters.AttackRange, _drone.Parameters.AttackAngle)) {
+					_fsm.SetState<DroneAttackState>();
+				}
+
+				rotateTowards(_drone.Model.gameObject, target.transform);
+
+				if (_nextPathTick - Time.time <= 0.0f) {
+					_nextPathTick = Time.time + 1.0f / _drone.Parameters.PathTickRate;
+					_drone.Agent.SetDestination(target.transform.position);
+				}
+			} else {
 				_fsm.SetState<DroneFollowState>();
 			}
 		}
 
-		public override void Exit() {
+		public override void Exit() { }
 
+		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			if (pSender != null && pSender.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, pSender.GameObject)) {
+				_drone.LastTarget = pSender.GameObject;
+				_fsm.SetState<DroneFollowState>();
+			}
 		}
 	}
 }

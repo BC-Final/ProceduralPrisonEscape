@@ -3,36 +3,29 @@ using System.Collections;
 
 namespace StateFramework {
 	public class DroneDeadState : AbstractDroneState {
-		private UnityEngine.AI.NavMeshAgent _agent;
-
-
-		public DroneDeadState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
-		}
+		public DroneDeadState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
+			_drone.SeesTarget = false;
+			_drone.Agent.enabled = false;
+			_drone.LastTarget = null;
+			_drone.gameObject.SetActive(false);
 
-			_agent.enabled = false;
+			//Collider[] coll = _drone.GetComponentsInChildren<Collider>();
 
-			_drone.SeesPlayer = false;
-
-			//GameObject.Instantiate(_drone.DroneExplode, _drone.transform.position, _drone.transform.rotation);
-
-			//GameObject.Destroy(_drone.gameObject);
+			//foreach (Collider c in coll) {
+			//	c.enabled = false;
+			//}
 		}
 
-		public override void Step() {
-			//TODO Despawn after some time
-		}
+		public override void Step() { }
 
-		public override void Exit() {
+		public override void Exit() { }
 
-		}
-
-		public override void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			GameObject go = GameObject.Instantiate(_drone.DroneExplode, _drone.transform.position, _drone.transform.rotation);
+		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			GameObject go = GameObject.Instantiate(ShooterReferenceManager.Instance.ExplodingDrone, _drone.transform.position, _drone.transform.rotation);
 			go.GetComponent<ExplodeDrone>().SetImpact(pPoint, pDirection, pDamage);
-			GameObject.Destroy(_drone.gameObject);
+			GameObject.Destroy(_drone.gameObject, 0.25f);
 		}
 	}
 }

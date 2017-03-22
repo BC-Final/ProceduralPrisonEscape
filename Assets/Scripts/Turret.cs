@@ -4,9 +4,14 @@ using UnityEngine;
 using StateFramework;
 using System.Linq;
 
-public class Turret : MonoBehaviour, IShooterNetworked {
-	//TODO Put into scriptable object
+[SelectionBase]
+public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
+	[SerializeField]
+	private TurretParameters _parameters;
+	public TurretParameters Parameters { get { return _parameters; } }
 
+
+	[Header("References")]
 	[SerializeField]
 	private Transform _rotaryBase;
 	public Transform RotaryBase { get { return _rotaryBase; } }
@@ -16,101 +21,57 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	public Transform Gun { get { return _gun; } }
 
 	[SerializeField]
-	private float _seeRange;
-	public float SeeRange { get { return _seeRange; } }
-
-	[SerializeField]
-	private float _attackRange;
-	public float AttackRange { get { return _attackRange; } }
-
-	[SerializeField]
-	private float _attackAngle;
-	public float AttackAngle { get { return _attackAngle; } }
-
-	[SerializeField]
-	private float _fireRate;
-	public float FireRate { get { return _fireRate; } }
-
-	[SerializeField]
-	private float _damage;
-	public float Damage { get { return _damage; } }
-
-	[SerializeField]
-	private float _deployTime;
-	public float DeployTime { get { return _deployTime; } }
-
-	[SerializeField]
-	private float _scanTime;
-	public float ScanTime { get { return _scanTime; } }
-
-	[SerializeField]
-	private float _spreadConeLength;
-	public float SpreadConeLength { get { return _spreadConeLength; } }
-
-	[SerializeField]
-	private float _spreadConeRadius;
-	public float SpreadConeRadius { get { return _spreadConeRadius; } }
-
-	[SerializeField]
-	private float _deployedReactionTime;
-	public float DeployedReactionTime { get { return _deployedReactionTime; } }
-
-	[SerializeField]
-	private float _horizontalRotationSpeed;
-	public float HorizontalRotationSpeed { get { return _horizontalRotationSpeed; } }
-
-	[SerializeField]
-	private float _verticalRotationSpeed;
-	public float VerticalRotationSpeed { get { return _verticalRotationSpeed; } }
-
-	[SerializeField]
-	private float _quitIdleRange;
-	public float QuitIdleRange { get { return _quitIdleRange; } }
-
-	[SerializeField]
-	private float _scanRotationSpeed;
-	public float ScanRotaionSpeed { get { return _scanRotationSpeed; } }
-
-	[SerializeField]
-	private float _scanRotationAngle;
-	public float ScanRotationAngle { get { return _scanRotationAngle; } }
-
-
-	[SerializeField]
-	private bool _visualizeView;
-
-	[SerializeField]
-	private float _disabledTime = 5.0f;
-	public float DisabledTime { get { return _disabledTime; } }
-
-	[SerializeField]
 	private Transform _shootPos;
 	public Transform ShootPos { get { return _shootPos; } }
 
 	[SerializeField]
-	private float _maxGunRotation;
-	public float MaxGunRotation { get { return _maxGunRotation; } }
+	private SphereCollider _viewTrigger;
 
+
+
+	[Header("Debug")]
 	[SerializeField]
-	private float _positionSendRate = 0.5f;
-	private float _positionSendTimer = 0.0f;
+	private bool _visualizeView;
+
+
 
 	private StateMachine<AbstractTurretState> _fsm;
 
-	[SerializeField]
-	private float _controllTime = 10.0f;
+	private Timers.Timer _networkUpdateTimer;
 
-	private bool _controlled = false;
-	public bool Controlled { get { return _controlled; } }
+	[SerializeField]
+	private Faction _faction = Faction.Prison;
+	public Faction Faction { get { return _faction; } }
 
 	private bool _seesTarget = false;
 	public bool SeesTarget { set { _seesTarget = value; } }
 
-	private List<GameObject> _targets = new List<GameObject>();
-	public GameObject[] Targets {
-		get { return _targets.ToArray(); }
+	private List<IDamageable> _possibleTargets = new List<IDamageable>();
+	public Transform[] PossibleTargets {
+		get {
+			return _possibleTargets.FindAll(x => x.Faction != _faction).Select(x => x.GameObject.transform).ToArray();
+		}
 	}
 
+
+	private System.Action<GameObject> _destroyEvent;
+
+	public void AddToDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent += pObject;
+	}
+
+	public void RemoveFromDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent -= pObject;
+	}
+
+	public GameObject GameObject { get { return gameObject; } }
+
+	[SerializeField]
+	private GameObject _lastTarget;
+	public GameObject LastTarget {
+		get { return _lastTarget; }
+		set { _lastTarget = value; }
+	}
 
 	private int _id;
 	public int Id {
@@ -141,7 +102,7 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		sendUpdate();
+		_networkUpdateTimer = Timers.CreateTimer("Turret Network Update").SetTime(_parameters.NetworkUpdateRate).SetLoop(-1).SetCallback(() => sendUpdate()).Start();
 	}
 
 	private void Awake () {
@@ -149,14 +110,32 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void OnDestroy () {
+		if (_networkUpdateTimer != null) {
+			_networkUpdateTimer.Stop();
+			sendUpdate();
+		}
+
 		ShooterPackageSender.UnregisterNetworkedObject(this);
+	}
+
+	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+		//if (_currentHealth > 0.0f) {
+		//	_currentHealth -= pDamage;
+
+			//if (_currentHealth <= 0.0f) {
+			//	if (_destroyEvent != null) {
+			//		_destroyEvent.Invoke(gameObject);
+			//	}
+			//}
+
+			_fsm.GetState().ReceiveDamage (pSender, pDirection, pPoint, pDamage);
+		//}
 	}
 
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractTurretState>();
 
-		_fsm.AddState(new TurretIdleState(this, _fsm));
 		_fsm.AddState(new TurretGuardState(this, _fsm));
 		_fsm.AddState(new TurretDeployState(this, _fsm));
 		_fsm.AddState(new TurretEngageState(this, _fsm));
@@ -164,43 +143,33 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 		_fsm.AddState(new TurretScanState(this, _fsm));
 		_fsm.AddState(new TurretHideState(this, _fsm));
 		_fsm.AddState(new TurretDisabledState(this, _fsm));
-		//TODO Add Controlled state
 
-		_fsm.SetState<TurretIdleState>();
+		_fsm.SetState<TurretGuardState>();
 
-		SphereCollider[] sc = GetComponentsInChildren<SphereCollider>();
-
-		foreach (SphereCollider s in sc) {
-			if (s.gameObject.layer == LayerMask.NameToLayer("InteractionTrigger")) {
-				s.radius = _seeRange;
-			}
-		}
+		_viewTrigger.radius = _parameters.ViewRange;
 	}
 
 	private void sendUpdate () {
-		//TODO Make the state check easier!!!
-		EnemyState currState = _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_controlled ? EnemyState.Controlled : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None)); 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, currState));
+		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, state));
 	}
 
-	private void Update () {
-		//HACK Remove this later
-		if (_positionSendTimer - Time.time <= 0.0f) {
-			_positionSendTimer = Time.time + _positionSendRate;
-			sendUpdate();
-		}
+	[SerializeField]
+	private string CurrentState;
 
-		if (_controlled) {
-			_targets = _targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).ToList();
-		}
+	private void Update () {
+		CurrentState = _fsm.GetState().GetType().Name;
+		//if (_controlled) {
+		//	_targets = _targets.OrderBy(x => Vector3.Distance(transform.position, x.transform.position)).ToList();
+		//}
 
 		_fsm.Step();
 	}
 
 	private void control () {
-		_controlled = true;
-		//Timers.CreateTimer("Turret Controll").SetTime(_controllTime).SetCallback(() => _controlled = false).Start();
-		//TODO Switch to controlled state
+		_faction = Faction.Player;
+		Timers.CreateTimer("Turret Controlled").SetTime(_parameters.ControllDuration).SetCallback(() => _faction = Faction.Prison).Start();
 	}
 
 	private void disable () {
@@ -208,17 +177,26 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void OnTriggerEnter (Collider other) {
-		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
-			Debug.Log("Added");
-			//HACK
-			_targets.Add(other.GetComponentInParent<DroneEnemy>().gameObject);
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.AddToDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.Add(d);
 		}
 	}
 
 	private void OnTriggerExit (Collider other) {
-		if (other.GetComponentInParent<IDamageable>() != null && other.GetComponentInParent<PlayerHealth>() == null) {
-			Debug.Log("Removed");
-			_targets.RemoveAll(x => x == other.GetComponentInParent<DroneEnemy>().gameObject);
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.RemoveAll(x => x.GameObject == d.GameObject);
+		}
+	}
+
+	private void onTargetDestroyed (GameObject pObject) {
+		if (pObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			_possibleTargets.RemoveAll(x => x.GameObject == pObject);
 		}
 	}
 
@@ -228,14 +206,14 @@ public class Turret : MonoBehaviour, IShooterNetworked {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
-			UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _seeRange);
+			UnityEditor.Handles.DrawWireDisc(transform.position, -transform.up, _parameters.ViewRange);
 
-			if (_attackAngle < 360.0f) {
-				Gizmos.DrawLine(_shootPos.position, _shootPos.position + Quaternion.Euler(_shootPos.TransformDirection(0f, -(_attackAngle / 2f), 0f)) * (_shootPos.forward * _attackRange));
-				Gizmos.DrawLine(_shootPos.position, _shootPos.position + Quaternion.Euler(_shootPos.TransformDirection(0f, (_attackAngle / 2f), 0f)) * (_shootPos.forward * _attackRange));
-				UnityEditor.Handles.DrawWireArc(_shootPos.position, -_shootPos.up, Quaternion.Euler(_shootPos.TransformDirection(0f, _attackAngle / 2f, 0f)) * (_shootPos.forward * _seeRange), _attackAngle, _attackRange);
+			if (_parameters.AttackAngle < 360.0f) {
+				Gizmos.DrawLine(_shootPos.position, _shootPos.position + Quaternion.Euler(_shootPos.TransformDirection(0f, -(_parameters.AttackAngle / 2f), 0f)) * (_shootPos.forward * _parameters.AttackRange));
+				Gizmos.DrawLine(_shootPos.position, _shootPos.position + Quaternion.Euler(_shootPos.TransformDirection(0f, (_parameters.AttackAngle / 2f), 0f)) * (_shootPos.forward * _parameters.AttackRange));
+				UnityEditor.Handles.DrawWireArc(_shootPos.position, -_shootPos.up, Quaternion.Euler(_shootPos.TransformDirection(0f, _parameters.AttackAngle / 2f, 0f)) * (_shootPos.forward * _parameters.ViewRange), _parameters.AttackAngle, _parameters.AttackRange);
 			} else {
-				UnityEditor.Handles.DrawWireDisc(_shootPos.position, -_shootPos.up, _attackRange);
+				UnityEditor.Handles.DrawWireDisc(_shootPos.position, -_shootPos.up, _parameters.AttackRange);
 			}
 		}
 	}

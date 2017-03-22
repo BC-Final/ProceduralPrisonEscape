@@ -4,116 +4,102 @@ using System.Collections.Generic;
 using StateFramework;
 using System.Net.Sockets;
 using UnityEngine.AI;
+using System.Linq;
 
+[SelectionBase]
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	[SerializeField]
-	private float _maxHealth;
-	private float _currentHealth;
+	private DroneParameters _parameters;
+	public DroneParameters Parameters { get { return _parameters; } }
 
-	[SerializeField]
-	private float _attackDamage;
-	public float AttackDamage { get { return _attackDamage; } }
 
-	[SerializeField]
-	private float _attackRange;
-	public float AttackRange { get { return _attackRange; } }
-
-	[SerializeField]
-	private float _attackRate;
-	public float AttackRate { get { return _attackRate; } }
-
-	[SerializeField]
-	private float _seeRange;
-	public float SeeRange { get { return _seeRange; } }
-
-	[SerializeField]
-	private float _seeAngle;
-	public float SeeAngle { get { return _seeAngle; } }
-
-	[SerializeField]
-	private float _quitIdleRange;
-	public float QuitIdleRange { get { return _quitIdleRange; } }
-
-	[SerializeField]
-	private float _pathTickRate;
-	public float PathTickRate { get { return _pathTickRate; } }
-
-	[SerializeField]
-	private bool _visualizeHits;
-
-	[SerializeField]
-	private bool _visualizeView;
-
-	[SerializeField]
-	private float _idleReactionTime;
-	public float IdleReactionTime { get { return _idleReactionTime; } }
-
-	[SerializeField]
-	private float _alarmedReactionTime;
-	public float AlarmedReactionTime { get { return _alarmedReactionTime; } }
-
-	[SerializeField]
-	private int _searchCount;
-	public int SearchCount { get { return _searchCount; } }
-
-	[SerializeField]
-	private float _searchRadius;
-	public float SearchRadius { get { return _searchRadius; } }
-
-	[SerializeField]
-	private float _rotationSpeed;
-	public float RotationSpeed { get { return _rotationSpeed; } }
-
-	[SerializeField]
-	private float _awarenessRadius;
-	public float AwarenessRadius { get { return _awarenessRadius; } }
-
-	[SerializeField]
-	private float _postionUpdateRate = 0.5f;
-	private float _positionSendTimer;
 
 	[SerializeField]
 	private PatrolRoute _route;
 	public PatrolRoute Route { get { return _route; } }
 
+
+
+	[Header("References")]
 	[SerializeField]
-	private Transform _lookPos;
-	public Transform LookPos { get { return _lookPos; } }
+	private Transform _viewTransform;
+	public Transform ViewTransform { get { return _viewTransform; } }
+
+	[SerializeField]
+	private Transform _shotTransform;
+	public Transform ShotTransform { get { return _shotTransform; } }
 
 	[SerializeField]
 	private Transform _model;
 	public Transform Model { get { return _model; } }
 
 	[SerializeField]
-	private GameObject _droneExplode;
-	public GameObject DroneExplode { get { return _droneExplode; } }
-
-	private bool _chase = false;
-	public bool Chase { get { return _chase; } }
-
-	//TODO Add Attackangle
+	private SphereCollider _viewTrigger;
 
 	[SerializeField]
-	private eAttackType _attackType;
-	public eAttackType AttackType { get { return _attackType; } }
-	public enum eAttackType {
-		Ranged,
-		Melee
+	private GameObject _explodingDrone;
+	public GameObject ExplodingDrone { get { return _explodingDrone; } }
+
+
+
+	[Header("Debug")]
+	[SerializeField]
+	private bool _visualizeView;
+
+	[SerializeField]
+	private bool _visualizeHits;
+
+
+
+	private float _currentHealth;
+
+	private bool _seesTarget;
+	public bool SeesTarget { set { _seesTarget = value; } }
+
+	private StateFramework.StateMachine<AbstractDroneState> _fsm;
+
+	private Faction _faction = Faction.Prison;
+	public Faction Faction { get { return _faction; } }
+
+	private NavMeshAgent _agent;
+	public NavMeshAgent Agent { get { return _agent; } }
+
+	private Timers.Timer _networkUpdateTimer;
+
+	private List<IDamageable> _possibleTargets = new List<IDamageable>();
+	public Transform[] PossibleTargets {
+		get {
+			return _possibleTargets.FindAll(x => x.Faction != _faction).Select(x => x.GameObject.transform).ToArray();
+		}
 	}
 
-	[SerializeField]
-	private float _spreadConeLength;
-	public float SpreadConeLength { get { return _spreadConeLength; } }
+
+
+	private System.Action<GameObject> _destroyEvent;
+
+	public void AddToDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent += pObject;
+	}
+
+	public void RemoveFromDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent -= pObject;
+	}
+
+
+
+	public GameObject GameObject { get { return gameObject; } }
 
 	[SerializeField]
-	private float _spreadConeRadius;
-	public float SpreadConeRadius { get { return _spreadConeRadius; } }
+	private GameObject _lastTarget;
+	public GameObject LastTarget {
+		get { return _lastTarget; }
+		set { _lastTarget = value; }
+	}
 
-	private bool _seesPlayer = false;
-	public bool SeesPlayer { set { _seesPlayer = value; } }
-
-	private StateMachine<AbstractDroneState> _fsm;
+	//private bool _chase = false;
+	//public bool Chase { get { return _chase; } }
+	//private FMOD.Studio.EventInstance _hoverSound;
 
 	private int _id;
 	public int Id {
@@ -126,29 +112,38 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 		}
 	}
 
-	private NavMeshAgent _agent;
 
-	private FMOD.Studio.EventInstance _hoverSound;
+	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
+		//TODO Implement
+	}
+
 
 	public void Initialize () {
-		sendUpdate();
+		_networkUpdateTimer = Timers.CreateTimer("Drone Network Update").SetTime(_parameters.NetworkUpdateRate).SetLoop(-1).SetCallback(() => sendUpdate()).Start();
 	}
+
+
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
+
+
 	private void OnDestroy () {
-		sendUpdate();
+		if (_networkUpdateTimer != null) {
+			_networkUpdateTimer.Stop();
+			sendUpdate();
+		}
+
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	//TODO Create scriptable object for different AI types
+
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractDroneState>();
 
-		_fsm.AddState(new DroneIdleState(this, _fsm));
 		_fsm.AddState(new DroneGuardState(this, _fsm));
 		_fsm.AddState(new DronePatrolState(this, _fsm));
 		_fsm.AddState(new DroneEngangeState(this, _fsm));
@@ -157,68 +152,111 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 		_fsm.AddState(new DroneSearchState(this, _fsm));
 		_fsm.AddState(new DroneReturnState(this, _fsm));
 		_fsm.AddState(new DroneAttackState(this, _fsm));
-		//TODO Add controlled states
-		//TODO Add stunned state
+		_fsm.AddState(new DroneStunnedState(this, _fsm));
 
 		_agent = GetComponent<NavMeshAgent>();
 
-		_currentHealth = _maxHealth;
+		_currentHealth = _parameters.MaximumHealth;
 
-		if (_chase) {
-			_fsm.SetState<DroneFollowState>();
+		_viewTrigger.radius = _parameters.ViewRange;
+
+		//_hoverSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_drone/PE_drone_engine");
+		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_hoverSound, transform, GetComponent<Rigidbody>());
+		//_hoverSound.start();
+
+		if (_route != null) {
+			_fsm.SetState<DronePatrolState>();
 		} else {
-			_fsm.SetState<DroneIdleState>();
+			_fsm.SetState<DroneGuardState>();
 		}
 
-
-		_hoverSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_drone/PE_drone_engine");
-		FMODUnity.RuntimeManager.AttachInstanceToGameObject(_hoverSound, transform, GetComponent<Rigidbody>());
-		_hoverSound.start();
+		//if (_chase) {
+		//	_fsm.SetState<DroneFollowState>();
+		//} else {
+		//	_fsm.SetState<DroneIdleState>();
+		//}
 	}
 
-	public void SetTarget () {
-		_chase = true;
-	}
+
 
 	private void sendUpdate () {
-		//TODO Include all drone states
-		EnemyState currState = _seesPlayer ? EnemyState.SeesPlayer : EnemyState.None;
+		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is DroneStunnedState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _maxHealth, currState));
+		Debug.Log(state.ToString());
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
 	}
 
-	private void Update () {
-		//HACK Remove this later
-		if (_positionSendTimer - Time.time <= 0.0f) {
-			_positionSendTimer = Time.time + _postionUpdateRate;
-			sendUpdate();
-		}
+	[SerializeField]
+	private string CurrentState;
 
-		if (_agent.velocity.magnitude > 0.3f) {
-			_hoverSound.setParameterValue("p_drone_move", 1.0f);
-		} else {
-			_hoverSound.setParameterValue("p_drone_move", 0.0f);
-		}
+	private void Update () {
+		CurrentState = _fsm.GetState().GetType().Name;
+
+		//		if (_agent.velocity.magnitude > 0.3f) {
+		//			_hoverSound.setParameterValue("p_drone_move", 1.0f);
+		//		} else {
+		//			_hoverSound.setParameterValue("p_drone_move", 0.0f);
+		//		}
+
+		_possibleTargets.OrderBy(x => Vector3.Distance(x.GameObject.transform.position, transform.position));
 
 		_fsm.Step();
 	}
 
-	public void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
+
+
+	private void OnTriggerEnter (Collider other) {
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.AddToDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.Add(d);
+		}
+	}
+
+
+
+	private void OnTriggerExit (Collider other) {
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.RemoveAll(x => x.GameObject == d.GameObject);
+		}
+	}
+
+	private void onTargetDestroyed (GameObject pObject) {
+		if (pObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			_possibleTargets.RemoveAll(x => x.GameObject == pObject);
+		}
+	}
+
+
+
+	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
 		if (_currentHealth > 0.0f) {
 			_currentHealth -= pDamage;
+
+			//_lastTarget = pSender.GameObject;
+
+			if (_currentHealth <= 0.0f) {
+				//_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+				if (_destroyEvent != null) {
+					_destroyEvent.Invoke(gameObject);
+				}
+				
+				_fsm.SetState<DroneDeadState>();
+			}
+
+			_fsm.GetState().ReceiveDamage(pSender, pDirection, pPoint, pDamage);
 
 #if UNITY_EDITOR
 			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
 #endif
-
-			if (_currentHealth <= 0.0f) {
-				_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-				_fsm.SetState<DroneDeadState>();
-			}
-
-			_fsm.GetState().ReceiveDamage(pDirection, pPoint, pDamage);
 		}
 	}
+
 
 
 #if UNITY_EDITOR
@@ -249,27 +287,27 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
-			UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _awarenessRadius);
-			UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.right, _awarenessRadius);
-			UnityEditor.Handles.DrawWireDisc(_lookPos.position, (_lookPos.right + _lookPos.up).normalized, _awarenessRadius);
-			UnityEditor.Handles.DrawWireDisc(_lookPos.position, (_lookPos.right - _lookPos.up).normalized, _awarenessRadius);
+			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AwarenessRange);
+			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.right, _parameters.AwarenessRange);
+			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right + _viewTransform.up).normalized, _parameters.AwarenessRange);
+			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right - _viewTransform.up).normalized, _parameters.AwarenessRange);
 
-			if (_seeAngle < 360f) {
-				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
-				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
+			if (_parameters.ViewAngle < 360f) {
+				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
 
-				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange)));
-				Gizmos.DrawLine(_lookPos.position, _lookPos.TransformPoint(Quaternion.Euler(-(_seeAngle / 2f), 0f, 0f) * (Vector3.forward * _seeRange)));
+				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
 
 
-				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.up, _lookPos.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
-				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.up, _lookPos.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
+				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
 
-				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.right, _lookPos.TransformDirection(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
-				UnityEditor.Handles.DrawWireArc(_lookPos.position, -_lookPos.right, _lookPos.TransformDirection(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _attackRange);
+				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
 			} else {
-				UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _seeRange);
-				UnityEditor.Handles.DrawWireDisc(_lookPos.position, -_lookPos.up, _attackRange);
+				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.ViewRange);
+				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AttackRange);
 			}
 		}
 	}

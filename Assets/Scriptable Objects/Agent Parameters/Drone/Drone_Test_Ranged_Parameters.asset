@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 970d1276c9086e943b14b8e14f6a5a1f, type: 3}
+  m_Name: Drone_Test_Ranged_Parameters
+  m_EditorClassIdentifier: 
+  AttackType: 0
+  AttackDamage: 10
+  AttackRange: 10
+  AttackRate: 0.2
+  AttackAngle: 90
+  SpreadConeLength: 10
+  SpreadConeRadius: 3
+  AwarenessRange: 3
+  ViewRange: 15
+  ViewAngle: 120
+  MaximumHealth: 250
+  PathTickRate: 4
+  IdleReactionTime: 0.4
+  AlertReactionTime: 0.25
+  SearchProbeCount: 3
+  SearchProbeRadius: 15
+  RotationSpeed: 10
+  NetworkUpdateRate: 0.2
+  StunDuration: 4

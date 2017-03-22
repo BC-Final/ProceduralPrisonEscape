@@ -15,16 +15,17 @@ namespace StateFramework {
 		public override void Step () { }
 		public override void Exit () { }
 
-		public virtual void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) { }
+		public virtual void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) { }
 
+		//TODO Move to AI Utilites
 		protected void rotateTowards (GameObject pDroneModel, Transform pTarget) {
 			Vector3 mdlDirection = (new Vector3(pTarget.position.x, pTarget.position.y, pTarget.position.z) - pDroneModel.transform.position).normalized;
 			Quaternion mdlLookRotation = Quaternion.LookRotation(mdlDirection);
-			pDroneModel.transform.rotation = Quaternion.Slerp(pDroneModel.transform.rotation, mdlLookRotation, Time.deltaTime * _drone.RotationSpeed);
+			pDroneModel.transform.rotation = Quaternion.Slerp(pDroneModel.transform.rotation, mdlLookRotation, Time.deltaTime * _drone.Parameters.RotationSpeed);
 
 			Vector3 direction = (new Vector3(pTarget.position.x, _drone.transform.position.y, pTarget.position.z) - _drone.transform.position).normalized;
 			Quaternion lookRotation = Quaternion.LookRotation(direction);
-			_drone.transform.rotation = Quaternion.Slerp(_drone.transform.rotation, lookRotation, Time.deltaTime * _drone.RotationSpeed);
+			_drone.transform.rotation = Quaternion.Slerp(_drone.transform.rotation, lookRotation, Time.deltaTime * _drone.Parameters.RotationSpeed);
 		}
 	}
 }

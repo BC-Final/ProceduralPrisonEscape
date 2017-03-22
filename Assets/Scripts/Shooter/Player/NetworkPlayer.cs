@@ -83,7 +83,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 		_playerHealth = FindObjectOfType<PlayerHealth>();
 
 		_updateTimer = Timers.CreateTimer("Player Online Update")
-		.SetTime(1.0f / _transformUpdateInterval)
+		.SetTime(_transformUpdateInterval)
 		.SetLoop(-1)
 		.UseRealTime(true)
 		.SetCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))

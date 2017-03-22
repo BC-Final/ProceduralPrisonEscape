@@ -5,44 +5,40 @@ namespace StateFramework {
 	public class DroneSearchState : AbstractDroneState {
 
 		private int _searchCounter;
-
-		private GameObject _player;
-		private UnityEngine.AI.NavMeshAgent _agent;
-
 		private float _seeTimer;
 
-		public DroneSearchState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
-			_agent = _drone.GetComponent<UnityEngine.AI.NavMeshAgent>();
-		}
+		public DroneSearchState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
-			_searchCounter = _drone.SearchCount;
+			_searchCounter = _drone.Parameters.SearchProbeCount;
+			_drone.SeesTarget = false;
 			_seeTimer = 0.0f;
-
-			_drone.SeesPlayer = true;
 		}
 
-		//TODO Make the direction to choose more intelligent
-		public override void Step() {
-			if (canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) || Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius) {
+		//TODO Make the drone searching state a little bit smarter
+		public override void Step () {
+			GameObject target = Utilities.AI.GetClosestObjectInView(_drone.transform, _drone.PossibleTargets, _drone.Parameters.ViewRange, _drone.Parameters.ViewAngle, _drone.Parameters.AwarenessRange);
+
+			if (target != null) {
 				_seeTimer += Time.deltaTime;
 
-				if (_seeTimer > _drone.IdleReactionTime) {
+				if (_seeTimer > _drone.Parameters.AlertReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+
 			} else {
 				_seeTimer = 0.0f;
 			}
 
-			if (!_agent.hasPath || _agent.remainingDistance <= _agent.stoppingDistance) {
+
+			if (!_drone.Agent.hasPath || _drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance) {
 				if (_searchCounter > 0) {
 					_searchCounter--;
-					Vector3 randomDir = Random.insideUnitSphere * _drone.SearchRadius;
+					Vector3 randomDir = Random.insideUnitSphere * _drone.Parameters.SearchProbeRadius;
 					randomDir += _drone.transform.position;
 					UnityEngine.AI.NavMeshHit hit;
-					UnityEngine.AI.NavMesh.SamplePosition(randomDir, out hit, _drone.SearchRadius, 1);
-					_agent.SetDestination(hit.position);
+					UnityEngine.AI.NavMesh.SamplePosition(randomDir, out hit, _drone.Parameters.SearchProbeRadius, 1);
+					_drone.Agent.SetDestination(hit.position);
 				} else {
 					if (_drone.Route == null) {
 						_fsm.SetState<DroneReturnState>();
@@ -53,12 +49,15 @@ namespace StateFramework {
 			}
 		}
 
-		public override void Exit() {
+		public override void Exit() { }
 
-		}
-
-		public override void ReceiveDamage (Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			_fsm.SetState<DroneFollowState>();
+		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			if (pSender != null && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction)) {
+				_drone.LastTarget = pSender.GameObject;
+				_fsm.SetState<DroneFollowState>();
+			} else if (pSender == null) {
+				_fsm.SetState<DroneSearchState>();
+			}
 		}
 	}
 }

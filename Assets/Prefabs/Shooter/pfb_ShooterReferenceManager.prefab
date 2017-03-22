@@ -16,10 +16,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011459029910}
-  - 114: {fileID: 114000012400083112}
+  - component: {fileID: 4000011459029910}
+  - component: {fileID: 114000012400083112}
   m_Layer: 0
   m_Name: pfb_ShooterReferenceManager
   m_TagString: Untagged
@@ -36,10 +36,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.031002, y: 27.321705, z: -30.939922}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012400083112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -60,4 +60,6 @@ MonoBehaviour:
   BulletHole: {fileID: 136708, guid: d0e96ed5964f8a042a2340fa1839219a, type: 2}
   LaserShot: {fileID: 1000013587672668, guid: da317870c2f456445b42b3798736765b, type: 2}
   BulletTracer: {fileID: 1000014066846422, guid: 8ef93257659e27c4ba73d3613d1c9dab,
+    type: 2}
+  ExplodingDrone: {fileID: 1383778363432852, guid: c682ef7adc874664db21a5694c0d5892,
     type: 2}

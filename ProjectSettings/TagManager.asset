@@ -22,10 +22,10 @@ TagManager:
   - Player
   - NoPlayerCollide
   - Terrain
-  - InteractionTrigger
-  - 
-  - 
-  - 
+  - RangeTrigger
+  - RayTrigger
+  - MeshCollider
+  - Environment
   - 
   - 
   - 

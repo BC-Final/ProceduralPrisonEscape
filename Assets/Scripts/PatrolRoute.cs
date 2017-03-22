@@ -11,7 +11,7 @@ public class PatrolRoute : MonoBehaviour {
 	[SerializeField]
 	private List<GameObject> _waypoints;
 
-	private void Start () {
+	private void Awake () {
 		_waypoints = new List<GameObject>();
 
 		foreach (Transform w in transform.GetComponentsInChildren<Transform>()) {

@@ -36,7 +36,6 @@ public class DroneMapIcon : AbstractMapIcon {
 	private static void createInstance (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DroneMapIcon>();
 
-		icon._health.OnValueChange += icon.determineSprite;
 		icon._health.Value = pPacket.Health;
 		icon.Id = pPacket.Id;
 
@@ -98,10 +97,6 @@ public class DroneMapIcon : AbstractMapIcon {
 		transform.rotation = Quaternion.Slerp(_oldRot, _newRot, perc);
 	}
 
-	private void determineSprite () {
-		determineSprite(EnemyState.None);
-	}
-
 	private void determineSprite (EnemyState pState) {
 		if (_health.Value > 0.0f) {
 			switch (pState) {
@@ -112,8 +107,10 @@ public class DroneMapIcon : AbstractMapIcon {
 					changeSprite(_seesPlayerSprite);
 					break;
 				case EnemyState.Stunned:
+					changeSprite(_stunnedSprite);
 					break;
 				case EnemyState.Controlled:
+					changeSprite(_controlledSprite);
 					break;
 			}
 		} else {

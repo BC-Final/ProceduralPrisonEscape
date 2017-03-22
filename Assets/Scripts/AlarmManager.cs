@@ -73,7 +73,7 @@ public class AlarmManager : Singleton<AlarmManager> {
 		int index = Random.Range(0, Mathf.Min(3+1, droneSpawners.Count));
 
 		GameObject drone = GameObject.Instantiate(_enemyPrefab, droneSpawners[index].transform.position, droneSpawners[index].transform.rotation);
-		drone.GetComponent<DroneEnemy>().SetTarget();
+		//drone.GetComponent<DroneEnemy>().SetTarget();
 
 		//Debug.Log("Spawned Enemy");
 	}

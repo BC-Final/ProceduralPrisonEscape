@@ -9,90 +9,90 @@ namespace StateFramework {
 		public abstract void Step ();
 		public abstract void Exit ();
 
-		protected float ClampAngle (float angle, float min, float max) {
-			angle = NormalizeAngle(angle);
-			if (angle > 180) {
-				angle -= 360;
-			} else if (angle < -180) {
-				angle += 360;
-			}
+		//protected float ClampAngle (float angle, float min, float max) {
+		//	angle = NormalizeAngle(angle);
+		//	if (angle > 180) {
+		//		angle -= 360;
+		//	} else if (angle < -180) {
+		//		angle += 360;
+		//	}
 
-			min = NormalizeAngle(min);
-			if (min > 180) {
-				min -= 360;
-			} else if (min < -180) {
-				min += 360;
-			}
+		//	min = NormalizeAngle(min);
+		//	if (min > 180) {
+		//		min -= 360;
+		//	} else if (min < -180) {
+		//		min += 360;
+		//	}
 
-			max = NormalizeAngle(max);
-			if (max > 180) {
-				max -= 360;
-			} else if (max < -180) {
-				max += 360;
-			}
+		//	max = NormalizeAngle(max);
+		//	if (max > 180) {
+		//		max -= 360;
+		//	} else if (max < -180) {
+		//		max += 360;
+		//	}
 
-			return Mathf.Clamp(angle, min, max);
-		}
+		//	return Mathf.Clamp(angle, min, max);
+		//}
 
-		private float NormalizeAngle (float angle) {
-			while (angle > 360)
-				angle -= 360;
-			while (angle < 0)
-				angle += 360;
-			return angle;
-		}
+		//private float NormalizeAngle (float angle) {
+		//	while (angle > 360)
+		//		angle -= 360;
+		//	while (angle < 0)
+		//		angle += 360;
+		//	return angle;
+		//}
 
-		protected GameObject getClosestSeeableObject (GameObject[] pTargets, Transform pOrigin, float pRange, float pAngle) {
-			foreach (GameObject go in pTargets) {
-				if (canSeeObject(go, pOrigin, pRange, pAngle)) {
-					return go;
-				}
-			}
+		//protected GameObject getClosestSeeableObject (GameObject[] pTargets, Transform pOrigin, float pRange, float pAngle) {
+		//	foreach (GameObject go in pTargets) {
+		//		if (canSeeObject(go, pOrigin, pRange, pAngle)) {
+		//			return go;
+		//		}
+		//	}
 
-			return null;
-		}
+		//	return null;
+		//}
 
-		protected bool canSeeObject (GameObject pTarget, Transform pOrigin, float pRange, float pAngle) {
-			if (Vector3.Distance(pOrigin.position, pTarget.transform.position) < pRange) {
-				Debug.Log("Close enough");
+		//protected bool canSeeObject (GameObject pTarget, Transform pOrigin, float pRange, float pAngle) {
+		//	if (Vector3.Distance(pOrigin.position, pTarget.transform.position) < pRange) {
+		//		Debug.Log("Close enough");
 
-				if (pAngle < 360.0f) {
-					float angle = Vector3.Angle(pTarget.transform.position - pOrigin.position, pOrigin.forward);
-					float sign = Mathf.Sign(Vector3.Dot(pTarget.transform.position - pOrigin.position, pOrigin.right));
-					float finalAngle = sign * angle;
+		//		if (pAngle < 360.0f) {
+		//			float angle = Vector3.Angle(pTarget.transform.position - pOrigin.position, pOrigin.forward);
+		//			float sign = Mathf.Sign(Vector3.Dot(pTarget.transform.position - pOrigin.position, pOrigin.right));
+		//			float finalAngle = sign * angle;
 
-					if (!(finalAngle <= pAngle / 2f && finalAngle >= -pAngle / 2f)) {
-						Debug.Log("Not in fov");
-						return false;
-					}
-				}
+		//			if (!(finalAngle <= pAngle / 2f && finalAngle >= -pAngle / 2f)) {
+		//				Debug.Log("Not in fov");
+		//				return false;
+		//			}
+		//		}
 
-				//Collider[] coll = pOrigin.GetComponentsInChildren<Collider>();
+		//		//Collider[] coll = pOrigin.GetComponentsInChildren<Collider>();
 
-				//foreach (Collider c in coll) {
-				//	c.enabled = false;
-				//}
+		//		//foreach (Collider c in coll) {
+		//		//	c.enabled = false;
+		//		//}
 
-				RaycastHit hit;
-				//TODO Only use interaction triggers
-				if (Physics.Raycast(pOrigin.position, (pTarget.transform.position - pOrigin.position).normalized, out hit, pRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-					if (hit.collider.gameObject == pTarget) {
-						//foreach (Collider c in coll) {
-						//	c.enabled = true;
-						//}
+		//		RaycastHit hit;
+		//		
+		//		if (Physics.Raycast(pOrigin.position, (pTarget.transform.position - pOrigin.position).normalized, out hit, pRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+		//			if (hit.collider.gameObject == pTarget) {
+		//				//foreach (Collider c in coll) {
+		//				//	c.enabled = true;
+		//				//}
 
-						return true;
-					}
+		//				return true;
+		//			}
 
-					Debug.Log("View blocked by " + hit.collider.name);
-				}
+		//			Debug.Log("View blocked by " + hit.collider.name);
+		//		}
 
-				//foreach (Collider c in coll) {
-				//	c.enabled = true;
-				//}
-			}
+		//		//foreach (Collider c in coll) {
+		//		//	c.enabled = true;
+		//		//}
+		//	}
 
-			return false;
-		}
+		//	return false;
+		//}
 	}
 }

@@ -8,6 +8,8 @@ public class PlayerMotor : MonoBehaviour {
 
 	public float runSpeed = 11.0f;
 
+	//TODO Change exclude collison layer or enable kicking phsyics obejct around
+
 	// If true, diagonal speed (when strafing + moving forward or back) can't exceed normal move speed; otherwise it's about 1.4 times faster
 	public bool limitDiagonalSpeed = true;
 

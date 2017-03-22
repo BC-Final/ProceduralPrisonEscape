@@ -34,6 +34,8 @@ public class CameraMapIcon : AbstractMapIcon {
 		icon._state.OnValueChange += icon.changedState;
 
 		icon.Id = pPacket.Id;
+
+		icon.determineSprite(pPacket.State);
 	}
 
 	private void updateInstance (NetworkPacket.Update.Camera pPacket) {
@@ -43,6 +45,8 @@ public class CameraMapIcon : AbstractMapIcon {
 
 		_oldRot = transform.rotation;
 		_newRot = Quaternion.Euler(0, 0, -pPacket.Rot);
+
+		determineSprite(pPacket.State);
 	}
 
 	private void Start () {
@@ -91,5 +95,22 @@ public class CameraMapIcon : AbstractMapIcon {
 
 	private void sendUpdate (EnemyState pState) {
 		HackerPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, pState));
+	}
+
+	private void determineSprite (EnemyState pState) {
+		switch (pState) {
+			case EnemyState.None:
+				changeSprite(_neutralSprite);
+				break;
+			case EnemyState.SeesPlayer:
+				changeSprite(_seesPlayerSprite);
+				break;
+			case EnemyState.Stunned:
+				changeSprite(_disabledSprite);
+				break;
+			case EnemyState.Controlled:
+				changeSprite(_controlledSprite);
+				break;
+		}
 	}
 }

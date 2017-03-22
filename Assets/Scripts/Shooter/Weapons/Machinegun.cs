@@ -37,8 +37,9 @@ public class Machinegun : Weapon {
 	}
 
 	protected override void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform) {
-		GameObject decal = Instantiate(ShooterReferenceManager.Instance.BulletHole, pHitPoint + pHitNormal * 0.001f, Quaternion.LookRotation(pHitNormal)) as GameObject;
-		decal.transform.parent = pHitTransform;
-		Destroy(decal, 10);
+		Utilities.Weapons.DisplayDecal(pHitPoint, pHitNormal, pHitTransform);
+		//GameObject decal = Instantiate(ShooterReferenceManager.Instance.BulletHole, pHitPoint + pHitNormal * 0.001f, Quaternion.LookRotation(pHitNormal)) as GameObject;
+		//decal.transform.parent = pHitTransform;
+		//Destroy(decal, 10);
 	}
 }

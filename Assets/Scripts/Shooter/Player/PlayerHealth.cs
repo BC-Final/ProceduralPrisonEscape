@@ -8,6 +8,19 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable {
 	[Tooltip("The maximum amount of health")]
 	private float _maxHealth;
 
+	public GameObject GameObject { get { return gameObject; } }
+	public Faction Faction { get { return Faction.Player; } }
+
+	private System.Action<GameObject> _destroyEvent;
+
+	public void AddToDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent += pObject;
+	}
+
+	public void RemoveFromDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent -= pObject;
+	}
+
 
 
 	/// <summary>
@@ -49,11 +62,12 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable {
 	/// <param name="pDirection">The direction of the damage</param>
 	/// <param name="pPoint">The points where damage occured</param>
 	/// <param name="pDamage">The amount of damage taken</param>
-	public void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
+	public void ReceiveDamage(IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
 		//TODO Display damage direction indicator
 		_currentHealth.Value = Mathf.Max(0.0f, _currentHealth.Value - pDamage);
 
 		if (_currentHealth.Value == 0.0f) {
+			_destroyEvent.Invoke(gameObject);
 			//TODO Add death state
 		}
 	}

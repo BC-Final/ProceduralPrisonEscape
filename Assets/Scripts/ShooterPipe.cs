@@ -79,15 +79,16 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 		_broken.Value = true;
 
 		//FIX If this causes lag, replace with a collider or try using layers
-		Collider[] coll = Physics.OverlapSphere(transform.position, pCharged ? _chargedExplosionRadius : _normalExplosionRadius);
+		Collider[] coll = Physics.OverlapSphere(transform.position, pCharged ? _chargedExplosionRadius : _normalExplosionRadius, LayerMask.GetMask("RayTrigger"), QueryTriggerInteraction.Collide);
+
 
 		foreach (Collider c in coll) {
-			IDamageable d = c.gameObject.GetComponent<IDamageable>();
+			IDamageable d = c.gameObject.GetComponentInParent<IDamageable>();
 			if (d != null) {
 				RaycastHit hit;
-				if (Physics.Raycast(transform.position, c.transform.position - transform.position, out hit, pCharged ? _chargedExplosionRadius : _normalExplosionRadius)) {
+				if (Physics.Linecast(transform.position, c.transform.position, out hit, LayerMask.GetMask("RayTrigger"), QueryTriggerInteraction.Collide)) {
 					//TODO Create explosion effect
-					d.ReceiveDamage(c.transform.position - transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
+					d.ReceiveDamage(null, c.transform.position - transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
 				}
 			}
 		}

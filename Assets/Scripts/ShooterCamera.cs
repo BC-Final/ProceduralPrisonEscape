@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StateFramework;
+using System.Linq;
 
-public class ShooterCamera : MonoBehaviour, IShooterNetworked {
-	//TODO Maybe put into scriptable object
+[SelectionBase]
+public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
+	[SerializeField]
+	private CameraParameters _parameters;
+	public CameraParameters Parameters { get { return _parameters; } }
 
+	[Header("References")]
 	[SerializeField]
 	private Transform _base;
 	public Transform Base { get { return _base; } }
@@ -15,46 +20,41 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 	public Transform LookPoint { get { return _lookPoint; } }
 
 	[SerializeField]
-	private float _lookRotationSpeed;
-	public float LookRotationSpeed { get { return _lookRotationSpeed; } }
+	private SphereCollider _viewTrigger;
+	public SphereCollider ViewTrigger { get { return _viewTrigger; } }
 
-	[SerializeField]
-	private float _seeRange;
-	public float SeeRange { get { return _seeRange; } }
-
-	[SerializeField]
-	private float _quitIdleRange;
-	public float QuitIdleRange { get { return _quitIdleRange; } }
-
-	[SerializeField]
-	private float _seeAngle;
-	public float SeeAngle { get { return _seeAngle; } }
-
-	[SerializeField]
-	private float _triggerTime;
-	public float TriggerTime { get { return _triggerTime; } }
-
-	[SerializeField]
-	private float _rotationAngle;
-	public float RotationAngle { get { return _rotationAngle; } }
-
-	[SerializeField]
-	private float _rotationSpeed;
-	public float RotationSpeed { get { return _rotationSpeed; } }
-
+	[Header("Debug")]
 	[SerializeField]
 	private bool _visualizeView;
 	public bool VisualizeView { get { return _visualizeView; } }
 
-	[SerializeField]
-	private float _positionSendRate = 0.5f;
-	private float _positionSendTimer = 0.0f;
-
-	[SerializeField]
-	private float _disabledTime = 5.0f;
-	public float DisabledTime { get { return _disabledTime; } }
-
 	private StateMachine<AbstractCameraState> _fsm;
+
+	private Timers.Timer _networkUpdateTimer;
+
+	[SerializeField]
+	private Faction _faction = Faction.Prison;
+	public Faction Faction { get { return _faction; } }
+
+	private List<IDamageable> _possibleTargets = new List<IDamageable>();
+	public Transform[] PossibleTargets {
+		get {
+			return _possibleTargets.FindAll(x => x.Faction != _faction).Select(x => x.GameObject.transform).ToArray();
+		}
+	}
+
+
+	private System.Action<GameObject> _destroyEvent;
+
+	public void AddToDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent += pObject;
+	}
+
+	public void RemoveFromDestroyEvent (System.Action<GameObject> pObject) {
+		_destroyEvent -= pObject;
+	}
+
+	public GameObject GameObject { get { return gameObject; } }
 
 	private int _id;
 	public int Id {
@@ -81,12 +81,13 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		sendUpdate();
+		_networkUpdateTimer = Timers.CreateTimer("Camera Network Update").SetTime(_parameters.NetworkUpdateRate).SetLoop(-1).SetCallback(() => sendUpdate()).Start();
 	}
 
 	private void sendUpdate () {
-		//TODO Include the current camera state
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, transform.position.x, transform.position.z, _base.rotation.eulerAngles.y, EnemyState.None));
+		EnemyState state = _faction == Faction.Neutral ? EnemyState.Controlled : _fsm.GetState() is CameraDisabledState ? EnemyState.Stunned : _fsm.GetState() is CameraDetectState ? EnemyState.SeesPlayer : EnemyState.None;
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, transform.position.x, transform.position.z, _base.rotation.eulerAngles.y, state));
 	}
 
 	private void Awake () {
@@ -94,28 +95,36 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void OnDestroy () {
+		if (_networkUpdateTimer != null) {
+			_networkUpdateTimer.Stop();
+			sendUpdate();
+		}
+
 		ShooterPackageSender.UnregisterNetworkedObject(this);
+	}
+
+	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+		_fsm.GetState().ReceiveDamage(pSender, pDirection, pPoint, pDamage);
 	}
 
 	private void Start () {
 		_fsm = new StateMachine<AbstractCameraState>();
 
-		_fsm.AddState(new CameraIdleState(this, _fsm));
+		//_fsm.AddState(new CameraIdleState(this, _fsm));
 		_fsm.AddState(new CameraGuardState(this, _fsm));
 		_fsm.AddState(new CameraDetectState(this, _fsm));
 		_fsm.AddState(new CameraDisabledState(this, _fsm));
 
-		_fsm.SetState<CameraIdleState>();
+		_fsm.SetState<CameraGuardState>();
+
+		_viewTrigger.radius = _parameters.ViewRange;
 	}
 
+	[SerializeField]
+	private string CurrentState;
 
 	private void Update () {
-		if (_positionSendTimer - Time.time <= 0.0f) {
-			_positionSendTimer = Time.time + _positionSendRate;
-
-			sendUpdate();
-		}
-
+		CurrentState = _fsm.GetState().GetType().Name;
 
 		_fsm.Step();
 	}
@@ -125,7 +134,33 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void control () {
-		//TODO Implement camera controlling
+		_faction = Faction.Neutral;
+		Timers.CreateTimer("Camera Controlled").SetTime(_parameters.ControllDuration).SetCallback(() => _faction = Faction.Prison).Start();
+	}
+
+
+	private void OnTriggerEnter (Collider other) {
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.AddToDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.Add(d);
+		}
+	}
+
+	private void OnTriggerExit (Collider other) {
+		IDamageable d = other.GetComponentInParent<IDamageable>();
+
+		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));
+			_possibleTargets.RemoveAll(x => x.GameObject == d.GameObject);
+		}
+	}
+
+	private void onTargetDestroyed (GameObject pObject) {
+		if (pObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			_possibleTargets.RemoveAll(x => x.GameObject == pObject);
+		}
 	}
 
 
@@ -135,18 +170,18 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
-			if (_seeAngle < 360.0f) {
-				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange)));
-				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, -(_seeAngle / 2f), 0f) * (Vector3.forward * _seeRange)));
+			if (_parameters.ViewAngle < 360.0f) {
+				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
 
-				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange)));
-				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(-(_seeAngle / 2f), 0f, 0f) * (Vector3.forward * _seeRange)));
+				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
 
 
-				UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0f, _seeAngle / 2f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
-				UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.right, _lookPoint.TransformDirection(Quaternion.Euler(_seeAngle / 2f, 0f, 0f) * (Vector3.forward * _seeRange).normalized), _seeAngle, _seeRange);
+				UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+				UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.right, _lookPoint.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
 			} else {
-				UnityEditor.Handles.DrawWireDisc(_lookPoint.position, -_lookPoint.up, _seeRange);
+				UnityEditor.Handles.DrawWireDisc(_lookPoint.position, -_lookPoint.up, _parameters.ViewRange);
 			}
 		}
 	}

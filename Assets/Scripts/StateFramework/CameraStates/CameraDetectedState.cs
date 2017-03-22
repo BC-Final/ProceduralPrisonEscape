@@ -4,14 +4,12 @@ using UnityEngine;
 
 namespace StateFramework {
 	public class CameraDetectState : AbstractCameraState {
-		private GameObject _player;
-
 		private FMOD.Studio.EventInstance _detectSound;
 		private FMOD.Studio.EventInstance _loseSound;
 
-		public CameraDetectState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
-		}
+		private float _alarmTimer;
+
+		public CameraDetectState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) { }
 
 		public override void Enter () {
 			_detectSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camcatch");
@@ -19,14 +17,24 @@ namespace StateFramework {
 			_detectSound.start();
 
 			_camera.GetComponentInChildren<Light>().color = Color.yellow;
+
+			_alarmTimer = 0.0f;
 		}
 
 		public override void Step () {
-			rotateTowards(_player.transform);
+			GameObject target = Utilities.AI.GetClosestObjectInView(_camera.LookPoint.transform, _camera.PossibleTargets, _camera.Parameters.ViewRange, _camera.Parameters.ViewAngle);
 
-			if (!canSeeObject(_player, _camera.LookPoint, _camera.SeeRange, 360.0f)) {
+			if (target != null) {
+				rotateTowards(target.transform);
+
+				_alarmTimer += Time.deltaTime;
+
+				if (_alarmTimer >= _camera.Parameters.TriggerDelay) {
+					//TODO Trigger alarm right here
+				}
+			} else {
 				_fsm.SetState<CameraGuardState>();
-			}
+			}	
 		}
 
 		public override void Exit () {

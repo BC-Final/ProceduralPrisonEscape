@@ -5,8 +5,6 @@ using DG.Tweening;
 
 namespace StateFramework {
 	public class CameraGuardState : AbstractCameraState {
-		private GameObject _player;
-
 		private Vector3 _startRotation;
 
 		private float _currentLerpTime;
@@ -25,13 +23,10 @@ namespace StateFramework {
 		private FMOD.Studio.EventInstance _moveStopSound;
 
 		public CameraGuardState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
 			_startRotation = _camera.Base.rotation.eulerAngles;
 
-			_leftPos = _startRotation + new Vector3(0f, _camera.RotationAngle / 2f, 0f);
-			_rightPos = _startRotation + new Vector3(0f,  - _camera.RotationAngle / 2f, 0f);
-
-			
+			_leftPos = _startRotation + new Vector3(0f, _camera.Parameters.RotationAngle / 2f, 0f);
+			_rightPos = _startRotation + new Vector3(0f,  - _camera.Parameters.RotationAngle / 2f, 0f);
 		}
 
 		public override void Enter () {
@@ -42,7 +37,7 @@ namespace StateFramework {
 
 			_currentDirection = 1;
 
-			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _camera.RotationSpeed;
+			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _camera.Parameters.RotationSpeed;
 
 			_camera.GetComponentInChildren<Light>().color = Color.green;
 
@@ -53,6 +48,17 @@ namespace StateFramework {
 		}
 
 		public override void Step () {
+			GameObject target = Utilities.AI.GetClosestObjectInView(_camera.LookPoint, _camera.PossibleTargets, _camera.Parameters.ViewRange, _camera.Parameters.ViewAngle);
+
+			if (target != null) {
+				if (target.GetComponent<PlayerHealth>() != null && _camera.Faction != Faction.Neutral) {
+					_fsm.SetState<CameraDetectState>();
+				} else if (_camera.Faction == Faction.Neutral) {
+					//TODO Send Hacker Update info about enemies in view
+				}
+				
+			}
+
 			_currentLerpTime += Time.deltaTime;
 			if (_currentLerpTime > _lerpTime) {
 				_currentLerpTime = _lerpTime;
@@ -67,7 +73,7 @@ namespace StateFramework {
 
 				_currentDirection = -_currentDirection;
 
-				_lerpTime = _camera.RotationAngle / _camera.RotationSpeed;
+				_lerpTime = _camera.Parameters.RotationAngle / _camera.Parameters.RotationSpeed;
 
 				if (_currentDirection == -1) {
 					_end = _rightPos;
@@ -78,15 +84,6 @@ namespace StateFramework {
 				_moveStopSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_stop");
 				FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveStopSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 				_moveStopSound.start();
-			}
-
-
-			if (canSeeObject(_player, _camera.LookPoint, _camera.SeeRange, _camera.SeeAngle)) {
-				_fsm.SetState<CameraDetectState>();
-			}
-
-			if (Vector3.Distance(_camera.transform.position, _player.transform.position) > _camera.QuitIdleRange) {
-				_fsm.SetState<CameraIdleState>();
 			}
 		}
 

@@ -127,7 +127,6 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	/// <param name="pOther">Other Collider</param>
 	private void OnTriggerStay (Collider pOther) {
-		Debug.Log("Trigger enter");
 		//TODO Notify drone when door is locked
 		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value) {
 			_open.Value = true;

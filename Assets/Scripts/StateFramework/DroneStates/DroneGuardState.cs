@@ -3,41 +3,39 @@ using System.Collections;
 
 namespace StateFramework {
 	public class DroneGuardState : AbstractDroneState {
-		private GameObject _player;
-
 		private float _seeTimer;
 
-		public DroneGuardState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_player = GameObject.FindGameObjectWithTag("Player");
-		}
+		public DroneGuardState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
 			_seeTimer = 0.0f;
-			_drone.SeesPlayer = false;
+			_drone.SeesTarget = false;
+			_drone.LastTarget = null;
 		}
 
 		public override void Step() {
-			if (canSeeObject(_player, _drone.LookPos, _drone.SeeRange, _drone.SeeAngle) || Vector3.Distance(_drone.LookPos.position, _player.transform.position) < _drone.AwarenessRadius) {
+			GameObject target = Utilities.AI.GetClosestObjectInView(_drone.transform, _drone.PossibleTargets, _drone.Parameters.ViewRange, _drone.Parameters.ViewAngle, _drone.Parameters.AwarenessRange);
+
+			if (target != null) {
 				_seeTimer += Time.deltaTime;
 
-				if (_seeTimer > _drone.IdleReactionTime) {
+				if (_seeTimer > _drone.Parameters.IdleReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
 			} else {
-				_seeTimer = 0.0f;
-			}
-
-			if (Vector3.Distance(_drone.transform.position, _player.transform.position) > _drone.QuitIdleRange) {
-				_fsm.SetState<DroneIdleState>();
+				_seeTimer = Mathf.Max(_seeTimer - Time.deltaTime, 0.0f);
 			}
 		}
 
-		public override void Exit() {
+		public override void Exit() { }
 
-		}
-
-		public override void ReceiveDamage(Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			_fsm.SetState<DroneFollowState>();
+		public override void ReceiveDamage(IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+			if (pSender != null && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction)) {
+				_drone.LastTarget = pSender.GameObject;
+				_fsm.SetState<DroneFollowState>();
+			} else if (pSender == null) {
+				_fsm.SetState<DroneSearchState>();
+			}
 		}
 	}
 }
