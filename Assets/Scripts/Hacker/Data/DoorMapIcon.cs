@@ -4,6 +4,7 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 public class DoorMapIcon : AbstractMapIcon {
+
 	public static void ProcessPacket (NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 
@@ -35,7 +36,8 @@ public class DoorMapIcon : AbstractMapIcon {
 		_locked.OnValueChange += stateChanged;
 	}
 
-
+    private bool _keycardLocked = false;
+    private Color _keyColor;
 	private ObservedValue<bool> _open = new ObservedValue<bool>(false);
 	private ObservedValue<bool> _locked = new ObservedValue<bool>(false);
 
@@ -64,6 +66,13 @@ public class DoorMapIcon : AbstractMapIcon {
 		sendUpdate();
 	}
 
+    public void SetKeyColor(Color nColor)
+    {
+        _keycardLocked = true;
+        _keyColor = nColor;
+        stateChanged();
+    }
+
 	private void sendUpdate () {
 		HackerPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value, _locked.Value));
 	}
@@ -72,15 +81,21 @@ public class DoorMapIcon : AbstractMapIcon {
 		if (_open.Value) {
 			if (_locked.Value) {
 				changeSprite(_lockedOpenSprite);
-			} else {
+			} else if(_keycardLocked) {
 				changeSprite(_openSprite);
-			}
+                changeColor(_keyColor);
+			}else{
+                changeSprite(_openSprite);
+            }
 		} else {
 			if (_locked.Value) {
 				changeSprite(_lockedClosedSprite);
-			} else {
-				changeSprite(_closedSprite);
-			}
-		}
+			}else if (_keycardLocked){
+                changeSprite(_closedSprite);
+                changeColor(_keyColor);
+            }else{
+                changeSprite(_closedSprite);
+            }
+        }
 	}
 }

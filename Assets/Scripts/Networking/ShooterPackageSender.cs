@@ -101,7 +101,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
-		//SendPackage(new CustomCommands.Creation.OnCreationEnd());
+		SendPackage(new NetworkPacket.Message.CreationEnd());
 	}
 
 	public static T GetNetworkedObject<T> (int pId) where T : class, IShooterNetworked {
