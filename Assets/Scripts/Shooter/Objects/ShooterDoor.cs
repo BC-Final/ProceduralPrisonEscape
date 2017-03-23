@@ -38,8 +38,14 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 		//TODO Only initialze when shooter saw object or database
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
 	}
-
-
+    
+    /// <summary>
+    /// HACK! TBR
+    /// </summary>
+    public void ForceOpen()
+    {
+        _open.Value = true;
+    }
 
 	//TODO Replace with animation
 	//--------temp--------
