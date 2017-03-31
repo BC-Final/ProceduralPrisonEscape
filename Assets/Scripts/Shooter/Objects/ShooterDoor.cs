@@ -37,6 +37,10 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	public void Initialize () {
 		//TODO Only initialze when shooter saw object or database
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
+        if (_codeLocked)
+        {
+            ShooterPackageSender.SendPackage(new NetworkPacket.Create.CodeLock(Id, _codeString));
+        }
 	}
     
     /// <summary>
@@ -66,11 +70,13 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 
 	/// <summary>
-	/// Indicated if door is locked
+	/// Indicated if door is locked or keylocked
 	/// </summary>
 	private bool _locked;
-
-
+    [SerializeField]
+    private bool _codeLocked;
+    [SerializeField]
+    private string _codeString;
 
 	/// <summary>
 	/// Registers Network Door reference and add listener to state change

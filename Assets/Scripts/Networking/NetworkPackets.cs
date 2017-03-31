@@ -48,6 +48,18 @@ namespace NetworkPacket {
             }
 
         }
+        [System.Serializable]
+        public class CodeLock : AbstractPacket
+        {
+            public int DoorId;
+            public string CodeString;
+
+            public CodeLock(int pDoorId, string pCodeString)
+            {
+                DoorId = pDoorId;
+                CodeString = pCodeString;
+            }
+        }
 
     }
 	namespace Update {
@@ -55,7 +67,7 @@ namespace NetworkPacket {
 		public class Door : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
-			public bool Open, Locked;
+            public bool Open, Locked;
 			public bool HasLocationData;
 
 			public Door (int pId, float pPosX, float pPosY, float pRot, bool pOpen, bool pLocked) {
