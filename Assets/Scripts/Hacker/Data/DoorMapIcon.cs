@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Gamelogic.Extensions;
+using System;
 
 public class DoorMapIcon : AbstractMapIcon
 {
@@ -18,6 +20,23 @@ public class DoorMapIcon : AbstractMapIcon
         {
             icon.updateInstance(pPacket);
         }
+    }
+
+    private string _codeSolution;
+
+    public static void AddAddon(NetworkPacket.Create.CodeLock pPacket)
+    {
+        DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
+
+        //icon.actions = null;
+        AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
+        action.DisplayName = "Decode";
+        action.HackerPointsCost = 0;
+        UnityEvent m_MyEvent = new UnityEvent();
+        m_MyEvent.AddListener(icon.Decode);
+        action.Action = m_MyEvent;
+        icon.actions[0] = action;
+        icon._codeSolution = pPacket.CodeString;
     }
 
     private static void createInstance(NetworkPacket.Update.Door pPacket)
@@ -44,6 +63,7 @@ public class DoorMapIcon : AbstractMapIcon
         _locked.OnValueChange += stateChanged;
     }
 
+    public bool showWindow = false;
     private bool _keycardLocked = false;
     private Color _keyColor;
     private ObservedValue<bool> _open = new ObservedValue<bool>(false);
@@ -57,10 +77,6 @@ public class DoorMapIcon : AbstractMapIcon
     private Sprite _openSprite;
     [SerializeField]
     private Sprite _closedSprite;
-    //[SerializeField]
-    //private Sprite _lockedOpenSprite;
-    //[SerializeField]
-    //private Sprite _lockedClosedSprite;
     #endregion
 
     public void Toggle()
@@ -78,7 +94,18 @@ public class DoorMapIcon : AbstractMapIcon
         sendUpdate();
     }
 
-    public void InputCode()
+    public void Decode()
+    {
+        if (!showWindow)
+        {
+            showWindow = true;
+            DecoderWindow window = Instantiate(HackerReferenceManager.Instance.Decoder, Vector3.zero, Quaternion.identity).GetComponent<DecoderWindow>();
+            window.Solution = _codeSolution;
+            window.SetDoor(this);
+        }
+    }
+
+    public void UseKeycode(string code)
     {
 
     }

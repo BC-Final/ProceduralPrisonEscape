@@ -5,7 +5,12 @@ using UnityEngine.UI;
 
 public class DecoderNumber : MonoBehaviour {
 
+
+
     static public List<DecoderNumber> members = new List<DecoderNumber>();
+
+    public bool Solved;
+    public DecoderWindow Window;
 
     [SerializeField]
     Texture2D solvedTexture;
@@ -46,6 +51,18 @@ public class DecoderNumber : MonoBehaviour {
         //}
     }
 
+    private void CheckSolution()
+    {
+        foreach(DecoderNumber num in members)
+        {
+            if (!num.Solved) return;
+        }
+        if (Window)
+        {
+            Window.PuzzleSolved();
+        }
+    }
+
     public void SubscribeCodeField(SecurityCode code)
     {
         codes.Add(code);
@@ -60,6 +77,14 @@ public class DecoderNumber : MonoBehaviour {
         }
         Value = tempValue;
         SetImage(Value);
+        if(Value == targetValue)
+        {
+            Solved = true;
+        }else
+        {
+            Solved = false;
+        }
+        CheckSolution();
     }
 
     public void SetTargetToCurrent()

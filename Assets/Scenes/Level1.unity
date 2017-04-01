@@ -3569,6 +3569,21 @@ Prefab:
       propertyPath: m_Name
       value: pfb_door (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011899917216, guid: 95d9db65da4b2594f82d89a09987c534,
+        type: 2}
+      propertyPath: _codeLocked
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011899917216, guid: 95d9db65da4b2594f82d89a09987c534,
+        type: 2}
+      propertyPath: _codeString
+      value: fagit
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011899917216, guid: 95d9db65da4b2594f82d89a09987c534,
+        type: 2}
+      propertyPath: _keypad
+      value: 
+      objectReference: {fileID: 1765804510}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95d9db65da4b2594f82d89a09987c534, type: 2}
   m_IsPrefabParent: 0
@@ -25484,9 +25499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e4abf2caa68f44fabd7655356afd55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeycodeInputWindow: {fileID: 1990251701772648, guid: 51ecda326cb00cc4385c7a7413a74361,
-    type: 2}
-  keyCode: 12345
+  keyCode: abc12
   _doors:
   - {fileID: 2017273805}
 --- !u!23 &1765804511

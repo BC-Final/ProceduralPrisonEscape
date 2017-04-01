@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Keypad : MonoBehaviour, IInteractable
 {
-    [SerializeField]
-    GameObject KeycodeInputWindow;
 
     [SerializeField]
-    string keyCode;
+    public string keyCode;
 
     [SerializeField]
     List<ShooterDoor> _doors;
@@ -20,7 +18,7 @@ public class Keypad : MonoBehaviour, IInteractable
         if (!showWindow)
         {
             showWindow = true;
-            KeycodeInputWindow window = Instantiate(KeycodeInputWindow, Vector3.zero, Quaternion.identity).GetComponent<KeycodeInputWindow>();
+            KeycodeInputWindow window = Instantiate(ShooterReferenceManager.Instance.KeyCodeInputWindow, Vector3.zero, Quaternion.identity).GetComponent<KeycodeInputWindow>();
             window.SetKeypad(this);
         }
     }

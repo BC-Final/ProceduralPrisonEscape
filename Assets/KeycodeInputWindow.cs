@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class KeycodeInputWindow : MonoBehaviour {
 
     private Keypad _keypad;
+    private DoorMapIcon _door;
     private Text _text;
     private string _stringInput;
 
@@ -29,8 +30,17 @@ public class KeycodeInputWindow : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            _keypad.ReleaseWindow();
-            _keypad.UseKeycode(_stringInput);
+            if (_keypad)
+            {
+                _keypad.ReleaseWindow();
+                _keypad.UseKeycode(_stringInput);
+            }
+            if (_door)
+            {
+                _door.showWindow = false;
+                _door.UseKeycode(_stringInput);
+            }
+            
             GameObject.Destroy(this.gameObject);
         }
 	}
@@ -38,5 +48,10 @@ public class KeycodeInputWindow : MonoBehaviour {
     public void SetKeypad(Keypad pad)
     {
         _keypad = pad;
+    }
+
+    public void SetKeypad(DoorMapIcon pad)
+    {
+        _door = pad;
     }
 }

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198525744449379026}
   - component: {fileID: 199805029649751154}
   m_Layer: 0
-  m_Name: MinimapExlposion
+  m_Name: pfb_minimap_exlposion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

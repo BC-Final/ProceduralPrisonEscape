@@ -24,6 +24,8 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject LaserShot;
 
 	[Header("Misc Prefabs")]
+    public GameObject CodeInputWindow;
 	public GameObject ContextMenu;
-	public GameObject ContextMenuOption;
+    public GameObject ContextMenuOption;
+    public GameObject Decoder;
 }

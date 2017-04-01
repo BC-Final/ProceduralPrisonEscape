@@ -59,140 +59,98 @@ public class HackerPackageReader : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Incoming Packages are read here. They first enter as Abstrac Package.
+	/// Incoming Packages are read here. They first enter as Abstract Package.
 	/// Then they get transmitted to another method that is made for their specific package.
 	/// </summary>
 	/// <param name="response"></param>
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
-		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
-		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
-		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
-		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
-		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
-		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
-        if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
-        if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
+        //Creation
         if (pPacket is NetworkPacket.Create.KeyCard) { readPacket(pPacket as NetworkPacket.Create.KeyCard); }
-        
+        if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
+        if (pPacket is NetworkPacket.Create.CodeLock) { readPacket(pPacket as NetworkPacket.Create.CodeLock); }
+        //Update
+        if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
         if(pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
+		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
+		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
+        if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
+		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
+		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
+		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 
-        //if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
-
+        //Other
         if (pPacket is NetworkPacket.Message.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Message.DisconnectRequest); }
 	}
-
-	private void readPacket (NetworkPacket.Update.Door pPacket) {
-		DoorMapIcon.ProcessPacket(pPacket);
-	}
-
-	private void readPacket (NetworkPacket.Update.Player pPacket) {
-		PlayerMapIcon.ProcessPacket(pPacket);
-	}
-
-	private void readPacket (NetworkPacket.Update.Drone pPacket) {
-		DroneMapIcon.ProcessPacket(pPacket);
-	}
-
-	private void readPacket (NetworkPacket.Update.Turret pPacket) {
-		TurretMapIcon.ProcessPacket(pPacket);
-	}
-
 	private void readPacket (NetworkPacket.Update.Camera pPacket) {
 		CameraMapIcon.ProcessPacket(pPacket);
 	}
-
-	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
-		GaspipeMapIcon.ProcessPacket(pPacket);
+	private void readPacket (NetworkPacket.Update.Door pPacket) {
+		DoorMapIcon.ProcessPacket(pPacket);
 	}
-
+	private void readPacket (NetworkPacket.Update.Drone pPacket) {
+		DroneMapIcon.ProcessPacket(pPacket);
+	}
 	private void readPacket (NetworkPacket.Update.Minimap package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
 		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
 	}
-
-	private void readPacket (NetworkPacket.Message.DisconnectRequest pPacket) {
-		HackerPackageSender.SilentlyDisconnect();
+	private void readPacket (NetworkPacket.Update.Pipe pPacket) {
+		GaspipeMapIcon.ProcessPacket(pPacket);
 	}
+	private void readPacket (NetworkPacket.Update.Player pPacket) {
+		PlayerMapIcon.ProcessPacket(pPacket);
+	}
+	private void readPacket (NetworkPacket.Update.Turret pPacket) {
+		TurretMapIcon.ProcessPacket(pPacket);
+	}
+	
+    
+    
 
-    private void readPacket(NetworkPacket.Create.LaserShot pPacket) {
-    	MinimapManager.Instance.CreateShot(pPacket);
+    /// <summary>
+    /// Creation Methods
+    /// </summary>
+    /// <param name="pPacket"></param>
+    private void readPacket(NetworkPacket.Create.CodeLock pPacket)
+    {
+        if (loadingFinished)
+        {
+            
+            DoorMapIcon.AddAddon(pPacket);
+        }
+        else
+        {
+            AddLatePackage(pPacket);
+        }
     }
-
     private void readPacket(NetworkPacket.Create.KeyCard pPacket)
     {
         if (loadingFinished)
         {
             KeycardMapIcon.ProcessPacket(pPacket);
-        }else{
+        }
+        else
+        {
             AddLatePackage(pPacket);
         }
     }
+    private void readPacket(NetworkPacket.Create.LaserShot pPacket)
+    {
+        MinimapManager.Instance.CreateShot(pPacket);
+    }
 
+    /// other
+    /// 
     private void readPacket(NetworkPacket.Message.CreationEnd pPackage)
     {
         OnCreationEnd();
         //NetworkWindow.Instance.FinishedReceivingAll();
     }
-
-    //Creation Methods
-    //private void ReadResponse (CustomCommands.Creation.DoorCreation package) {
-    //	HackerDoor.CreateDoor(package);
-    //}
-
-    //private void ReadResponse (CustomCommands.Creation.FireWallCreation package) {
-    //	if (loadingFinished) {
-    //		HackerFirewall.CreateFireWall(package);
-    //	} else {
-    //		AddLatePackage(package);
-    //	}
-
-    //}
-
-
-
-    //Item Creation Methods
-    //private void ReadResponse (CustomCommands.Creation.Items.KeyCardCreation package) {
-    //	if (loadingFinished) {
-    //		ItemDisplayIcon.CreateItem(package);
-    //	} else {
-    //		AddLatePackage(package);
-    //	}
-    //}
-
-    //private void ReadResponse (CustomCommands.Creation.Items.HealthKitCreation package) {
-    //	ItemDisplayIcon.CreateItem(package);
-    //}
-
-    //private void ReadResponse (CustomCommands.Creation.Items.AmmoPackCreation package) {
-    //	ItemDisplayIcon.CreateItem(package);
-    //}
-
-
-    //private void ReadResponse (CustomCommands.Update.DoorUpdate package) {
-    //	HackerDoor.UpdateDoor(package);
-    //}
-
-    //private void ReadResponse (CustomCommands.Update.FireWallUpdate package) {
-    //	HackerFirewall.UpdateFireWall(package);
-    //}
-
-    //private void ReadResponse (CustomCommands.Update.Items.ItemUpdate package) {
-    //	ItemDisplayIcon.UpdateItem(package);
-    //}
-
-    //private void ReadResponse (CustomCommands.Update.PlayerPositionUpdate package) {
-    //	MinimapManager.Instance.UpdateMinimapPlayer(package);
-    //}
-
-    /*
-	private void ReadResponse (CustomCommands.Creation.NodeCreation pPackage) {
-		NetworkWindow.Instance.AddNode(pPackage);
-	}
-	*/
-
-
-
+    private void readPacket(NetworkPacket.Message.DisconnectRequest pPacket)
+    {
+        HackerPackageSender.SilentlyDisconnect();
+    }
 
 
     //TODO Replace

@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114684267384532094}
   - component: {fileID: 114021307006726592}
   m_Layer: 5
-  m_Name: Keycode_Input_Window
+  m_Name: pfb_keycode_input_window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.2647059, g: 0.2647059, b: 0.2647059, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

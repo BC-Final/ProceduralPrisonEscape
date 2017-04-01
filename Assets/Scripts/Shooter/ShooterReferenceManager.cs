@@ -18,4 +18,5 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 
 	[Header("Other Prefabs")]
 	public GameObject ExplodingDrone;
+    public GameObject KeyCodeInputWindow;
 }
