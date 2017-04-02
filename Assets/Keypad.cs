@@ -8,8 +8,7 @@ public class Keypad : MonoBehaviour, IInteractable
     [SerializeField]
     public string keyCode;
 
-    [SerializeField]
-    List<ShooterDoor> _doors;
+    public List<ShooterDoor> Doors;
 
     private bool showWindow;
 
@@ -30,16 +29,20 @@ public class Keypad : MonoBehaviour, IInteractable
 
     public void UseKeycode(string code)
     {
+        Debug.Log("Code used: " + code);
         if (code.ToUpper() == keyCode.ToUpper())
         {
             Debug.Log("SUCCESS!!!!");
-            foreach(ShooterDoor d in _doors)
+            FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
+            
+            foreach (ShooterDoor d in Doors)
             {
                 d.ForceOpen();
             }
         }else
         {
             Debug.Log("FAILURE!!!!");
+            FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();      
         }
     }
 }

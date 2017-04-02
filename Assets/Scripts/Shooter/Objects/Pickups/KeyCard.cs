@@ -38,6 +38,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 
 	private void Awake() {
 		_keyCards.Add(this);
+        keyColor.a = 1f;
         gameObject.GetComponentInChildren<Renderer>().material.SetColor("_Color", keyColor);
         ShooterPackageSender.RegisterNetworkObject(this);
     }
@@ -50,7 +51,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 
 	private void Start() {
 		foreach (ShooterDoor d in _doors) {
-			//d.SetRequireKeyCard();
+			d.SetRequireKeyCard(keyColor);
 		}
 	}
 

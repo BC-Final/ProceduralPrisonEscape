@@ -19,4 +19,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	[Header("Other Prefabs")]
 	public GameObject ExplodingDrone;
     public GameObject KeyCodeInputWindow;
+
+    [Header("Icons")]
+    public Sprite KeycardIcon;
 }

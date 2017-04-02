@@ -58,11 +58,6 @@ public class HackerPackageReader : MonoBehaviour {
 		ReadLatePackages();
 	}
 
-	/// <summary>
-	/// Incoming Packages are read here. They first enter as Abstract Package.
-	/// Then they get transmitted to another method that is made for their specific package.
-	/// </summary>
-	/// <param name="response"></param>
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
         //Creation
         if (pPacket is NetworkPacket.Create.KeyCard) { readPacket(pPacket as NetworkPacket.Create.KeyCard); }
@@ -70,17 +65,24 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Create.CodeLock) { readPacket(pPacket as NetworkPacket.Create.CodeLock); }
         //Update
         if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
-        if(pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
+        if (pPacket is NetworkPacket.Update.Icon) { readPacket(pPacket as NetworkPacket.Update.Icon); }
         if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 
         //Other
+        if (pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
         if (pPacket is NetworkPacket.Message.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Message.DisconnectRequest); }
 	}
+	
+    /// <summary>
+	/// Incoming Packages are read here. They first enter as Abstract Package.
+	/// Then they get transmitted to another method that is made for their specific package.
+	/// </summary>
+	/// <param name="response"></param>
 	private void readPacket (NetworkPacket.Update.Camera pPacket) {
 		CameraMapIcon.ProcessPacket(pPacket);
 	}
@@ -90,7 +92,11 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon.ProcessPacket(pPacket);
 	}
-	private void readPacket (NetworkPacket.Update.Minimap package) {
+    private void readPacket(NetworkPacket.Update.Icon pPacket)
+    {
+        KeycardMapIcon.ProcessPacket(pPacket);
+    }
+    private void readPacket (NetworkPacket.Update.Minimap package) {
 		Texture2D tex = new Texture2D(2, 2);
 		tex.LoadImage(package.bytes);
 		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
@@ -129,6 +135,7 @@ public class HackerPackageReader : MonoBehaviour {
         if (loadingFinished)
         {
             KeycardMapIcon.ProcessPacket(pPacket);
+            DoorMapIcon.AddAddon(pPacket);
         }
         else
         {

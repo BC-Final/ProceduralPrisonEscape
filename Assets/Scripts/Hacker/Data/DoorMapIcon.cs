@@ -27,8 +27,7 @@ public class DoorMapIcon : AbstractMapIcon
     public static void AddAddon(NetworkPacket.Create.CodeLock pPacket)
     {
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
-
-        //icon.actions = null;
+        Array.Clear(icon.actions, 0, icon.actions.Length);
         AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
         action.DisplayName = "Decode";
         action.HackerPointsCost = 0;
@@ -37,6 +36,14 @@ public class DoorMapIcon : AbstractMapIcon
         action.Action = m_MyEvent;
         icon.actions[0] = action;
         icon._codeSolution = pPacket.CodeString;
+    }
+
+    public static void AddAddon(NetworkPacket.Create.KeyCard pPacket)
+    {
+        for(int i = 0; i<pPacket.intArray.Length; i++)
+        {
+            HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.intArray[i]).SetKeyColor(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
+        }
     }
 
     private static void createInstance(NetworkPacket.Update.Door pPacket)
@@ -112,6 +119,7 @@ public class DoorMapIcon : AbstractMapIcon
 
     public void SetKeyColor(Color nColor)
     {
+        Array.Clear(actions, 0, actions.Length);
         _keycardLocked = true;
         _keyColor = nColor;
         stateChanged();
