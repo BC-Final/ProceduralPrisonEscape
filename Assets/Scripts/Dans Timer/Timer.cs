@@ -101,9 +101,9 @@ public class Timer {
 		}
 	}
 
-	public Timer Pause () {
+	public Timer Pause (bool pSetFinished = false) {
 		if (_internalTimer != null) {
-			_internalTimer.Pause();
+			_internalTimer.Pause(pSetFinished);
 			return this;
 		} else {
 			return null;

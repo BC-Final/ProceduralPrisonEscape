@@ -111,7 +111,10 @@ partial class TimerManager {
 			_playing = true;
 		}
 
-		public void Pause () {
+		public void Pause (bool pSetFinished = false) {
+			if (pSetFinished)
+				_finished = true;
+
 			_playing = false;
 		}
 
@@ -124,6 +127,8 @@ partial class TimerManager {
 			if (pAlsoResetLoops) {
 				_currentLoop = 0;
 			}
+
+			_finished = false;
 
 			_currentTime = 0.0f;
 		}
@@ -163,7 +168,7 @@ partial class TimerManager {
 			if (_playing) {
 				_currentTime += _useScaledDeltaTime ? Time.deltaTime : Time.unscaledDeltaTime;
 
-				if (_currentTime >= _duration) {
+				while (_currentTime >= _duration) {
 					_currentLoop++;
 
 					invokeCallbacks();
@@ -183,6 +188,8 @@ partial class TimerManager {
 						if (_killOnFinish) {
 							kill();
 						}
+
+						break;
 					} else {
 						_currentTime -= _duration;
 

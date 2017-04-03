@@ -52,6 +52,12 @@ namespace Utilities {
 		}
 	}
 
+	public class Math {
+		public static float Remap (float pValue, float pFromMin, float pFromMax, float pToMin, float pToMax) {
+			return (pValue - pFromMin) * (pToMax - pToMin) / (pFromMax - pFromMin) + pToMin;
+		}
+	}
+
 	public class Weapons {
 		public static void DisplayBulletTracer (Vector3 pStartPoint, Vector3 pDirection, float pRange) {
 			DisplayBulletTracer(pStartPoint, pStartPoint + pDirection * pRange);

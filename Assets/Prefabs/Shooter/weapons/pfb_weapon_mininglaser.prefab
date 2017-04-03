@@ -1150,9 +1150,9 @@ MonoBehaviour:
   _shootDamage: 300
   _shootRange: 100
   _shootDelay: 1.5
-  _spreadConeRadius: 0.25
+  _spreadConeRadius: 1.25
   _spreadConeLength: 10
-  _aimedSpreadConeRadius: 0.1
+  _aimedSpreadConeRadius: 0.75
   _velocitySpreadRadiusCurve:
     serializedVersion: 2
     m_Curve:
@@ -1171,8 +1171,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _magazineCapacity: 2
-  _maxReserveAmmo: 4
+  _magazineCapacity: 100
+  _maxReserveAmmo: 0
   _muzzlePosition: {fileID: 4000011162098440}
   _aimPosition: {fileID: 4000010135323798}
   _reloadTime: 2.5
@@ -1187,7 +1187,13 @@ MonoBehaviour:
   _reloadDownRotation: 25
   _reloadMoveTime: 0.2
   _model: {fileID: 1128740038223598}
-  _chargeTime: 1
+  _chargeTime: 1.75
+  _minDamage: 100
+  _maxDamage: 400
+  _minBeams: 4
+  _maxBeams: 15
+  _minAmmoUse: 5
+  _maxAmmoUse: 20
 --- !u!198 &198038601078346480
 ParticleSystem:
   m_ObjectHideFlags: 1

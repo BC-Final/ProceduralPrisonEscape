@@ -111,7 +111,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected virtual void Awake() {
 		_magazineContent = _magazineCapacity;
-		_reserveAmmo = _magazineCapacity;
+		_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
 	}
 
 	protected virtual void Start() {
@@ -147,28 +147,35 @@ public abstract class Weapon : MonoBehaviour {
 		_reloading = false;
 	}
 
-	protected void shoot () {
+	protected void shoot (int pNumberOfShots = 1, bool pConsumeAmmo = true) {
 		_shootTimer.Start();
 
 		_canShoot = false;
 
-		_magazineContent = Mathf.Max(_magazineContent - 1, 0);
+		if (pConsumeAmmo) {
+			_magazineContent = Mathf.Max(_magazineContent - 1, 0);
+		}
 
 		RaycastHit hit;
 
-		if (Physics.Raycast(Camera.main.transform.position, calulateShootDirection(), out hit, _shootRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
-			spawnBullet(hit.point);
-			spawnDecal(hit.point, hit.normal, hit.collider.transform);
-			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
-			//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
-			//TODO FIX DEM WEAPONS AS WELL!
-			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
-				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
+		for (int i = 0; i < pNumberOfShots; ++i) {
+			Vector3 shootDir = calulateShootDirection();
+
+			if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, _shootRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+				spawnBullet(hit.point);
+				spawnDecal(hit.point, hit.normal, hit.collider.transform);
+				//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
+				//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
+				//TODO FIX DEM WEAPONS AS WELL!
+				if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
+					hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
+				}
+			} else {
+				//spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
+				spawnBullet(_muzzlePosition.position + shootDir * _shootRange);
+				//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
+				//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 			}
-		} else {
-			spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
-			//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
-			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
 		}
 
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
@@ -202,6 +209,10 @@ public abstract class Weapon : MonoBehaviour {
 	public void SetActive (bool pActive) {
 		_active = pActive;
 		_model.SetActive(pActive);
+	}
+
+	protected void SetDamage (float pDamage) {
+		_shootDamage = pDamage;
 	}
 
 	private void OnGUI() {

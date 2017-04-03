@@ -838,7 +838,7 @@ MonoBehaviour:
   _aimPosition: {fileID: 4000013570196990}
   _reloadTime: 1.5
   _meleeTime: 0.5
-  _aimTime: 0.1
+  _aimTime: 1
   _cameraRecoilForce: {x: 1, y: 1}
   _weaponRotationRecoilForce: {x: 1, y: 1}
   _weaponMoveRecoilForce: 0.08

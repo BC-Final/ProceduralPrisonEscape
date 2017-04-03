@@ -66,6 +66,8 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 		//TODO Display damage direction indicator
 		_currentHealth.Value = Mathf.Max(0.0f, _currentHealth.Value - pDamage);
 
+		FindObjectOfType<HitDirection>().ShowHitMarker(transform.InverseTransformDirection(pDirection));
+
 		if (_currentHealth.Value == 0.0f) {
 			_destroyEvent.Invoke(gameObject);
 			//TODO Add death state
