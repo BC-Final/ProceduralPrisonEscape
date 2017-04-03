@@ -29,6 +29,17 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 		}
 	}
 
+    //A hack to test keypads when no one is connected
+    private void Start()
+    {
+        if (_keypad)
+        {
+            _keypad.Doors.Add(this);
+        }
+    }
+    /// <summary>
+    /// Sends initialization packet to hacker
+    /// </summary>
 
 
 	/// <summary>
@@ -37,13 +48,18 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	public void Initialize () {
 		//TODO Only initialze when shooter saw object or database
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
+        if (_keypad)
+        {
+            //_keypad.Doors.Add(this);
+            ShooterPackageSender.SendPackage(new NetworkPacket.Create.CodeLock(Id, _keypad.keyCode));
+        }
+        //Keycard should also be managed in the door class for consistency
 	}
+    
 
-
-
-	//TODO Replace with animation
-	//--------temp--------
-	[SerializeField]
+    //TODO Replace with animation
+    //--------temp--------
+    [SerializeField]
 	private Transform _leftDoor;
 
 	[SerializeField]
@@ -60,16 +76,43 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 
 	/// <summary>
-	/// Indicated if door is locked
+	/// Indicated if door is locked or keylocked
 	/// </summary>
 	private bool _locked;
+    private bool _keyLocked;
+    [SerializeField]
+    private Keypad _keypad;
 
 
+    /// <summary>
+    /// HACK! To be changed!
+    /// </summary>
+    public void ForceOpen()
+    {
+        _open.Value = true;
+        sendStateUpdate();
+    }
 
-	/// <summary>
-	/// Registers Network Door reference and add listener to state change
-	/// </summary>
-	private void Awake () {
+    public void SetRequireKeyCard(Color keyColor)
+    {
+        if (_keyLocked)
+        {
+            Debug.Log("WARNING!!! This door already has a Keycard");
+            return;
+        }
+        _keyLocked = true;
+        Sprite keySprite = ShooterReferenceManager.Instance.KeycardIcon;
+        foreach (SpriteRenderer sprite in GetComponentsInChildren<SpriteRenderer>())
+        {
+            sprite.sprite = keySprite;
+            sprite.color = keyColor;
+        }
+    }
+
+    /// <summary>
+    /// Registers Network Door reference and add listener to state change
+    /// </summary>
+    private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
 		_open.OnValueChange += stateChanged;
 	}
@@ -126,11 +169,20 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	/// <param name="pOther">Other Collider</param>
 	private void OnTriggerStay (Collider pOther) {
-		//TODO Notify drone when door is locked
-		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value) {
+        //TODO Notify drone when door is locked
+        if (pOther.GetComponentInParent<Inventory>())
+        {
+            if (pOther.GetComponentInParent<Inventory>().Contains(this))
+            {
+                _open.Value = true;
+                sendStateUpdate();
+            }
+        }
+
+        if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value) {
 			_open.Value = true;
 			sendStateUpdate();
-			Debug.Log("Drone opened door");
+			//Debug.Log("Drone opened door");
 		}
 	}
 
@@ -141,11 +193,19 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	/// <param name="pOther"></param>
 	private void OnTriggerExit (Collider pOther) {
-		Debug.Log("Trigger exit");
+        if (pOther.GetComponentInParent<Inventory>())
+        {
+            if (pOther.GetComponentInParent<Inventory>().Contains(this))
+            {
+                _open.Value = false;
+                sendStateUpdate();
+            }
+        }
+        //Debug.Log("Trigger exit");
 		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && _open.Value) {
 			_open.Value = false;
 			sendStateUpdate();
-			Debug.Log("Drone closed door");
+			//Debug.Log("Drone closed door");
 		}
 	}
 
@@ -162,7 +222,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 			door._open.Value = pPacket.Open;
 			door._locked = pPacket.Locked;
 		} else {
-			Debug.LogError("Could not find Door with Id " + pPacket.Id);
+			//Debug.LogError("Could not find Door with Id " + pPacket.Id);
 		}
 	}
 }

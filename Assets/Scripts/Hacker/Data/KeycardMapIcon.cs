@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
 public class KeycardMapIcon : AbstractMapIcon {
 
-    private bool _used;
+    private ObservedValue<bool> _used = new ObservedValue<bool>(false);
     private Color _keyColor;
     private List<DoorMapIcon> _doorList;
 
@@ -33,10 +34,15 @@ public class KeycardMapIcon : AbstractMapIcon {
 
         icon.Id = pPacket.Id;
         icon.SetKeyColor(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
-        icon.SetDoorArray(pPacket.intArray);
+        //icon.SetDoorArray(pPacket.intArray);
 
         //TODO Research why onValueChanged is not called
         //icon.stateChanged();
+    }
+
+    private void Awake()
+    {
+        _used.OnValueChange += StateChanged;
     }
 
     private void SetKeyColor(Color nKeyColor)
@@ -45,22 +51,27 @@ public class KeycardMapIcon : AbstractMapIcon {
         changeColor(nKeyColor);
     }
 
-    private void SetDoorArray(int[] nArray)
-    {
-        _doorList = new List<DoorMapIcon>();
-        for(int i = 0; i<nArray.Length; i++)
-        {
-            _doorList.Add(HackerPackageSender.GetNetworkedObject<DoorMapIcon>(nArray[i]));
-        }
-
-        foreach(DoorMapIcon d in _doorList)
-        {
-            d.SetKeyColor(_keyColor);
-        }
-    }
+    //private void SetDoorArray(int[] nArray)
+    //{
+    //    _doorList = new List<DoorMapIcon>();
+    //    for(int i = 0; i<nArray.Length; i++)
+    //    {
+    //        _doorList.Add(HackerPackageSender.GetNetworkedObject<DoorMapIcon>(nArray[i]));
+    //    }
+    //
+    //    foreach(DoorMapIcon d in _doorList)
+    //    {
+    //        d.SetKeyColor(_keyColor);
+    //    }
+    //}
 
     private void updateInstance(NetworkPacket.Update.Icon pPacket)
     {
-        _used = pPacket.used;
+        _used.Value = pPacket.used;
+    }
+
+    private void StateChanged()
+    {
+        gameObject.SetActive(!_used.Value);
     }
 }
