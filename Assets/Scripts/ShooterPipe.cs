@@ -36,7 +36,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 
 		if (pipe != null) {
 			if (pPacket.ChargedExplosion) {
-				Timers.CreateTimer("Pipe explosion").SetTime(pipe._chargedExplodeDelay).SetCallback(() => pipe.explode(pPacket.ChargedExplosion)).Start();
+				TimerManager.CreateTimer("Pipe explosion", true).SetDuration(pipe._chargedExplodeDelay).AddCallback(() => pipe.explode(pPacket.ChargedExplosion)).Start();
 			} else {
 				pipe.explode(pPacket.ChargedExplosion);
 			}

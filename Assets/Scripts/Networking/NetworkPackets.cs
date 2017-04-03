@@ -56,7 +56,7 @@ namespace NetworkPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
 			public bool Open, Locked;
-			public bool HasLocationData;
+			public bool SectorDoor;
 
 			public Door (int pId, float pPosX, float pPosY, float pRot, bool pOpen, bool pLocked) {
 				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Open = pOpen; Locked = pLocked;
@@ -72,6 +72,25 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
+		public class SectorDoor : AbstractPacket {
+			public int Id;
+			public float PosX, PosY, Rot;
+			public bool Open, Locked;
+
+			public SectorDoor (int pId, float pPosX, float pPosY, float pRot, bool pOpen, bool pLocked) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Open = pOpen; Locked = pLocked;
+			}
+
+			public SectorDoor (int pId, bool pOpen, bool pLocked) {
+				Id = pId; Open = pOpen; Locked = pLocked;
+			}
+
+			public SectorDoor (int pId, bool pOpen) {
+				Id = pId; Open = pOpen;
+			}
+		}
+
+		[System.Serializable]
 		public class Player : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
@@ -79,6 +98,36 @@ namespace NetworkPacket {
 
 			public Player (int pId, float pPosX, float pPosY, float pRot, float pHealth) {
 				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Health = pHealth;
+			}
+		}
+
+		[System.Serializable]
+		public class Module : AbstractPacket {
+			public int Id;
+			public float PosX, PosY, Rot;
+			public bool Solved;
+
+			public Module (int pId, float pPosX, float pPosY, float pRot, bool pSolved) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Solved = pSolved;
+			}
+
+			public Module (int pId, bool pSolved) {
+				Id = pId; Solved = pSolved;
+			}
+		}
+
+		[System.Serializable]
+		public class Objective : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+			public bool Finished;
+
+			public Objective (int pId, float pPosX, float pPosY) {
+				Id = pId; PosX = pPosX; PosY = pPosY;
+			}
+
+			public Objective (int pId, bool pFinished) {
+				Id = pId; Finished = pFinished;
 			}
 		}
 

@@ -41,23 +41,23 @@ public class AlarmManager : Singleton<AlarmManager> {
 	private bool _alarmActive;
 
 
-	private Timers.Timer _waveTimer;
-	private Timers.Timer _spawnTimer;
+	//private Timers.Timer _waveTimer;
+	//private Timers.Timer _spawnTimer;
 
 	private FMOD.Studio.EventInstance _alarmSound;
 
 	private void Start () {
-		_waveTimer = Timers.CreateTimer("Alarm Wave").SetCallback(() => spawnWave()).SetMinMaxTime(_minWaveDelay, _maxWaveDelay);
-		_spawnTimer = Timers.CreateTimer("Alarm Spawn").ResetOnFinish().SetCallback(() => spawnEnemy()).SetMinMaxTime(_minEnemySpawnDelay, _maxEnemySpawnDelay);
+		//_waveTimer = Timers.CreateTimer("Alarm Wave").SetCallback(() => spawnWave()).SetMinMaxTime(_minWaveDelay, _maxWaveDelay);
+		//_spawnTimer = Timers.CreateTimer("Alarm Spawn").ResetOnFinish().SetCallback(() => spawnEnemy()).SetMinMaxTime(_minEnemySpawnDelay, _maxEnemySpawnDelay);
 
 		_alarmSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_alarm_loop");
 	}
 
 
 	private void spawnWave () {
-		_waveTimer.SetLoop(-1).Start();
+		//_waveTimer.SetLoop(-1).Start();
 		//Debug.Log("Started Wave");
-		_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount + 1)).Start();
+		//_spawnTimer.SetLoop(Random.Range(_minWaveEnemyCount, _maxWaveEnemyCount + 1)).Start();
 	}
 
 
@@ -101,8 +101,8 @@ public class AlarmManager : Singleton<AlarmManager> {
 
 		GetComponent<ShooterGamestateManager>().DisableAlarm();
 
-		_waveTimer.Stop();
-		_spawnTimer.Stop();
+		//_waveTimer.Stop();
+		//_spawnTimer.Stop();
 
 		_alarmSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		//TODO Send Update

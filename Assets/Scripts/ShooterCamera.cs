@@ -30,13 +30,13 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 
 	private StateMachine<AbstractCameraState> _fsm;
 
-	private Timers.Timer _networkUpdateTimer;
+	private Timer _networkUpdateTimer;
 
 	[SerializeField]
 	private Faction _faction = Faction.Prison;
 	public Faction Faction { get { return _faction; } }
 
-	private List<IDamageable> _possibleTargets = new List<IDamageable>();
+	private List<ITargetable> _possibleTargets = new List<ITargetable>();
 	public Transform[] PossibleTargets {
 		get {
 			return _possibleTargets.FindAll(x => x.Faction != _faction).Select(x => x.GameObject.transform).ToArray();
@@ -81,7 +81,7 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 	}
 
 	public void Initialize () {
-		_networkUpdateTimer = Timers.CreateTimer("Camera Network Update").SetTime(_parameters.NetworkUpdateRate).SetLoop(-1).SetCallback(() => sendUpdate()).Start();
+		_networkUpdateTimer = TimerManager.CreateTimer("Camera Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 	}
 
 	private void sendUpdate () {
@@ -135,12 +135,12 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 
 	private void control () {
 		_faction = Faction.Neutral;
-		Timers.CreateTimer("Camera Controlled").SetTime(_parameters.ControllDuration).SetCallback(() => _faction = Faction.Prison).Start();
+		TimerManager.CreateTimer("Camera Controlled", true).SetDuration(_parameters.ControllDuration).AddCallback(() => _faction = Faction.Prison).Start();
 	}
 
 
 	private void OnTriggerEnter (Collider other) {
-		IDamageable d = other.GetComponentInParent<IDamageable>();
+		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
 			d.AddToDestroyEvent(g => onTargetDestroyed(g));
@@ -149,7 +149,7 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 	}
 
 	private void OnTriggerExit (Collider other) {
-		IDamageable d = other.GetComponentInParent<IDamageable>();
+		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
 			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));

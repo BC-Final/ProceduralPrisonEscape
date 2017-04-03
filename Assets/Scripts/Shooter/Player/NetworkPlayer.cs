@@ -13,7 +13,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// <summary>
 	/// Reference to the netowork update timer
 	/// </summary>
-	private Timers.Timer _updateTimer;
+	private Timer _updateTimer;
 
 
 
@@ -50,7 +50,11 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// Initializes object after hacker connected
 	/// </summary>
 	public void Initialize () {
-		//TODO Create init package??
+		_updateTimer = TimerManager.CreateTimer("Player Update", false)
+.SetDuration(_transformUpdateInterval)
+.SetLoops(-1)
+.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
+.Start();
 	}
 
 
@@ -81,12 +85,5 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void Start () {
 		_playerHealth = FindObjectOfType<PlayerHealth>();
-
-		_updateTimer = Timers.CreateTimer("Player Online Update")
-		.SetTime(_transformUpdateInterval)
-		.SetLoop(-1)
-		.UseRealTime(true)
-		.SetCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
-		.Start();
 	}
 }

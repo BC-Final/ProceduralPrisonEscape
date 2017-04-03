@@ -105,7 +105,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	private MouseLook _mouseLook;
 
-	private Timers.Timer _shootTimer;
+	private Timer _shootTimer;
 
 	private CharacterController _controller;
 
@@ -116,7 +116,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	protected virtual void Start() {
 		_mouseLook = FindObjectOfType<MouseLook>();
-		_shootTimer = Timers.CreateTimer("Weapon Shoot Rate").SetTime(_shootDelay).SetCallback(() => _canShoot = true).ResetOnFinish();
+		_shootTimer = TimerManager.CreateTimer("Weapon Shoot Rate", false).SetDuration(_shootDelay).AddCallback(() => _canShoot = true).ResetOnFinish();
 		_controller = GetComponentInParent<CharacterController>();
 	}
 

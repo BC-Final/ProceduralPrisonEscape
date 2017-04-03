@@ -8,7 +8,7 @@ using System.Linq;
 
 [SelectionBase]
 [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
+public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetworked {
 	[SerializeField]
 	private DroneParameters _parameters;
 	public DroneParameters Parameters { get { return _parameters; } }
@@ -65,9 +65,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	private NavMeshAgent _agent;
 	public NavMeshAgent Agent { get { return _agent; } }
 
-	private Timers.Timer _networkUpdateTimer;
+	private Timer _networkUpdateTimer;
 
-	private List<IDamageable> _possibleTargets = new List<IDamageable>();
+	private List<ITargetable> _possibleTargets = new List<ITargetable>();
 	public Transform[] PossibleTargets {
 		get {
 			return _possibleTargets.FindAll(x => x.Faction != _faction).Select(x => x.GameObject.transform).ToArray();
@@ -119,7 +119,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 
 
 	public void Initialize () {
-		_networkUpdateTimer = Timers.CreateTimer("Drone Network Update").SetTime(_parameters.NetworkUpdateRate).SetLoop(-1).SetCallback(() => sendUpdate()).Start();
+		_networkUpdateTimer = TimerManager.CreateTimer("Drone Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 	}
 
 
@@ -182,8 +182,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 	private void sendUpdate () {
 		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is DroneStunnedState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
 
-		Debug.Log(state.ToString());
-
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
 	}
 
@@ -207,7 +205,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 
 
 	private void OnTriggerEnter (Collider other) {
-		IDamageable d = other.GetComponentInParent<IDamageable>();
+		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
 			d.AddToDestroyEvent(g => onTargetDestroyed(g));
@@ -218,7 +216,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, IShooterNetworked {
 
 
 	private void OnTriggerExit (Collider other) {
-		IDamageable d = other.GetComponentInParent<IDamageable>();
+		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
 			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));

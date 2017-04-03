@@ -1,173 +1,173 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿//////using UnityEngine;
+//using System.Collections;
+//using System;
 
-partial class Timers {
-	public class Timer {
-		private string _name;
+//partial class Timers {
+//	public class Timer {
+//		private string _name;
 
-		private float _time;
-		private float _minTime;
-		private float _maxTime;
+//		private float _time;
+//		private float _minTime;
+//		private float _maxTime;
 
-		private int _loopCount;
-		private bool _useRealTime;
-		private bool _resetOnFinish;
-		private bool _randomTime;
+//		private int _loopCount;
+//		private bool _useRealTime;
+//		private bool _resetOnFinish;
+//		private bool _randomTime;
 
-		private Action _callback;
+//		private Action _callback;
 
-		private bool _playing;
-		private bool _killed;
+//		private bool _playing;
+//		private bool _killed;
 
-		private float _currentTime;
-		private int _currentloopCount;
-
-
-
-		internal Timer (string pName) {
-			_name = pName;
-
-			_time = 0.0f;
-
-			_loopCount = 0;
-
-			_playing = false;
-			_killed = false;
-			_useRealTime = false;
-			_resetOnFinish = false;
-
-			_currentTime = 0.0f;
-			_currentloopCount = 0;
-
-			Timers.Instance.RegisterTimer(this);
-		}
+//		private float _currentTime;
+//		private int _currentloopCount;
 
 
 
-		public Timer SetTime (float pTime) {
-			_randomTime = false;
-			_time = pTime;
-			return this;
-		}
+//		internal Timer (string pName) {
+//			_name = pName;
 
-		public Timer SetMinMaxTime (float pMinTime, float pMaxTime) {
-			_randomTime = true;
-			_minTime = pMinTime;
-			_maxTime = pMaxTime;
-			return this;
-		}
+//			_time = 0.0f;
 
-		public Timer SetLoop (int pCount) {
-			_loopCount = pCount;
-			return this;
-		}
+//			_loopCount = 0;
 
-		public Timer UseRealTime (bool pUseRealTime) {
-			_useRealTime = pUseRealTime;
-			return this;
-		}
+//			_playing = false;
+//			_killed = false;
+//			_useRealTime = false;
+//			_resetOnFinish = false;
 
-		public Timer Start () {
-			if (_randomTime) {
-				_time = UnityEngine.Random.Range(_minTime, _maxTime);
-			}
+//			_currentTime = 0.0f;
+//			_currentloopCount = 0;
 
-			_killed = false;
-			_playing = true;
-			return this;
-		}
-
-		public Timer Pause () {
-			_playing = false;
-			return this;
-		}
-
-		public Timer Reset () {
-			_currentTime = 0.0f;
-			_loopCount = 0;
-			return this;
-		}
-
-		public Timer Stop () {
-			Pause();
-			Reset();
-			_killed = true;
-			return this;
-		}
-
-		public Timer ResetOnFinish () {
-			_resetOnFinish = true;
-			return this;
-		}
-
-		public Timer SetCallback (Action pCallback) {
-			_callback = pCallback;
-			return this;
-		}
+//			Timers.Instance.RegisterTimer(this);
+//		}
 
 
-		public string Name {
-			get { return _name; }
-		}
 
-		public bool IsPlaying {
-			get { return _playing; }
-		}
+//		public Timer SetTime (float pTime) {
+//			_randomTime = false;
+//			_time = pTime;
+//			return this;
+//		}
 
-		public int CurrentLoopCount {
-			get { return _currentloopCount; }
-		}
+//		public Timer SetMinMaxTime (float pMinTime, float pMaxTime) {
+//			_randomTime = true;
+//			_minTime = pMinTime;
+//			_maxTime = pMaxTime;
+//			return this;
+//		}
 
-		public int LoopCount {
-			get { return _loopCount; }
-		}
+//		public Timer SetLoop (int pCount) {
+//			_loopCount = pCount;
+//			return this;
+//		}
 
-		public float CurrentTime {
-			get { return _currentTime; }
-		}
+//		public Timer UseRealTime (bool pUseRealTime) {
+//			_useRealTime = pUseRealTime;
+//			return this;
+//		}
 
-		public float RemainingTime {
-			get { return _time - _currentTime; }
-		}
+//		public Timer Start () {
+//			if (_randomTime) {
+//				_time = UnityEngine.Random.Range(_minTime, _maxTime);
+//			}
 
-		public float TimerTime {
-			get { return _time; }
-		}
+//			_killed = false;
+//			_playing = true;
+//			return this;
+//		}
 
-		public bool IsKilled {
-			get { return _killed; }
-		}
+//		public Timer Pause () {
+//			_playing = false;
+//			return this;
+//		}
 
-		public float FinishedPercent {
-			get { return Mathf.Clamp01(_currentTime / _time); }
-		}
+//		public Timer Reset () {
+//			_currentTime = 0.0f;
+//			_loopCount = 0;
+//			return this;
+//		}
+
+//		public Timer Stop () {
+//			Pause();
+//			Reset();
+//			_killed = true;
+//			return this;
+//		}
+
+//		public Timer ResetOnFinish () {
+//			_resetOnFinish = true;
+//			return this;
+//		}
+
+//		public Timer SetCallback (Action pCallback) {
+//			_callback = pCallback;
+//			return this;
+//		}
 
 
-		internal void Step () {
-			if (_playing) {
-				_currentTime += _useRealTime ? Time.unscaledDeltaTime : Time.deltaTime;
+//		public string Name {
+//			get { return _name; }
+//		}
 
-				if (_currentTime >= _time) {
-					_currentloopCount++;
+//		public bool IsPlaying {
+//			get { return _playing; }
+//		}
 
-					_callback();
+//		public int CurrentLoopCount {
+//			get { return _currentloopCount; }
+//		}
 
-					if (_loopCount < _currentloopCount && _loopCount >= 0) {
-						_currentTime = _time;
-						_playing = false;
-						_killed = true;
+//		public int LoopCount {
+//			get { return _loopCount; }
+//		}
 
-						if (_resetOnFinish) {
-							Stop();
-							//Timers.Instance.UnregisterTimer(this);
-						}
-					} else {
-						Start();
-						_currentTime -= _time;
-					}
-				}
-			}
-		}
-	}
-}
+//		public float CurrentTime {
+//			get { return _currentTime; }
+//		}
+
+//		public float RemainingTime {
+//			get { return _time - _currentTime; }
+//		}
+
+//		public float TimerTime {
+//			get { return _time; }
+//		}
+
+//		public bool IsKilled {
+//			get { return _killed; }
+//		}
+
+//		public float FinishedPercent {
+//			get { return Mathf.Clamp01(_currentTime / _time); }
+//		}
+
+
+//		internal void Step () {
+//			if (_playing) {
+//				_currentTime += _useRealTime ? Time.unscaledDeltaTime : Time.deltaTime;
+
+//				if (_currentTime >= _time) {
+//					_currentloopCount++;
+
+//					_callback();
+
+//					if (_loopCount < _currentloopCount && _loopCount >= 0) {
+//						_currentTime = _time;
+//						_playing = false;
+//						_killed = true;
+
+//						if (_resetOnFinish) {
+//							Stop();
+//							//Timers.Instance.UnregisterTimer(this);
+//						}
+//					} else {
+//						Start();
+//						_currentTime -= _time;
+//					}
+//				}
+//			}
+//		}
+//	}
+//}

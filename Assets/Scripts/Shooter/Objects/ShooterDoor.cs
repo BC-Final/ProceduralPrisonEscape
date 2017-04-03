@@ -10,7 +10,7 @@ using UnityEngine.AI;
 [SelectionBase]
 public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// <summary>
-	/// Netowork Identification
+	/// Network Identification
 	/// </summary>
 	private int _id;
 
@@ -117,7 +117,6 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void sendStateUpdate () {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
-		Debug.Log("Send door update");
 	}
 
 

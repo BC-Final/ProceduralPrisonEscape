@@ -7,6 +7,7 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
     public GameObject CameraIcon;
 	public GameObject DatabaseIcon;
     public GameObject DoorIcon;
+	public GameObject SectorDoorIcon;
 	public GameObject DefenceWallIcon;
 	public GameObject DroneIcon;
 	public GameObject FuseBoxIcon;

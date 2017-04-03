@@ -73,16 +73,20 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
         if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
         if (pPacket is NetworkPacket.Create.KeyCard) { readPacket(pPacket as NetworkPacket.Create.KeyCard); }
-        
-        if(pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
+		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
 
-        //if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
+		if (pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
+
 
         if (pPacket is NetworkPacket.Message.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Message.DisconnectRequest); }
 	}
 
 	private void readPacket (NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.SectorDoor pPacket) {
+		SectorDoorMapIcon.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Player pPacket) {

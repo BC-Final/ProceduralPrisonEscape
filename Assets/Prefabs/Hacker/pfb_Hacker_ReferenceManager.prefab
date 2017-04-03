@@ -54,6 +54,8 @@ MonoBehaviour:
   CameraIcon: {fileID: 1969725631634920, guid: 1374de5e54aa6d64dbea7102ad1fab89, type: 2}
   DatabaseIcon: {fileID: 0}
   DoorIcon: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}
+  SectorDoorIcon: {fileID: 1087148955703674, guid: affb8e53e61e3e146a35c7c2d1f84da3,
+    type: 2}
   DefenceWallIcon: {fileID: 0}
   DroneIcon: {fileID: 1189598750102910, guid: 9ea54ff3af09b4547bd5318f655ee965, type: 2}
   FuseBoxIcon: {fileID: 0}

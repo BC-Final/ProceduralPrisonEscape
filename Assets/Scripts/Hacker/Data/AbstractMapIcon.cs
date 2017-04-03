@@ -73,8 +73,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		//gameObject.GetComponent<BoxCollider2D>().center = new Vector2((S.x / 2), 0);
 	}
 
-    protected void changeColor (Color pColor)
-    {
-        spriteRenderer.color = pColor;
-    }
+	protected void changeColor (Color pColor) {
+		spriteRenderer.color = pColor;
+	}
 }

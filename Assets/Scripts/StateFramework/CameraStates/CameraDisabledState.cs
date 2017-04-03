@@ -11,7 +11,7 @@ namespace StateFramework {
 		public override void Enter () {
 			_prevIntensity = _camera.GetComponentInChildren<Light>().intensity;
 			_camera.GetComponentInChildren<Light>().intensity = 0.0f;
-			Timers.CreateTimer("Camera disable").SetTime(_camera.Parameters.DisableDuration).SetCallback(() => _fsm.SetState<CameraGuardState>()).Start();
+			TimerManager.CreateTimer("Camera disable", true).SetDuration(_camera.Parameters.DisableDuration).AddCallback(() => _fsm.SetState<CameraGuardState>()).Start();
 		}
 
 		public override void Step () { }

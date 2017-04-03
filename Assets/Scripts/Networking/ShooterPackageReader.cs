@@ -33,6 +33,7 @@ public class ShooterPackageReader : MonoBehaviour {
 	/// <param name="pPacket"></param>
 	private void readPacket (NetworkPacket.AbstractPacket pPacket) {
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
+		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
@@ -47,6 +48,10 @@ public class ShooterPackageReader : MonoBehaviour {
 
 	private void readPacket (NetworkPacket.Update.Door pPacket) {
 		ShooterDoor.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.SectorDoor pPacket) {
+		ShooterSectorDoor.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.Turret pPacket) {

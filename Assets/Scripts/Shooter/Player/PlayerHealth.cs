@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using Gamelogic.Extensions;
 
-public class PlayerHealth : Singleton<PlayerHealth>, IDamageable {
+public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 	[SerializeField]
 	[Tooltip("The maximum amount of health")]
 	private float _maxHealth;
