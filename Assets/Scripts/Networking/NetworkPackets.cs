@@ -49,18 +49,32 @@ namespace NetworkPacket {
 
         }
         [System.Serializable]
-        public class CodeLock : AbstractPacket
+        public class DecodeAddon : AbstractPacket
         {
             public int DoorId;
             public string CodeString;
 
-            public CodeLock(int pDoorId, string pCodeString)
+            public DecodeAddon(int pDoorId, string pCodeString)
             {
                 DoorId = pDoorId;
                 CodeString = pCodeString;
             }
         }
 
+        [System.Serializable]
+        public class CodeLockAddon : AbstractPacket
+        {
+            public int Id;
+            public int DoorId;
+            public string CodeString;
+
+            public CodeLockAddon(int pId, int pDoorId, string pCodeString)
+            {
+                Id = pId;
+                DoorId = pDoorId;
+                CodeString = pCodeString;
+            }
+        }
     }
 	namespace Update {
 		[System.Serializable]
@@ -223,6 +237,19 @@ namespace NetworkPacket {
             {
                 Id = pID;
                 used = pUsed;
+            }
+        }
+
+        [System.Serializable]
+        public class CodeLock : AbstractPacket
+        {
+            public int Id;
+            public string codeString;
+
+            public CodeLock(int pID, string pCodeString)
+            {
+                Id = pID;
+                codeString = pCodeString;
             }
         }
     }

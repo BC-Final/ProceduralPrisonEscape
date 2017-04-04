@@ -50,7 +50,7 @@ public class KeycodeInputWindow : MonoBehaviour {
         _keypad = pad;
     }
 
-    public void SetKeypad(DoorMapIcon pad)
+    public void SetDoor(DoorMapIcon pad)
     {
         _door = pad;
     }
