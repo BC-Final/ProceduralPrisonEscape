@@ -30,7 +30,6 @@ public class Phaser : Weapon {
 	}
 
 	protected override void spawnBullet(Vector3 pHitPoint) {
-		Debug.Log("Direct Spawn");
 		Utilities.Weapons.DisplayLaser(_muzzlePosition.position, pHitPoint);
 		//GameObject laser = Instantiate(ShooterReferenceManager.Instance.LaserShot, pHitPoint, Quaternion.identity) as GameObject;
 		//laser.GetComponent<LineRenderer>().SetPosition(0, laser.transform.InverseTransformPoint(_muzzlePosition.position));
