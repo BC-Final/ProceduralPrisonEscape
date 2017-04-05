@@ -24,7 +24,7 @@ public class DoorMapIcon : AbstractMapIcon
 
     private string _codeSolution;
 
-    public static void AddAddon(NetworkPacket.Create.CodeLock pPacket)
+    public static void AddAddon(NetworkPacket.Create.DecodeAddon pPacket)
     {
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
         Array.Clear(icon.actions, 0, icon.actions.Length);
@@ -44,6 +44,21 @@ public class DoorMapIcon : AbstractMapIcon
         {
             HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.intArray[i]).SetKeyColor(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
         }
+    }
+
+    public static void AddAddon(NetworkPacket.Create.CodeLockAddon pPacket)
+    {
+        DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
+        Array.Clear(icon.actions, 0, icon.actions.Length);
+        AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
+        action.DisplayName = "Input Code";
+        action.HackerPointsCost = 0;
+        UnityEvent m_MyEvent = new UnityEvent();
+        m_MyEvent.AddListener(icon.InputCode);
+        action.Action = m_MyEvent;
+        icon.actions[0] = action;
+        icon._codeSolution = pPacket.CodeString;
+        icon._addonId = pPacket.Id;
     }
 
     private static void createInstance(NetworkPacket.Update.Door pPacket)
@@ -70,6 +85,7 @@ public class DoorMapIcon : AbstractMapIcon
         _locked.OnValueChange += stateChanged;
     }
 
+    private int _addonId;
     public bool showWindow = false;
     private bool _keycardLocked = false;
     private Color _keyColor;
@@ -112,9 +128,27 @@ public class DoorMapIcon : AbstractMapIcon
         }
     }
 
-    public void UseKeycode(string code)
+    public void InputCode()
     {
+        if (!showWindow)
+        {
+            showWindow = true;
+            KeycodeInputWindow window = Instantiate(HackerReferenceManager.Instance.CodeInputWindow, Vector3.zero, Quaternion.identity).GetComponent<KeycodeInputWindow>();
+            window.SetDoor(this);
+        }
+    }
 
+    public void UseKeycode(string codeString)
+    {
+        Debug.Log("Code: " + codeString + "/" + "Solution: " + _codeSolution);
+        if(codeString.ToUpper() == _codeSolution.ToUpper())
+        {
+            HackerPackageSender.SendPackage(new NetworkPacket.Update.CodeLock(_addonId, codeString));
+            FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
+        }else
+        {
+            FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();
+        }
     }
 
     public void SetKeyColor(Color nColor)

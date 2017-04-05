@@ -51,7 +51,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
         if (_keypad)
         {
             //_keypad.Doors.Add(this);
-            ShooterPackageSender.SendPackage(new NetworkPacket.Create.CodeLock(Id, _keypad.keyCode));
+            ShooterPackageSender.SendPackage(new NetworkPacket.Create.DecodeAddon(Id, _keypad.keyCode));
         }
         //Keycard should also be managed in the door class for consistency
 	}
@@ -75,14 +75,14 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 
 
-	/// <summary>
-	/// Indicated if door is locked or keylocked
-	/// </summary>
+    /// <summary>
+    /// Indicated if door is locked or keylocked
+    /// </summary>#
+    
 	private bool _locked;
     private bool _keyLocked;
     [SerializeField]
     private Keypad _keypad;
-
 
     /// <summary>
     /// HACK! To be changed!
