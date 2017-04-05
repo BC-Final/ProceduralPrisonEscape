@@ -50,11 +50,13 @@ namespace StateFramework {
 			_drone.Agent.stoppingDistance = _startStoppingDistance;
 		}
 
-		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			if (pSender != null && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction)) {
-				_drone.LastTarget = pSender.GameObject;
+		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+			IDamageable src = pSource.GetComponent<IDamageable>();
+
+			if (src != null && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction)) {
+				_drone.LastTarget = src.GameObject;
 				_fsm.SetState<DroneFollowState>();
-			} else if (pSender == null) {
+			} else if (src == null) {
 				_fsm.SetState<DroneSearchState>();
 			}
 		}

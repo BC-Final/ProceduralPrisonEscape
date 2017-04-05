@@ -66,3 +66,4 @@ MonoBehaviour:
   KeyCodeInputWindow: {fileID: 1990251701772648, guid: 51ecda326cb00cc4385c7a7413a74361,
     type: 2}
   KeycardIcon: {fileID: 21300000, guid: 4cdfb7c8780de2144b99efc958d2aeef, type: 3}
+  HitMarker: {fileID: 1053674745789406, guid: 9cec552cc2f75694f95b71aa120e6b6b, type: 2}

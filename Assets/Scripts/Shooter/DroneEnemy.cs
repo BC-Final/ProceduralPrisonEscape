@@ -232,7 +232,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) { 
 		if (_currentHealth > 0.0f) {
 			_currentHealth -= pDamage;
 
@@ -243,71 +243,72 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 				if (_destroyEvent != null) {
 					_destroyEvent.Invoke(gameObject);
 				}
-				
+
 				_fsm.SetState<DroneDeadState>();
 			}
 
-			_fsm.GetState().ReceiveDamage(pSender, pDirection, pPoint, pDamage);
+			_fsm.GetState().ReceiveDamage(pSource, pHitPoint, pDamage, pForce);
 
-#if UNITY_EDITOR
-			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
-#endif
+
+			//#if UNITY_EDITOR
+			//			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
+			//#endif
 		}
 	}
 
 
 
-#if UNITY_EDITOR
-	private struct HitInfo {
-		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
-			Point = pPoint;
-			Direction = pDirection;
-		}
+//#if UNITY_EDITOR
+//	private struct HitInfo {
+//		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
+//			Point = pPoint;
+//			Direction = pDirection;
+//		}
 
-		public Vector3 Point;
-		public Vector3 Direction;
-	}
+//		public Vector3 Point;
+//		public Vector3 Direction;
+//	}
 
-	private List<HitInfo> _hitInfo = new List<HitInfo>();
+//	private List<HitInfo> _hitInfo = new List<HitInfo>();
 
-	private void OnDrawGizmos () {
-		if (_visualizeHits) {
-			foreach (HitInfo hi in _hitInfo) {
-				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(transform.TransformPoint(hi.Point), 0.05f);
+//	private void OnDrawGizmos () {
+//		if (_visualizeHits) {
+//			foreach (HitInfo hi in _hitInfo) {
+//				Gizmos.color = Color.red;
+//				Gizmos.DrawSphere(transform.TransformPoint(hi.Point), 0.05f);
 
-				Gizmos.color = Color.blue;
-				Gizmos.DrawRay(transform.TransformPoint(hi.Point), transform.TransformDirection(hi.Direction));
-			}
-		}
+//				Gizmos.color = Color.blue;
+//				Gizmos.DrawRay(transform.TransformPoint(hi.Point), transform.TransformDirection(hi.Direction));
+//			}
+//		}
 
-		if (_visualizeView) {
-			Gizmos.color = Color.white;
-			UnityEditor.Handles.color = Color.white;
+//		if (_visualizeView) {
+//			Gizmos.color = Color.white;
+//			UnityEditor.Handles.color = Color.white;
 
-			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AwarenessRange);
-			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.right, _parameters.AwarenessRange);
-			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right + _viewTransform.up).normalized, _parameters.AwarenessRange);
-			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right - _viewTransform.up).normalized, _parameters.AwarenessRange);
+//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AwarenessRange);
+//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.right, _parameters.AwarenessRange);
+//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right + _viewTransform.up).normalized, _parameters.AwarenessRange);
+//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right - _viewTransform.up).normalized, _parameters.AwarenessRange);
 
-			if (_parameters.ViewAngle < 360f) {
-				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
-				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
+//			if (_parameters.ViewAngle < 360f) {
+//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
 
-				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
-				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
 
 
-				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
-				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
+//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
 
-				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
-				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
-			} else {
-				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.ViewRange);
-				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AttackRange);
-			}
-		}
-	}
-#endif
+//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
+//			} else {
+//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.ViewRange);
+//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AttackRange);
+//			}
+//		}
+//	}
+//#endif
 }

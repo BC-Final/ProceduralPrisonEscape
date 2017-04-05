@@ -18,7 +18,7 @@ namespace StateFramework {
 		public override void Step () { }
 		public override void Exit () { }
 
-		public virtual void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) { }
+		public virtual void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) { }
 
 		//TODO Mopve to AI Utils
 		protected void rotateTowards (Transform pTarget) {

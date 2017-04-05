@@ -406,6 +406,7 @@ MonoBehaviour:
   _shootDamage: 100
   _shootRange: 100
   _shootDelay: 0.175
+  _shootForce: 100
   _spreadConeRadius: 0.4
   _spreadConeLength: 10
   _aimedSpreadConeRadius: 0.15

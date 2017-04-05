@@ -24,7 +24,8 @@ namespace StateFramework {
 					_nextAttackTime = Time.time + _drone.Parameters.AttackRate;
 
 					if (_drone.Parameters.AttackType == DroneParameters.DroneAttackType.Melee) {
-						target.GetComponent<IDamageable>().ReceiveDamage(_drone, (_drone.transform.position - target.transform.position).normalized, target.transform.position, _drone.Parameters.AttackDamage);
+						//target.GetComponent<IDamageable>().ReceiveDamage(_drone, (_drone.transform.position - target.transform.position).normalized, target.transform.position, _drone.Parameters.AttackDamage);
+						target.GetComponent<IDamageable>().ReceiveDamage(_drone.transform, target.transform.position, _drone.Parameters.AttackDamage, _drone.Parameters.AttackForce);
 					} else if (_drone.Parameters.AttackType == DroneParameters.DroneAttackType.Ranged) {
 						RaycastHit hit;
 
@@ -34,7 +35,8 @@ namespace StateFramework {
 							IDamageable dam = hit.collider.GetComponentInParent<IDamageable>();
 
 							if (dam != null) {
-								dam.ReceiveDamage(_drone, (_drone.ShotTransform.position - dam.GameObject.transform.position).normalized, hit.point, _drone.Parameters.AttackDamage);
+								//dam.ReceiveDamage(_drone, (_drone.ShotTransform.position - dam.GameObject.transform.position).normalized, hit.point, _drone.Parameters.AttackDamage);
+								dam.ReceiveDamage(_drone.transform, hit.point, _drone.Parameters.AttackDamage, _drone.Parameters.AttackForce);
 							} else {
 								Utilities.Weapons.DisplayDecal(hit.point, hit.normal, hit.collider.transform);
 							}
@@ -52,9 +54,11 @@ namespace StateFramework {
 			_drone.Agent.Resume();
 		}
 
-		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			if (pSender != null && pSender.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, pSender.GameObject)) {
-				_drone.LastTarget = pSender.GameObject;
+		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+			IDamageable src = pSource.GetComponent<IDamageable>();
+
+			if (src != null && src.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, src.GameObject)) {
+				_drone.LastTarget = src.GameObject;
 				_fsm.SetState<DroneFollowState>();
 			}
 		}

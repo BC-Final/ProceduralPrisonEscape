@@ -56,21 +56,14 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 
 
 
-	/// <summary>
-	/// Substracts damage from shooter health and handles feedback
-	/// </summary>
-	/// <param name="pDirection">The direction of the damage</param>
-	/// <param name="pPoint">The points where damage occured</param>
-	/// <param name="pDamage">The amount of damage taken</param>
-	public void ReceiveDamage(IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		//TODO Display damage direction indicator
+	public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 		_currentHealth.Value = Mathf.Max(0.0f, _currentHealth.Value - pDamage);
 
-		FindObjectOfType<HitDirection>().ShowHitMarker(transform.InverseTransformDirection(pDirection));
-
+		FindObjectOfType<HitDirection>().ShowHitMarker(pSource);
+		
 		if (_currentHealth.Value == 0.0f) {
 			_destroyEvent.Invoke(gameObject);
-			//TODO Add death state
+			//TODO Add death event
 		}
 	}
 

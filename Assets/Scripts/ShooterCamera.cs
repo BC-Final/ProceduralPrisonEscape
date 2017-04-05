@@ -103,8 +103,8 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-		_fsm.GetState().ReceiveDamage(pSender, pDirection, pPoint, pDamage);
+	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+		_fsm.GetState().ReceiveDamage(pSource, pHitPoint, pDamage, pForce);
 	}
 
 	private void Start () {

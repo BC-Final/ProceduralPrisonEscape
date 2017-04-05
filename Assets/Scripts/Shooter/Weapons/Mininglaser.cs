@@ -53,8 +53,6 @@ public class Mininglaser : Weapon {
 			if (_chargeTimer.IsPlaying) {
 				int currentAmmoUse = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minAmmoUse, _maxAmmoUse));
 
-				Debug.Log(currentAmmoUse - _lastAmmoUse + " = " + _magazineContent);
-
 				_magazineContent -=  (currentAmmoUse - _lastAmmoUse);
 
 				if (_magazineContent <= 0) {
