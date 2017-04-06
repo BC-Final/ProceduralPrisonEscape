@@ -15,6 +15,7 @@ MonoBehaviour:
   AttackRange: 12
   AttackRate: 0.1
   AttackAngle: 45
+  AttackForce: 250
   SpreadConeLength: 10
   SpreadConeRadius: 2
   ViewRange: 12
