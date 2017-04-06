@@ -241,15 +241,25 @@ namespace NetworkPacket {
         }
 
         [System.Serializable]
-        public class CodeLock : AbstractPacket
+        public class CodeLockCode : AbstractPacket
         {
             public int Id;
             public string codeString;
 
-            public CodeLock(int pID, string pCodeString)
+            public CodeLockCode(int pID, string pCodeString)
             {
                 Id = pID;
                 codeString = pCodeString;
+            }
+        }
+        [System.Serializable]
+        public class DisableDoor : AbstractPacket
+        {
+            public int Id;
+
+            public DisableDoor(int pID)
+            {
+                Id = pID;
             }
         }
     }

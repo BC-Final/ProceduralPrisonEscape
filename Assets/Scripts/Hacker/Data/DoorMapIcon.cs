@@ -61,6 +61,13 @@ public class DoorMapIcon : AbstractMapIcon
         icon._addonId = pPacket.Id;
     }
 
+    public static void AddAddon(NetworkPacket.Update.DisableDoor pPacket)
+    {
+        DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+        Array.Clear(icon.actions, 0, icon.actions.Length);
+        icon.changeColor(Color.gray);
+    }
+
     private static void createInstance(NetworkPacket.Update.Door pPacket)
     {
         DoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DoorMapIcon>();
@@ -143,7 +150,7 @@ public class DoorMapIcon : AbstractMapIcon
         Debug.Log("Code: " + codeString + "/" + "Solution: " + _codeSolution);
         if(codeString.ToUpper() == _codeSolution.ToUpper())
         {
-            HackerPackageSender.SendPackage(new NetworkPacket.Update.CodeLock(_addonId, codeString));
+            HackerPackageSender.SendPackage(new NetworkPacket.Update.CodeLockCode(_addonId, codeString));
             FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
         }else
         {

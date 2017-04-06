@@ -66,7 +66,8 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Create.CodeLockAddon) { readPacket(pPacket as NetworkPacket.Create.CodeLockAddon); }
         //Update
         if (pPacket is NetworkPacket.Update.Camera)     { readPacket(pPacket as NetworkPacket.Update.Camera); }
-		if (pPacket is NetworkPacket.Update.Door)       { readPacket(pPacket as NetworkPacket.Update.Door); }
+        if (pPacket is NetworkPacket.Update.DisableDoor){ readPacket(pPacket as NetworkPacket.Update.DisableDoor); }
+        if (pPacket is NetworkPacket.Update.Door)       { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.Drone)      { readPacket(pPacket as NetworkPacket.Update.Drone); }
         if (pPacket is NetworkPacket.Update.Icon)       { readPacket(pPacket as NetworkPacket.Update.Icon); }
         if (pPacket is NetworkPacket.Update.Minimap)    { readPacket(pPacket as NetworkPacket.Update.Minimap); }
@@ -157,6 +158,18 @@ public class HackerPackageReader : MonoBehaviour {
         if (loadingFinished)
         {
             
+            DoorMapIcon.AddAddon(pPacket);
+        }
+        else
+        {
+            AddLatePackage(pPacket);
+        }
+    }
+    private void readPacket(NetworkPacket.Update.DisableDoor pPacket)
+    {
+        if (loadingFinished)
+        {
+
             DoorMapIcon.AddAddon(pPacket);
         }
         else

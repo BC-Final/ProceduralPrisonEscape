@@ -232,8 +232,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) { 
-		if (_currentHealth > 0.0f) {
+	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+        Debug.Log(pDamage);
+        if (_currentHealth > 0.0f) {
 			_currentHealth -= pDamage;
 
 			//_lastTarget = pSender.GameObject;

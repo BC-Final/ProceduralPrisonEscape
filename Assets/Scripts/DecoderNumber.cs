@@ -32,7 +32,7 @@ public class DecoderNumber : MonoBehaviour {
     float timer;
     float interval = 0.5f;
 
-    private void Start()
+    private void Awake()
     {
         members.Add(this);
         wrongTexture = new Texture2D(100, 100, TextureFormat.ARGB32, false);
@@ -53,12 +53,20 @@ public class DecoderNumber : MonoBehaviour {
 
     private void CheckSolution()
     {
+        int i = 0;
         foreach(DecoderNumber num in members)
         {
-            if (!num.Solved) return;
+            i++;
+            if (!num.Solved)
+            {
+                Debug.Log(i + " wrong");
+                return;
+            }
+            Debug.Log(i + " correct");
         }
         if (Window)
         {
+            Debug.Log("Solved");
             Window.PuzzleSolved();
         }
     }

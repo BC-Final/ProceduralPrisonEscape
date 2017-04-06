@@ -13,7 +13,8 @@ public class DecoderWindow : MonoBehaviour {
 
     private void Awake()
     {
-        foreach(DecoderNumber num in GetComponentsInChildren<DecoderNumber>())
+        DecoderNumber.members.Clear();
+        foreach (DecoderNumber num in GetComponentsInChildren<DecoderNumber>())
         {
             num.Window = this;
         }

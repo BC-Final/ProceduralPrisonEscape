@@ -16,7 +16,7 @@ public class KeycodeInputWindow : MonoBehaviour {
 	
 	void Update () {
 
-        if (_text.text.Length < 6 && Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Backspace) && !Input.GetKeyDown(KeyCode.Return))
+        if (_text.text.Length < 5 && Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Backspace) && !Input.GetKeyDown(KeyCode.Return))
         {
             _stringInput += Input.inputString;
             _text.text = _stringInput;
