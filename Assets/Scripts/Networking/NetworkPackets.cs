@@ -9,6 +9,66 @@ namespace NetworkPacket {
     namespace Create
     {
         [System.Serializable]
+        public class PhaserAmmoIcon : AbstractPacket
+        {
+            public int Id;
+            public float posX;
+            public float posY;
+
+            public PhaserAmmoIcon(int pId, Vector3 pPos)
+            {
+                Id = pId;
+                posX = pPos.x;
+                posY = pPos.z;
+            }
+        }
+
+        [System.Serializable]
+        public class MachineGunAmmoIcon : AbstractPacket
+        {
+            public int Id;
+            public float posX;
+            public float posY;
+
+            public MachineGunAmmoIcon(int pId, Vector3 pPos)
+            {
+                Id = pId;
+                posX = pPos.x;
+                posY = pPos.z;
+            }
+        }
+
+        [System.Serializable]
+        public class ShotgunAmmoIcon : AbstractPacket
+        {
+            public int Id;
+            public float posX;
+            public float posY;
+
+            public ShotgunAmmoIcon(int pId, Vector3 pPos)
+            {
+                Id = pId;
+                posX = pPos.x;
+                posY = pPos.z;
+            }
+        }
+
+        [System.Serializable]
+        public class HealthKitIcon : AbstractPacket
+        {
+            public int Id;
+            public float posX;
+            public float posY;
+
+            public HealthKitIcon(int pId, Vector3 pPos)
+            {
+                Id = pId;
+                posX = pPos.x;
+                posY = pPos.z;
+            }
+        }
+
+        [System.Serializable]
         public class LaserShot : AbstractPacket
         {
             public float startX;

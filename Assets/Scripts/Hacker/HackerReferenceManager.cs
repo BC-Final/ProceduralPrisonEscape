@@ -4,6 +4,10 @@ using Gamelogic.Extensions;
 
 public class HackerReferenceManager : Singleton<HackerReferenceManager> {
     [Header("Minimap Icon Prefabs")]
+    public GameObject AmmoMachineGun;
+    public GameObject AmmoPhaser;
+    public GameObject AmmoShotgun;
+    public GameObject HealthKit;
     public GameObject CameraIcon;
 	public GameObject DatabaseIcon;
     public GameObject DoorIcon;

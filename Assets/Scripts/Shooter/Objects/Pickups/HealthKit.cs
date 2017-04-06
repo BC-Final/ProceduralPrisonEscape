@@ -17,7 +17,7 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.HealthKitCreation(Id, transform.position.x, transform.position.z, false));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Create.HealthKitIcon(Id, transform.position));
 	}
 
 	public void Interact() {
@@ -32,10 +32,10 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
-	}
+        ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
+    }
 
 	private void OnDestroy () {
-		//ShooterPackageSender.SendPackage(new CustomCommands.Update.Items.ItemUpdate(_id, true, this.transform.position));
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 }

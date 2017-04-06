@@ -64,6 +64,11 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Create.LaserShot)  { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
         if (pPacket is NetworkPacket.Create.DecodeAddon){ readPacket(pPacket as NetworkPacket.Create.DecodeAddon); }
         if (pPacket is NetworkPacket.Create.CodeLockAddon) { readPacket(pPacket as NetworkPacket.Create.CodeLockAddon); }
+        if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
+        if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
+        if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
+        if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
+
         //Update
         if (pPacket is NetworkPacket.Update.Camera)     { readPacket(pPacket as NetworkPacket.Update.Camera); }
         if (pPacket is NetworkPacket.Update.DisableDoor){ readPacket(pPacket as NetworkPacket.Update.DisableDoor); }
@@ -75,11 +80,11 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Create.KeyCard)    { readPacket(pPacket as NetworkPacket.Create.KeyCard); }
 		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
 
-		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
+		if (pPacket is NetworkPacket.Update.Pipe)   { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 
-		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
+		if (pPacket is NetworkPacket.Update.Module)    { readPacket(pPacket as NetworkPacket.Update.Module); }
 		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
 
 		//Other
@@ -152,6 +157,22 @@ public class HackerPackageReader : MonoBehaviour {
         {
             AddLatePackage(pPacket);
         }
+    }
+    private void readPacket(NetworkPacket.Create.PhaserAmmoIcon pPacket)
+    {
+        PickUpMapIcon.ProcessPacket(pPacket);
+    }
+    private void readPacket(NetworkPacket.Create.MachineGunAmmoIcon pPacket)
+    {
+            PickUpMapIcon.ProcessPacket(pPacket);      
+    }
+    private void readPacket(NetworkPacket.Create.ShotgunAmmoIcon pPacket)
+    {
+        PickUpMapIcon.ProcessPacket(pPacket);
+    }
+    private void readPacket(NetworkPacket.Create.HealthKitIcon pPacket)
+    {
+        PickUpMapIcon.ProcessPacket(pPacket);
     }
     private void readPacket(NetworkPacket.Create.DecodeAddon pPacket)
     {

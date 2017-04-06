@@ -51,6 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58392b16b3ad9fe4aa4f1376619bb178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AmmoMachineGun: {fileID: 1722841405806222, guid: 28d8af5cb8aa7cf47a0aa8fa3b4e6ef3,
+    type: 2}
+  AmmoPhaser: {fileID: 1722841405806222, guid: fa536efae5092d141a1d9445dbf58e85, type: 2}
+  AmmoShotgun: {fileID: 1722841405806222, guid: 5d5229026804f7245a41f018a6e305ff,
+    type: 2}
+  HealthKit: {fileID: 1156750361234364, guid: f107677a13285e6459bf00a88a02fbb6, type: 2}
   CameraIcon: {fileID: 1969725631634920, guid: 1374de5e54aa6d64dbea7102ad1fab89, type: 2}
   DatabaseIcon: {fileID: 0}
   DoorIcon: {fileID: 140550, guid: a76a7795b15e9e14bb9db23093470542, type: 2}

@@ -6,4 +6,10 @@ public class MachinegunAmmoPack : AmmoPack {
 		WeaponHolder.Instance.AddAmmo<Machinegun>(_amount);
 		base.Interact();
 	}
+
+    public override void Initialize()
+    {
+        ShooterPackageSender.SendPackage(new NetworkPacket.Create.MachineGunAmmoIcon(Id, this.transform.position));
+        base.Initialize();
+    }
 }

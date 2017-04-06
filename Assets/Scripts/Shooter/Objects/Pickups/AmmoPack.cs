@@ -16,12 +16,13 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked
 		}
 	}
 
-	public void Initialize () {
+	public virtual void Initialize () {
 		//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Items.AmmoPackCreation(Id, transform.position.x, transform.position.z, false));
 	}
 
 	public virtual void Interact() {
-		//Destroy(gameObject);
+        ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
+		Destroy(gameObject);
 	}
 
 	private void Awake () {
