@@ -28,8 +28,8 @@ namespace StateFramework {
 
 		public override void Exit () { }
 
-		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			if (pSender == null || Utilities.AI.FactionIsEnemy(_turret.Faction, pSender.Faction)) {
+		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+			//if (pSender == null || Utilities.AI.FactionIsEnemy(_turret.Faction, pSender.Faction)) {
 				//if (pSender == null) {
 				//	_turret.LastTarget = null;
 				//} else {
@@ -37,7 +37,7 @@ namespace StateFramework {
 				//}
 
 				_fsm.SetState<TurretDeployState>();
-			}
+			//}
 		}
 	}
 }

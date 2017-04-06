@@ -2,37 +2,73 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Linq;
 
 public class HitDirection : MonoBehaviour {
 	[SerializeField]
-	private Transform _hitMarker;
+	public float ShowDuration = 1.5f;
 
 	[SerializeField]
-	private float _showDuration;
+	public float CenterDistance = 600.0f;
 
 	[SerializeField]
-	private float _centerDistance = 600.0f;
+	private int _maxHitMarkers = 4;
 
-	private Tweener _fadeTween;
+	[SerializeField]
+	private float _minAngle = 20.0f;
 
-	//TODO Move hitmarker to always point at source
-	//TODO Show multiple hitmarkers when multiple sources are inflicting damage
 
-	public void ShowHitMarker (Vector3 pRelativeDamageDirection) {
-		pRelativeDamageDirection.y = .0f;
-		pRelativeDamageDirection.Normalize();
+	private Transform _player;
 
-		Vector2 dir = new Vector2(pRelativeDamageDirection.x, pRelativeDamageDirection.z);
-		_hitMarker.GetComponent<RectTransform>().anchoredPosition = dir * _centerDistance;
-		_hitMarker.LookAt(transform, Vector3.forward);
-		_hitMarker.Rotate(-90, 0, 0);
+	private List<HitMarker> _markers = new List<HitMarker>();
 
-		_hitMarker.GetComponent<UnityEngine.UI.Image>().color = new Color(1, 1, 1, 1);
+	private void Start () {
+		_player = FindObjectOfType<PlayerHealth>().transform;
+	}
 
-		if (_fadeTween != null) {
-			_fadeTween.Kill();
+	public void RemoveHitMarker (GameObject pMarker) {
+		_markers.RemoveAll(x => x.gameObject == pMarker);
+	}
+
+	public void ShowHitMarker (Transform pSender) {
+		///float angle = 0;
+
+		HitMarker nearest = _markers.Find(x => x.GetSource() == pSender.gameObject);
+
+		if (nearest != null) {
+			nearest.Show(pSender);
+			return;
 		}
 
-		_fadeTween = _hitMarker.GetComponent<UnityEngine.UI.Image>().DOColor(new Color(1, 1, 1, 0), _showDuration);
+		//nearest = GetNearestHitMarker(GetDirection(pSender), out angle);
+
+		//if (angle <= _minAngle || _markers.Count == _maxHitMarkers) {
+		//	nearest.Show(pSender);
+		//} else {
+			_markers.Add(Instantiate(ShooterReferenceManager.Instance.HitMarker, transform).GetComponent<HitMarker>());
+			_markers.Last().Show(pSender);
+		//}
 	}
+
+	//private HitMarker GetNearestHitMarker (Vector2 pDirection, out float pAngle) {
+	//	HitMarker result = null;
+	//	pAngle = Mathf.Infinity;
+
+	//	foreach (HitMarker marker in _markers) {
+	//		float currAngle = Vector2.Angle(pDirection, marker.GetDirection());
+
+	//		if (currAngle < pAngle) {
+	//			result = marker;
+	//			pAngle = currAngle;
+	//		}
+	//	}
+
+	//	return result;
+	//}
+
+	//private Vector2 GetDirection (Transform pSender) {
+	//	Vector3 worldDirection = _player.InverseTransformDirection(pSender.position - _player.position);
+
+	//	return new Vector2(worldDirection.x, worldDirection.z).normalized;
+	//}
 }

@@ -14,6 +14,7 @@ public class DroneParameters : ScriptableObject {
 	public float AttackRange;
 	public float AttackRate;
 	public float AttackAngle;
+	public float AttackForce;
 
 	public float SpreadConeLength;
 	public float SpreadConeRadius;

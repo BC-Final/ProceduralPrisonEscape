@@ -27,6 +27,9 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 	private float _chargedExplodeDelay;
 
 	[SerializeField]
+	private float _explosionForce;
+
+	[SerializeField]
 	private bool _visualize;
 
 	private ObservedValue<bool> _broken = new ObservedValue<bool>(false);
@@ -84,11 +87,13 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 
 		foreach (Collider c in coll) {
 			IDamageable d = c.gameObject.GetComponentInParent<IDamageable>();
+
 			if (d != null) {
 				RaycastHit hit;
-				if (Physics.Linecast(transform.position, c.transform.position, out hit, LayerMask.GetMask("RayTrigger"), QueryTriggerInteraction.Collide)) {
-					//TODO Create explosion effect
-					d.ReceiveDamage(null, c.transform.position - transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
+				if(Utilities.AI.ObjectVisible(transform, d.GameObject.transform)) {
+					//if (Physics.Linecast(transform.position, c.transform.position, out hit, LayerMask.GetMask("RayTrigger"), QueryTriggerInteraction.Collide)) {
+					//d.ReceiveDamage(null, c.transform.position - transform.position, hit.point, pCharged ? _chargedExplosionDamage : _normalExplosionDamage);
+					d.ReceiveDamage(transform, c.transform.position, pCharged ? _chargedExplosionDamage : _normalExplosionDamage, _explosionForce);
 				}
 			}
 		}

@@ -118,7 +118,7 @@ public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 		//if (_currentHealth > 0.0f) {
 		//	_currentHealth -= pDamage;
 
@@ -128,7 +128,7 @@ public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 			//	}
 			//}
 
-			_fsm.GetState().ReceiveDamage (pSender, pDirection, pPoint, pDamage);
+			_fsm.GetState().ReceiveDamage (pSource, pHitPoint, pDamage, pForce);
 		//}
 	}
 

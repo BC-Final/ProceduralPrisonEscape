@@ -164,8 +164,6 @@ namespace Utilities {
 			return false;
 		}
 
-
-
 		/// <summary>
 		/// Checks if origin can see target with a raycast. This raycast ignores all objects with "MeshCollider" layer
 		/// </summary>
@@ -179,13 +177,19 @@ namespace Utilities {
 			//Allow 
 
 			//int mask = ~( (1 << LayerMask.NameToLayer("MeshCollider")) | Physics.IgnoreRaycastLayer);
-			int mask = LayerMask.GetMask("RayTrigger", "Environment");
+			//int mask = LayerMask.GetMask("RayTrigger", "Environment");
 			RaycastHit hit;
 
-			if (Physics.Linecast(pOrigin.position, pTarget.position, out hit, mask)) {
-				if (hit.rigidbody != null && hit.rigidbody.gameObject == pTarget.gameObject) {
+			//if (Physics.Linecast(pOrigin.position, pTarget.position, out hit, mask)) {
+			//	if (hit.rigidbody != null && hit.rigidbody.gameObject == pTarget.gameObject) {
+			//		return true;
+			//	}
+			//}
+
+			if (!Physics.Linecast(pOrigin.position, pTarget.position, out hit, LayerMask.GetMask("Environment"))) {
+				//if (hit.rigidbody != null && hit.rigidbody.gameObject == pTarget.gameObject) {
 					return true;
-				}
+				//}
 			}
 
 			return false;

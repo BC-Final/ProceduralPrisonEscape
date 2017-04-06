@@ -9,7 +9,7 @@ namespace StateFramework {
 			_drone.SeesTarget = false;
 			_drone.Agent.enabled = false;
 			_drone.LastTarget = null;
-			_drone.gameObject.SetActive(false);
+			//_drone.gameObject.SetActive(false);
 
 			//Collider[] coll = _drone.GetComponentsInChildren<Collider>();
 
@@ -22,9 +22,17 @@ namespace StateFramework {
 
 		public override void Exit() { }
 
-		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
+		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+			
+
+			Animator animator = _drone.transform.GetComponentInChildren<Animator>();
+			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+			_drone.gameObject.SetActive(false);
 			GameObject go = GameObject.Instantiate(ShooterReferenceManager.Instance.ExplodingDrone, _drone.transform.position, _drone.transform.rotation);
-			go.GetComponent<ExplodeDrone>().SetImpact(pPoint, pDirection, pDamage);
+
+			go.GetComponent<ExplodeDrone>().SetAnimationPercentage(stateInfo.normalizedTime % 1);
+			go.GetComponent<ExplodeDrone>().SetImpact(pHitPoint, -(pSource.position - _drone.transform.position).normalized, pForce);
 			GameObject.Destroy(_drone.gameObject, 0.25f);
 		}
 	}

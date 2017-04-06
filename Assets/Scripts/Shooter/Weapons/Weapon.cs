@@ -13,6 +13,9 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _shootDelay;
 
+	[SerializeField]
+	private float _shootForce;
+
 	[Header("Spread Settings")]
 	[SerializeField]
 	private float _spreadConeRadius;
@@ -168,7 +171,8 @@ public abstract class Weapon : MonoBehaviour {
 				//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
 				//TODO FIX DEM WEAPONS AS WELL!
 				if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
-					hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
+					//hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
+					hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>().transform, hit.point, _shootDamage, _shootForce);
 				}
 			} else {
 				//spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);

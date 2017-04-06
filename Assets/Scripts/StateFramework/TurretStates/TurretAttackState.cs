@@ -33,7 +33,8 @@ namespace StateFramework {
 						IDamageable dam = hit.collider.GetComponentInParent<IDamageable>();
 
 						if (dam != null) {
-							dam.ReceiveDamage(_turret, (_turret.ShootPos.position - dam.GameObject.transform.position).normalized, hit.point, _turret.Parameters.AttackDamage);
+							//dam.ReceiveDamage(_turret, (_turret.ShootPos.position - dam.GameObject.transform.position).normalized, hit.point, _turret.Parameters.AttackDamage);
+							dam.ReceiveDamage(_turret.transform, hit.point, _turret.Parameters.AttackDamage, _turret.Parameters.AttackForce);
 						} else {
 							Utilities.Weapons.DisplayDecal(hit.point, hit.normal, hit.collider.transform);
 						}

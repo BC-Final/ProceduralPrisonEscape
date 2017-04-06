@@ -37,9 +37,11 @@ namespace StateFramework {
 
 		public override void Exit() { }
 
-		public override void ReceiveDamage (IDamageable pSender, Vector3 pDirection, Vector3 pPoint, float pDamage) {
-			if (pSender != null && pSender.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, pSender.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, pSender.GameObject)) {
-				_drone.LastTarget = pSender.GameObject;
+		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+			IDamageable src = pSource.GetComponent<IDamageable>();
+
+			if (src != null && src.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, src.GameObject)) {
+				_drone.LastTarget = src.GameObject;
 				_fsm.SetState<DroneFollowState>();
 			}
 		}
