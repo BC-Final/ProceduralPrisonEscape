@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gamelogic.Extensions;
+using System;
 
 public class GaspipeMapIcon : AbstractMapIcon {
 	#region Sprites
@@ -35,7 +36,9 @@ public class GaspipeMapIcon : AbstractMapIcon {
 
 	private void updateInstance (NetworkPacket.Update.Pipe pPacket) {
 		_used.Value = pPacket.Exploded;
-	}
+        GaspipeMapIcon icon = HackerPackageSender.GetNetworkedObject<GaspipeMapIcon>(pPacket.Id);
+        Array.Clear(icon.actions, 0, icon.actions.Length);
+    }
 
 	private ObservedValue<bool> _used = new ObservedValue<bool>(false);
 
@@ -63,6 +66,6 @@ public class GaspipeMapIcon : AbstractMapIcon {
 		} else {
             Instantiate(HackerReferenceManager.Instance.Explosion, this.transform.position, Quaternion.identity);
             changeSprite(_explodedSprite);
-		}
+        }
 	}
 }
