@@ -78,8 +78,11 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 
-        //Other
-        if (pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
+		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
+		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
+
+		//Other
+		if (pPacket is NetworkPacket.Message.CreationEnd) { readPacket(pPacket as NetworkPacket.Message.CreationEnd); }
         if (pPacket is NetworkPacket.Message.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Message.DisconnectRequest); }
 	}
 	
@@ -121,15 +124,23 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket (NetworkPacket.Update.Turret pPacket) {
 		TurretMapIcon.ProcessPacket(pPacket);
     }
-	
-    
-    
 
-    /// <summary>
-    /// Creation Methods
-    /// </summary>
-    /// <param name="pPacket"></param>
-    private void readPacket(NetworkPacket.Create.CodeLockAddon pPacket)
+	private void readPacket (NetworkPacket.Update.Module pPacket) {
+		ModuleMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket (NetworkPacket.Update.Objective pPacket) {
+		ObjectiveMapIcon.ProcessPacket(pPacket);
+	}
+
+
+
+
+	/// <summary>
+	/// Creation Methods
+	/// </summary>
+	/// <param name="pPacket"></param>
+	private void readPacket(NetworkPacket.Create.CodeLockAddon pPacket)
     {
         if (loadingFinished)
         {

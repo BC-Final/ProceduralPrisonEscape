@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Gamelogic.Extensions;
 
-public class AbstractModule : MonoBehaviour, IShooterNetworked {
+[SelectionBase]
+public class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable {
 	[SerializeField]
 	private Objective[] _objectives;
+
+	private bool _activated = false;
 
 	private int _id;
 	public int Id {
@@ -29,10 +32,21 @@ public class AbstractModule : MonoBehaviour, IShooterNetworked {
 
 	public void Initialize () {
 		foreach (Objective o in _objectives) {
-			o.SetVisible(true);
+			o.Solved.OnValueChange += checkSolved;
 		}
 
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _solved.Value));
+	}
+
+	private void checkSolved () {
+		foreach (Objective o in _objectives) {
+			if (!o.Solved.Value) {
+				return;
+			}
+		}
+
+		_solved.Value = true;
+		sendUpdate();
 	}
 
 	private void sendUpdate () {
@@ -43,18 +57,18 @@ public class AbstractModule : MonoBehaviour, IShooterNetworked {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	private ObservedValue<bool> _solved;
+	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
 	public ObservedValue<bool> Solved { get { return _solved; } }
 
-	//TODO Implement discovery
-	private bool _discovered;
+	public void Interact () {
+		if (!_activated) {
+			_activated = true;
 
-	protected void solve () {
-		foreach (Objective o in _objectives) {
-			o.SetVisible(false);
+			foreach (Objective obj in _objectives) {
+				if (!obj.Solved.Value) {
+					obj.SetVisible(true);
+				}
+			}
 		}
-
-		_solved.Value = true;
-		sendUpdate();
 	}
 }

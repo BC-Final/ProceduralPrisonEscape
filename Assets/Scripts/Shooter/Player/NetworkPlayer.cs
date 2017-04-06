@@ -72,7 +72,10 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// Stops update timer and removes this from network object list
 	/// </summary>
 	private void OnDestroy () {
-		_updateTimer.Stop();
+		if (_updateTimer != null) {
+			_updateTimer.Stop();
+		}
+		
 		_updateTimer = null;
 
 		ShooterPackageSender.UnregisterNetworkedObject(this);

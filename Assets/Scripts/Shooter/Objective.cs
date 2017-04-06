@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Gamelogic.Extensions;
 
+[SelectionBase]
 public class Objective : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private float _networkUpdateRate;
+
 	Timer _networkUpdateTimer;
 
 	private bool _shown;
+
+	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
+	public ObservedValue<bool> Solved { get { return _solved; } }
 
 	private int _id;
 	public int Id {
@@ -22,6 +28,7 @@ public class Objective : MonoBehaviour, IShooterNetworked {
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
+		Solved.OnValueChange += solveChanged;
 	}
 
 	private void OnDestroy () {
@@ -33,7 +40,16 @@ public class Objective : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		
+
+	}
+
+	private void solveChanged () {
+		SetVisible(!_solved.Value);
+
+		if (_networkUpdateTimer != null) {
+			//TODO This is a weird edge case
+			ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, Solved.Value));
+		}
 	}
 
 	private void sendUpdate () {
@@ -44,8 +60,9 @@ public class Objective : MonoBehaviour, IShooterNetworked {
 		if (pVisible) {
 			_networkUpdateTimer = TimerManager.CreateTimer("Objective Update", false).SetDuration(_networkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 		} else {
-			_networkUpdateTimer.Stop();
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, true));
+			if (_networkUpdateTimer != null) {
+				_networkUpdateTimer.Stop();
+			}
 		}
 	}
 }

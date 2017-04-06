@@ -38,8 +38,7 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		//TODO Only initialze when shooter saw object or database
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, allModulesSolved()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, !allModulesSolved()));
 	}
 
 	private void Awake () {
@@ -51,7 +50,7 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void sendStateUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, _open.Value, allModulesSolved()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, _open.Value, !allModulesSolved()));
 	}
 
 	public static void ProcessPacket (NetworkPacket.Update.SectorDoor pPacket) {

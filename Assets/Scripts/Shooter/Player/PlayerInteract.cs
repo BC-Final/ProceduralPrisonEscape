@@ -15,7 +15,7 @@ public class PlayerInteract : MonoBehaviour {
 
 			if (hits.Length > 0) {
 				foreach (RaycastHit hit in hits) {
-					IInteractable act = hit.collider.GetComponent<IInteractable>();
+					IInteractable act = hit.collider.GetComponentInParent<IInteractable>();
 					if (act != null) act.Interact();
 				}
 			}
