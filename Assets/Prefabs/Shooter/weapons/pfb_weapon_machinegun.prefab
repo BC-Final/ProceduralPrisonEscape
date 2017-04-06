@@ -833,13 +833,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _magazineCapacity: 25
-  _maxReserveAmmo: 50
+  _magazineCapacity: 50
+  _maxReserveAmmo: 100
   _muzzlePosition: {fileID: 4000012347117206}
   _aimPosition: {fileID: 4000013570196990}
   _reloadTime: 1.5
   _meleeTime: 0.5
-  _aimTime: 1
+  _aimTime: 0.2
   _cameraRecoilForce: {x: 1, y: 1}
   _weaponRotationRecoilForce: {x: 1, y: 1}
   _weaponMoveRecoilForce: 0.08

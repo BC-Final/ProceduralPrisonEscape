@@ -63,7 +63,7 @@ public class Mininglaser : Weapon {
 				_lastAmmoUse = currentAmmoUse;
 			}
 
-			if (Input.GetMouseButtonDown(0) && _magazineContent >= _minAmmoUse && _canShoot && !_reloading && !_moving && !_chargeTimer.IsPlaying && !_chargeTimer.IsFinished) {
+			if (Input.GetMouseButton(0) && _magazineContent >= _minAmmoUse && _canShoot && !_reloading && !_moving && !_chargeTimer.IsPlaying && !_chargeTimer.IsFinished) {
 				//TODO Start charge animation
 				_lastAmmoUse = 0;
 				_chargeTimer.Start();
@@ -72,7 +72,7 @@ public class Mininglaser : Weapon {
 			if (!Input.GetMouseButton(0) && _canShoot && !_reloading && !_moving && (_chargeTimer.IsPlaying || _chargeTimer.IsFinished)) {
 				_chargeTimer.Pause();
 				int noOfBeams = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minBeams, _maxBeams));
-				SetDamage(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minDamage, _maxDamage) / noOfBeams);
+				//SetDamage(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minDamage, _maxDamage) / noOfBeams);
 				shoot(noOfBeams, false);
 				_chargeTimer.Reset();
 			}
@@ -86,9 +86,9 @@ public class Mininglaser : Weapon {
 			*/
 			
 
-			//if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming) {
-			//	reload();
-			//}
+			if (Input.GetKeyDown(KeyCode.R) && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming) {
+				reload();
+			}
 		}
 	}
 

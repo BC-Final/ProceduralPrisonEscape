@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00a1937567e461b41a59e43c201d6ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootDamage: 100
+  _shootDamage: 75
   _shootRange: 100
   _shootDelay: 0.175
   _shootForce: 100
@@ -434,7 +434,7 @@ MonoBehaviour:
   _aimPosition: {fileID: 4000013199739640}
   _reloadTime: 1
   _meleeTime: 0.5
-  _aimTime: 0.1
+  _aimTime: 0.2
   _cameraRecoilForce: {x: 3, y: 1.5}
   _weaponRotationRecoilForce: {x: 3, y: 1.5}
   _weaponMoveRecoilForce: 0.15

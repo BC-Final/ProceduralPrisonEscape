@@ -21,7 +21,7 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked
 	}
 
 	public virtual void Interact() {
-		Destroy(gameObject);
+		//Destroy(gameObject);
 	}
 
 	private void Awake () {

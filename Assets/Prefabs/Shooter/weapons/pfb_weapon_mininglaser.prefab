@@ -1147,11 +1147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5904b3559c908c409fea0019ba9ea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootDamage: 300
+  _shootDamage: 30
   _shootRange: 100
-  _shootDelay: 1.5
+  _shootDelay: 0.5
   _shootForce: 300
-  _spreadConeRadius: 1.25
+  _spreadConeRadius: 1.5
   _spreadConeLength: 10
   _aimedSpreadConeRadius: 0.75
   _velocitySpreadRadiusCurve:
@@ -1173,17 +1173,17 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   _magazineCapacity: 100
-  _maxReserveAmmo: 0
+  _maxReserveAmmo: 100
   _muzzlePosition: {fileID: 4000011162098440}
   _aimPosition: {fileID: 4000010135323798}
   _reloadTime: 2.5
   _meleeTime: 0.5
-  _aimTime: 0.1
-  _cameraRecoilForce: {x: 6, y: 3}
+  _aimTime: 0.4
+  _cameraRecoilForce: {x: 16, y: 8}
   _weaponRotationRecoilForce: {x: 4, y: 2}
-  _weaponMoveRecoilForce: 0.3
-  _weaponRecoilApplyTime: 0.05
-  _weaponRecoilReturnTime: 0.3
+  _weaponMoveRecoilForce: 2
+  _weaponRecoilApplyTime: 2
+  _weaponRecoilReturnTime: 0.1
   _reloadDownMovement: 0.25
   _reloadDownRotation: 25
   _reloadMoveTime: 0.2
@@ -1191,8 +1191,8 @@ MonoBehaviour:
   _chargeTime: 1.75
   _minDamage: 100
   _maxDamage: 400
-  _minBeams: 4
-  _maxBeams: 15
+  _minBeams: 5
+  _maxBeams: 20
   _minAmmoUse: 5
   _maxAmmoUse: 20
 --- !u!198 &198038601078346480
