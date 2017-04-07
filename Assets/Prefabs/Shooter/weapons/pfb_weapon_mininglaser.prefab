@@ -1172,8 +1172,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
-  _magazineCapacity: 100
-  _maxReserveAmmo: 100
+  _magazineCapacity: 8
+  _maxReserveAmmo: 12
   _muzzlePosition: {fileID: 4000011162098440}
   _aimPosition: {fileID: 4000010135323798}
   _reloadTime: 2.5
@@ -1194,7 +1194,7 @@ MonoBehaviour:
   _minBeams: 5
   _maxBeams: 20
   _minAmmoUse: 1
-  _maxAmmoUse: 5
+  _maxAmmoUse: 4
 --- !u!198 &198038601078346480
 ParticleSystem:
   m_ObjectHideFlags: 1
