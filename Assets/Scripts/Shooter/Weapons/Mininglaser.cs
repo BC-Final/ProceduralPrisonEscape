@@ -50,7 +50,12 @@ public class Mininglaser : Weapon {
 
 	public void Update() {
 		if (_active) {
-			if (_chargeTimer.IsPlaying) {
+            if (Input.GetMouseButton(0) && _magazineContent == 0 && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming)
+            {
+                reload();
+            }
+
+            if (_chargeTimer.IsPlaying) {
 				int currentAmmoUse = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minAmmoUse, _maxAmmoUse));
 
 				_magazineContent -=  (currentAmmoUse - _lastAmmoUse);
