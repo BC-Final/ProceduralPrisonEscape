@@ -34,6 +34,7 @@ namespace StateFramework {
 
 			if (src != null && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction)) {
 				_drone.LastTarget = src.GameObject;
+				Debug.Log("Enemy");
 				_fsm.SetState<DroneFollowState>();
 			} else if (src == null) {
 				_fsm.SetState<DroneSearchState>();
