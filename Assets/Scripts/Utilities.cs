@@ -112,7 +112,7 @@ namespace Utilities {
 		/// <param name="pOther">The other</param>
 		/// <returns>Return TRUE of other is an enemy, otherwise FALSE.</returns>
 		public static bool FactionIsEnemy (Faction pTester, Faction pOther) {
-			return  pTester != pOther && pOther != Faction.Neutral;
+			return pTester != pOther && pOther != Faction.Neutral;
 		}
 
 
