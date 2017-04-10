@@ -76,4 +76,19 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 	protected void changeColor (Color pColor) {
 		spriteRenderer.color = pColor;
 	}
+
+    public static void ProcessPacket(NetworkPacket.Update.Icon pPacket)
+    {
+        AbstractMapIcon icon = HackerPackageSender.GetNetworkedObject<AbstractMapIcon>(pPacket.Id);
+
+        if (icon != null)
+        {
+            icon.updateInstance(pPacket);
+        }
+    }
+
+    public void updateInstance(NetworkPacket.Update.Icon pPacket)
+    {
+        spriteRenderer.enabled = !pPacket.used;
+    }
 }

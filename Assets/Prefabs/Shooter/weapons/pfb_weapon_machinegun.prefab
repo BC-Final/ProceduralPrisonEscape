@@ -833,7 +833,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  _magazineCapacity: 50
+  _magazineCapacity: 10000
   _maxReserveAmmo: 100
   _muzzlePosition: {fileID: 4000012347117206}
   _aimPosition: {fileID: 4000013570196990}

@@ -10,7 +10,6 @@ public class PickUpMapIcon : AbstractMapIcon
 
     public static void ProcessPacket(NetworkPacket.AbstractPacket pPacket)
     {
-        if (pPacket is NetworkPacket.Update.Icon) { ProcessPacket(pPacket as NetworkPacket.Update.Icon); return; }
         if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
         if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
         if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
@@ -37,28 +36,16 @@ public class PickUpMapIcon : AbstractMapIcon
         PickUpMapIcon icon = Instantiate(HackerReferenceManager.Instance.HealthKit, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PickUpMapIcon>();
         icon.Id = pPacket.Id;
     }
-    public static void ProcessPacket(NetworkPacket.Update.Icon pPacket)
-    {
-        PickUpMapIcon icon = HackerPackageSender.GetNetworkedObject<PickUpMapIcon>(pPacket.Id);
-
-        if (icon != null)
-        {
-            icon.updateInstance(pPacket);
-        }
-    }
-
-    public void updateInstance(NetworkPacket.Update.Icon pPacket)
-    {
-        _used.Value = pPacket.used;
-    }
 
     private void Awake()
     {
+        _used = new ObservedValue<bool>(false);
         _used.OnValueChange += StateChanged;
     }
 
     private void StateChanged()
     {
+        Debug.Log("changed");
         gameObject.SetActive(!_used.Value);
     }
 }

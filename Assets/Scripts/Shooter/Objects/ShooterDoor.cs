@@ -97,6 +97,18 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
         sendStateUpdate();
     }
 
+    public void ForceClose()
+    {
+        _open.Value = false;
+        sendStateUpdate();
+    }
+
+    public void ForceToggle()
+    {
+        _open.Value = !_open.Value;
+        sendStateUpdate();
+    }
+
     public void SetRequireKeyCard(Color keyColor)
     {
         if (_keyLocked)

@@ -115,6 +115,7 @@ public class DroneMapIcon : AbstractMapIcon {
 			}
 		} else {
 			changeSprite(_deadSprite);
+            Destroy(gameObject, 6);
 		}
 	}
 }

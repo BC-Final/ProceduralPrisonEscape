@@ -13,6 +13,7 @@ public class SecurityCode : MonoBehaviour {
     private int valueNumber = 0;
     private Image image;
 
+    private DecoderWindow _window;
     private int[] values = { 0, 1, 2, 4};
     private int valuteIndex = 0;
     public int Value {
@@ -26,7 +27,12 @@ public class SecurityCode : MonoBehaviour {
         }
     }
 
-    private void Start()
+    public void SetWindow(DecoderWindow window)
+    {
+        _window = window;
+    }
+
+    public void Init()
     {
         members.Add(this);
         if (decNumber != null)
@@ -41,12 +47,14 @@ public class SecurityCode : MonoBehaviour {
 
     public void OnClick()
     {
+        //Debug.Log("Click");
         ++valuteIndex;
         if (valuteIndex > 3)
         {
             valuteIndex = 0;
         }
         Value = values[valuteIndex];
+        _window.CheckSolution();
     }
 
     private void SetColor(int i)
@@ -72,16 +80,17 @@ public class SecurityCode : MonoBehaviour {
         }
     }
 
+    private void ResetValue()
+    {
+        Value = values[0];
+    }
     private void Randomize()
     {
         valuteIndex = Random.Range(0,4);
         Value = values[valuteIndex];
     }
 
-    private void ResetValue()
-    {
-        Value = values[0];
-    }
+
 
     static public void RNDAll()
     {
