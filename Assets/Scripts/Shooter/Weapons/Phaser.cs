@@ -10,7 +10,7 @@ public class Phaser : Weapon {
 
 	public void Update() {
 		if (_active) {
-            if (Input.GetMouseButton(0) && _magazineContent == 0 && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming)
+            if (Input.GetMouseButtonDown(0) && _magazineContent == 0 && !_reloading && _reserveAmmo != 0 && _magazineContent != _magazineCapacity && !_moving && !_aiming)
             {
                 FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload");
                 //FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
