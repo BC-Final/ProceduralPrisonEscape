@@ -18,7 +18,7 @@ public class Phaser : Weapon {
 		if (_currentState != WeaponState.Hidden) {
 			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _currentState == WeaponState.Idle) {
 				shoot(_shootDamage);
-			} else if (_magazineContent == 0 && _reserveAmmo != 0) {
+			} else if (Input.GetMouseButtonDown(0) && _magazineContent == 0 && _reserveAmmo != 0) {
 				reload();
 			}
 
