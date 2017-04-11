@@ -18,6 +18,7 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private Tweener _mainFovTween;
 	private Tweener _wpnFovTween;
 	private Tweener _moveTween;
+	private Tweener _crosshairTween;
 
 	private CrosshairDistance _crosshair;
 	private Camera _mainCamera;
@@ -104,12 +105,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 	private void aimStateChanged () {
 		switch (_currentAimState.Value) {
-			case AimState.Aiming:
-				atAim();
-				break;
-			case AimState.Hip:
-				atHip();
-				break;
 			case AimState.TransitToAim:
 				transitToAim();
 				break;
@@ -130,7 +125,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		_mainFovTween.Kill();
 		_wpnFovTween.Kill();
 
-		_crosshair.Disable();
 
 		float distFromHipToAim = Vector3.Distance(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, Vector3.zero);
 		float distFromWpnToAim = Vector3.Distance(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].transform.localPosition);
@@ -138,6 +132,7 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 		_moveTween = _weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, calcAimTime).OnComplete(() => _currentAimState.Value = AimState.Aiming);
 
+		_crosshair.Disable(calcAimTime);
 		//TODO Get FOV from options and get substracted FOV from weapon
 
 		_mainFovTween = _mainCamera.DOFieldOfView(45, _weapons[_currentWeapon].AimTime);
@@ -155,17 +150,11 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 		_moveTween = _weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, calcAimTime).OnComplete(() => _currentAimState.Value = AimState.Hip);
 
+		_crosshair.Enable(calcAimTime);
 		//TODO Get FOV from options
 
 		_mainFovTween = _mainCamera.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
 		_wpnFovTween = _weaponCamera.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
-	}
-
-	private void atAim () {
-	}
-
-	private void atHip () {
-		_crosshair.Enable();
 	}
 
 

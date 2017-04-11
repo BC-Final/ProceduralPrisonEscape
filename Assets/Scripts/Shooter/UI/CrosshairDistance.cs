@@ -12,12 +12,12 @@ public class CrosshairDistance : MonoBehaviour {
 		_crosshairs = new List<Crosshair>(GetComponentsInChildren<Crosshair>());
 	}
 
-	public void Enable() { 
-		_crosshairs.ForEach(x => x.GetComponent<Image>().enabled = true);
+	public void Enable(float pTime) {
+		_crosshairs.ForEach(x => x.Enable(pTime));
 	}
 
-	public void Disable () {
-		_crosshairs.ForEach(x => x.GetComponent<Image>().enabled = false);
+	public void Disable (float pTime) {
+		_crosshairs.ForEach(x => x.Disable(pTime));
 	}
 
 	public void SetDistance(float pConeRadius, float pConeLength) {
