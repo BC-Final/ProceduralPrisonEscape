@@ -68,8 +68,10 @@ public class HackerPackageReader : MonoBehaviour {
         if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
         if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
         if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
+        if (pPacket is NetworkPacket.Create.PushButton) { readPacket(pPacket as NetworkPacket.Create.PushButton); }
 
         //Update
+        if (pPacket is NetworkPacket.Update.ButtonFeedback)     { readPacket(pPacket as NetworkPacket.Update.ButtonFeedback); }
         if (pPacket is NetworkPacket.Update.Camera)     { readPacket(pPacket as NetworkPacket.Update.Camera); }
         if (pPacket is NetworkPacket.Update.DisableDoor){ readPacket(pPacket as NetworkPacket.Update.DisableDoor); }
         if (pPacket is NetworkPacket.Update.Door)       { readPacket(pPacket as NetworkPacket.Update.Door); }
@@ -108,11 +110,14 @@ public class HackerPackageReader : MonoBehaviour {
 		SectorDoorMapIcon.ProcessPacket(pPacket);
 	}
 
-
+    private void readPacket (NetworkPacket.Update.ButtonFeedback pPacket)
+    {
+        PushButtonMapIcon.ProcessPacket(pPacket);
+    }
 	private void readPacket (NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon.ProcessPacket(pPacket);
 	}
-    private void readPacket(NetworkPacket.Update.Icon pPacket)
+    private void readPacket (NetworkPacket.Update.Icon pPacket)
     {
         AbstractMapIcon.ProcessPacket(pPacket);
     }
@@ -146,6 +151,13 @@ public class HackerPackageReader : MonoBehaviour {
 	/// Creation Methods
 	/// </summary>
 	/// <param name="pPacket"></param>
+    /// 
+    private void readPacket(NetworkPacket.Create.PushButton pPacket)
+    {
+        Debug.Log("Packet read");
+        PushButtonMapIcon.ProcessPacket(pPacket);
+    }
+
 	private void readPacket(NetworkPacket.Create.CodeLockAddon pPacket)
     {
         if (loadingFinished)

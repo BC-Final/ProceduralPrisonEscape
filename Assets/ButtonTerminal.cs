@@ -12,14 +12,6 @@ public class ButtonTerminal : MonoBehaviour {
     ShooterButton _leftButton;
     [SerializeField]
     ShooterButton _rightButton;
-
-    [Header("Colors")]
-    [SerializeField]
-    Color offColor;
-    [SerializeField]
-    Color onColor;
-    [SerializeField]
-    Color solvedColor;
     
     // Use this for initialization
     void Start () {
@@ -37,31 +29,14 @@ public class ButtonTerminal : MonoBehaviour {
     {   
         if(_leftButton.Triggered.Value && _rightButton.Triggered.Value)
         {
-            _leftButton.SetColor(solvedColor);
-            _rightButton.SetColor(solvedColor);
             OnSolved();
-        }
-        else if (_leftButton.Triggered.Value)
-        {
-            _leftButton.SetColor(onColor);
-            _rightButton.SetColor(offColor);
-        }
-        else if(_rightButton.Triggered.Value)
-        {
-            _rightButton.SetColor(onColor);
-            _leftButton.SetColor(offColor);
-        }
-        else
-        {
-            _leftButton.SetColor(offColor);
-            _rightButton.SetColor(offColor);
         }
     }
 
     private void OnSolved()
     {
+        _leftButton.OnSolved();
+        _rightButton.OnSolved();
         _door.ForceOpen();
-        _leftButton.enabled = false;
-        _rightButton.enabled = false;
     }
 }
