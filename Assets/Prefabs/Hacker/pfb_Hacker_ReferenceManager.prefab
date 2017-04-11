@@ -71,6 +71,7 @@ MonoBehaviour:
     type: 2}
   LightIcon: {fileID: 0}
   PlayerIcon: {fileID: 150788, guid: 4526ac653de4c5e43a2d0e26cd79a604, type: 2}
+  PushButton: {fileID: 1110354250276072, guid: fb03e028d6cb9f54bba5536626ea7428, type: 2}
   SecurityStationIcon: {fileID: 0}
   SpeakerIcon: {fileID: 0}
   TurretIcon: {fileID: 1989081568637798, guid: 268d29a229841aa4b8adc90949b2ceaf, type: 2}

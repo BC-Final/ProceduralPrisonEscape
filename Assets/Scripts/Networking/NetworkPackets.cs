@@ -135,9 +135,52 @@ namespace NetworkPacket {
                 CodeString = pCodeString;
             }
         }
+        [System.Serializable]
+        public class PushButton : AbstractPacket
+        {
+            public int Id;
+            public float posX;
+            public float posY;
+
+
+            public PushButton(int pId, Vector3 pPos)
+            {
+                Id = pId;
+                posX = pPos.x;
+                posY = pPos.z;
+            }
+        }
     }
 	namespace Update {
-		[System.Serializable]
+        [System.Serializable]
+        public class ButtonPush : AbstractPacket
+        {
+            public int Id;
+
+            public ButtonPush(int pID)
+            {
+                Id = pID;
+            }
+        }
+
+        [System.Serializable]
+        public class ButtonFeedback : AbstractPacket
+        {
+            public int Id;
+            public float colorR;
+            public float colorG;
+            public float colorB;
+
+            public ButtonFeedback(int pID, Color pColor)
+            {
+                Id = pID;
+                colorR = pColor.r;
+                colorG = pColor.g;
+                colorB = pColor.b;
+            }
+        }
+
+        [System.Serializable]
 		public class Door : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;

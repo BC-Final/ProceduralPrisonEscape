@@ -10,52 +10,92 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
     private Faction _faction = Faction.Neutral;
     public Faction Faction { get { return _faction; } }
 
-    public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce)
+    virtual public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce)
     {
-        TriggerTimer();
+        if(_canBeTriggered)
+        {
+            TriggerTimer();
+        }
     }
 
     //IDamageable Implementation end
 
 
     [SerializeField]
-    private float _triggeredDuration;
-    private float _timer;
+    protected float _triggeredDuration;
+    [SerializeField]
+    protected float _delayBetweenTriggering;
+    protected float _timer;
 
     public ObservedValue<bool> Triggered = new ObservedValue<bool>(false);
+    protected bool _canBeTriggered;
 
-    public void Interact()
+    [Header("Colors")]
+    [SerializeField]
+    protected Color offColor;
+    [SerializeField]
+    protected Color notActiveColor;
+    [SerializeField]
+    protected Color activeColor;
+    [SerializeField]
+    protected Color solvedColor;
+    protected Color _currentColor;
+
+
+    virtual public void Interact()
     {
-        TriggerTimer();
+        if (_canBeTriggered)
+        {
+            TriggerTimer();
+        }
     }
-
-    // Use this for initialization
-    void Start () {
-		
-	}
 	
 	// Update is called once per frame
-	void Update () {
+	protected void Update () {
         if(_timer > 0)
         {
             _timer -= Time.deltaTime;
+            if(_timer <= _delayBetweenTriggering)
+            {
+                Triggered.Value = false;
+                SetColor(offColor);
+            }
             if(_timer <= 0)
             {
-                _timer = 0;
-                Triggered.Value = false;
+                _timer = 0;    
             }
         }
+        if (_timer == 0)
+        {
+            _canBeTriggered = true;
+            SetColor(notActiveColor);
+        }
 
-	}
-
-    public void SetColor(Color color)
-    {
-        GetComponent<Renderer>().material.color = color;
     }
 
-    private void TriggerTimer()
+    virtual public void SetColor(Color color)
     {
-        _timer = _triggeredDuration;
+        if(color != _currentColor)
+        {
+            _currentColor = color;
+            GetComponent<Renderer>().material.color = _currentColor;
+        }
+
+    }
+
+    public void OnSolved()
+    {
+        _canBeTriggered = false;
+        SetColor(solvedColor);
+        this.enabled = false;
+    }
+
+    protected void TriggerTimer()
+    {
+        _canBeTriggered = false;
+        _timer = _triggeredDuration + _delayBetweenTriggering;
+        SetColor(activeColor);
         Triggered.Value = true;
+        
     }
 }
