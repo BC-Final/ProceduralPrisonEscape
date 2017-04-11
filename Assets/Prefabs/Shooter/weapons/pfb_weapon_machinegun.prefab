@@ -293,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013839642570}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.155, z: -0.299}
+  m_LocalPosition: {x: 0, y: 0.152, z: 0.304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4000012994897422}
@@ -839,7 +839,8 @@ MonoBehaviour:
   _aimPosition: {fileID: 4000013570196990}
   _reloadTime: 1.5
   _meleeTime: 0.5
-  _aimTime: 0.1
+  _aimTime: 0.2
+  _drawTime: 0.3
   _cameraRecoilForce: {x: 1, y: 1}
   _weaponRotationRecoilForce: {x: 1, y: 1}
   _weaponMoveRecoilForce: 0.08
@@ -849,6 +850,7 @@ MonoBehaviour:
   _reloadDownRotation: 25
   _reloadMoveTime: 0.2
   _model: {fileID: 1952811220345244}
+  _currentState: 4
 --- !u!198 &198000010891647004
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using DG.Tweening;
+using Gamelogic.Extensions;
 
 public abstract class Weapon : MonoBehaviour {
 	[Header("Shoot Settings")]
 	[SerializeField]
-	private float _shootDamage;
+	protected float _shootDamage;
 
 	[SerializeField]
 	private float _shootRange;
@@ -32,11 +33,11 @@ public abstract class Weapon : MonoBehaviour {
 	[Header("Ammo Settings")]
 	[SerializeField]
 	protected int _magazineCapacity;
-	public int MagazineCapacity { get { return _magazineCapacity; } }
+	//public int MagazineCapacity { get { return _magazineCapacity; } }
 
 	[SerializeField]
 	protected int _maxReserveAmmo;
-	public int MaxReserveAmmo { get { return _maxReserveAmmo; } }
+	//public int MaxReserveAmmo { get { return _maxReserveAmmo; } }
 
 	[Header("References")]
 	[SerializeField]
@@ -56,6 +57,9 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private float _aimTime;
 	public float AimTime { get { return _aimTime; } }
+
+	[SerializeField]
+	private float _drawTime;
 
 	[Header("Recoil Settings")]
 	[SerializeField]
@@ -86,74 +90,124 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private GameObject _model;
 
+
+
 	protected int _magazineContent;
 	public int MagazineContent { get { return _magazineContent; } }
 
 	protected int _reserveAmmo;
 	public int ReserveAmmo { get { return _reserveAmmo; } }
 
-	protected bool _canShoot = true;
-	public bool CanShoot { get { return _canShoot; } }
 
-	protected bool _reloading = false;
-	public bool Reloading { get { return _reloading; } }
 
-	protected bool _moving = false;
-	public bool Moving { set { _moving = value; } }
+	//protected bool _canShoot = true;
+	//public bool CanShoot { get { return _canShoot; } }
 
-	protected bool _aiming = false;
-	public bool Aiming { set { _aiming = value; } }
+	//protected bool _reloading = false;
+	//public bool Reloading { get { return _reloading; } }
 
-	protected bool _active;
+	//protected bool _moving = false;
+	//public bool Moving { set { _moving = value; } }
 
+	//protected bool _aiming = false;
+	//public bool Aiming { set { _aiming = value; } }
+
+	//protected bool _active;
+
+
+
+	private WeaponHolder _holder;
+	private CharacterController _controller;
 	private MouseLook _mouseLook;
-
 	private Timer _shootTimer;
 
-	private CharacterController _controller;
+	private Tween _reloadSeqence;
+	private Tween _recoilSequence;
+	private Tween _drawSequence;
 
-	protected virtual void Awake() {
+	private bool _reloadQueued = false;
+	public bool ReloadQueued { get { return _reloadQueued; } }
+
+	[SerializeField]
+	protected WeaponState _currentState = WeaponState.Hidden;
+	public enum WeaponState {
+		Drawing,
+		Idle,
+		Shooting,
+		Reloading,
+		Hidden
+	}
+
+	//Set base ammo for debug purposes
+	protected virtual void Awake () {
 		_magazineContent = _magazineCapacity;
 		_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
 	}
 
-	protected virtual void Start() {
-		_mouseLook = FindObjectOfType<MouseLook>();
-		_shootTimer = TimerManager.CreateTimer("Weapon Shoot Rate", false).SetDuration(_shootDelay).AddCallback(() => _canShoot = true).ResetOnFinish();
+
+	//Set References
+	protected virtual void Start () {
+		_holder = GetComponentInParent<WeaponHolder>();
+		_mouseLook = GetComponentInParent<MouseLook>();
 		_controller = GetComponentInParent<CharacterController>();
+		_shootTimer = TimerManager.CreateTimer("Weapon Shoot Rate", false).SetDuration(_shootDelay).ResetOnFinish();
 	}
 
-	public void AddAmmo(int pAmount) {
-		_reserveAmmo = Mathf.Min(_maxReserveAmmo, _reserveAmmo + pAmount);
+	protected virtual void Update () {
+		if (_reloadQueued) {
+			reload();
+		}
 	}
 
-	protected abstract void spawnBullet(Vector3 pHitPoint);
-	protected abstract void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform);
 
-	protected void reload () {
-		_reloading = true;
+	//Hides the weapon
+	public void SetActive (bool pActive) {
+		_model.SetActive(pActive);
 
-		Sequence reloadStartSequence = DOTween.Sequence();
-		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(_reloadDownRotation, 0.0f, 0.0f), _reloadMoveTime));
-		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f), _reloadMoveTime));
-		reloadStartSequence.AppendInterval(_reloadTime - 2 * _reloadMoveTime);
-		reloadStartSequence.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime));
-		reloadStartSequence.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime));
-		reloadStartSequence.AppendCallback(() => finishReload());
+		if (pActive) {
+			_currentState = WeaponState.Drawing;
+
+
+			//TODO This is placeholder
+			transform.Rotate(_reloadDownRotation, 0, 0);
+			transform.localPosition = transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f);
+
+			_drawSequence = DOTween.Sequence()
+			 .Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _drawTime))
+			 .Join(transform.DOLocalMove(Vector3.zero, _drawTime))
+			 .AppendCallback(() => _currentState = WeaponState.Idle);
+
+		} else {
+			if (_currentState == WeaponState.Reloading) {
+				abortReload();
+			} else if (_currentState == WeaponState.Drawing) {
+				_drawSequence.Kill(true);
+			}
+
+			_currentState = WeaponState.Hidden;
+		}
 	}
 
-	private void finishReload () {
-		int diff = _magazineCapacity - _magazineContent;
-		_magazineContent = (diff > _reserveAmmo) ? _magazineContent + _reserveAmmo : _magazineCapacity;
-		_reserveAmmo = Mathf.Max(_reserveAmmo - diff, 0);
+	public bool IsNotInStates (params WeaponState[] pStates) {
+		bool result = true;
 
-		_reloading = false;
+		foreach (WeaponState state in pStates) {
+			result = result && _currentState != state;
+		}
+
+		return result;
 	}
 
-	protected void shoot (int pNumberOfShots = 1, bool pConsumeAmmo = true) {
+	public bool IsInState (WeaponState pState) {
+		return pState == _currentState;
+	}
+
+
+
+	protected void shoot (float pDamage, int pNumberOfShots = 1, bool pConsumeAmmo = true) {
+		_currentState = WeaponState.Shooting;
+
 		_shootTimer.Start();
-
-		_canShoot = false;
 
 		if (pConsumeAmmo) {
 			_magazineContent = Mathf.Max(_magazineContent - 1, 0);
@@ -162,72 +216,152 @@ public abstract class Weapon : MonoBehaviour {
 		RaycastHit hit;
 
 		for (int i = 0; i < pNumberOfShots; ++i) {
-			Vector3 shootDir = calulateShootDirection();
-
-			if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, _shootRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+			if (Utilities.Weapons.CastShot(CalcFinalSpreadConeRadius(), _spreadConeLength, Camera.main.transform, out hit)) {
 				spawnBullet(hit.point);
-				spawnDecal(hit.point, hit.normal, hit.collider.transform);
-				//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
-				//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
-				//TODO FIX DEM WEAPONS AS WELL!
+				spawnDecal(hit.point, hit.normal, hit.transform);
+
 				if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
-					//hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
 					hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>().transform, hit.point, _shootDamage, _shootForce);
 				}
 			} else {
-				//spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
-				spawnBullet(_muzzlePosition.position + shootDir * _shootRange);
-				//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
-				//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
+				//FIX This is an edge case for when nothin was hit
+				//spawnBullet(_muzzlePosition.position + shootDir * _shootRange);
+				spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
 			}
 		}
 
+
+		//TODO Make the weapon recoil in the opposite direction of the shot
+
 		_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
 
-		//FIX This is very costly I think
-		Sequence recoilSequence = DOTween.Sequence();
-		recoilSequence.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime));
-		recoilSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime));
-		recoilSequence.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime));
-		recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
+
+		_recoilSequence = DOTween.Sequence()
+		.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime))
+		.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime))
+		.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime))
+		.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime))
+		.OnKill(() => _currentState = WeaponState.Idle);
 	}
+
+
+	protected void reload () {
+		if (_currentState == WeaponState.Idle && !_holder.IsAimingOrTransit) {
+			_currentState = WeaponState.Reloading;
+
+			_reloadSeqence = DOTween.Sequence()
+			.Append(transform.DOLocalRotate(new Vector3(_reloadDownRotation, 0.0f, 0.0f), _reloadMoveTime))
+			.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f), _reloadMoveTime))
+			.AppendInterval(_reloadTime - 2 * _reloadMoveTime)
+			.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime))
+			.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime))
+			.AppendCallback(() => finishReload());
+
+			_reloadQueued = false;
+		} else if(_currentState != WeaponState.Reloading) {
+			if (_holder.IsAimingOrTransit) {
+				_holder.CancelAim();
+			}
+
+			_reloadQueued = true;
+		}
+	}
+
+	private void finishReload () {
+		int diff = _magazineCapacity - _magazineContent;
+		_magazineContent = (diff > _reserveAmmo) ? _magazineContent + _reserveAmmo : _magazineCapacity;
+		_reserveAmmo = Mathf.Max(_reserveAmmo - diff, 0);
+
+		_currentState = WeaponState.Idle;
+	}
+
+	private void abortReload () {
+		_reloadSeqence.Kill(true);
+		_recoilSequence.Kill(true);
+	}
+
 
 	private float CalcFinalSpreadConeRadius () {
-		return (_aiming ? _aimedSpreadConeRadius : _spreadConeRadius) + _velocitySpreadRadiusCurve.Evaluate(_controller.velocity.magnitude);
+		return (_holder.IsAiming ? _aimedSpreadConeRadius : _spreadConeRadius) + _velocitySpreadRadiusCurve.Evaluate(_controller.velocity.magnitude);
 	}
 
-
-	private Vector3 calulateShootDirection() {
-		float randomRadius = UnityEngine.Random.Range(0, CalcFinalSpreadConeRadius());
-		float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
-
-		Vector3 rayDir = new Vector3(
-			randomRadius * Mathf.Cos(randomAngle),
-			randomRadius * Mathf.Sin(randomAngle),
-			_spreadConeLength
-			);
-
-		return Camera.main.transform.TransformDirection(rayDir.normalized);
+	public void AddAmmo (int pAmount) {
+		_reserveAmmo = Mathf.Min(_maxReserveAmmo, _reserveAmmo + pAmount);
 	}
 
-	public void SetActive (bool pActive) {
-		_active = pActive;
-		_model.SetActive(pActive);
-	}
+	protected abstract void spawnBullet(Vector3 pHitPoint);
+	protected abstract void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform);
 
-	protected void SetDamage (float pDamage) {
-		_shootDamage = pDamage;
-	}
+
+
+
+	//protected void shoot (int pNumberOfShots = 1, bool pConsumeAmmo = true) {
+	//	_shootTimer.Start();
+
+	//	_canShoot = false;
+
+	//	if (pConsumeAmmo) {
+	//		_magazineContent = Mathf.Max(_magazineContent - 1, 0);
+	//	}
+
+	//	RaycastHit hit;
+
+	//	for (int i = 0; i < pNumberOfShots; ++i) {
+	//		Vector3 shootDir = calulateShootDirection();
+
+	//		if (Physics.Raycast(Camera.main.transform.position, shootDir, out hit, _shootRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)) {
+	//			spawnBullet(hit.point);
+	//			spawnDecal(hit.point, hit.normal, hit.collider.transform);
+	//			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, hit.point));
+	//			//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, hit.point));
+	//			//TODO FIX DEM WEAPONS AS WELL!
+	//			if (hit.rigidbody != null && hit.rigidbody.GetComponent<IDamageable>() != null) {
+	//				//hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>(), Camera.main.transform.forward, hit.point, _shootDamage);
+	//				hit.rigidbody.GetComponent<IDamageable>().ReceiveDamage(GetComponentInParent<PlayerHealth>().transform, hit.point, _shootDamage, _shootForce);
+	//			}
+	//		} else {
+	//			//spawnBullet(_muzzlePosition.position + _muzzlePosition.forward * _shootRange);
+	//			spawnBullet(_muzzlePosition.position + shootDir * _shootRange);
+	//			//ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
+	//			//ShooterPackageSender.SendPackage(new CustomCommands.Creation.Shots.LaserShotCreation(Camera.main.transform.position, _muzzlePosition.position + _muzzlePosition.forward * _shootRange));
+	//		}
+	//	}
+
+	//	_mouseLook.ApplyRecoil(new Vector2(Random.Range(-_cameraRecoilForce.y, _cameraRecoilForce.y), _cameraRecoilForce.x));
+
+	//	//FIX This is very costly I think
+	//	Sequence recoilSequence = DOTween.Sequence();
+	//	recoilSequence.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime));
+	//	recoilSequence.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime));
+	//	recoilSequence.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime));
+	//	recoilSequence.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime));
+	//}
+
+
+	//private Vector3 calulateShootDirection() {
+	//	float randomRadius = UnityEngine.Random.Range(0, CalcFinalSpreadConeRadius());
+	//	float randomAngle = UnityEngine.Random.Range(0, 2 * Mathf.PI);
+
+	//	Vector3 rayDir = new Vector3(
+	//		randomRadius * Mathf.Cos(randomAngle),
+	//		randomRadius * Mathf.Sin(randomAngle),
+	//		_spreadConeLength
+	//		);
+
+	//	return Camera.main.transform.TransformDirection(rayDir.normalized);
+	//}
+
+
 
 	private void OnGUI() {
-		if (_active) {
+		if (_currentState != WeaponState.Hidden) {
 			FindObjectOfType<CrosshairDistance>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
 		}
 	}
 
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {
-		if (_active) {
+		if (_currentState != WeaponState.Hidden) {
 			UnityEditor.Handles.color = Color.white;
 			UnityEditor.Handles.DrawWireDisc(Camera.main.transform.position + Camera.main.transform.forward * _spreadConeLength, Camera.main.transform.forward, CalcFinalSpreadConeRadius());
 		}

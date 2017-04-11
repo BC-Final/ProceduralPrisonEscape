@@ -15,9 +15,40 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private List<Weapon> _weapons;
 	private int _currentWeapon;
 
-	private Tweener _zoomTween;
+	private Tweener _mainFovTween;
+	private Tweener _wpnFovTween;
+	private Tweener _moveTween;
+
+	private CrosshairDistance _crosshair;
+	private Camera _mainCamera;
+	private Camera _weaponCamera;
+
+	private ObservedValue<AimState> _currentAimState = new ObservedValue<AimState>(AimState.Hip);
+	private enum AimState {
+		Aiming,
+		Hip,
+		TransitToAim,
+		TransitToHip,
+		ForcedTransitToHip
+	}
+
+	public bool IsAiming {
+		get { return _currentAimState.Value == AimState.Aiming; }
+	}
+
+	public bool IsAimingOrTransit {
+		get { return _currentAimState.Value != AimState.Hip; }
+	}
+
+	private void Awake () {
+		_currentAimState.OnValueChange += aimStateChanged;
+	}
 
 	private void Start() {
+		_crosshair = FindObjectOfType<CrosshairDistance>();
+		_mainCamera = Camera.main;
+		_weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
+
 		_weapons = new List<Weapon>();
 
 		_weapons.Add((Instantiate(ShooterReferenceManager.Instance.Phaser, transform.position, transform.rotation, transform) as GameObject).GetComponent<Weapon>());
@@ -34,51 +65,127 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void Update() {
-		//TODO This can be done more clever!
-		//int nextWeapon = Mathf.Min(Mathf.Max(0, _currentWeapon + (int)Input.mouseScrollDelta.y), _weapons.Count - 1);
-		int nextWeapon = _currentWeapon;
+		int nextWeapon = Utilities.Math.Modulas(_currentWeapon + (int)Input.mouseScrollDelta.y, _weapons.Count);
 
-		for (int i = 0; i < (int)Mathf.Abs(Input.mouseScrollDelta.y); ++i) {
-			nextWeapon += (int)Mathf.Sign(Input.mouseScrollDelta.y);
-
-			if (nextWeapon == _weapons.Count) {
-				nextWeapon = 0;
-			} else if (nextWeapon == -1) {
-				nextWeapon = _weapons.Count - 1;
-			}
+		if (Input.GetKey(KeyCode.Alpha1)) {
+			nextWeapon = 0;
+		} else if (Input.GetKey(KeyCode.Alpha2)) {
+			nextWeapon = 1;
+		} else if (Input.GetKey(KeyCode.Alpha3)) {
+			nextWeapon = 2;
 		}
-
+		
 		if (nextWeapon != _currentWeapon) {
+			abortAim();
+
 			_weapons[_currentWeapon].SetActive(false);
 			_weapons[nextWeapon].SetActive(true);
 			_currentWeapon = nextWeapon;
 		}
-		//END commentpart
 
-		if (!_weapons[_currentWeapon].Reloading) {
-			if (Input.GetMouseButtonDown(1)) {
-				FindObjectOfType<CrosshairDistance>().Disable();
-				_weapons[_currentWeapon].Aiming = true;
-				_weapons[_currentWeapon].Moving = true;
-				_weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
-				//TODO Get FOV from options
-				//TODO Get substracted FOV from weapon
-				Camera.main.DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(30, _weapons[_currentWeapon].AimTime);
-			} else if (Input.GetMouseButtonUp(1)) {
-				FindObjectOfType<CrosshairDistance>().Enable();
-				_weapons[_currentWeapon].Aiming = false;
-				_weapons[_currentWeapon].Moving = true;
-				_weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, _weapons[_currentWeapon].AimTime).OnComplete(() => _weapons[_currentWeapon].Moving = false);
-				//TODO Get FOV from options
-				Camera.main.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
-				GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>().DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+
+
+		if (_weapons[_currentWeapon].IsNotInStates(Weapon.WeaponState.Drawing, Weapon.WeaponState.Reloading) && _currentAimState.Value != AimState.ForcedTransitToHip && !_weapons[_currentWeapon].ReloadQueued) {
+			if (Input.GetMouseButton(1)) {
+				if (_currentAimState.Value == AimState.Hip || _currentAimState.Value == AimState.TransitToHip) {
+					_currentAimState.Value = AimState.TransitToAim;
+				}
+			} else {
+				if (_currentAimState.Value == AimState.Aiming || _currentAimState.Value == AimState.TransitToAim) {
+					_currentAimState.Value = AimState.TransitToHip;
+				}
 			}
 		}
 	}
 
-	public void AddAmmo<T>(int pAmount) {
+	public void AddAmmo<T> (int pAmount) {
 		_weapons.Find(x => x is T).AddAmmo(pAmount);
+	}
+
+	private void aimStateChanged () {
+		switch (_currentAimState.Value) {
+			case AimState.Aiming:
+				atAim();
+				break;
+			case AimState.Hip:
+				atHip();
+				break;
+			case AimState.TransitToAim:
+				transitToAim();
+				break;
+			case AimState.TransitToHip:
+				transitToHip();
+				break;
+			case AimState.ForcedTransitToHip:
+				transitToHip();
+				break;
+		}
+	}
+
+
+
+
+	private void transitToAim () {
+		_moveTween.Kill();
+		_mainFovTween.Kill();
+		_wpnFovTween.Kill();
+
+		_crosshair.Disable();
+
+		float distFromHipToAim = Vector3.Distance(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, Vector3.zero);
+		float distFromWpnToAim = Vector3.Distance(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, _weapons[_currentWeapon].transform.localPosition);
+		float calcAimTime = distFromWpnToAim / distFromHipToAim * _weapons[_currentWeapon].AimTime;
+
+		_moveTween = _weapons[_currentWeapon].transform.DOLocalMove(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, calcAimTime).OnComplete(() => _currentAimState.Value = AimState.Aiming);
+
+		//TODO Get FOV from options and get substracted FOV from weapon
+
+		_mainFovTween = _mainCamera.DOFieldOfView(45, _weapons[_currentWeapon].AimTime);
+		_wpnFovTween = _weaponCamera.DOFieldOfView(45, _weapons[_currentWeapon].AimTime);
+	}
+
+	private void transitToHip () {
+		_moveTween.Kill();
+		_mainFovTween.Kill();
+		_wpnFovTween.Kill();
+
+		float distFromAimToHip = Vector3.Distance(transform.InverseTransformPoint(_aimPosition.position) - _weapons[_currentWeapon].AimPosition.localPosition, Vector3.zero);
+		float distFromWpnToHip = Vector3.Distance(Vector3.zero, _weapons[_currentWeapon].transform.localPosition);
+		float calcAimTime = distFromWpnToHip / distFromAimToHip * _weapons[_currentWeapon].AimTime;
+
+		_moveTween = _weapons[_currentWeapon].transform.DOLocalMove(Vector3.zero, calcAimTime).OnComplete(() => _currentAimState.Value = AimState.Hip);
+
+		//TODO Get FOV from options
+
+		_mainFovTween = _mainCamera.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+		_wpnFovTween = _weaponCamera.DOFieldOfView(60, _weapons[_currentWeapon].AimTime);
+	}
+
+	private void atAim () {
+	}
+
+	private void atHip () {
+		_crosshair.Enable();
+	}
+
+
+	public void CancelAim () {
+		_currentAimState.Value = AimState.ForcedTransitToHip;
+	}
+
+	private void abortAim () {
+		if (_currentAimState.Value != AimState.Hip) {
+
+			_moveTween.Kill();
+			_mainFovTween.Kill();
+			_wpnFovTween.Kill();
+
+			_weapons[_currentWeapon].transform.localPosition = Vector3.zero;
+			_mainCamera.fieldOfView = 60f;
+			_weaponCamera.fieldOfView = 60f;
+
+			_currentAimState.SetSilently(AimState.Hip);
+		}
 	}
 
 	private void OnGUI() {

@@ -56,6 +56,16 @@ namespace Utilities {
 		public static float Remap (float pValue, float pFromMin, float pFromMax, float pToMin, float pToMax) {
 			return (pValue - pFromMin) * (pToMax - pToMin) / (pFromMax - pFromMin) + pToMin;
 		}
+
+		/// <summary>
+		/// Wraps a number from 0 to pMax - 1 
+		/// </summary>
+		/// <param name="pInput">The input number</param>
+		/// <param name="pMax">The maximum wrap [exclusive]</param>
+		/// <returns></returns>
+		public static int Modulas (int pInput, int pMax) {
+			return (pInput % pMax + pMax) % pMax;
+		}
 	}
 
 	public class Weapons {
@@ -67,6 +77,8 @@ namespace Utilities {
 			GameObject tracer = GameObject.Instantiate(ShooterReferenceManager.Instance.BulletTracer, pStartPoint, Quaternion.LookRotation(pEndPoint - pStartPoint)) as GameObject;
 			tracer.GetComponentInChildren<ParticleSystem>().Play();
 			GameObject.Destroy(tracer, 1.0f);
+
+			ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(pStartPoint, pEndPoint));
 		}
 
 		public static void DisplayLaser (Vector3 pStartPoint, Vector3 pDirection, float pRange) {
