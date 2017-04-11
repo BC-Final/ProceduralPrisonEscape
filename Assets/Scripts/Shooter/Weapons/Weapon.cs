@@ -169,12 +169,12 @@ public abstract class Weapon : MonoBehaviour {
 
 
 			//TODO This is placeholder
-			transform.Rotate(_reloadDownRotation, 0, 0);
-			transform.localPosition = transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f);
+			_model.transform.Rotate(_reloadDownRotation, 0, 0);
+			_model.transform.localPosition = _model.transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f);
 
 			_drawSequence = DOTween.Sequence()
-			 .Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _drawTime))
-			 .Join(transform.DOLocalMove(Vector3.zero, _drawTime))
+			 .Append(_model.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _drawTime))
+			 .Join(_model.transform.DOLocalMove(Vector3.zero, _drawTime))
 			 .AppendCallback(() => _currentState = WeaponState.Idle);
 
 		} else {
@@ -237,10 +237,10 @@ public abstract class Weapon : MonoBehaviour {
 
 
 		_recoilSequence = DOTween.Sequence()
-		.Append(transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime))
-		.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime))
-		.Append(transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime))
-		.Join(transform.DOLocalMove(transform.localPosition, _weaponRecoilApplyTime))
+		.Append(_model.transform.DOLocalRotate(new Vector3(-_weaponRotationRecoilForce.x, Random.Range(-_weaponRotationRecoilForce.y, _weaponRotationRecoilForce.y), 0.0f), _weaponRecoilApplyTime))
+		.Join(_model.transform.DOLocalMove(_model.transform.localPosition + new Vector3(0.0f, 0.0f, -_weaponMoveRecoilForce), _weaponRecoilApplyTime))
+		.Append(_model.transform.DOLocalRotate(Vector3.zero, _weaponRecoilReturnTime))
+		.Join(_model.transform.DOLocalMove(_model.transform.localPosition, _weaponRecoilApplyTime))
 		.OnKill(() => _currentState = WeaponState.Idle);
 	}
 
@@ -250,11 +250,11 @@ public abstract class Weapon : MonoBehaviour {
 			_currentState = WeaponState.Reloading;
 
 			_reloadSeqence = DOTween.Sequence()
-			.Append(transform.DOLocalRotate(new Vector3(_reloadDownRotation, 0.0f, 0.0f), _reloadMoveTime))
-			.Join(transform.DOLocalMove(transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f), _reloadMoveTime))
+			.Append(_model.transform.DOLocalRotate(new Vector3(_reloadDownRotation, 0.0f, 0.0f), _reloadMoveTime))
+			.Join(_model.transform.DOLocalMove(_model.transform.localPosition + new Vector3(0.0f, -_reloadDownMovement, 0.0f), _reloadMoveTime))
 			.AppendInterval(_reloadTime - 2 * _reloadMoveTime)
-			.Append(transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime))
-			.Join(transform.DOLocalMove(transform.localPosition, _reloadMoveTime))
+			.Append(_model.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime))
+			.Join(_model.transform.DOLocalMove(_model.transform.localPosition, _reloadMoveTime))
 			.AppendCallback(() => finishReload());
 
 			_reloadQueued = false;
