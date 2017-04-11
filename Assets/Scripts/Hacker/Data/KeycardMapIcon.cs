@@ -18,15 +18,6 @@ public class KeycardMapIcon : AbstractMapIcon {
             createInstance(pPacket);
         }
     }
-    public static void ProcessPacket(NetworkPacket.Update.Icon pPacket)
-    {
-        KeycardMapIcon icon = HackerPackageSender.GetNetworkedObject<KeycardMapIcon>(pPacket.Id);
-
-        if (icon != null)
-        {
-            icon.updateInstance(pPacket);
-        }
-    }
 
     private static void createInstance(NetworkPacket.Create.KeyCard pPacket)
     {
@@ -65,10 +56,6 @@ public class KeycardMapIcon : AbstractMapIcon {
     //    }
     //}
 
-    private void updateInstance(NetworkPacket.Update.Icon pPacket)
-    {
-        _used.Value = pPacket.used;
-    }
 
     private void StateChanged()
     {

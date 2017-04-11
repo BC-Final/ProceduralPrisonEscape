@@ -504,7 +504,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Solved: 0
-  Window: {fileID: 0}
   solvedTexture: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   targetValue: 1
   valueNumber: 0
@@ -628,7 +627,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 114930372508741898}
-  Solution: 
+  Solution: Test
 --- !u!114 &114733920780372578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -641,7 +640,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Solved: 0
-  Window: {fileID: 0}
   solvedTexture: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   targetValue: 1
   valueNumber: 0
@@ -684,7 +682,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Solved: 0
-  Window: {fileID: 0}
   solvedTexture: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   targetValue: 1
   valueNumber: 0
@@ -727,7 +724,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Solved: 0
-  Window: {fileID: 0}
   solvedTexture: {fileID: 10900, guid: 0000000000000000f000000000000000, type: 0}
   targetValue: 1
   valueNumber: 0

@@ -10,7 +10,7 @@ public class DecoderNumber : MonoBehaviour {
     static public List<DecoderNumber> members = new List<DecoderNumber>();
 
     public bool Solved;
-    public DecoderWindow Window;
+    //public DecoderWindow Window;
 
     [SerializeField]
     Texture2D solvedTexture;
@@ -32,7 +32,7 @@ public class DecoderNumber : MonoBehaviour {
     float timer;
     float interval = 0.5f;
 
-    private void Awake()
+    public void Init()
     {
         members.Add(this);
         wrongTexture = new Texture2D(100, 100, TextureFormat.ARGB32, false);
@@ -51,25 +51,6 @@ public class DecoderNumber : MonoBehaviour {
         //}
     }
 
-    private void CheckSolution()
-    {
-        int i = 0;
-        foreach(DecoderNumber num in members)
-        {
-            i++;
-            if (!num.Solved)
-            {
-                Debug.Log(i + " wrong");
-                return;
-            }
-            Debug.Log(i + " correct");
-        }
-        if (Window)
-        {
-            Debug.Log("Solved");
-            Window.PuzzleSolved();
-        }
-    }
 
     public void SubscribeCodeField(SecurityCode code)
     {
@@ -92,7 +73,7 @@ public class DecoderNumber : MonoBehaviour {
         {
             Solved = false;
         }
-        CheckSolution();
+        
     }
 
     public void SetTargetToCurrent()

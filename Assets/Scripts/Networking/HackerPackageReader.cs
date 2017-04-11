@@ -114,7 +114,7 @@ public class HackerPackageReader : MonoBehaviour {
 	}
     private void readPacket(NetworkPacket.Update.Icon pPacket)
     {
-        KeycardMapIcon.ProcessPacket(pPacket);
+        AbstractMapIcon.ProcessPacket(pPacket);
     }
     private void readPacket (NetworkPacket.Update.Minimap package) {
 		Texture2D tex = new Texture2D(2, 2);
