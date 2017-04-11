@@ -66,34 +66,37 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void Update() {
-		int nextWeapon = Utilities.Math.Modulas(_currentWeapon + (int)Input.mouseScrollDelta.y, _weapons.Count);
+		if (_canUseWeapons) {
+			int nextWeapon = Utilities.Math.Modulas(_currentWeapon + (int)Input.mouseScrollDelta.y, _weapons.Count);
 
-		if (Input.GetKey(KeyCode.Alpha1)) {
-			nextWeapon = 0;
-		} else if (Input.GetKey(KeyCode.Alpha2)) {
-			nextWeapon = 1;
-		} else if (Input.GetKey(KeyCode.Alpha3)) {
-			nextWeapon = 2;
-		}
-		
-		if (nextWeapon != _currentWeapon) {
-			abortAim();
+			if (Input.GetKey(KeyCode.Alpha1)) {
+				nextWeapon = 0;
+			} else if (Input.GetKey(KeyCode.Alpha2)) {
+				nextWeapon = 1;
+			} else if (Input.GetKey(KeyCode.Alpha3)) {
+				nextWeapon = 2;
+			}
 
-			_weapons[_currentWeapon].SetActive(false);
-			_weapons[nextWeapon].SetActive(true);
-			_currentWeapon = nextWeapon;
-		}
+			if (nextWeapon != _currentWeapon) {
+				abortAim();
+
+				_weapons[_currentWeapon].SetActive(false);
+				_weapons[nextWeapon].SetActive(true);
+				_currentWeapon = nextWeapon;
+			}
 
 
 
-		if (_weapons[_currentWeapon].IsNotInStates(Weapon.WeaponState.Drawing, Weapon.WeaponState.Reloading) && _currentAimState.Value != AimState.ForcedTransitToHip && !_weapons[_currentWeapon].ReloadQueued) {
-			if (Input.GetMouseButton(1)) {
-				if (_currentAimState.Value == AimState.Hip || _currentAimState.Value == AimState.TransitToHip) {
-					_currentAimState.Value = AimState.TransitToAim;
-				}
-			} else {
-				if (_currentAimState.Value == AimState.Aiming || _currentAimState.Value == AimState.TransitToAim) {
-					_currentAimState.Value = AimState.TransitToHip;
+
+			if (_weapons[_currentWeapon].IsNotInStates(Weapon.WeaponState.Drawing, Weapon.WeaponState.Reloading) && _currentAimState.Value != AimState.ForcedTransitToHip && !_weapons[_currentWeapon].ReloadQueued) {
+				if (Input.GetMouseButton(1)) {
+					if (_currentAimState.Value == AimState.Hip || _currentAimState.Value == AimState.TransitToHip) {
+						_currentAimState.Value = AimState.TransitToAim;
+					}
+				} else {
+					if (_currentAimState.Value == AimState.Aiming || _currentAimState.Value == AimState.TransitToAim) {
+						_currentAimState.Value = AimState.TransitToHip;
+					}
 				}
 			}
 		}
@@ -117,6 +120,19 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 		}
 	}
 
+	private bool _canUseWeapons = true;
+	public void DisableWeapons () {
+		_weapons.ForEach(x => x.SetActive(false));
+		_canUseWeapons = false;
+		abortAim();
+		_crosshair.Disable(0.2f);
+	}
+
+	public void EnableWeapons () {
+		_weapons[_currentWeapon].SetActive(true);
+		_canUseWeapons = true;
+		_crosshair.Enable(0.2f);
+	}
 
 
 

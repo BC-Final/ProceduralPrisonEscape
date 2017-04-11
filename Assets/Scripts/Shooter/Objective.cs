@@ -56,12 +56,19 @@ public class Objective : MonoBehaviour, IShooterNetworked {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, transform.position.x, transform.position.z));
 	}
 
+	public void ActivateObjective () {
+		_shown = true;
+		SetVisible(true);
+	}
+
 	public void SetVisible (bool pVisible) {
-		if (pVisible) {
-			_networkUpdateTimer = TimerManager.CreateTimer("Objective Update", false).SetDuration(_networkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
-		} else {
-			if (_networkUpdateTimer != null) {
-				_networkUpdateTimer.Stop();
+		if (_shown) {
+			if (pVisible) {
+				_networkUpdateTimer = TimerManager.CreateTimer("Objective Update", false).SetDuration(_networkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
+			} else {
+				if (_networkUpdateTimer != null) {
+					_networkUpdateTimer.Stop();
+				}
 			}
 		}
 	}

@@ -6,7 +6,7 @@ using Gamelogic.Extensions;
 [SelectionBase]
 public class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable {
 	[SerializeField]
-	private Objective[] _objectives;
+	protected Objective[] _objectives;
 
 	private bool _activated = false;
 
@@ -60,13 +60,13 @@ public class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable {
 	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
 	public ObservedValue<bool> Solved { get { return _solved; } }
 
-	public void Interact () {
+	public virtual void Interact () {
 		if (!_activated) {
 			_activated = true;
 
 			foreach (Objective obj in _objectives) {
 				if (!obj.Solved.Value) {
-					obj.SetVisible(true);
+					obj.ActivateObjective();
 				}
 			}
 		}

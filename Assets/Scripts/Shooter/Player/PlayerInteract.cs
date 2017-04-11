@@ -5,9 +5,15 @@ public class PlayerInteract : MonoBehaviour {
 	[SerializeField]
 	private float _range;
 
+	public void SetActive (bool pActive) {
+		_active = pActive;
+	}
+
+	private bool _active = true;
+
 	void Update () {
 		//TODO can interact through walls
-		if (Input.GetKeyDown(KeyCode.E)) {
+		if (_active && Input.GetKeyDown(KeyCode.E)) {
 			Transform cam = Camera.main.transform;
 			RaycastHit[] hits;
 
