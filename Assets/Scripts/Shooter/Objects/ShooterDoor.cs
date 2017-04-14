@@ -84,6 +84,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     /// </summary>#
     public bool IsDisabled;
 	private bool _locked;
+    private bool _lockedForDrones;
     private bool _keyLocked;
     [SerializeField]
     private Keypad _keypad;
@@ -95,6 +96,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     {
         _open.Value = true;
         sendStateUpdate();
+        _lockedForDrones = true;
     }
 
     public void ForceClose()
@@ -195,7 +197,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
             }
         }
 
-        if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value) {
+        if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value && !_lockedForDrones) {
 			_open.Value = true;
 			sendStateUpdate();
 			//Debug.Log("Drone opened door");
@@ -218,7 +220,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
             }
         }
         //Debug.Log("Trigger exit");
-		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && _open.Value) {
+		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && _open.Value && !_lockedForDrones) {
 			_open.Value = false;
 			sendStateUpdate();
 			//Debug.Log("Drone closed door");

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4370791470803860}
   - component: {fileID: 114376585121234720}
   - component: {fileID: 114294892887419406}
+  - component: {fileID: 114667774134996282}
   m_Layer: 0
   m_Name: pfb_ShooterGamestateManager
   m_TagString: Untagged
@@ -72,3 +73,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0df038b348946a6377cef6b7c268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _alarmLight1: {fileID: 0}
+  _alarmLight2: {fileID: 0}
+--- !u!114 &114667774134996282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1870320103801782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8e79b39510874242a531182d0203073, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HUD: {fileID: 1000012950792530, guid: 623540a1f9328ae47a8a242d1e827587, type: 2}
