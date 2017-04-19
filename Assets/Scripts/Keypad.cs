@@ -33,7 +33,7 @@ public class Keypad : MonoBehaviour, IInteractable
         if (code.ToUpper() == keyCode.ToUpper())
         {
             Debug.Log("SUCCESS!!!!");
-            FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
+            //FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
             
             foreach (ShooterDoor d in Doors)
             {
@@ -42,7 +42,7 @@ public class Keypad : MonoBehaviour, IInteractable
         }else
         {
             Debug.Log("FAILURE!!!!");
-            FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();      
+            //FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();      
         }
     }
 }

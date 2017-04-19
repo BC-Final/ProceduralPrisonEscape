@@ -151,10 +151,10 @@ public class DoorMapIcon : AbstractMapIcon
         if(codeString.ToUpper() == _codeSolution.ToUpper())
         {
             HackerPackageSender.SendPackage(new NetworkPacket.Update.CodeLockCode(_addonId, codeString));
-            FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
+            //FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
         }else
         {
-            FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();
+            //FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();
         }
     }
 

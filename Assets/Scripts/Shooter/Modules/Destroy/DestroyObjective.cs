@@ -5,7 +5,8 @@ using UnityEngine;
 public class DestroyObjective : AbstractObjective, IDamageable {
 	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 		if (pSource.GetComponent<PlayerHealth>() != null) {
-			Solved.Value = true;
+			//TODO Reimplement
+			//Solved.Value = true;
 		}
 	}
 
