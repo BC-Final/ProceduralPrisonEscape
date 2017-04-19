@@ -24,5 +24,5 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
     public Sprite KeycardIcon;
 
 	[Header("User Interface")]
-	public GameObject HitMarker;
+	public GameObject DamageIndicator;
 }

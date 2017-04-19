@@ -45,7 +45,7 @@ public class DamageIndicatorControllerShooterUI : MonoBehaviour {
 		//if (angle <= _minAngle || _markers.Count == _maxHitMarkers) {
 		//	nearest.Show(pSender);
 		//} else {
-			_markers.Add(Instantiate(ShooterReferenceManager.Instance.HitMarker, transform).GetComponent<DamageIndicatorShooterUI>());
+			_markers.Add(Instantiate(ShooterReferenceManager.Instance.DamageIndicator, transform).GetComponent<DamageIndicatorShooterUI>());
 			_markers.Last().Show(pSender);
 		//}
 	}

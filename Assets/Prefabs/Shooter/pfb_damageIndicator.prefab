@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114097819247531978}
   - component: {fileID: 114189940851161562}
   m_Layer: 5
-  m_Name: pfb_hit_marker
+  m_Name: pfb_damageIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
