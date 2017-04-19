@@ -355,7 +355,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	private void OnGUI() {
 		if (_currentState != WeaponState.Hidden) {
-			FindObjectOfType<CrosshairDistance>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
+			FindObjectOfType<CrosshairControllerShooterUI>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
 		}
 	}
 
