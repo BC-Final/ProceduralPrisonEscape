@@ -10,10 +10,19 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 
 	Timer _networkUpdateTimer;
 
-	private bool _shown;
+	private bool _active;
 
 	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
-	public ObservedValue<bool> Solved { get { return _solved; } }
+
+	public bool IsSolved {
+		get { return _solved.Value; }
+	}
+
+	public void OnSolved (System.Action pAction) {
+		_solved.OnValueChange += pAction;
+	}
+
+
 
 	private int _id;
 	public int Id {
@@ -28,47 +37,42 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
-		Solved.OnValueChange += solveChanged;
 	}
 
 	private void OnDestroy () {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
-		//TODO Implement
-	}
-
 	public void Initialize () {
-
-	}
-
-	private void solveChanged () {
-		SetVisible(!_solved.Value);
-
-		if (_networkUpdateTimer != null) {
-			//TODO This is a weird edge case
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, Solved.Value));
-		}
+		_networkUpdateTimer = TimerManager.CreateTimer("Objective Update", false).SetDuration(_networkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate());
 	}
 
 	private void sendUpdate () {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, transform.position.x, transform.position.z));
 	}
 
-	public void ActivateObjective () {
-		_shown = true;
-		SetVisible(true);
+
+
+	public void SetSolved () {
+		SetActive(false);
+		_solved.Value = true;
+
+		if (_networkUpdateTimer.IsPlaying) {
+			ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, true));
+		}
+	}
+
+	public void SetActive (bool pActive) {
+		_active = pActive;
+		SetVisible(pActive);
 	}
 
 	public void SetVisible (bool pVisible) {
-		if (_shown) {
+		if (_active) {
 			if (pVisible) {
-				_networkUpdateTimer = TimerManager.CreateTimer("Objective Update", false).SetDuration(_networkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
+				_networkUpdateTimer.Start();
 			} else {
-				if (_networkUpdateTimer != null) {
-					_networkUpdateTimer.Stop();
-				}
+				_networkUpdateTimer.Stop();
 			}
 		}
 	}

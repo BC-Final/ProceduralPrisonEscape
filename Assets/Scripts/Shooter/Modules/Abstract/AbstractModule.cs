@@ -8,6 +8,12 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 	[SerializeField]
 	protected AbstractObjective[] _objectives;
 
+	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
+
+	public void OnSolved (System.Action pAction) {
+		_solved.OnValueChange += pAction;
+	}
+
 	private bool _activated = false;
 
 	private int _id;
@@ -25,48 +31,41 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
-	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
-		//TODO Implement
+	private void OnDestroy () {
+		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
-
 
 	public void Initialize () {
 		foreach (AbstractObjective o in _objectives) {
-			o.Solved.OnValueChange += checkSolved;
+			o.OnSolved(checkSolved);
 		}
 
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _solved.Value));
 	}
 
+
+
 	private void checkSolved () {
 		foreach (AbstractObjective o in _objectives) {
-			if (!o.Solved.Value) {
+			if (!o.IsSolved) {
 				return;
 			}
 		}
 
 		_solved.Value = true;
-		sendUpdate();
-	}
 
-	private void sendUpdate () {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, _solved.Value));
 	}
-
-	private void OnDestroy () {
-		ShooterPackageSender.UnregisterNetworkedObject(this);
-	}
-
-	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
-	public ObservedValue<bool> Solved { get { return _solved; } }
 
 	public virtual void Interact () {
 		if (!_activated) {
 			_activated = true;
 
+			//TODO Send Activated Package
+
 			foreach (AbstractObjective obj in _objectives) {
-				if (!obj.Solved.Value) {
-					obj.ActivateObjective();
+				if (!obj.IsSolved) {
+					obj.SetActive(true);
 				}
 			}
 		}
