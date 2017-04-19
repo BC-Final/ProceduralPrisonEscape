@@ -253,8 +253,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456826308290964}
-  m_LocalRotation: {x: -0, y: -0.70710576, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: 6.45, y: 0.926, z: 9.15}
+  m_LocalRotation: {x: -0, y: 0.70710593, z: -0, w: 0.70710766}
+  m_LocalPosition: {x: 25.400408, y: 1.0000261, z: 6.767}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4868399736252490}
@@ -264,7 +264,7 @@ Transform:
   - {fileID: 4283766124089132}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!4 &4868399736252490
 Transform:
   m_ObjectHideFlags: 1
@@ -678,6 +678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggeredDuration: 3
+  _delayBetweenTriggering: 0
   offColor: {r: 0, g: 0, b: 0, a: 0}
   notActiveColor: {r: 0, g: 0, b: 0, a: 0}
   activeColor: {r: 0, g: 0, b: 0, a: 0}
@@ -727,6 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _triggeredDuration: 3
+  _delayBetweenTriggering: 0
   offColor: {r: 0, g: 0, b: 0, a: 0}
   notActiveColor: {r: 0.33823532, g: 0, b: 0, a: 0}
   activeColor: {r: 1, g: 1, b: 0, a: 0}
