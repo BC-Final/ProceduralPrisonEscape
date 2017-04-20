@@ -1,5 +1,5 @@
 ﻿/* Enhanced Hierarchy for Unity
- * Version 2.1.2, last change 13/04/2017
+ * Version 2.1.3, last change 18/04/2017
  * Samuel Schultze
  * samuelschultze@gmail.com
 */

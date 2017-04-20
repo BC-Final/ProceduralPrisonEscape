@@ -33,8 +33,11 @@ Q: My game fail to compile if I use the extension, how to fix it?
 A: The extension must be placed inside a folder called Editor because it uses the UnityEditor API.
 
 CHANGELOG:
+Version 2.1.3:
+- Fixed a bug related to the previous version.
+
 Version 2.1.2:
-- Unity 2017 support
+- Unity 2017 support.
 
 Version 2.1.1:
 - Fixed warning not showing up for missing mono behaviours.

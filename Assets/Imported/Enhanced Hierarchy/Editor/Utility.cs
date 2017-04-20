@@ -41,18 +41,6 @@ namespace EnhancedHierarchy {
         }
         public static bool HierarchyFocused { get { return EditorWindow.focusedWindow && EditorWindow.focusedWindow.GetType() == hierarchyWindowType; } }
 
-        public static bool Texture2DHasLoadMethod {
-            get {
-                var methods = typeof(Texture2D).GetMethods();
-
-                foreach(var method in methods)
-                    if(method.Name.Equals("LoadImage", StringComparison.OrdinalIgnoreCase))
-                        return true;
-
-                return false;
-            }
-        }
-
         public static void LogException(Exception e) {
             Debug.LogErrorFormat("Unexpected exception in Enhanced Hierarchy: {0}", e);
 
@@ -127,16 +115,19 @@ namespace EnhancedHierarchy {
                     hideFlags = HideFlags.HideAndDontSave
                 };
 
-                //Quick fix for Unity 2017 because they changed the Load method to an extension
-#if UNITY_2017_1_OR_NEWER
-                if(Texture2DHasLoadMethod)
-                    texture.LoadImage(bytes);
-                else
-                    ImageConversion.LoadImage(texture, bytes);
-#else
-                texture.LoadImage(bytes);
-#endif
+                //Texture2D.LoadImage changed to an extension method in Unity 2017
+                //Compiling it with the old method will make the module stop working on 2017
+                //Compiling it with the extension method will make the module stop working with older versions
+                var imageConversionClass = typeof(Texture2D).Assembly.GetType("UnityEngine.ImageConversion", false);
 
+                if(imageConversionClass == null) {
+                    var loadMethod = typeof(Texture2D).GetMethod("LoadImage", new Type[] { typeof(byte[]) });
+                    loadMethod.Invoke(texture, new object[] { bytes });
+                }
+                else {
+                    var loadMethod = imageConversionClass.GetMethod("LoadImage", new Type[] { typeof(Texture2D), typeof(byte[]) });
+                    loadMethod.Invoke(null, new object[] { texture, bytes });
+                }
 
                 return texture;
             }
