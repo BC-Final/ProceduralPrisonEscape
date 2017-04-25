@@ -26,12 +26,11 @@ public class BatteryModule : AbstractModule {
 
 				(o as BatteryObjective).SetVisible(false);
 
-				//TODO Reimplement
-				//DOTween.Sequence()
-				//.Append((o as BatteryObjective).transform.DOMove(_spawnPos.position, _toSpawnTime))
-				//.Join((o as BatteryObjective).transform.DORotate(transform.rotation.eulerAngles, _toCenterTime))
-				//.Append((o as BatteryObjective).transform.DOMove(transform.position, _toCenterTime))
-				//.AppendCallback(() => o.Solved.Value = true);
+				DOTween.Sequence()
+				.Append((o as BatteryObjective).transform.DOMove(_spawnPos.position, _toSpawnTime))
+				.Join((o as BatteryObjective).transform.DORotate(transform.rotation.eulerAngles, _toCenterTime))
+				.Append((o as BatteryObjective).transform.DOMove(transform.position, _toCenterTime))
+				.AppendCallback(() => o.SetSolved());
 			}
 		}
 	}

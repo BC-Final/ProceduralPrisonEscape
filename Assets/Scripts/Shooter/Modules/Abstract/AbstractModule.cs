@@ -65,6 +65,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 
 	public virtual void Interact() {
 		if (!_activated) {
+			Debug.Log("Activated: " + gameObject.name);
 			_activated = true;
 
 			//TODO Send Activated Package

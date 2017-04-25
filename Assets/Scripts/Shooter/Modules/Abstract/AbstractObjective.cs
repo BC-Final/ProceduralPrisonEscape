@@ -54,20 +54,28 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 
 
 	public void SetSolved () {
+		Debug.Log("Solved Objective: " + gameObject.name);
+
 		SetActive(false);
 		_solved.Value = true;
 
-		if (_networkUpdateTimer.IsPlaying) {
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, true));
-		}
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, true));
 	}
 
 	public void SetActive (bool pActive) {
-		_active = pActive;
-		SetVisible(pActive);
+		if (pActive) {
+			_active = pActive;
+			SetVisible(pActive);
+		} else {
+			SetVisible(pActive);
+			_active = pActive;
+		}
+		
 	}
 
 	public void SetVisible (bool pVisible) {
+		Debug.Log("Visible ("+ pVisible +"): " + gameObject.name);
+
 		if (_active) {
 			if (pVisible) {
 				_networkUpdateTimer.Start();
