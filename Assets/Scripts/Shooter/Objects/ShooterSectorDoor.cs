@@ -21,8 +21,7 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 	private bool allModulesSolved () {
 		bool value = true;
 
-		//TODO Reimplement
-		//_modules.ForEach(x => value = value && x.Solved.Value);
+		_modules.ForEach(x => value = value && x.IsSolved);
 
 		return value;
 	}
@@ -35,8 +34,7 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 		_open.OnValueChange += () => _animator.SetTrigger("Toggle");
 
 		_modules = new List<AbstractModule>(FindObjectsOfType<AbstractModule>());
-		//TODO Reimplement
-		//_modules.ForEach(x => x.Solved.OnValueChange += sendStateUpdate);
+		_modules.ForEach(x => x.OnSolved(sendStateUpdate));
 	}
 
 	public void Initialize () {

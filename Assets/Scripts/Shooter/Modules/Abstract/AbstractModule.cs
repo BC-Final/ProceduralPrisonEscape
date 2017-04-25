@@ -4,13 +4,19 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 [SelectionBase]
-public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable {
+public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable
+{
 	[SerializeField]
 	protected AbstractObjective[] _objectives;
 
 	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
 
-	public void OnSolved (System.Action pAction) {
+	public bool IsSolved {
+		get { return _solved.Value; }
+	}
+	
+
+	public void OnSolved(System.Action pAction) {
 		_solved.OnValueChange += pAction;
 	}
 
@@ -27,15 +33,15 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 		}
 	}
 
-	private void Awake () {
+	private void Awake() {
 		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
-	private void OnDestroy () {
+	private void OnDestroy() {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public void Initialize () {
+	public void Initialize() {
 		foreach (AbstractObjective o in _objectives) {
 			o.OnSolved(checkSolved);
 		}
@@ -45,7 +51,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 
 
 
-	private void checkSolved () {
+	private void checkSolved() {
 		foreach (AbstractObjective o in _objectives) {
 			if (!o.IsSolved) {
 				return;
@@ -57,7 +63,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, _solved.Value));
 	}
 
-	public virtual void Interact () {
+	public virtual void Interact() {
 		if (!_activated) {
 			_activated = true;
 

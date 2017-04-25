@@ -29,8 +29,6 @@ public class BatteryObjective : AbstractObjective, IInteractable {
 
 
 			FindObjectOfType<HeavyObjectHolder>().Pickup(this);
-
-			SetVisible(false);
 		}
 	}
 
@@ -38,6 +36,5 @@ public class BatteryObjective : AbstractObjective, IInteractable {
 		GetComponent<UnityEngine.AI.NavMeshObstacle>().enabled = true;
 		_rigidbody.isKinematic = false;
 		_rigidbody.useGravity = true;
-		SetVisible(true);
 	}
 }
