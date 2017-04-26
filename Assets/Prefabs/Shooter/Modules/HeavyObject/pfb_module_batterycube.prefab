@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33583165192861018}
   - component: {fileID: 65559105563550070}
   - component: {fileID: 23532044102344068}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33932242552124980}
   - component: {fileID: 65447054826087904}
   - component: {fileID: 23394425059796998}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4368371141252642}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: mdl_module_battercubeslot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 33418622011974242}
   - component: {fileID: 65996990033072124}
   - component: {fileID: 23827177519572392}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4174889404285180}
   - component: {fileID: 114528433390609610}
   - component: {fileID: 54168552870113210}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: pfb_module_batterycube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 33932596543364114}
   - component: {fileID: 65631846771780340}
   - component: {fileID: 23694160872938466}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4168200755052388}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: SpawnPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 33787103400832782}
   - component: {fileID: 65420999232520938}
   - component: {fileID: 23809881783932576}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1524886033472172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.1, y: 1.3, z: 22.07}
+  m_LocalPosition: {x: -18.1, y: 1.47, z: 22.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4368371141252642}
@@ -540,8 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d01fc54eaa28bc40b4b4bc5a23f2d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectives:
-  - {fileID: 0}
+  _objective: {fileID: 0}
   _spawnPos: {fileID: 4168200755052388}
   _minDistance: 2.5
   _toSpawnTime: 0.5

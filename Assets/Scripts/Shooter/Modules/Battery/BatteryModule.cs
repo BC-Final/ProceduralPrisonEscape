@@ -20,18 +20,18 @@ public class BatteryModule : AbstractModule {
 	public override void Interact () {
 		base.Interact();
 
-		foreach (AbstractObjective o in _objectives) {
-			if (!(o as BatteryObjective).IsInSlot() && Vector3.Distance((o as BatteryObjective).transform.position, _spawnPos.position) < _minDistance) {
-				(o as BatteryObjective).Disable();
+		BatteryObjective battery = _objective as BatteryObjective;
 
-				(o as BatteryObjective).SetVisible(false);
+		if (!battery.IsInSlot() && Vector3.Distance(battery.transform.position, _spawnPos.position) < _minDistance) {
+			battery.Disable();
 
-				DOTween.Sequence()
-				.Append((o as BatteryObjective).transform.DOMove(_spawnPos.position, _toSpawnTime))
-				.Join((o as BatteryObjective).transform.DORotate(transform.rotation.eulerAngles, _toCenterTime))
-				.Append((o as BatteryObjective).transform.DOMove(transform.position, _toCenterTime))
-				.AppendCallback(() => o.SetSolved());
-			}
+			battery.SetVisible(false);
+
+			DOTween.Sequence()
+			.Append(battery.transform.DOMove(_spawnPos.position, _toSpawnTime))
+			.Join(battery.transform.DORotate(transform.rotation.eulerAngles, _toCenterTime))
+			.Append(battery.transform.DOMove(transform.position, _toCenterTime))
+			.AppendCallback(() => _objective.SetSolved());
 		}
 	}
 }

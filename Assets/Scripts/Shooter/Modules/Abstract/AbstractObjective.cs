@@ -54,8 +54,6 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 
 
 	public void SetSolved () {
-		Debug.Log("Solved Objective: " + gameObject.name);
-
 		SetActive(false);
 		_solved.Value = true;
 
@@ -74,8 +72,6 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void SetVisible (bool pVisible) {
-		Debug.Log("Visible ("+ pVisible +"): " + gameObject.name);
-
 		if (_active) {
 			if (pVisible) {
 				_networkUpdateTimer.Start();

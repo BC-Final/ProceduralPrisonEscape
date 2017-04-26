@@ -7,7 +7,7 @@ using Gamelogic.Extensions;
 public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IInteractable
 {
 	[SerializeField]
-	protected AbstractObjective[] _objectives;
+	protected AbstractObjective _objective;
 
 	private ObservedValue<bool> _solved = new ObservedValue<bool>(false);
 
@@ -42,9 +42,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 	}
 
 	public void Initialize() {
-		foreach (AbstractObjective o in _objectives) {
-			o.OnSolved(checkSolved);
-		}
+		_objective.OnSolved(checkSolved);
 
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _solved.Value));
 	}
@@ -52,10 +50,8 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 
 
 	private void checkSolved() {
-		foreach (AbstractObjective o in _objectives) {
-			if (!o.IsSolved) {
-				return;
-			}
+		if (!_objective.IsSolved) {
+			return;
 		}
 
 		_solved.Value = true;
@@ -65,15 +61,12 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 
 	public virtual void Interact() {
 		if (!_activated) {
-			Debug.Log("Activated: " + gameObject.name);
 			_activated = true;
 
 			//TODO Send Activated Package
 
-			foreach (AbstractObjective obj in _objectives) {
-				if (!obj.IsSolved) {
-					obj.SetActive(true);
-				}
+			if (!_objective.IsSolved) {
+				_objective.SetActive(true);
 			}
 		}
 	}
