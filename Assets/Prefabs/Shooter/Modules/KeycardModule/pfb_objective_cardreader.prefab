@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4597756859495902}
   - component: {fileID: 33346363018800256}
   - component: {fileID: 23444465733908294}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Keycard_Glass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33413572582384112}
   - component: {fileID: 23229763717480872}
   - component: {fileID: 65055133837441768}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: mdl_pickup_keycard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4241687854320786}
   - component: {fileID: 54750974853254150}
-  m_Layer: 0
+  - component: {fileID: 114732100172354550}
+  m_Layer: 12
   m_Name: pfb_objective_cardreader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,14 +69,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946260265328180}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.888936, y: 1.5467433, z: 21.532646}
+  m_LocalRotation: {x: -0, y: -0, z: 0.1649024, w: 0.9863099}
+  m_LocalPosition: {x: -11.79, y: 1.337, z: 27.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4642452481836550}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18.983002}
 --- !u!4 &4597756859495902
 Transform:
   m_ObjectHideFlags: 1
@@ -208,3 +209,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.05, y: 0.3184986, z: 0.2587433}
   m_Center: {x: 0.0000000027939677, y: -0.13551903, z: -0.0052433014}
+--- !u!114 &114732100172354550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1946260265328180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1827c57c2259c3947a9af4267029b003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _networkUpdateRate: 0.5

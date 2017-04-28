@@ -14,6 +14,7 @@ public class HeavyObjectHolder : MonoBehaviour {
 	private BatteryObjective _cube;
 
 	private bool _carrying;
+	private bool _dropping;
 
 	public void Pickup (BatteryObjective pCube) {
 		pCube.transform.parent = this.transform;
@@ -48,6 +49,7 @@ public class HeavyObjectHolder : MonoBehaviour {
 			t.gameObject.layer = LayerMask.NameToLayer("Default");
 		}
 
+		GetComponentInParent<MouseLook>().SetCanControl(true);
 		GetComponentInParent<PlayerMotor>().SetCanMove(true);
 		GetComponentInParent<PlayerMotor>().SetSlowMove(false);
 		GetComponent<WeaponHolder>().EnableWeapons();
@@ -64,12 +66,12 @@ public class HeavyObjectHolder : MonoBehaviour {
 				if (Physics.BoxCast(transform.parent.parent.position + transform.parent.parent.forward * 1.25f, Vector3.one / 2.0f, Vector3.down, transform.parent.parent.rotation, 1.5f, LayerMask.GetMask("Environment"))) {
 					if (Physics.Raycast(transform.parent.parent.position + transform.parent.parent.forward * 1.25f, Vector3.down, out hit, LayerMask.GetMask("Environment"))) {
 						GetComponentInParent<PlayerMotor>().SetCanMove(false);
+						GetComponentInParent<MouseLook>().SetCanControl(false);
+
 						_carrying = false;
 
 						_cube.transform.parent = null;
 						//_cube.transform.position = hit.point + Vector3.up;
-
-						
 
 						DOTween.Sequence()
 						.Append(_cube.transform.DOMove(transform.parent.parent.position + transform.parent.parent.forward * 1.25f, _putDownTime / 2.0f))

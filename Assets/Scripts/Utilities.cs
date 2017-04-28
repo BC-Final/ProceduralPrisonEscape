@@ -52,6 +52,23 @@ namespace Utilities {
 		}
 	}
 
+	public class Vectors {
+		public static T GetClosestObject<T>(Transform pTarget, List<T> pObjects) where T : MonoBehaviour {
+			T closestObject = null;
+			float closestDistanceSqr = Mathf.Infinity;
+
+			foreach (T t in pObjects) {
+				float distanceSqrtToTarget = Vector3.SqrMagnitude(pTarget.position - t.transform.position);
+				if (distanceSqrtToTarget < closestDistanceSqr) {
+					closestObject = t;
+					closestDistanceSqr = distanceSqrtToTarget;
+				}
+			}
+
+			return closestObject;
+		}
+	}
+
 	public class Math {
 		public static float Remap (float pValue, float pFromMin, float pFromMax, float pToMin, float pToMax) {
 			return (pValue - pFromMin) * (pToMax - pToMin) / (pFromMax - pFromMin) + pToMin;

@@ -77,7 +77,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 				Debug.Log(connectingClient.Client.LocalEndPoint.ToString() + " Connected");
 				ClientInitialize(connectingClient);
 			} else {
-				sendPackage(new NetworkPacket.Message.DisconnectRequest(), connectingClient);
+				sendPackage(new NetworkPacket.Messages.DisconnectRequest(), connectingClient);
 				connectingClient.GetStream().Close();
 				connectingClient.Close();
 				Debug.Log("Connecting client refused.");
@@ -101,7 +101,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(false);
 
-		SendPackage(new NetworkPacket.Message.CreationEnd());
+		SendPackage(new NetworkPacket.Messages.CreationEnd());
 	}
 
 	public static T GetNetworkedObject<T> (int pId) where T : class, IShooterNetworked {
@@ -132,13 +132,13 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	}
 
 	private void OnApplicationQuit () {
-		SendPackage(new NetworkPacket.Message.DisconnectRequest());
+		SendPackage(new NetworkPacket.Messages.DisconnectRequest());
 		disconnectClient();
 	}
 
 	#if UNITY_EDITOR
 	private void OnDestroy () {
-		SendPackage(new NetworkPacket.Message.DisconnectRequest());
+		SendPackage(new NetworkPacket.Messages.DisconnectRequest());
 		disconnectClient();
 	}
 #endif

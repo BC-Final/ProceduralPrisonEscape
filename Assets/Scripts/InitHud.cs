@@ -8,8 +8,7 @@ public class InitHud : MonoBehaviour {
     GameObject HUD;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         Instantiate(HUD);
 	}
-	
 }

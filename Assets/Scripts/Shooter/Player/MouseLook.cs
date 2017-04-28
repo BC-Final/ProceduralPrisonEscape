@@ -21,6 +21,7 @@ public class MouseLook : MonoBehaviour {
 	private Vector2 _targetDirection;
 	private Vector2 _targetCharacterDirection;
 
+	private bool _canControl = true;
 
 	// Assign this if there's a parent object controlling motion, such as a Character Controller.
 	// Yaw rotation will affect this object instead of the camera if set.
@@ -48,7 +49,7 @@ public class MouseLook : MonoBehaviour {
 			Cursor.visible = true;
 		}
 
-
+		
 		// Allow the script to clamp based on a desired target value.
 		Quaternion targetOrientation = Quaternion.Euler(_targetDirection);
 		Quaternion targetCharacterOrientation = Quaternion.Euler(_targetCharacterDirection);
@@ -62,6 +63,10 @@ public class MouseLook : MonoBehaviour {
 		// Interpolate mouse movement over time to apply smoothing delta.
 		_smoothMouse.x = Mathf.Lerp(_smoothMouse.x, mouseDelta.x, 1f / _smoothing.x);
 		_smoothMouse.y = Mathf.Lerp(_smoothMouse.y, mouseDelta.y, 1f / _smoothing.y);
+
+		if(!_canControl) {
+			_smoothMouse = Vector2.zero;
+		}
 
 		// Find the absolute mouse movement value from point zero.
 		_mouseAbsolute += _smoothMouse;
@@ -94,5 +99,13 @@ public class MouseLook : MonoBehaviour {
 		Sequence s = DOTween.Sequence();
 		s.Append(DOTween.To(() => _recoilAbsolute, x => _recoilAbsolute = x, _recoilAbsolute + pRecoilForce, 0.05f));
 		s.Append(DOTween.To(() => _recoilAbsolute, x => _recoilAbsolute = x, Vector2.zero, 0.3f));
+	}
+
+	public void SetCanControl(bool pCanControl) {
+		_canControl = pCanControl;
+	}
+
+	public void ResetVerticalRotation() {
+		
 	}
 }

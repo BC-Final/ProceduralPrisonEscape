@@ -25,6 +25,7 @@ public class Mininglaser : Weapon {
 	private int _maxAmmoUse;
 
 	private int _lastAmmoUse;
+	private int _completeAmmoUse = 0;
 	//TODO Scale damage with charge time??
 	//TODO Add more lasers after charge
 	//TODO Maybe stun enemies?
@@ -33,12 +34,12 @@ public class Mininglaser : Weapon {
 
 	protected override void Awake () {
 		base.Awake();
+
+		_chargeTimer = TimerManager.CreateTimer("Mininglaser Chargetimer", false).SetDuration(_chargeTime);
 	}
 
 	protected override void Start () {
 		base.Start();
-
-		_chargeTimer = TimerManager.CreateTimer("Mininglaser Chargetimer", false).SetDuration(_chargeTime);
 	}
 
 	protected override void Update () {
@@ -49,8 +50,10 @@ public class Mininglaser : Weapon {
 				int currentAmmoUse = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minAmmoUse, _maxAmmoUse));
 
 				_magazineContent -= (currentAmmoUse - _lastAmmoUse);
+				_completeAmmoUse += (currentAmmoUse - _lastAmmoUse);
 
 				if (_magazineContent <= 0) {
+					_completeAmmoUse -= Mathf.Abs(_magazineContent);
 					_magazineContent = 0;
 					_chargeTimer.Pause(true);
 				}
@@ -70,12 +73,22 @@ public class Mininglaser : Weapon {
 				int noOfBeams = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minBeams, _maxBeams));
 				shoot(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minDamage, _maxDamage), noOfBeams, false);
 				_chargeTimer.Reset();
+				_completeAmmoUse = 0;
 			}
 
 			if (Input.GetKeyDown(KeyCode.R) && _magazineContent < _magazineCapacity && _reserveAmmo != 0) {
 				reload();
 			}
 		}
+	}
+
+	protected override void abortShot() {
+		base.abortShot();
+
+		_chargeTimer.Pause();
+		_chargeTimer.Reset();
+		_magazineContent += _completeAmmoUse;
+		_completeAmmoUse = 0;
 	}
 
 	protected override void spawnBullet (Vector3 pHitPoint) {
