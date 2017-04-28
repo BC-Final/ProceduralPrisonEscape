@@ -23,9 +23,9 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 	public void Interact() {
 		FindObjectOfType<PlayerHealth>().HealDamage(_amount);
 
-		FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickhealth");
-		FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
-		ins.start();
+		//FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickhealth");
+		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
+		//ins.start();
         ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
         Destroy(gameObject);
 	}

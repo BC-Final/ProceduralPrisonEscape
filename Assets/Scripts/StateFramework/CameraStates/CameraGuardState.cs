@@ -19,8 +19,8 @@ namespace StateFramework {
 
 		private int _currentDirection;
 
-		private FMOD.Studio.EventInstance _moveSound;
-		private FMOD.Studio.EventInstance _moveStopSound;
+		//private FMOD.Studio.EventInstance _moveSound;
+		//private FMOD.Studio.EventInstance _moveStopSound;
 
 		public CameraGuardState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_startRotation = _camera.Base.rotation.eulerAngles;
@@ -41,10 +41,10 @@ namespace StateFramework {
 
 			_camera.GetComponentInChildren<Light>().color = Color.green;
 
-			_moveSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_start");
-			FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveSound, _camera.transform, _camera.GetComponent<Rigidbody>());
+			//_moveSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_start");
+			//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 
-			_moveSound.start();
+			//_moveSound.start();
 		}
 
 		public override void Step () {
@@ -81,14 +81,14 @@ namespace StateFramework {
 					_end = _leftPos;
 				}
 
-				_moveStopSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_stop");
-				FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveStopSound, _camera.transform, _camera.GetComponent<Rigidbody>());
-				_moveStopSound.start();
+				//_moveStopSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_stop");
+				//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveStopSound, _camera.transform, _camera.GetComponent<Rigidbody>());
+				//_moveStopSound.start();
 			}
 		}
 
 		public override void Exit () {
-			_moveSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+			//_moveSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 		}
 	}
 }

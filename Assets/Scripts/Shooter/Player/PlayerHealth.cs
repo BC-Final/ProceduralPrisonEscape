@@ -59,7 +59,7 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 	public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 		_currentHealth.Value = Mathf.Max(0.0f, _currentHealth.Value - pDamage);
 
-		FindObjectOfType<HitDirection>().ShowHitMarker(pSource);
+		FindObjectOfType<DamageIndicatorControllerShooterUI>().ShowHitMarker(pSource);
 		
 		if (_currentHealth.Value == 0.0f) {
 			_destroyEvent.Invoke(gameObject);

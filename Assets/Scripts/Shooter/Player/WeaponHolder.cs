@@ -20,7 +20,9 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private Tweener _moveTween;
 	private Tweener _crosshairTween;
 
-	private CrosshairDistance _crosshair;
+	private CrosshairControllerShooterUI _crosshair;
+	private AmmoDisplayShooterUI _ammoDisplay;
+
 	private Camera _mainCamera;
 	private Camera _weaponCamera;
 
@@ -46,7 +48,8 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void Start() {
-		_crosshair = FindObjectOfType<CrosshairDistance>();
+		_crosshair = FindObjectOfType<CrosshairControllerShooterUI>();
+		_ammoDisplay = FindObjectOfType<AmmoDisplayShooterUI>();
 		_mainCamera = Camera.main;
 		_weaponCamera = GameObject.FindGameObjectWithTag("WeaponCamera").GetComponent<Camera>();
 
@@ -86,8 +89,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 			}
 
 
-
-
 			if (_weapons[_currentWeapon].IsNotInStates(Weapon.WeaponState.Drawing, Weapon.WeaponState.Reloading) && _currentAimState.Value != AimState.ForcedTransitToHip && !_weapons[_currentWeapon].ReloadQueued) {
 				if (Input.GetMouseButton(1)) {
 					if (_currentAimState.Value == AimState.Hip || _currentAimState.Value == AimState.TransitToHip) {
@@ -122,7 +123,7 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 	private bool _canUseWeapons = true;
 	public void DisableWeapons () {
-		_weapons.ForEach(x => x.SetActive(false));
+		_weapons[_currentWeapon].SetActive(false);
 		_canUseWeapons = false;
 		abortAim();
 		_crosshair.Disable(0.2f);
@@ -194,6 +195,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void OnGUI() {
-		AmmoBar.Instance.SetValues(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
+		_ammoDisplay.SetValues(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
 	}
 }

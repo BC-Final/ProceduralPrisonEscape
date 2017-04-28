@@ -14,7 +14,7 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	private InputField _hostPortInputField;
 
-	FMOD.Studio.EventInstance evnt;
+	//FMOD.Studio.EventInstance evnt;
 
 	private void Start () {
 		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
@@ -28,14 +28,14 @@ public class MenuManager : MonoBehaviour {
 		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
 
 
-		FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
-		desc.createInstance(out evnt);
+		//FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
+		//desc.createInstance(out evnt);
 	}
 
 	public void UIOnPlayShooter () {
 		int port = 55556;
 
-		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+		//FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
 
 		if (!int.TryParse(_hostPortInputField.text, out port)) {
 			Debug.LogWarning("Invalid Host Port.");
@@ -48,7 +48,7 @@ public class MenuManager : MonoBehaviour {
     {
         int port = 55556;
 
-        FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+        //FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
 
         if (!int.TryParse(_hostPortInputField.text, out port))
         {
@@ -61,7 +61,7 @@ public class MenuManager : MonoBehaviour {
         }
     }
 	public void UIOnPlayHacker () {
-		FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+		//FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
 
 		if (new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
 			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
@@ -81,9 +81,9 @@ public class MenuManager : MonoBehaviour {
 
 	public void SetTobias (bool pState) {
 		if (pState) {
-			evnt.start();
+			//evnt.start();
 		} else {
-			evnt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+			//evnt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 		}
 	}
 }
