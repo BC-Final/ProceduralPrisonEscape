@@ -33,11 +33,11 @@ public abstract class Weapon : MonoBehaviour {
 	[Header("Ammo Settings")]
 	[SerializeField]
 	protected int _magazineCapacity;
-	//public int MagazineCapacity { get { return _magazineCapacity; } }
+	public int MagazineCapacity { get { return _magazineCapacity; } }
 
 	[SerializeField]
 	protected int _maxReserveAmmo;
-	//public int MaxReserveAmmo { get { return _maxReserveAmmo; } }
+	public int MaxReserveAmmo { get { return _maxReserveAmmo; } }
 
 	[Header("References")]
 	[SerializeField]
@@ -93,10 +93,10 @@ public abstract class Weapon : MonoBehaviour {
 
 
 	protected int _magazineContent;
-	public int MagazineContent { get { return _magazineContent; } }
+	public int MagazineContent { get { return _magazineContent; } set { _magazineContent = value; } }
 
 	protected int _reserveAmmo;
-	public int ReserveAmmo { get { return _reserveAmmo; } }
+	public int ReserveAmmo { get { return _reserveAmmo; } set { _reserveAmmo = value; } }
 
 
 
