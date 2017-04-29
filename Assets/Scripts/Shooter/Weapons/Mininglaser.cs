@@ -61,10 +61,10 @@ public class Mininglaser : Weapon {
 				_lastAmmoUse = currentAmmoUse;
 			}
 
-			if (Input.GetMouseButton(0) && _magazineContent != 0 && _currentState == WeaponState.Idle && !_chargeTimer.IsPlaying && !_chargeTimer.IsFinished) {
+			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _currentState == WeaponState.Idle && !_chargeTimer.IsPlaying && !_chargeTimer.IsFinished) {
 				_lastAmmoUse = 0;
 				_chargeTimer.Start();
-			} else if (Input.GetMouseButton(0) && _magazineContent < _minAmmoUse && _reserveAmmo != 0 && !_chargeTimer.IsFinished && !_chargeTimer.IsPlaying) {
+			} else if (Input.GetMouseButtonDown(0) && _magazineContent < _minAmmoUse && _reserveAmmo != 0 && !_chargeTimer.IsFinished && !_chargeTimer.IsPlaying) {
 				reload();
 			}
 

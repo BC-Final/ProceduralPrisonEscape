@@ -13,8 +13,6 @@ public class Machinegun : Weapon {
 	protected override void Update () {
 		base.Update();
 
-		Debug.Log("State: " + _currentState);
-
 		if (_currentState != WeaponState.Hidden) {
 			if (Input.GetMouseButton(0) && _magazineContent != 0 && _currentState == WeaponState.Idle) {
 				shoot(_shootDamage);
