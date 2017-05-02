@@ -59,7 +59,12 @@ namespace StateFramework {
 
 			if (src != null && src.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, src.GameObject)) {
 				_drone.LastTarget = src.GameObject;
-				_fsm.SetState<DroneFollowState>();
+
+				if (_drone.AlarmResponder) {
+					_fsm.SetState<DroneAlarmFollowState>();
+				} else {
+					_fsm.SetState<DroneFollowState>();
+				}
 			}
 		}
 	}

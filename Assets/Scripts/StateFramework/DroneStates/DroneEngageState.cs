@@ -10,6 +10,9 @@ namespace StateFramework {
 		public override void Enter() {
 			_nextPathTick = 0.0f;
 			_drone.SeesTarget = true;
+
+			//TODO This creates a loop of getting in this state
+			DroneSpawnManager.Instance.NotifySeesPlayer();
 		}
 
 		public override void Step() {
@@ -31,7 +34,11 @@ namespace StateFramework {
 					_drone.Agent.SetDestination(target.transform.position);
 				}
 			} else {
-				_fsm.SetState<DroneFollowState>();
+				if (_drone.AlarmResponder) {
+					_fsm.SetState<DroneAlarmFollowState>();
+				} else {
+					_fsm.SetState<DroneFollowState>();
+				}
 			}
 		}
 
@@ -42,7 +49,11 @@ namespace StateFramework {
 
 			if (src != null && src.GameObject != _drone.LastTarget && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction) && Utilities.AI.IsNewTargetCloser(_drone.gameObject, _drone.LastTarget, src.GameObject)) {
 				_drone.LastTarget = src.GameObject;
-				_fsm.SetState<DroneFollowState>();
+				if (_drone.AlarmResponder) {
+					_fsm.SetState<DroneAlarmFollowState>();
+				} else {
+					_fsm.SetState<DroneFollowState>();
+				}
 			}
 		}
 	}

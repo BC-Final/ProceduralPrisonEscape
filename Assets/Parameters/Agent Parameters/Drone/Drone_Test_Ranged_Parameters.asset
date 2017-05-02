@@ -16,11 +16,13 @@ MonoBehaviour:
   AttackRange: 10
   AttackRate: 0.2
   AttackAngle: 90
+  AttackForce: 0
   SpreadConeLength: 10
   SpreadConeRadius: 3
   AwarenessRange: 3
   ViewRange: 15
   ViewAngle: 120
+  FollowTime: 3.5
   MaximumHealth: 250
   PathTickRate: 4
   IdleReactionTime: 0.4

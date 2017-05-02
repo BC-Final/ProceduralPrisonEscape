@@ -38,5 +38,10 @@ public class ShooterDebugMenu : MonoBehaviour {
 		if (GUILayout.Button("Toggle Alarm")) {
 			ShooterAlarmManager.Instance.AlarmIsOn = !ShooterAlarmManager.Instance.AlarmIsOn;
 		}
+
+		if (GUILayout.Button("Reload Scene")) {
+			int scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+			UnityEngine.SceneManagement.SceneManager.LoadScene(scene, UnityEngine.SceneManagement.LoadSceneMode.Single);
+		}
 	}
 }

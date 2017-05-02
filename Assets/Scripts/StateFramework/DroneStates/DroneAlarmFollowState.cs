@@ -1,16 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace StateFramework {
-	public class DroneFollowState : AbstractDroneState {
+	public class DroneAlarmFollowState : AbstractDroneState {
 		private float _seeTimer;
 		private float _looseTimer;
 		private float _nextPathTick;
 
-		public DroneFollowState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
+		public DroneAlarmFollowState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
-			//TODO This sometimes causes a nullreference exception
 			_drone.Agent.SetDestination(_drone.LastTarget.transform.position);
 			_drone.SeesTarget = true;
 			_seeTimer = 0.0f;
@@ -30,26 +30,30 @@ namespace StateFramework {
 			} else if (_drone.LastTarget != null) {
 				_looseTimer += Time.deltaTime;
 
-				if (_looseTimer > _drone.Parameters.FollowTime) {
-					_drone.LastTarget = null;
-				}
-
 				if (_nextPathTick - Time.time <= 0.0f) {
 					_nextPathTick = Time.time + 1.0f / _drone.Parameters.PathTickRate;
 					_drone.Agent.SetDestination(_drone.LastTarget.transform.position);
+				}
+
+				if (_looseTimer > _drone.Parameters.FollowTime) {
+					_drone.LastTarget = null;
 				}
 			} else {
 				_seeTimer = 0.0f;
 			}
 
 			if (_drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance && _drone.LastTarget == null) {
-				_fsm.SetState<DroneSearchState>();
+				_drone.SeesTarget = false;
+				DroneSpawnManager.Instance.NotifyLostPlayer();
+				_fsm.SetState<DroneAlarmSearchState>();
 			}
 		}
 
-		public override void Exit() { }
+		public override void Exit() {
 
-		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+		}
+
+		public override void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 			IDamageable src = pSource.GetComponent<IDamageable>();
 
 			if (src != null && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction)) {
