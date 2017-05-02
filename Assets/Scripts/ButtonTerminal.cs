@@ -18,6 +18,7 @@ public class ButtonTerminal : MonoBehaviour {
         _leftButton.Triggered.OnValueChange += ButtonChanged;
         _rightButton.Triggered.OnValueChange += ButtonChanged;
         ButtonChanged();
+        _door.DisableDoor();
     }
 	
 	// Update is called once per frame
