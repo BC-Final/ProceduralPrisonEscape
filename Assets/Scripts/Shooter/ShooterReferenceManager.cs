@@ -7,6 +7,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	public GameObject Phaser;
 	public GameObject Machinegun;
 	public GameObject Mininglaser;
+	public GameObject Grenade;
 
 	[Header("Pickup Prefabs")]
 	public GameObject DroneBeacon;
@@ -15,6 +16,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	public GameObject BulletHole;
 	public GameObject LaserShot;
 	public GameObject BulletTracer;
+	public GameObject GrenadeExplosion;
 
 	[Header("Drones")]
 	public GameObject Drone;
@@ -22,6 +24,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	[Header("Other Prefabs")]
 	public GameObject ExplodingDrone;
     public GameObject KeyCodeInputWindow;
+	
 
     [Header("Icons")]
     public Sprite KeycardIcon;

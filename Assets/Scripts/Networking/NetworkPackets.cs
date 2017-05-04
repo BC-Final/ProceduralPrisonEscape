@@ -208,6 +208,16 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
+		public class Grenade : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+
+			public Grenade(int pId, float pPosX, float pPosY) {
+				Id = pId; PosX = pPosX; PosY = pPosY;
+			}
+		}
+
+		[System.Serializable]
 		public class Module : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;

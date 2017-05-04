@@ -30,13 +30,13 @@ namespace StateFramework {
 			} else if (_drone.LastTarget != null) {
 				_looseTimer += Time.deltaTime;
 
-				if (_looseTimer > _drone.Parameters.FollowTime) {
-					_drone.LastTarget = null;
-				}
-
 				if (_nextPathTick - Time.time <= 0.0f) {
 					_nextPathTick = Time.time + 1.0f / _drone.Parameters.PathTickRate;
 					_drone.Agent.SetDestination(_drone.LastTarget.transform.position);
+				}
+
+				if (_looseTimer > _drone.Parameters.FollowTime) {
+					_drone.LastTarget = null;
 				}
 			} else {
 				_seeTimer = 0.0f;

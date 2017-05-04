@@ -65,11 +65,15 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		}
 	}
 
+	protected void fitCollider() {
+		Vector2 size = spriteRenderer.sprite.bounds.size;
+		gameObject.GetComponent<BoxCollider>().size = new Vector3(size.x, size.y, 0.2f);
+	}
+
 	protected void changeSprite (Sprite pSprite) {
 		spriteRenderer.sprite = pSprite;
 
-		Vector2 size = spriteRenderer.sprite.bounds.size;
-		gameObject.GetComponent<BoxCollider>().size = new Vector3(size.x, size.y, 0.2f);
+		fitCollider();
 		//gameObject.GetComponent<BoxCollider2D>().center = new Vector2((S.x / 2), 0);
 	}
 

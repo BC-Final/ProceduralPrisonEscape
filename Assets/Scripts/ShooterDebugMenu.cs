@@ -33,6 +33,8 @@ public class ShooterDebugMenu : MonoBehaviour {
 
 			FindObjectOfType<Mininglaser>().MagazineContent = FindObjectOfType<Mininglaser>().MagazineCapacity;
 			FindObjectOfType<Mininglaser>().ReserveAmmo = FindObjectOfType<Mininglaser>().MaxReserveAmmo;
+
+			FindObjectOfType<GrenadeThrow>().NoOfGrenades = FindObjectOfType<GrenadeThrow>().MaxGrenades;
 		}
 
 		if (GUILayout.Button("Toggle Alarm")) {

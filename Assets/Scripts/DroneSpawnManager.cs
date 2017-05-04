@@ -32,10 +32,8 @@ public class DroneSpawnManager : Singleton<DroneSpawnManager> {
 
 	private void onAlarmChange() {
 		if (ShooterAlarmManager.Instance.AlarmIsOn) {
-			Debug.Log("Start Spawn delayed");
 			_spawnCoroutine = StartCoroutine(spawnDrones());
 		} else {
-			Debug.Log("Stop Drone spawn delayed");
 			if (_spawnCoroutine != null) {
 				StopCoroutine(_spawnCoroutine);
 				_spawnCoroutine = null;
@@ -44,9 +42,7 @@ public class DroneSpawnManager : Singleton<DroneSpawnManager> {
 	}
 
 	private IEnumerator spawnDrones() {
-		Debug.Log("Queue Drone Spawns 1");
 		yield return new WaitForSeconds(_initialSpawnDelay);
-		Debug.Log("Queue Drone Spawns 2");
 		Utilities.Vectors.GetClosestObject<DroneSpawner>(_player.transform, _droneSpawners).QueueDroneSpawn(Random.Range(_minDroneSpawnAmount, _maxDroneSpawnAmount + 1));
 	}
 

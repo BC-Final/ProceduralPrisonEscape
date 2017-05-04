@@ -22,7 +22,6 @@ public class DroneSpawner : MonoBehaviour {
 	}
 
 	private void abortSpawns() {
-		Debug.Log("Abort Spawn");
 		_queuedDrones = 0;
 		StopCoroutine(_spawnCoroutine);
 		_spawnCoroutine = null;
@@ -36,14 +35,11 @@ public class DroneSpawner : MonoBehaviour {
 			GameObject drone = Instantiate(ShooterReferenceManager.Instance.Drone, transform.position, transform.rotation);
 			drone.GetComponent<DroneEnemy>().AlarmResponder = true;
 			DroneSpawnManager.Instance.RegisterAlarmDrone(drone);
-			Debug.Log("Spawn Drone");
 
 			if (_queuedDrones > 0) {
 				yield return new WaitForSeconds(_spawnDelay);
 			}
 		}
-
-		Debug.Log("Done Spawning");
 
 		ShooterAlarmManager.Instance.OnAlarmChange -= abortSpawns;
 	}

@@ -39,16 +39,21 @@ public class ShooterPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
         if (pPacket is NetworkPacket.Update.CodeLockCode) { readPacket(pPacket as NetworkPacket.Update.CodeLockCode); }
         if (pPacket is NetworkPacket.Update.ButtonPush) { readPacket(pPacket as NetworkPacket.Update.ButtonPush); }
+		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
 
-        //if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
-        //if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
-        //if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
-        //if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
+		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
+		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
+		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
+		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
 
-    }
+	}
 
 	private void readPacket (NetworkPacket.Update.Door pPacket) {
 		ShooterDoor.ProcessPacket(pPacket);
+	}
+
+	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
+		Grenade.ProcessPacket(pPacket);
 	}
 
 	private void readPacket (NetworkPacket.Update.SectorDoor pPacket) {

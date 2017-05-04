@@ -195,6 +195,6 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	}
 
 	private void OnGUI() {
-		_ammoDisplay.SetValues(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
+		_ammoDisplay.SetAmmo(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
 	}
 }
