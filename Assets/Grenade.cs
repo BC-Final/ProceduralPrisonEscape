@@ -87,12 +87,6 @@ public class Grenade : MonoBehaviour, IShooterNetworked {
 		GetComponent<Rigidbody>().AddTorque(Random.onUnitSphere * _throwRotation);
 	}
 
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.Keypad0)) {
-			explode();
-		}	
-	}
-
 	private void explode() {
 		Collider[] colls = Physics.OverlapSphere(transform.position, _maxRange, LayerMask.GetMask("RayTrigger", "PhysicsAffected", "NoPlayerCollidePhysicsAffected"));
 
