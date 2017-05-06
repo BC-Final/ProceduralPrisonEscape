@@ -63,7 +63,6 @@ GameObject:
   - component: {fileID: 54793563604147232}
   - component: {fileID: 114620289074889480}
   - component: {fileID: 114035285378071916}
-  - component: {fileID: 114670791952805590}
   m_Layer: 11
   m_Name: pfb_character_player
   m_TagString: Player
@@ -514,17 +513,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transformUpdateInterval: 0.1
---- !u!114 &114670791952805590
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1258300489362204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f091c1335b1e442a484702aced386d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114753960061990010
 MonoBehaviour:
   m_ObjectHideFlags: 1
