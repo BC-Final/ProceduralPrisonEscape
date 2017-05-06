@@ -59,7 +59,10 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
         }
         //Keycard should also be managed in the door class for consistency
 	}
-    
+    public void DisableDoor()
+    {
+        ShooterPackageSender.SendPackage(new NetworkPacket.Update.DisableDoor(Id));
+    }
 
     //TODO Replace with animation
     //--------temp--------
