@@ -5026,6 +5026,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 381239082}
   m_Mesh: {fileID: 4300000, guid: 924f5c889002bbf40b0549a4837e4620, type: 3}
+--- !u!114 &391901318 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114065877286329986, guid: ec8ab829fced76d41919cd28ccee0878,
+    type: 2}
+  m_PrefabInternal: {fileID: 2097449893}
+  m_Script: {fileID: 11500000, guid: c0e4abf2caa68f44fabd7655356afd55, type: 3}
 --- !u!4 &397050912
 Transform:
   m_ObjectHideFlags: 0
@@ -13484,6 +13490,11 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011899917216, guid: 95d9db65da4b2594f82d89a09987c534,
+        type: 2}
+      propertyPath: _keypad
+      value: 
+      objectReference: {fileID: 391901318}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 95d9db65da4b2594f82d89a09987c534, type: 2}
   m_IsPrefabParent: 0
