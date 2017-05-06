@@ -140,8 +140,10 @@ public abstract class Weapon : MonoBehaviour {
 
 	//Set base ammo for debug purposes
 	protected virtual void Awake () {
-		_magazineContent = _magazineCapacity;
-		_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
+		//_magazineContent = _magazineCapacity;
+		//_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
+		_magazineContent = 0;
+		_reserveAmmo = 0;
 	}
 
 

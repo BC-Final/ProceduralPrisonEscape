@@ -20,7 +20,7 @@ public class GrenadeThrow : MonoBehaviour {
 	AmmoDisplayShooterUI _ui;
 
 	private void Start() {
-		_noOfGrenades = _maxGrenades;
+		_noOfGrenades = 0;
 		_ui = FindObjectOfType<AmmoDisplayShooterUI>();
 	}
 
