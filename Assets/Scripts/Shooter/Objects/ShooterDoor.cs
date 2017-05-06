@@ -61,7 +61,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	}
     public void DisableDoor()
     {
-        ShooterPackageSender.SendPackage(new NetworkPacket.Update.DisableDoor(Id));
+        IsDisabled = true;
     }
 
     //TODO Replace with animation
