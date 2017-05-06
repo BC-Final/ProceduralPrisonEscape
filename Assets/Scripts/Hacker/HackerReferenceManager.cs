@@ -26,6 +26,7 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject VendingMachineIcon;
 	public GameObject ModuleIcon;
 	public GameObject ObjectiveIcon;
+	public GameObject GrenadeIcon;
 
 	[Header("Minimap Prefabs")]
     public GameObject Explosion;

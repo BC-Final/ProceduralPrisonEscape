@@ -79,6 +79,8 @@ MonoBehaviour:
   ModuleIcon: {fileID: 1446864411539688, guid: 79fa0caa14db30c4b84d7fd1a011a26b, type: 2}
   ObjectiveIcon: {fileID: 1313703532896544, guid: 3a132ea7568f244468ecef4d10769275,
     type: 2}
+  GrenadeIcon: {fileID: 1480917772363842, guid: 6b9ed78bc5edd2b4d9308e2988e6324e,
+    type: 2}
   Explosion: {fileID: 1937768491457158, guid: bd9890c63194d614a8b3143f7507a460, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
   CodeInputWindow: {fileID: 1990251701772648, guid: 51ecda326cb00cc4385c7a7413a74361,

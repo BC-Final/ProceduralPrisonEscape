@@ -49,12 +49,12 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// <summary>
 	/// Initializes object after hacker connected
 	/// </summary>
-	public void Initialize () {
+	public void Initialize() {
 		_updateTimer = TimerManager.CreateTimer("Player Update", false)
-.SetDuration(_transformUpdateInterval)
-.SetLoops(-1)
-.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
-.Start();
+		.SetDuration(_transformUpdateInterval)
+		.SetLoops(-1)
+		.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
+		.Start();
 	}
 
 
@@ -71,11 +71,11 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// <summary>
 	/// Stops update timer and removes this from network object list
 	/// </summary>
-	private void OnDestroy () {
+	private void OnDestroy() {
 		if (_updateTimer != null) {
 			_updateTimer.Stop();
 		}
-		
+
 		_updateTimer = null;
 
 		ShooterPackageSender.UnregisterNetworkedObject(this);
@@ -86,7 +86,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	/// <summary>
 	/// Gets references and starts the update timer
 	/// </summary>
-	private void Start () {
+	private void Start() {
 		_playerHealth = FindObjectOfType<PlayerHealth>();
 	}
 }

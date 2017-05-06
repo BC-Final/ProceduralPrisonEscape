@@ -22,6 +22,7 @@ public class DroneParameters : ScriptableObject {
 	public float AwarenessRange;
 	public float ViewRange;
 	public float ViewAngle;
+	public float FollowTime;
 
 	public float MaximumHealth;
 

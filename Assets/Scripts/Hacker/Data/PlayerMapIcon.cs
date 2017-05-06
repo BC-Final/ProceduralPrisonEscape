@@ -14,7 +14,7 @@ public class PlayerMapIcon : AbstractMapIcon {
 	}
 
 	private static void createInstance (NetworkPacket.Update.Player pPacket) {
-		PlayerMapIcon icon = Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<PlayerMapIcon>();
+		PlayerMapIcon icon = Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPacket.PosX, pPacket.PosY, 0) / MinimapManager.scale, Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<PlayerMapIcon>();
 
 		icon._health = pPacket.Health;
 		icon.Id = pPacket.Id;

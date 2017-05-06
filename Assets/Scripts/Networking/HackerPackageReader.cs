@@ -87,6 +87,8 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
 		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
 
+		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
+
 		//State
 		if (pPacket is NetworkPacket.States.AlarmState) { readPacket(pPacket as NetworkPacket.States.AlarmState); }
 
@@ -110,6 +112,13 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
 		SectorDoorMapIcon.ProcessPacket(pPacket);
 	}
+
+	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
+		GrenadeMapIcon.ProcessPacket(pPacket);
+	}
+
+
+
 
 	private void readPacket(NetworkPacket.Update.ButtonFeedback pPacket) {
 		PushButtonMapIcon.ProcessPacket(pPacket);

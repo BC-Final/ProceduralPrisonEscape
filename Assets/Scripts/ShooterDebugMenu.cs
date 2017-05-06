@@ -33,10 +33,17 @@ public class ShooterDebugMenu : MonoBehaviour {
 
 			FindObjectOfType<Mininglaser>().MagazineContent = FindObjectOfType<Mininglaser>().MagazineCapacity;
 			FindObjectOfType<Mininglaser>().ReserveAmmo = FindObjectOfType<Mininglaser>().MaxReserveAmmo;
+
+			FindObjectOfType<GrenadeThrow>().NoOfGrenades = FindObjectOfType<GrenadeThrow>().MaxGrenades;
 		}
 
 		if (GUILayout.Button("Toggle Alarm")) {
 			ShooterAlarmManager.Instance.AlarmIsOn = !ShooterAlarmManager.Instance.AlarmIsOn;
+		}
+
+		if (GUILayout.Button("Reload Scene")) {
+			int scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+			UnityEngine.SceneManagement.SceneManager.LoadScene(scene, UnityEngine.SceneManagement.LoadSceneMode.Single);
 		}
 	}
 }

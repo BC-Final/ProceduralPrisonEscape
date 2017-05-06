@@ -35,6 +35,8 @@ namespace StateFramework {
 			}
 		}
 
-		public override void Exit () { }
+		public override void Exit () {
+			_turret.GetComponentInChildren<Light>().intensity = 1.5f;
+		}
 	}
 }

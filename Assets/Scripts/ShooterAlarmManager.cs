@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Gamelogic.Extensions;
+using System.Linq;
 
 public class ShooterAlarmManager : Singleton<ShooterAlarmManager> {
 	private ObservedValue<bool> _alarmIsOn = new ObservedValue<bool>(false);
@@ -16,14 +17,6 @@ public class ShooterAlarmManager : Singleton<ShooterAlarmManager> {
 		set {
 			_alarmIsOn.Value = value;
 			ShooterPackageSender.SendPackage(new NetworkPacket.States.AlarmState(AlarmIsOn));
-		}
-	}
-
-	private void Update() {
-		//HACK This is for testing
-		if (Input.GetKeyDown(KeyCode.Keypad0)) {
-			AlarmIsOn = !AlarmIsOn;
-			Debug.Log("Alarm: " + AlarmIsOn);
 		}
 	}
 }
