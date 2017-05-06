@@ -94,7 +94,7 @@ public class Grenade : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void explode() {
-		Collider[] colls = Physics.OverlapSphere(transform.position, _maxRange, LayerMask.GetMask("RayTrigger", "PhysicsAffected"));
+		Collider[] colls = Physics.OverlapSphere(transform.position, _maxRange, LayerMask.GetMask("RayTrigger", "PhysicsAffected", "NoPlayerCollidePhysicsAffected"));
 
 		List<Rigidbody> rigidbodies = new List<Rigidbody>();
 

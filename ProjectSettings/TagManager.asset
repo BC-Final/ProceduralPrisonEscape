@@ -28,7 +28,7 @@ TagManager:
   - MeshCollider
   - Environment
   - PhysicsAffected
-  - 
+  - NoPlayerCollidePhysicsAffected
   - 
   - 
   - 
