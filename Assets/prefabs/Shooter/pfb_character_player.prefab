@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114903583165209304}
   - component: {fileID: 114831233517163332}
   - component: {fileID: 114220464366961336}
+  - component: {fileID: 114816892552036220}
   m_Layer: 11
   m_Name: Camera Holder
   m_TagString: Untagged
@@ -538,6 +539,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _aimPosition: {fileID: 4728688705726482}
   _weaponSwitchSpeed: 0
+--- !u!114 &114816892552036220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1232395633584644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6291e20a0188af4ba0126999cbe8c0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxGrenades: 4
+  _cooldown: 0.5
+  _cameraDistance: 0.4
 --- !u!114 &114831233517163332
 MonoBehaviour:
   m_ObjectHideFlags: 1

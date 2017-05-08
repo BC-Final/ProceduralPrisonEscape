@@ -2498,25 +2498,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &1285096250 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1232395633584644, guid: bf7f0afcece604440a60e574696915b2,
-    type: 2}
-  m_PrefabInternal: {fileID: 1468800109}
---- !u!114 &1285096254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1285096250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6291e20a0188af4ba0126999cbe8c0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxGrenades: 4
-  _cooldown: 0.5
-  _cameraDistance: 0.4
 --- !u!1001 &1339855575
 Prefab:
   m_ObjectHideFlags: 0
@@ -2598,14 +2579,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 136976383524776170, guid: bf7f0afcece604440a60e574696915b2,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 136976383524776170, guid: bf7f0afcece604440a60e574696915b2, type: 2}
-    - {fileID: 114788900667873730, guid: bf7f0afcece604440a60e574696915b2, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf7f0afcece604440a60e574696915b2, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1481680098
