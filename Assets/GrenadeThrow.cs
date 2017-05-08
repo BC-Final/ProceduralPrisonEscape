@@ -36,8 +36,4 @@ public class GrenadeThrow : MonoBehaviour {
 		_canThrow = false;
 		TimerManager.CreateTimer("Grenade Cooldown", true).SetDuration(_cooldown).AddCallback(() => _canThrow = true).Start();
 	}
-
-	private void OnGUI() {
-		_ui.SetGrenades(_noOfGrenades);
-	}
 }

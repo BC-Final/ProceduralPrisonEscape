@@ -14,12 +14,17 @@ public class AmmoDisplayShooterUI : MonoBehaviour {
 	[SerializeField]
 	private Text _grenades;
 
-	public void SetAmmo (int pMagazine, int pReserve) {
-		_magazine.text = pMagazine.ToString();
-		_reserve.text = pReserve.ToString();
+	private WeaponHolder _weaponHolder;
+	private GrenadeThrow _grenadeThrow;
+
+	private void Start() {
+		_weaponHolder = FindObjectOfType<WeaponHolder>();
+		_grenadeThrow = FindObjectOfType<GrenadeThrow>();
 	}
 
-	public void SetGrenades(int pGrenades) {
-		_grenades.text = pGrenades.ToString();
+	private void LateUpdate() {
+		_magazine.text = _weaponHolder.CurrentWeapon.MagazineContent.ToString();
+		_reserve.text = _weaponHolder.CurrentWeapon.ReserveAmmo.ToString();
+		_grenades.text = _grenadeThrow.NoOfGrenades.ToString();
 	}
 }
