@@ -16,6 +16,8 @@ public class GrenadeAmmoPack : MonoBehaviour, IInteractable {
 			GetComponent<Rigidbody>().isKinematic = true;
 			GetComponentInChildren<Collider>().enabled = false;
 
+			
+
 			Sequence s = DOTween.Sequence();
 			s.Append(transform.DOLocalMove(Vector3.down / 2.0f, 0.25f).OnComplete(() => Destroy(this.gameObject)));
 			s.Join(transform.DORotate(Random.insideUnitSphere, 0.25f));
