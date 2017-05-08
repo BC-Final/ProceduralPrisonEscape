@@ -36,27 +36,22 @@ public class CompassShooterUI : MonoBehaviour {
 		float xDot = Vector3.Dot(Vector3.forward, _player.forward);
 		float yDot = Vector3.Dot(Vector3.right, _player.forward);
 
-		//(0, 1) = EAST
-		//(0, -1) = WEST
-		//(1, 0) = NORTH
-		//(-1, 0) = SOUTH
+		float southScale = Utilities.Math.Remap(-xDot, -1, 1, 1f, 0.75f);
+		_south.localScale = Vector2.one * southScale;
 
-		//if xDot > 0 dont show S
-		//if xDot < 0 dont show N
-		//if yDot > 0 dont show W
-		//if yDot < 0 dont show E
+		float northScale = Utilities.Math.Remap(xDot, -1, 1, 1f, 0.75f);
+		_north.localScale = Vector2.one * northScale;
 
-		//_south.GetComponent<Text>().color = (xDot <= 0.0f) ? Color.black : Color.grey;
-		//_north.GetComponent<Text>().color = (xDot >= 0.0f) ? Color.black : Color.grey;
-		//_west.GetComponent<Text>().color = (yDot <= 0.0f) ? Color.black : Color.grey;
-		//_east.GetComponent<Text>().color = (yDot >= 0.0f) ? Color.black : Color.grey;
+		float eastScale = Utilities.Math.Remap(yDot, -1, 1, 1f, 0.75f);
+		_east.localScale = Vector2.one * eastScale;
 
-		//_south.GetComponent<Text>().color = Color.Lerp((xDot < 0) ? _grey : _greyFaded, (xDot < 0) ? _black : _grey, Mathf.Abs(yDot));
-		_south.GetComponent<Text>().color = Color.Lerp((xDot < 0) ? _black : _greyFaded, _grey, Mathf.Abs(yDot));
-		_north.GetComponent<Text>().color = Color.Lerp((xDot > 0) ? _black : _greyFaded, _grey, Mathf.Abs(yDot));
+		float westScale = Utilities.Math.Remap(-yDot, -1, 1, 1f, 0.75f);
+		_west.localScale = Vector2.one * westScale;
 
-		_west.GetComponent<Text>().color = Color.Lerp((yDot < 0) ? _black : _greyFaded, _grey, Mathf.Abs(xDot));
-		_east.GetComponent<Text>().color = Color.Lerp((yDot > 0) ? _black : _greyFaded, _grey, Mathf.Abs(xDot));
+		_south.GetComponentInChildren<Text>().color = Color.Lerp((xDot < 0) ? _black : _greyFaded, _grey, Mathf.Abs(yDot));
+		_north.GetComponentInChildren<Text>().color = Color.Lerp((xDot > 0) ? _black : _greyFaded, _grey, Mathf.Abs(yDot));
+		_west.GetComponentInChildren<Text>().color = Color.Lerp((yDot < 0) ? _black : _greyFaded, _grey, Mathf.Abs(xDot));
+		_east.GetComponentInChildren<Text>().color = Color.Lerp((yDot > 0) ? _black : _greyFaded, _grey, Mathf.Abs(xDot));
 
 		_south.anchoredPosition = new Vector2(yDot * _width / 2.0f, -xDot * _height / 2.0f);
 		_north.anchoredPosition = new Vector3(-yDot * _width / 2.0f, xDot * _height / 2.0f);
