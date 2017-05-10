@@ -11,12 +11,15 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 	[SerializeField]
 	private float _interactThreshold;
 
-	private bool _pressable;
-	private bool _pressed;
+	[SerializeField]
+	private float _interactCooldown;
+
+	private bool _sPressed = false, _hPressed = false;
+	private bool _sCanPress = true, _hCanPress = true;
 
 	private Light _light;
 
-	
+
 
 	private int _id;
 	public int Id {
@@ -38,10 +41,9 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 	}
 
 	public void Initialize() {
-		
+		ShooterPackageSender.SendPackage(new NetworkPacket.Create.SecurityStation(Id, transform.position.x, transform.position.z));
 	}
 
-	//TODO Make Networked
 	private void Start() {
 		_light = GetComponentInChildren<Light>(true);
 		ShooterAlarmManager.Instance.OnAlarmChange += onAlarmChange;
@@ -51,17 +53,34 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 		SecurityStation station = ShooterPackageSender.GetNetworkedObject<SecurityStation>(pPacket.Id);
 
 		if (station != null) {
+			station.hackerInteract();
+		}
+	}
 
+	private void hackerInteract() {
+		if (_hCanPress) {
+			if (_sPressed) {
+				ShooterAlarmManager.Instance.AlarmIsOn = false;
+			} else {
+				_hPressed = true;
+				_hCanPress = false;
+				TimerManager.CreateTimer("Security Station Threshold H", true).SetDuration(_interactThreshold).AddCallback(() => _hPressed = false).Start();
+				TimerManager.CreateTimer("Security Station Cooldown H", true).SetDuration(_interactCooldown).AddCallback(() => _hCanPress = true).Start();
+			}
 		}
 	}
 
 	public void Interact() {
-		if(_pressed)
-	}
-
-	private void setNotPressable() {
-		_pressable = false;
-		TimerManager.CreateTimer("Security Station Cooldown", true).SetDuration(_)
+		if (_sCanPress) {
+			if (_hPressed) {
+				ShooterAlarmManager.Instance.AlarmIsOn = false;
+			} else {
+				_sPressed = true;
+				_sCanPress = false;
+				TimerManager.CreateTimer("Security Station Threshold S", true).SetDuration(_interactThreshold).AddCallback(() => _sPressed = false).Start();
+				TimerManager.CreateTimer("Security Station Cooldown S", true).SetDuration(_interactCooldown).AddCallback(() => _sCanPress = true).Start();
+			}
+		}
 	}
 
 	private void onAlarmChange() {
