@@ -57,7 +57,7 @@ public class MenuManager : MonoBehaviour {
         else
         {
             PlayerPrefs.SetInt("HostPort", port);
-            SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene("Level2");
         }
     }
 	public void UIOnPlayHacker () {

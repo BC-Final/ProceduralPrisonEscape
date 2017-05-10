@@ -81,6 +81,13 @@ MonoBehaviour:
     type: 2}
   GrenadeIcon: {fileID: 1480917772363842, guid: 6b9ed78bc5edd2b4d9308e2988e6324e,
     type: 2}
+  DoorIconLockedClosed: {fileID: 21300000, guid: 839dfe7aa367bf9479b38875edd51fb0,
+    type: 3}
+  DoorIconLockedOpen: {fileID: 21300000, guid: 0d360162efb82494bbee224017609c34, type: 3}
+  DoorAddonKeycard: {fileID: 21300000, guid: 9402a4e376cadad49b668707de65f24f, type: 3}
+  DoorAddonDecoder: {fileID: 21300000, guid: a7123efddd7a8d747bd45fc9873f6f5f, type: 3}
+  DoorAddonDuobutton: {fileID: 21300000, guid: 2419de9927cb3544394fddad85f82812, type: 3}
+  DoorAddonCodeinput: {fileID: 21300000, guid: 00ac9bd9e44d74b45bdc6d8589805cf6, type: 3}
   Explosion: {fileID: 1937768491457158, guid: bd9890c63194d614a8b3143f7507a460, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
   CodeInputWindow: {fileID: 1990251701772648, guid: 51ecda326cb00cc4385c7a7413a74361,

@@ -106,7 +106,18 @@ namespace NetworkPacket {
 			}
 		}
 
-		[System.Serializable]
+        [System.Serializable]
+        public class DuoButtonAddon : AbstractPacket
+        {
+            public int DoorId;
+
+            public DuoButtonAddon(int pDoorId)
+            {
+                DoorId = pDoorId;
+            }
+        }
+
+        [System.Serializable]
 		public class CodeLockAddon : AbstractPacket {
 			public int Id;
 			public int DoorId;

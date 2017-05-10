@@ -30,12 +30,17 @@ public class DoorMapIcon : AbstractMapIcon {
 		action.Action = m_MyEvent;
 		icon.actions[0] = action;
 		icon._codeSolution = pPacket.CodeString;
-	}
+        icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDecoder;
+    }
 
 	public static void AddAddon(NetworkPacket.Create.KeyCard pPacket) {
 		for (int i = 0; i < pPacket.intArray.Length; i++) {
-			HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.intArray[i]).SetKeyColor(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
-		}
+            DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.intArray[i]);
+            icon.SetKeyColor(new Color(1,1,1));
+            icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonKeycard;
+            icon._addonSprite.color = new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB);
+            icon.changeColor(Color.gray);
+        }
 	}
 
 	public static void AddAddon(NetworkPacket.Create.CodeLockAddon pPacket) {
@@ -50,7 +55,16 @@ public class DoorMapIcon : AbstractMapIcon {
 		icon.actions[0] = action;
 		icon._codeSolution = pPacket.CodeString;
 		icon._addonId = pPacket.Id;
-	}
+        icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonCodeinput;
+    }
+
+    public static void AddAddon(NetworkPacket.Create.DuoButtonAddon pPacket)
+    {
+        Debug.Log("DuoButton!!!!");
+        DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
+        icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDuobutton;
+        Array.Clear(icon.actions, 0, icon.actions.Length);
+    }
 
 	public static void AddAddon(NetworkPacket.Update.DisableDoor pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
@@ -64,6 +78,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		icon.Id = pPacket.Id;
 		icon._open.Value = pPacket.Open;
 		icon._locked.Value = pPacket.Locked;
+        icon._addonSprite = icon.transform.GetComponentsInChildren<SpriteRenderer>()[1];
 
 		//TODO Research why onValueChanged is not called
 		icon.stateChanged();
@@ -79,7 +94,8 @@ public class DoorMapIcon : AbstractMapIcon {
 		_locked.OnValueChange += stateChanged;
 	}
 
-	private int _addonId;
+    private SpriteRenderer _addonSprite;
+    private int _addonId;
 	public bool showWindow = false;
 	private bool _keycardLocked = false;
 	private Color _keyColor;
@@ -150,18 +166,28 @@ public class DoorMapIcon : AbstractMapIcon {
 	private void stateChanged() {
 		if (_open.Value) {
 			changeSprite(_openSprite);
-			if (_locked.Value) {
+            SetAddonSprite(false);
+            if (_locked.Value) {
 				changeColor(Color.red);
 			} else if (_keycardLocked) {
 				changeColor(_keyColor);
 			}
 		} else {
 			changeSprite(_closedSprite);
-			if (_locked.Value) {
+            SetAddonSprite(true);
+            if (_locked.Value) {
 				changeColor(Color.red);
 			} else if (_keycardLocked) {
 				changeColor(_keyColor);
 			}
 		}
 	}
+
+    private void SetAddonSprite(bool isActive)
+    {
+        if (_addonSprite)
+        {
+            _addonSprite.enabled = isActive;
+        }
+    }
 }

@@ -64,7 +64,8 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
 		if (pPacket is NetworkPacket.Create.DecodeAddon) { readPacket(pPacket as NetworkPacket.Create.DecodeAddon); }
 		if (pPacket is NetworkPacket.Create.CodeLockAddon) { readPacket(pPacket as NetworkPacket.Create.CodeLockAddon); }
-		if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
+        if (pPacket is NetworkPacket.Create.DuoButtonAddon) { readPacket(pPacket as NetworkPacket.Create.DuoButtonAddon); }
+        if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
@@ -173,7 +174,20 @@ public class HackerPackageReader : MonoBehaviour {
 			AddLatePackage(pPacket);
 		}
 	}
-	private void readPacket(NetworkPacket.Create.PhaserAmmoIcon pPacket) {
+    private void readPacket(NetworkPacket.Create.DuoButtonAddon pPacket)
+    {
+        Debug.Log("Packet Received");
+        if (loadingFinished)
+        {
+
+            DoorMapIcon.AddAddon(pPacket);
+        }
+        else
+        {
+            AddLatePackage(pPacket);
+        }
+    }
+    private void readPacket(NetworkPacket.Create.PhaserAmmoIcon pPacket) {
 		PickUpMapIcon.ProcessPacket(pPacket);
 	}
 	private void readPacket(NetworkPacket.Create.MachineGunAmmoIcon pPacket) {

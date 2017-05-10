@@ -57,11 +57,20 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
         {
             ShooterPackageSender.SendPackage(new NetworkPacket.Update.DisableDoor(Id));
         }
+        if (_hasDuoButton)
+        {
+            ShooterPackageSender.SendPackage(new NetworkPacket.Create.DuoButtonAddon(Id));
+        }
         //Keycard should also be managed in the door class for consistency
 	}
     public void DisableDoor()
     {
         IsDisabled = true;
+    }
+
+    public void AddDuoButton()
+    {
+        _hasDuoButton = true;
     }
 
     //TODO Replace with animation
@@ -85,6 +94,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     /// <summary>
     /// Indicated if door is locked, keylocked or disabled
     /// </summary>#
+    private bool _hasDuoButton;
     public bool IsDisabled;
 	private bool _locked;
     private bool _lockedForDrones;

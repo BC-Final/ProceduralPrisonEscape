@@ -28,7 +28,15 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject ObjectiveIcon;
 	public GameObject GrenadeIcon;
 
-	[Header("Minimap Prefabs")]
+    [Header("Minimap Icon Prefabs")]
+    public Sprite DoorIconLockedClosed;
+    public Sprite DoorIconLockedOpen;
+    public Sprite DoorAddonKeycard;
+    public Sprite DoorAddonDecoder;
+    public Sprite DoorAddonDuobutton;
+    public Sprite DoorAddonCodeinput;
+
+    [Header("Minimap Prefabs")]
     public GameObject Explosion;
 	public GameObject LaserShot;
 
