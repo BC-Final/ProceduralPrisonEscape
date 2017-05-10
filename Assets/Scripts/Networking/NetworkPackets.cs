@@ -8,6 +8,14 @@ namespace NetworkPacket {
 
 	namespace Create {
 		[System.Serializable]
+		public class SecurityStation : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+
+			public SecurityStation(int pId, float pPosX, float pPosY) { Id = pId; PosX = pPosX; PosY = pPosY; }
+		}
+
+		[System.Serializable]
 		public class PhaserAmmoIcon : AbstractPacket {
 			public int Id;
 			public float posX;
@@ -369,6 +377,13 @@ namespace NetworkPacket {
 				IsOn = pIsOn;
 			}
 		}
+
+		[System.Serializable]
+		public class SecurityStation : AbstractPacket {
+			public int Id;
+
+			public SecurityStation(int pId) { Id = pId; }
+		}
 	}
 
 	namespace States {
@@ -383,9 +398,6 @@ namespace NetworkPacket {
 	}
 
 	namespace Messages {
-		[System.Serializable]
-		public class SecurityStationPressed : AbstractPacket { }
-
 		[System.Serializable]
 		public class DisconnectRequest : AbstractPacket { }
 

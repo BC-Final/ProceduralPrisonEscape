@@ -108,12 +108,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &35045762 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000013639604578, guid: e37d582fb78d23f42b57144ce6681018,
-    type: 2}
-  m_PrefabInternal: {fileID: 1368097299}
-  m_Script: {fileID: 11500000, guid: 42d297feaabe5f24e8d377778badb343, type: 3}
 --- !u!1 &190275367
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,41 +371,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
+    - target: {fileID: 64292772452335968, guid: c79b2404cc771214388c54f1fe9d0659,
         type: 2}
-      propertyPath: _sender
-      value: 
-      objectReference: {fileID: 35045762}
-    - target: {fileID: 114551350330194616, guid: c79b2404cc771214388c54f1fe9d0659,
-        type: 2}
-      propertyPath: _iconHeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
-        type: 2}
-      propertyPath: m_BackGroundColor.a
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4636273665379990, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
-        type: 2}
-      propertyPath: m_BackGroundColor.r
-      value: 0.13235295
-      objectReference: {fileID: 0}
-    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
-        type: 2}
-      propertyPath: m_BackGroundColor.g
-      value: 0.13235295
-      objectReference: {fileID: 0}
-    - target: {fileID: 20993888860403032, guid: c79b2404cc771214388c54f1fe9d0659,
-        type: 2}
-      propertyPath: m_BackGroundColor.b
-      value: 0.13235295
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 54228559162562592, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c79b2404cc771214388c54f1fe9d0659, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1669575326
@@ -517,5 +483,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 364447ca0c9284042939deb251980872, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1705236890 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1013017682968972, guid: 9dfb994308b6e0e4ba40f63fe2a67a01,
+    type: 2}
+  m_PrefabInternal: {fileID: 1191933226}
+--- !u!114 &1705236894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1705236890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5510c9758928d6b4ab37b51276b80430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

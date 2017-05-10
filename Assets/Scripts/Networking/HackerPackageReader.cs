@@ -71,6 +71,9 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
 		if (pPacket is NetworkPacket.Create.PushButton) { readPacket(pPacket as NetworkPacket.Create.PushButton); }
 
+
+		if (pPacket is NetworkPacket.Create.SecurityStation) { readPacket(pPacket as NetworkPacket.Create.SecurityStation); }
+
 		//Update
 		if (pPacket is NetworkPacket.Update.ButtonFeedback) { readPacket(pPacket as NetworkPacket.Update.ButtonFeedback); }
 		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
@@ -153,6 +156,9 @@ public class HackerPackageReader : MonoBehaviour {
 		ObjectiveMapIcon.ProcessPacket(pPacket);
 	}
 
+	private void readPacket(NetworkPacket.Create.SecurityStation pPacket) {
+		SecuritystationMapIcon.ProcessPacket(pPacket);
+	}
 
 
 

@@ -9,7 +9,6 @@ public class HealthDisplayShooterUI : MonoBehaviour {
 
 	private void Start () {
 		_image = GetComponent<Image>();
-
 		PlayerHealth.Instance.CurrentHealth.OnValueChange += healthChanged;
 	}
 

@@ -15,6 +15,10 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 	private List<Weapon> _weapons;
 	private int _currentWeapon;
 
+	public Weapon CurrentWeapon {
+		get { return _weapons[_currentWeapon]; }
+	}
+
 	private Tweener _mainFovTween;
 	private Tweener _wpnFovTween;
 	private Tweener _moveTween;
@@ -192,9 +196,5 @@ public class WeaponHolder : Singleton<WeaponHolder> {
 
 			_currentAimState.SetSilently(AimState.Hip);
 		}
-	}
-
-	private void OnGUI() {
-		_ammoDisplay.SetAmmo(_weapons[_currentWeapon].MagazineContent, _weapons[_currentWeapon].ReserveAmmo);
 	}
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SecuritystationMapIcon : MonoBehaviour {
+public class SpeakerMapIcon : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

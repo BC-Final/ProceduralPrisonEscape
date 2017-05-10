@@ -74,7 +74,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 			float perc = _currentLerpTime / _lerpTime;
 
             //Set target position to 1 else camer might be buggy
-             _targetPos.z = -5;
+             _targetPos.z = -10;
 			this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 		
 
