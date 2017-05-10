@@ -60,7 +60,6 @@ public class HackerFOW : MonoBehaviour {
 				_coll.enabled = true;
 
 				if (Physics.Raycast(new Vector3(_trans.position.x, _trans.position.y, transform.position.z - 1), Vector3.forward, out hit, 2.0f, LayerMask.GetMask("FogOfWar"))) {
-					Debug.Log(hit.textureCoord);
 					StartCoroutine(calcFOW(hit.textureCoord.x, hit.textureCoord.y));
 				}
 

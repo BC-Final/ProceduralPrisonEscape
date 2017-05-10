@@ -358,6 +358,13 @@ namespace NetworkPacket {
 				IsOn = pIsOn;
 			}
 		}
+
+		[System.Serializable]
+		public class SecurityStation : AbstractPacket {
+			public int Id;
+
+			public SecurityStation(int pId) { Id = pId; }
+		}
 	}
 
 	namespace States {
@@ -372,9 +379,6 @@ namespace NetworkPacket {
 	}
 
 	namespace Messages {
-		[System.Serializable]
-		public class SecurityStationPressed : AbstractPacket { }
-
 		[System.Serializable]
 		public class DisconnectRequest : AbstractPacket { }
 
