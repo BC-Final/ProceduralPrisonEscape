@@ -300,5 +300,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _addedIntesity: 1
-  _interactThreshold: 10
-  _interactCooldown: 20
+  _interactThreshold: 2
+  _interactCooldown: 4
