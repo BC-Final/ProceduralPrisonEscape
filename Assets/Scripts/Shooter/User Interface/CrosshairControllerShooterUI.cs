@@ -6,10 +6,12 @@ using System.Collections.Generic;
 public class CrosshairControllerShooterUI : MonoBehaviour {
 	private List<CrosshairShooterUI> _crosshairs;
 	private RectTransform _canvas;
+	private WeaponHolder _holder;
 
 	private void Start() {
 		_canvas = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
 		_crosshairs = new List<CrosshairShooterUI>(GetComponentsInChildren<CrosshairShooterUI>());
+		_holder = FindObjectOfType<WeaponHolder>();
 	}
 
 	public void Enable(float pTime) {
@@ -20,7 +22,11 @@ public class CrosshairControllerShooterUI : MonoBehaviour {
 		_crosshairs.ForEach(x => x.Disable(pTime));
 	}
 
-	public void SetDistance(float pConeRadius, float pConeLength) {
+	private void Update() {
+		setDistance(_holder.CurrentWeapon.CalcFinalSpreadConeRadius(), _holder.CurrentWeapon.SpreadConeLength);
+	}
+
+	private void setDistance(float pConeRadius, float pConeLength) {
 		Vector3 worldPosition = (Camera.main.transform.position + Camera.main.transform.forward * pConeLength) + Camera.main.transform.up * pConeRadius;
 		Vector2 screenPosition = Camera.main.WorldToViewportPoint(worldPosition);
 		Vector2 canvasPosition = new Vector2(((screenPosition.x * _canvas.sizeDelta.x) - (_canvas.sizeDelta.x * 0.5f)), ((screenPosition.y * _canvas.sizeDelta.y) - (_canvas.sizeDelta.y * 0.5f)));

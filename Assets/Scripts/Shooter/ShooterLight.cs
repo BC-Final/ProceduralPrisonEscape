@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
+[SelectionBase]
 //TODO Make Networked
 public class ShooterLight : MonoBehaviour, IDamageable {
 	[SerializeField]
@@ -24,7 +25,7 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 		_defaultColor = _light.color;
 	}
 
-	private void setState(bool pTurnedOn) {
+	public void SetState(bool pTurnedOn) {
 		if (!_broken) {
 			_light.enabled = pTurnedOn;
 		}

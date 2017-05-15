@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class ShooterMinimapCamera : MonoBehaviour {
 	private Camera _camera;
 
 	private void Awake () {
 		_camera = GetComponent<Camera>();
+		_camera.enabled = false;
 	}
 
 	public void SendUpdate () {
@@ -13,6 +15,16 @@ public class ShooterMinimapCamera : MonoBehaviour {
 	}
 
 	private byte[] getMinimapData () {
+		GetComponent<Light>().enabled = true;
+
+		_camera.enabled = true;
+
+		ShooterLight[] lights = FindObjectsOfType<ShooterLight>();
+
+		foreach (ShooterLight l in lights) {
+			l.SetState(false);
+		}
+
 		RenderTexture rt = new RenderTexture(4096, 4096, 24);
 
 		_camera.targetTexture = rt;
@@ -27,6 +39,15 @@ public class ShooterMinimapCamera : MonoBehaviour {
 
 		byte[] bytes;
 		bytes = tex2d.EncodeToPNG();
+
+		GetComponent<Light>().enabled = false;
+
+		foreach (ShooterLight l in lights) {
+			l.SetState(true);
+		}
+
+		_camera.enabled = false;
+
 
 		return bytes;
 	}
