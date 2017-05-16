@@ -20,6 +20,7 @@ public class DoorMapIcon : AbstractMapIcon {
 	private string _codeSolution;
 
 	public static void AddAddon(NetworkPacket.Create.DecodeAddon pPacket) {
+		Debug.Log("Lol");
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
 		Array.Clear(icon.actions, 0, icon.actions.Length);
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
