@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraDragAndDrop : MonoBehaviour {
 	private bool _dragging = false;
 	private Camera _camera;
-    private bool _followPlayer = false;
+    private bool _followPlayer = true;
     private Transform _player;
 
 	private Vector3 _targetPos;
@@ -22,7 +22,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 	void Start () {
 		_camera = GetComponent<Camera>();
 		_targetPos = this.transform.position;
-	}
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -55,7 +55,7 @@ public class CameraDragAndDrop : MonoBehaviour {
         }
 			if (_dragging) {
                 //stop following player
-                _followPlayer = false;
+                //_followPlayer = false;
 
 				_currentLerpTime = 0f;
 				_newPos = _startPos - Input.mousePosition;
@@ -65,6 +65,11 @@ public class CameraDragAndDrop : MonoBehaviour {
             //if camera is following play target position is always the player
             if (_followPlayer)
             {
+                if (_player == null)
+                {
+                   _player = GameObject.FindObjectOfType<PlayerMapIcon>().transform;
+                }
+
             _targetPos = _player.transform.position;
             }
 			_currentLerpTime += Time.deltaTime;

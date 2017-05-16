@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 4000011806920688}
   - component: {fileID: 114000011899917216}
   - component: {fileID: 54430530825207408}
+  - component: {fileID: 41318603749324980}
   m_Layer: 0
   m_Name: pfb_environment_door
   m_TagString: Untagged
@@ -292,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010915261142}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 57.48, y: -1, z: -58.02}
+  m_LocalPosition: {x: 57.48, y: -1, z: 24.55}
   m_LocalScale: {x: 1.47705, y: 1.47705, z: 1.47705}
   m_Children:
   - {fileID: 4000011320708710}
@@ -575,6 +576,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010056092506}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!41 &41318603749324980
+OcclusionPortal:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010915261142}
+  m_Open: 0
+  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 3, y: 3, z: 1}
 --- !u!54 &54430530825207408
 Rigidbody:
   m_ObjectHideFlags: 1

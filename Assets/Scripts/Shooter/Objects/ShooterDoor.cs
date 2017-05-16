@@ -32,6 +32,8 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     //A hack to test keypads when no one is connected
     private void Start()
     {
+        _portal = GetComponent<OcclusionPortal>();
+        _open.OnValueChange += OnDoorStateChange;
         if (_keypad)
         {
             _keypad.Doors.Add(this);
@@ -101,6 +103,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     private bool _keyLocked;
     [SerializeField]
     private Keypad _keypad;
+    private OcclusionPortal _portal;
 
     /// <summary>
     /// HACK! To be changed!
@@ -122,6 +125,11 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
     {
         _open.Value = !_open.Value;
         sendStateUpdate();
+    }
+
+    private void OnDoorStateChange()
+    {
+        _portal.open = _open.Value;
     }
 
     public void SetRequireKeyCard(Color keyColor)
