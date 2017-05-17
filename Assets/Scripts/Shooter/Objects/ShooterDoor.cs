@@ -118,23 +118,13 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void OnDoorStateChange() {
-        if (_open.Value)
-        {
-            Debug.Log("Open Portal");
-            TimerManager.CreateTimer("Portal Change", true).SetDuration(0.0f).AddCallback(() => SetPortalOpen(true));
-        }
-        else
-        {
-            Debug.Log("Close Portal");
-            TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => SetPortalOpen(false));
-        }
-		
-	}
+		if (_open.Value) {
+			_portal.open = true;
+		} else {
+			TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => _portal.open = false).Start();
+		}
 
-    private void SetPortalOpen(bool open)
-    {
-        _portal.open = open;
-    }
+	}
 
 	public void SetRequireKeyCard(Color keyColor) {
 		if (_keyLocked) {
