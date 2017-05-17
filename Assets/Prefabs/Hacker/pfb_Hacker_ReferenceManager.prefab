@@ -87,7 +87,7 @@ MonoBehaviour:
   DoorIconLockedOpen: {fileID: 21300000, guid: 0d360162efb82494bbee224017609c34, type: 3}
   DoorAddonKeycard: {fileID: 21300000, guid: 9402a4e376cadad49b668707de65f24f, type: 3}
   DoorAddonDecoder: {fileID: 21300000, guid: a7123efddd7a8d747bd45fc9873f6f5f, type: 3}
-  DoorAddonDuobutton: {fileID: 21300000, guid: 2419de9927cb3544394fddad85f82812, type: 3}
+  DoorAddonDuobutton: {fileID: 21300000, guid: 02887f1c15d2bbf4da4fc82b0c3c8a3c, type: 3}
   DoorAddonCodeinput: {fileID: 21300000, guid: 00ac9bd9e44d74b45bdc6d8589805cf6, type: 3}
   Explosion: {fileID: 1937768491457158, guid: bd9890c63194d614a8b3143f7507a460, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}

@@ -55,7 +55,7 @@ public class CameraDragAndDrop : MonoBehaviour {
         }
 			if (_dragging) {
                 //stop following player
-                //_followPlayer = false;
+                _followPlayer = false;
 
 				_currentLerpTime = 0f;
 				_newPos = _startPos - Input.mousePosition;
