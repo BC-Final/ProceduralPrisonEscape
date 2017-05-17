@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Net;
+using System.Net.Sockets;
 
 public class ShooterDebugMenu : MonoBehaviour {
 	[SerializeField]
@@ -10,6 +12,24 @@ public class ShooterDebugMenu : MonoBehaviour {
 
 	private Rect _windowRect = new Rect(20, 40, 120, 50);
 	private Vector2 _scrollPos = new Vector2(0, 0);
+
+	private void Start() {
+		//System.Net.NetworkInformation.NetworkInterface[] interfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces();
+
+		//foreach (System.Net.NetworkInformation.NetworkInterface i in interfaces) {
+		//	for (int c = 0; c < i.GetIPProperties().UnicastAddresses.Count; ++c) {
+		//		Debug.Log(i.GetIPProperties().UnicastAddresses[c].Address.ToString());
+		//	}
+		//}
+
+		Debug.Log(Dns.GetHostName());
+		IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
+		foreach (IPAddress addr in localIPs) {
+			if (addr.AddressFamily == AddressFamily.InterNetwork) {
+				Debug.Log(addr);
+			}
+		}
+	}
 
 	private void OnGUI() {
 		if (_show) {
