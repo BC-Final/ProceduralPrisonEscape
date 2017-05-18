@@ -119,9 +119,9 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 	private void OnDoorStateChange() {
 		if (_open.Value) {
-			_portal.open = true;
+			_portal.open = _open.Value;
 		} else {
-			TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => _portal.open = false).Start();
+			TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => _portal.open = _open.Value).Start();
 		}
 
 	}
