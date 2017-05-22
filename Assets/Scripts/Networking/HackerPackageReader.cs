@@ -177,7 +177,6 @@ public class HackerPackageReader : MonoBehaviour {
 	/// <param name="pPacket"></param>
 	/// 
 	private void readPacket(NetworkPacket.Create.PushButton pPacket) {
-		Debug.Log("Packet read");
 		PushButtonMapIcon.ProcessPacket(pPacket);
 	}
 
@@ -191,7 +190,6 @@ public class HackerPackageReader : MonoBehaviour {
 	}
     private void readPacket(NetworkPacket.Create.DuoButtonAddon pPacket)
     {
-        Debug.Log("Packet Received");
         if (loadingFinished)
         {
 
