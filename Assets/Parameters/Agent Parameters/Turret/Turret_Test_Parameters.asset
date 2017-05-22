@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Name: Turret_Test_Parameters
   m_EditorClassIdentifier: 
   AttackDamage: 20
-  AttackRange: 12
+  AttackRange: 13
   AttackRate: 0.1
   AttackAngle: 45
   AttackForce: 250
   SpreadConeLength: 10
   SpreadConeRadius: 2
-  ViewRange: 12
+  ViewRange: 13
   HorizontalRotationSpeed: 7.5
   VerticalRotationSpeed: 7.5
   DeployDuration: 2
