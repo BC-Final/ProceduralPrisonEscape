@@ -55,7 +55,7 @@ public class FuseboxMapIcon : AbstractMapIcon {
 
 	public void Prime() {
 		sendUpdate(false);
-		determineSprite(false);
+		determineSprite(true);
 	}
 
 	public void PrimeCharged() {
