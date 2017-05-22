@@ -603,8 +603,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _clampInDegrees: {x: 360, y: 180}
   _lockCursor: 0
-  _sensitivity: {x: 3.25, y: 3.25}
-  _smoothing: {x: 1.2, y: 1.2}
+  _sensitivity: {x: 4, y: 4}
+  _smoothing: {x: 0.5, y: 0.5}
   characterBody: {fileID: 4074765069159136}
 --- !u!124 &124334320356990218
 Behaviour:

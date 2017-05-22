@@ -40,6 +40,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.CodeLockCode) { readPacket(pPacket as NetworkPacket.Update.CodeLockCode); }
 		if (pPacket is NetworkPacket.Update.ButtonPush) { readPacket(pPacket as NetworkPacket.Update.ButtonPush); }
 		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
+		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
 
 		if (pPacket is NetworkPacket.Update.SecurityStation) { readPacket(pPacket as NetworkPacket.Update.SecurityStation); }
 
@@ -56,6 +57,10 @@ public class ShooterPackageReader : MonoBehaviour {
 
 	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
 		Grenade.ProcessPacket(pPacket);
+	}
+
+	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
+		Fusebox.ProcessPacket(pPacket);
 	}
 
 	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {

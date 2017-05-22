@@ -8,6 +8,17 @@ namespace NetworkPacket {
 
 	namespace Create {
 		[System.Serializable]
+		public class Fusebox : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+			public bool Charged, Used;
+
+			public Fusebox(int pId, float pPosX, float pPosY, bool pUsed, bool pPrimed) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Used = pUsed; Charged = pPrimed;
+			}
+		}
+
+		[System.Serializable]
 		public class SecurityStation : AbstractPacket {
 			public int Id;
 			public float PosX, PosY;
@@ -193,6 +204,16 @@ namespace NetworkPacket {
 
 			public Door(int pId, bool pOpen) {
 				Id = pId; Open = pOpen;
+			}
+		}
+
+		[System.Serializable]
+		public class Fusebox : AbstractPacket {
+			public int Id;
+			public bool Charged;
+
+			public Fusebox(int pId, bool pCharged) {
+				Id = pId; Charged = pCharged;
 			}
 		}
 

@@ -70,6 +70,7 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
 		if (pPacket is NetworkPacket.Create.PushButton) { readPacket(pPacket as NetworkPacket.Create.PushButton); }
+		if (pPacket is NetworkPacket.Create.Fusebox) { readPacket(pPacket as NetworkPacket.Create.Fusebox); }
 
 
 		if (pPacket is NetworkPacket.Create.SecurityStation) { readPacket(pPacket as NetworkPacket.Create.SecurityStation); }
@@ -87,7 +88,7 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
-
+		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
 		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
 		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
 
@@ -119,6 +120,14 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
 		GrenadeMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket(NetworkPacket.Create.Fusebox pPacket) {
+		FuseboxMapIcon.ProcessPacket(pPacket);
+	}
+
+	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
+		FuseboxMapIcon.ProcessPacket(pPacket);
 	}
 
 

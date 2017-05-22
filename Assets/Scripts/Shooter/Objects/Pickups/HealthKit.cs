@@ -5,16 +5,8 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 	[SerializeField]
 	private int _amount;
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	public void Initialize () {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Create.HealthKitIcon(Id, transform.position));

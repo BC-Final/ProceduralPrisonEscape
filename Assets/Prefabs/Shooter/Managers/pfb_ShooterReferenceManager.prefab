@@ -64,6 +64,7 @@ MonoBehaviour:
     type: 2}
   GrenadeExplosion: {fileID: 1779447617938616, guid: 4f334e74aa8511f4b895df8400154aa2,
     type: 2}
+  Lightning: {fileID: 1089871586466576, guid: f0ba9623117d211419161f1f5e4323d2, type: 2}
   Drone: {fileID: 1000012459772106, guid: 4ba773ba204f16a4e88057ad91882b72, type: 2}
   ExplodingDrone: {fileID: 1383778363432852, guid: c682ef7adc874664db21a5694c0d5892,
     type: 2}
