@@ -36,17 +36,19 @@ public class DronePoint : MonoBehaviour {
 
 	private void OnDrawGizmos() {
 		Gizmos.DrawWireCube(transform.position, Vector3.one * 0.25f);
-		Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + transform.forward);
 
 		if (!Occupied) {
 			if (_spawnDroneOnStart) {
 				Gizmos.color = Color.blue;
 			} else {
-				Gizmos.color = Color.grey;
+				Gizmos.color = Color.white;
 			}
 		} else {
 			Gizmos.color = Color.green;
 		}
-		Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);	
+
+		Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);
+		Gizmos.color = Color.white;
+		Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + transform.forward);
 	}
 }

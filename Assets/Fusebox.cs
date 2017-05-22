@@ -81,4 +81,9 @@ public class Fusebox : MonoBehaviour, IShooterNetworked {
 			} 
 		}
 	}
+
+
+	private void OnDrawGizmosSelected() {
+		Gizmos.DrawWireSphere(transform.position, _radius);
+	}
 }
