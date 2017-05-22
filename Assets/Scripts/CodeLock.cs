@@ -14,21 +14,10 @@ public class CodeLock : MonoBehaviour, IShooterNetworked
     }
 
 
-    private int _id;
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
-    public int Id
-    {
-        get
-        {
-            if (_id == 0)
-            {
-                _id = IdManager.RequestId();
-            }
-
-            return _id;
-        }
-    }
-    public void Initialize()
+	public void Initialize()
     {
         ShooterPackageSender.SendPackage(new NetworkPacket.Create.CodeLockAddon(Id, GetComponent<ShooterDoor>().Id, _codeString));
     }

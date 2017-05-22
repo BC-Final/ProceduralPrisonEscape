@@ -30,7 +30,7 @@ TagManager:
   - PhysicsAffected
   - NoPlayerCollidePhysicsAffected
   - FogOfWar
-  - 
+  - StaticTrigger
   - 
   - 
   - 

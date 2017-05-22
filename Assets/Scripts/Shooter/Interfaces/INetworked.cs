@@ -2,7 +2,7 @@
 
 public interface IShooterNetworked {
 	void Initialize ();
-	int Id { get; }
+	ShooterNetworkId Id { get; }
 	//TODO Add this line to only send discovered objects
 	//bool Discovered { get; }
 }

@@ -14,12 +14,11 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	public DroneParameters Parameters { get { return _parameters; } }
 
 
-
-	[SerializeField]
 	private PatrolRoute _route;
-	public PatrolRoute Route { get { return _route; } }
+	public PatrolRoute Route { get { return _route; } set { _route = value; } }
 
-
+	private DronePoint _startPoint;
+	public DronePoint StartPoint { get { return _startPoint; } set { _startPoint = value; } }
 
 	[Header("References")]
 	[SerializeField]
@@ -48,12 +47,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 	private bool _alarmResponder;
-	public bool AlarmResponder {
-		get { return _alarmResponder; }
-		set { _alarmResponder = value; }
-	}
-
-
+	public bool AlarmResponder { get { return _alarmResponder; } set { _alarmResponder = value; } }
 
 	private float _currentHealth;
 
@@ -100,20 +94,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		set { _lastTarget = value; }
 	}
 
-	//private bool _chase = false;
-	//public bool Chase { get { return _chase; } }
-	//private FMOD.Studio.EventInstance _hoverSound;
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 
 	public static void ProcessPacket(NetworkPacket.Update.Drone pPacket) {
@@ -182,21 +165,11 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		_viewTrigger.radius = _parameters.ViewRange;
 
 		if (!_alarmResponder) {
-			if (_route != null) {
-				_fsm.SetState<DronePatrolState>();
-			} else {
-				_fsm.SetState<DroneGuardState>();
-			}
+			_fsm.SetState<DroneReturnState>();
 		} else {
 			_lastTarget = FindObjectOfType<PlayerHealth>().GameObject;
 			_fsm.SetState<DroneAlarmFollowState>();
 		}
-
-		//if (_chase) {
-		//	_fsm.SetState<DroneFollowState>();
-		//} else {
-		//	_fsm.SetState<DroneIdleState>();
-		//}
 	}
 
 
@@ -211,12 +184,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 	private void Update() {
 		CurrentState = _fsm.GetState().GetType().Name;
-
-		//		if (_agent.velocity.magnitude > 0.3f) {
-		//			_hoverSound.setParameterValue("p_drone_move", 1.0f);
-		//		} else {
-		//			_hoverSound.setParameterValue("p_drone_move", 0.0f);
-		//		}
 
 		_possibleTargets.OrderBy(x => Vector3.Distance(x.GameObject.transform.position, transform.position));
 
@@ -260,7 +227,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 			//_lastTarget = pSender.GameObject;
 
 			if (_currentHealth <= 0.0f) {
-				//_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 				DestroyEvent();
 
 				_fsm.SetState<DroneDeadState>();
@@ -283,57 +249,57 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-//#if UNITY_EDITOR
-//	private struct HitInfo {
-//		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
-//			Point = pPoint;
-//			Direction = pDirection;
-//		}
+	//#if UNITY_EDITOR
+	//	private struct HitInfo {
+	//		public HitInfo (Vector3 pPoint, Vector3 pDirection) {
+	//			Point = pPoint;
+	//			Direction = pDirection;
+	//		}
 
-//		public Vector3 Point;
-//		public Vector3 Direction;
-//	}
+	//		public Vector3 Point;
+	//		public Vector3 Direction;
+	//	}
 
-//	private List<HitInfo> _hitInfo = new List<HitInfo>();
+	//	private List<HitInfo> _hitInfo = new List<HitInfo>();
 
-//	private void OnDrawGizmos () {
-//		if (_visualizeHits) {
-//			foreach (HitInfo hi in _hitInfo) {
-//				Gizmos.color = Color.red;
-//				Gizmos.DrawSphere(transform.TransformPoint(hi.Point), 0.05f);
+	//	private void OnDrawGizmos () {
+	//		if (_visualizeHits) {
+	//			foreach (HitInfo hi in _hitInfo) {
+	//				Gizmos.color = Color.red;
+	//				Gizmos.DrawSphere(transform.TransformPoint(hi.Point), 0.05f);
 
-//				Gizmos.color = Color.blue;
-//				Gizmos.DrawRay(transform.TransformPoint(hi.Point), transform.TransformDirection(hi.Direction));
-//			}
-//		}
+	//				Gizmos.color = Color.blue;
+	//				Gizmos.DrawRay(transform.TransformPoint(hi.Point), transform.TransformDirection(hi.Direction));
+	//			}
+	//		}
 
-//		if (_visualizeView) {
-//			Gizmos.color = Color.white;
-//			UnityEditor.Handles.color = Color.white;
+	//		if (_visualizeView) {
+	//			Gizmos.color = Color.white;
+	//			UnityEditor.Handles.color = Color.white;
 
-//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AwarenessRange);
-//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.right, _parameters.AwarenessRange);
-//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right + _viewTransform.up).normalized, _parameters.AwarenessRange);
-//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right - _viewTransform.up).normalized, _parameters.AwarenessRange);
+	//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AwarenessRange);
+	//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.right, _parameters.AwarenessRange);
+	//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right + _viewTransform.up).normalized, _parameters.AwarenessRange);
+	//			UnityEditor.Handles.DrawWireDisc(_viewTransform.position, (_viewTransform.right - _viewTransform.up).normalized, _parameters.AwarenessRange);
 
-//			if (_parameters.ViewAngle < 360f) {
-//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
-//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
+	//			if (_parameters.ViewAngle < 360f) {
+	//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+	//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(0f, -(_parameters.ViewAngle / 2f), 0f) * (Vector3.forward * _parameters.ViewRange)));
 
-//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
-//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+	//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
+	//				Gizmos.DrawLine(_viewTransform.position, _viewTransform.TransformPoint(Quaternion.Euler(-(_parameters.ViewAngle / 2f), 0f, 0f) * (Vector3.forward * _parameters.ViewRange)));
 
 
-//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
-//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
+	//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+	//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.up, _viewTransform.TransformDirection(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
 
-//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
-//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
-//			} else {
-//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.ViewRange);
-//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AttackRange);
-//			}
-//		}
-//	}
-//#endif
+	//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.ViewRange);
+	//				UnityEditor.Handles.DrawWireArc(_viewTransform.position, -_viewTransform.right, _viewTransform.TransformDirection(Quaternion.Euler(_parameters.ViewAngle / 2f, 0f, 0f) * (Vector3.forward * _parameters.ViewRange).normalized), _parameters.ViewAngle, _parameters.AttackRange);
+	//			} else {
+	//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.ViewRange);
+	//				UnityEditor.Handles.DrawWireDisc(_viewTransform.position, -_viewTransform.up, _parameters.AttackRange);
+	//			}
+	//		}
+	//	}
+	//#endif
 }

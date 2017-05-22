@@ -23,26 +23,8 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 	private PlayerHealth _playerHealth;
 
 
-
-	/// <summary>
-	/// Network Identification
-	/// </summary>
-	private int _id;
-
-
-
-	/// <summary>
-	/// Accessor for the Network Id
-	/// </summary>
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	public ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 
 

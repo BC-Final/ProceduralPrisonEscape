@@ -56,16 +56,8 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 
 	public GameObject GameObject { get { return gameObject; } }
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	public static void ProcessPacket (NetworkPacket.Update.Camera pPacket) {
 		ShooterCamera cam = ShooterPackageSender.GetNetworkedObject<ShooterCamera>(pPacket.Id);

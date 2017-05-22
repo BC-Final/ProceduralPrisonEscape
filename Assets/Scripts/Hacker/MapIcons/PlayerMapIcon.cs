@@ -7,8 +7,10 @@ public class PlayerMapIcon : AbstractMapIcon {
 		PlayerMapIcon icon = HackerPackageSender.GetNetworkedObject<PlayerMapIcon>(pPacket.Id);
 
 		if (icon == null) {
+			Debug.Log("Create" + pPacket.Id);
 			createInstance(pPacket);
 		} else {
+			Debug.Log("Update");
 			icon.updateInstance(pPacket);
 		}
 	}

@@ -17,6 +17,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	public GameObject LaserShot;
 	public GameObject BulletTracer;
 	public GameObject GrenadeExplosion;
+	public GameObject Lightning;
 
 	[Header("Drones")]
 	public GameObject Drone;
