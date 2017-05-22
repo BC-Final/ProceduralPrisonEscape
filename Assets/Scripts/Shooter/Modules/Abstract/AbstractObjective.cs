@@ -24,16 +24,8 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 
 
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);

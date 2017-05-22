@@ -9,25 +9,8 @@ using UnityEngine.AI;
 
 [SelectionBase]
 public class ShooterDoor : MonoBehaviour, IShooterNetworked {
-	/// <summary>
-	/// Network Identification
-	/// </summary>
-	private int _id;
-
-
-
-	/// <summary>
-	/// Accessor for Network Id
-	/// </summary>
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	//A hack to test keypads when no one is connected
 	private void Start() {
@@ -243,7 +226,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 
 	/// <summary>
-	/// Computes a Door Update Packet to update a corrresponding door
+	/// Computes a Door Update Packet to update a corresponding door
 	/// </summary>
 	/// <param name="pPacket">The received packet</param>
 	public static void ProcessPacket(NetworkPacket.Update.Door pPacket) {

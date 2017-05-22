@@ -4,24 +4,10 @@ using UnityEngine;
 
 public class HackerButton : ShooterButton, IShooterNetworked{
 
-    //IShooterNetworked implementation
-    private int _id;
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
-    public int Id
-    {
-        get
-        {
-            if (_id == 0)
-            {
-                _id = IdManager.RequestId();
-            }
-
-            return _id;
-        }
-    }
-    //IShooterNetworked implementation end
-
-    override public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce)
+	override public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce)
     {
         
     }

@@ -14,15 +14,6 @@ public class ShooterDebugMenu : MonoBehaviour {
 	private Vector2 _scrollPos = new Vector2(0, 0);
 
 	private void Start() {
-		//System.Net.NetworkInformation.NetworkInterface[] interfaces = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces();
-
-		//foreach (System.Net.NetworkInformation.NetworkInterface i in interfaces) {
-		//	for (int c = 0; c < i.GetIPProperties().UnicastAddresses.Count; ++c) {
-		//		Debug.Log(i.GetIPProperties().UnicastAddresses[c].Address.ToString());
-		//	}
-		//}
-
-		Debug.Log(Dns.GetHostName());
 		IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
 		foreach (IPAddress addr in localIPs) {
 			if (addr.AddressFamily == AddressFamily.InterNetwork) {
@@ -59,6 +50,10 @@ public class ShooterDebugMenu : MonoBehaviour {
 
 		if (GUILayout.Button("Toggle Alarm")) {
 			ShooterAlarmManager.Instance.AlarmIsOn = !ShooterAlarmManager.Instance.AlarmIsOn;
+		}
+
+		if (GUILayout.Button("Spawn Reinfoprcements")) {
+			DroneSpawnManager.Instance.SpawnReinforcements(5);
 		}
 
 		if (GUILayout.Button("Reload Scene")) {

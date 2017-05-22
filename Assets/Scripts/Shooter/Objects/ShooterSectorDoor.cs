@@ -5,16 +5,8 @@ using Gamelogic.Extensions;
 
 [SelectionBase]
 public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	private List<AbstractModule> _modules;
 

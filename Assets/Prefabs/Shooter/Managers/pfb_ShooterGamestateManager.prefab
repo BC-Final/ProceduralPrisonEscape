@@ -66,9 +66,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b76b0a6c3f23349bfc5543960220d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialSpawnDelay: 3
-  _minDroneSpawnAmount: 2
-  _maxDroneSpawnAmount: 6
+  _minRandomDroneSpawnAmount: 3
+  _maxRandomDroneSpawnAmount: 6
+  _minReinforcementDroneSpawnAmount: 4
+  _maxReinforcementDroneSpawnAmount: 6
+  _initialAlarmSpawnDelay: 10
+  _alarmWaveSpawnDelay: 30
+  _minAlarmDroneSpawnAmount: 2
+  _maxAlarmDroneSpawnAmount: 4
 --- !u!114 &114816813664024978
 MonoBehaviour:
   m_ObjectHideFlags: 1

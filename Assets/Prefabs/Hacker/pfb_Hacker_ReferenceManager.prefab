@@ -64,7 +64,8 @@ MonoBehaviour:
     type: 2}
   DefenceWallIcon: {fileID: 0}
   DroneIcon: {fileID: 1189598750102910, guid: 9ea54ff3af09b4547bd5318f655ee965, type: 2}
-  FuseBoxIcon: {fileID: 0}
+  FuseBoxIcon: {fileID: 1370983417671600, guid: b91fd03fb51c8174380647f903f42239,
+    type: 2}
   GasPipeIcon: {fileID: 1409412751557284, guid: ae59ec57a9747614aa0da67fa7669501,
     type: 2}
   KeyCardIcon: {fileID: 1023680634724982, guid: d28ae669a429f134a8fafcf75237446a,
