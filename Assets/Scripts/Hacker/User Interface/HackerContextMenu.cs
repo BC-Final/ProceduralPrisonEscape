@@ -15,7 +15,9 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 	[SerializeField]
 	[Tooltip("Height of each context menu option")]
 	private float _contentHeight = 20.0f;
-
+	[SerializeField]
+	[Tooltip("Offset of the menu items from the border")]
+	private float _panning = 5.0f;
 
 
 	/// <summary>
@@ -73,12 +75,6 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 	/// </summary>
 	/// <param name="pActionData">The data for clickable options</param>
 	private void display (AbstractMapIcon.ActionData[] pActionData) {
-		//Find the mouse position on canvas and place context menu at it
-		Vector2 clickPosOnCanvas;
-		Canvas canvas = GetComponentInParent<Canvas>();
-		RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out clickPosOnCanvas);
-		(transform as RectTransform).anchoredPosition = clickPosOnCanvas;
-
 		//Storing the biggest content width
 		float maxContentWidth = 0.0f;
 
@@ -95,7 +91,7 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 			options.Add(option);
 			
 			//Initialize the context menu option
-			option.Initialize(data, counter, _spacing, _contentHeight);
+			option.Initialize(data, counter, _spacing, _contentHeight, _panning);
 
 			//Add listener for when a context menu option is clicked
 			option.GetComponent<Button>().onClick.AddListener(() => hide());
@@ -106,16 +102,29 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 			//Increase loop counter
 			counter++;
 		}
-
+		Debug.Log("Counter: " +counter);
 		//Adjust the width of every context menu option to fit the max content width
 		foreach (HackerContextMenuOption opt in options) {
 			opt.AdjustWidth(maxContentWidth);
 		}
 
 		//Change the size of the context menu to fit the context menu options
-		(transform as RectTransform).sizeDelta = new Vector2(maxContentWidth, _contentHeight * pActionData.Length);
+		(transform as RectTransform).sizeDelta = new Vector2(maxContentWidth + _panning*2, _contentHeight * pActionData.Length + _panning*2);
+
+		//Find the mouse position on canvas and place context menu at it
+		Vector2 clickPosOnCanvas;
+		Canvas canvas = GetComponentInParent<Canvas>();
+		RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, new Vector2(Input.mousePosition.x - _panning, Input.mousePosition.y - _panning), canvas.worldCamera, out clickPosOnCanvas);
+		(transform as RectTransform).anchoredPosition = clickPosOnCanvas;
 
 		//Display the context menu
-		this.gameObject.SetActive(true);
+		if(pActionData.Length > 0)
+		{
+			this.gameObject.SetActive(true);
+		}
+		else
+		{
+			Destroy(this.gameObject);
+		}
 	}
 }

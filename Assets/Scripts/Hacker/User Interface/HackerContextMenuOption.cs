@@ -40,7 +40,7 @@ public class HackerContextMenuOption : MonoBehaviour {
 	/// <param name="pPos"></param>
 	/// <param name="pContentHeight"></param>
 	/// <param name="pHackerPointsCost"></param>
-	public void Initialize (AbstractMapIcon.ActionData pActionData, int pOrderPos, float pSpacing,  float pContentHeight) {
+	public void Initialize (AbstractMapIcon.ActionData pActionData, int pOrderPos, float pSpacing,  float pContentHeight, float pPanning) {
 		_actionData = pActionData;
 		//Determine if I need to display hp cost
 		//TODO Improve the HP cost display
@@ -56,7 +56,7 @@ public class HackerContextMenuOption : MonoBehaviour {
 		//(transform as RectTransform).anchoredPosition3D = new Vector3(pSpacing, -((pPos + 1) * pSpacing + pPos * contentHeight), -5.0f);
 		//(transform as RectTransform).sizeDelta = new Vector2(contentHeight, (transform as RectTransform).sizeDelta.y);
 
-		(transform as RectTransform).anchoredPosition3D = new Vector3(0.0f, -(pOrderPos * pContentHeight), -5.0f);
+		(transform as RectTransform).anchoredPosition3D = new Vector3(pPanning, -(pOrderPos * pContentHeight + pPanning), -5.0f);
 		(transform as RectTransform).sizeDelta = new Vector2(GetPreferedWidth() + 2 * pSpacing, pContentHeight);
 		(GetComponentInChildren<Text>().transform as RectTransform).sizeDelta = new Vector2(GetPreferedWidth(), pContentHeight - 2 * pSpacing);
 
