@@ -90,15 +90,17 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		}
 	}
 
+	Tweener t;
 	/// <summary>
 	/// Gives feedback when an Icon is interactable
 	/// </summary>
 	public void OnMouseEnter() {
-		transform.DOPunchScale(Vector3.one * 0.25f, 0.45f).SetLoops(-1);
+		t = transform.DOPunchScale(Vector3.one * 0.25f, 0.45f).SetAutoKill(false).OnComplete(() => t.Restart());
 	}
 
 	public void OnMouseExit() {
-		transform.DOKill(true);
+		t.OnComplete(null);
+		t.SetAutoKill(true);
 	}
 
 	public void updateInstance(NetworkPacket.Update.Icon pPacket) {
