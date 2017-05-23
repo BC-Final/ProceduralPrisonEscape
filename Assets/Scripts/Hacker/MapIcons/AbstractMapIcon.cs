@@ -22,7 +22,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		}
 	}
 
-	private void OnDestroy () {
+	private void OnDestroy() {
 		HackerPackageSender.UnregisterNetworkedObject(this);
 	}
 
@@ -60,7 +60,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 	[SerializeField]
 	protected ActionData[] actions;
 
-	private void OnMouseDown () {
+	private void OnMouseDown() {
 		if (!CanvasHoverListener.Instance.MouseOverUI) {
 			HackerContextMenu.Display(actions);
 		}
@@ -71,42 +71,37 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		gameObject.GetComponent<BoxCollider>().size = new Vector3(size.x, size.y, 0.2f);
 	}
 
-	protected void changeSprite (Sprite pSprite) {
+	protected void changeSprite(Sprite pSprite) {
 		spriteRenderer.sprite = pSprite;
 
 		fitCollider();
 		//gameObject.GetComponent<BoxCollider2D>().center = new Vector2((S.x / 2), 0);
 	}
 
-	protected void changeColor (Color pColor) {
+	protected void changeColor(Color pColor) {
 		spriteRenderer.color = pColor;
 	}
 
-    public static void ProcessPacket(NetworkPacket.Update.Icon pPacket)
-    {
-        AbstractMapIcon icon = HackerPackageSender.GetNetworkedObject<AbstractMapIcon>(pPacket.Id);
+	public static void ProcessPacket(NetworkPacket.Update.Icon pPacket) {
+		AbstractMapIcon icon = HackerPackageSender.GetNetworkedObject<AbstractMapIcon>(pPacket.Id);
 
-        if (icon != null)
-        {
-            icon.updateInstance(pPacket);
-        }
-    }
+		if (icon != null) {
+			icon.updateInstance(pPacket);
+		}
+	}
 
 	/// <summary>
 	/// Gives feedback when an Icon is interactable
 	/// </summary>
-	public void OnMouseEnter()
-	{
-		transform.DOPunchScale(Vector3.one * 1.25f, 0.2f).SetLoops(1);
+	public void OnMouseEnter() {
+		transform.DOPunchScale(Vector3.one * 0.25f, 0.45f).SetLoops(-1);
 	}
 
-	public void OnMouseExit()
-	{
-		transform.DOKill();
+	public void OnMouseExit() {
+		transform.DOKill(true);
 	}
 
-	public void updateInstance(NetworkPacket.Update.Icon pPacket)
-    {
-        spriteRenderer.enabled = !pPacket.used;
-    }
+	public void updateInstance(NetworkPacket.Update.Icon pPacket) {
+		spriteRenderer.enabled = !pPacket.used;
+	}
 }
