@@ -178,6 +178,12 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void sendStateUpdate() {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
+		if (_open.Value && _hasDuoButton)
+		{
+			Debug.Log("Sending Move request: " + transform.position);
+			ShooterPackageSender.SendPackage(new NetworkPacket.Messages.MoveCameraTowardsLocation(transform.position));
+		}
+
 	}
 
 

@@ -102,7 +102,6 @@ public class HackerContextMenu : MonoBehaviour, IPointerExitHandler {
 			//Increase loop counter
 			counter++;
 		}
-		Debug.Log("Counter: " +counter);
 		//Adjust the width of every context menu option to fit the max content width
 		foreach (HackerContextMenuOption opt in options) {
 			opt.AdjustWidth(maxContentWidth);

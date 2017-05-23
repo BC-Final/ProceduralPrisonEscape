@@ -179,12 +179,15 @@ namespace NetworkPacket {
 			public float colorR;
 			public float colorG;
 			public float colorB;
+			public int buttonNumber;
 
-			public ButtonFeedback(int pID, Color pColor) {
+
+			public ButtonFeedback(int pID, Color pColor, int pButtonNumber = 0) {
 				Id = pID;
 				colorR = pColor.r;
 				colorG = pColor.g;
 				colorB = pColor.b;
+				buttonNumber = pButtonNumber;
 			}
 		}
 
@@ -424,5 +427,17 @@ namespace NetworkPacket {
 
 		[System.Serializable]
 		public class CreationEnd : AbstractPacket { }
+
+		[System.Serializable]
+		public class MoveCameraTowardsLocation : AbstractPacket
+		{
+			public float posX, posY;
+
+			public MoveCameraTowardsLocation(Vector3 pPos)
+			{
+				posX = pPos.x;
+				posY = pPos.z;
+			}
+		}
 	}
 }

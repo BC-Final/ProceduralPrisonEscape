@@ -998,7 +998,7 @@ OcclusionPortal:
   m_GameObject: {fileID: 1647366484193710}
   m_Open: 0
   m_Center: {x: 0, y: 1.5, z: 0}
-  m_Size: {x: 3, y: 3, z: 0.5}
+  m_Size: {x: 3, y: 3, z: 0.45}
 --- !u!54 &54489567894196894
 Rigidbody:
   m_ObjectHideFlags: 1

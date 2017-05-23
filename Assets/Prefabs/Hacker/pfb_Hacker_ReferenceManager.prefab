@@ -92,6 +92,8 @@ MonoBehaviour:
   DoorAddonCodeinput: {fileID: 21300000, guid: 00ac9bd9e44d74b45bdc6d8589805cf6, type: 3}
   Explosion: {fileID: 1937768491457158, guid: bd9890c63194d614a8b3143f7507a460, type: 2}
   LaserShot: {fileID: 1000010462580238, guid: 98633794f50dea242a3718916e0661c2, type: 2}
+  HighlightingCircle: {fileID: 1060467579154996, guid: e1556d75860f4904dbf38de54d3d1f84,
+    type: 2}
   CodeInputWindow: {fileID: 1990251701772648, guid: 51ecda326cb00cc4385c7a7413a74361,
     type: 2}
   ContextMenu: {fileID: 1994252340227388, guid: b4c11d65c218bb8479e4e263171093b6,

@@ -3,7 +3,6 @@ using System.Collections;
 using Gamelogic.Extensions;
 
 public class MinimapManager : Singleton<MinimapManager> {
-    //TODO Move to Reference manager
 
     //MinimapPlayer _player;
 
@@ -108,5 +107,17 @@ public class MinimapManager : Singleton<MinimapManager> {
 		GameObject gameObject = (GameObject)Instantiate(HackerReferenceManager.Instance.LaserShot, startPos / scale, Quaternion.Euler(0, 0, 0));
 		LaserShot shot = gameObject.GetComponent<LaserShot>();
 		shot.SetTargetPos(endPos / scale);
+	}
+
+	public void ProcessPacket(NetworkPacket.Messages.MoveCameraTowardsLocation pPacket)
+	{
+		Vector3 targetPos = (new Vector3(pPacket.posX, pPacket.posY, 0) / scale);
+		Debug.Log("packet pos	: " + "x" + pPacket.posX + "/Y" + pPacket.posY);
+		Debug.Log("target pos	: " + targetPos);
+		Debug.Log("scale		: " + scale);
+		_camera.SetTargetPos(targetPos);
+		targetPos.z = -7f;
+		MapSelectionHighlight circle = Instantiate(HackerReferenceManager.Instance.HighlightingCircle, targetPos, Quaternion.Euler(0, 0, 0)).GetComponent<MapSelectionHighlight>();
+		circle.IndicateSelection(targetPos);
 	}
 }

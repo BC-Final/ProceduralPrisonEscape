@@ -105,7 +105,7 @@ public class ShooterPackageReader : MonoBehaviour {
 	}
 
 	private void readPacket(NetworkPacket.Update.ButtonPush pPacket) {
-		HackerButton.ProccessPacket(pPacket);
+		ButtonTerminal.ProccessPacket(pPacket);
 	}
 
 	private void readPacket(NetworkPacket.Update.SecurityStation pPacket) {

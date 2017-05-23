@@ -100,6 +100,7 @@ public class HackerPackageReader : MonoBehaviour {
 		//Other
 		if (pPacket is NetworkPacket.Messages.CreationEnd) { readPacket(pPacket as NetworkPacket.Messages.CreationEnd); }
 		if (pPacket is NetworkPacket.Messages.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Messages.DisconnectRequest); }
+		if (pPacket is NetworkPacket.Messages.MoveCameraTowardsLocation) { readPacket(pPacket as NetworkPacket.Messages.MoveCameraTowardsLocation); }
 	}
 
 	/// <summary>
@@ -252,6 +253,10 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private void readPacket(NetworkPacket.States.AlarmState pPacket) {
 		HackerAlarmManager.Instance.ProcessPacket(pPacket);
+	}
+	private void readPacket(NetworkPacket.Messages.MoveCameraTowardsLocation pPacket)
+	{
+		MinimapManager.Instance.ProcessPacket(pPacket);
 	}
 
 

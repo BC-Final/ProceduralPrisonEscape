@@ -60,7 +60,6 @@ public class DoorMapIcon : AbstractMapIcon {
 
     public static void AddAddon(NetworkPacket.Create.DuoButtonAddon pPacket)
     {
-        Debug.Log("DuoButton!!!!");
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDuobutton;
         Array.Clear(icon.actions, 0, icon.actions.Length);
