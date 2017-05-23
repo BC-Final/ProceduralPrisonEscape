@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider))]
@@ -91,7 +92,20 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
         }
     }
 
-    public void updateInstance(NetworkPacket.Update.Icon pPacket)
+	/// <summary>
+	/// Gives feedback when an Icon is interactable
+	/// </summary>
+	public void OnMouseEnter()
+	{
+		transform.DOPunchScale(Vector3.one * 1.25f, 0.2f).SetLoops(1);
+	}
+
+	public void OnMouseExit()
+	{
+		transform.DOKill();
+	}
+
+	public void updateInstance(NetworkPacket.Update.Icon pPacket)
     {
         spriteRenderer.enabled = !pPacket.used;
     }
