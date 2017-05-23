@@ -94,7 +94,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 	/// Gives feedback when an Icon is interactable
 	/// </summary>
 	public void OnMouseEnter() {
-		transform.DOPunchScale(Vector3.one * 0.25f, 0.45f).SetLoops(-1);
+		transform.DOScale(Vector3.one * 1.25f, 2f).SetLoops(-1, LoopType.Restart);
 	}
 
 	public void OnMouseExit() {
