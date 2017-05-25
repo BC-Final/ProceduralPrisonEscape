@@ -155,12 +155,16 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 		}
 	}
 
-
 #if UNITY_EDITOR
 	private void OnDrawGizmos () {
 		if (_visualizeView) {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
+
+			//UnityEditor.Handles.DrawWireArc(transform.position, -Vector3.up, transform.TransformDirection(Quaternion.Euler(0.0f, _parameters.RotationAngle / 2.0f, 0.0f) * (Vector3.forward * 1.0f).normalized), _parameters.RotationAngle, 1.0f);
+			UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0.0f, (_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)).normalized, _parameters.RotationAngle + _parameters.ViewAngle, _parameters.ViewRange);
+			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, (_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
+			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, -((_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f)), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
 
 			if (_parameters.ViewAngle < 360.0f) {
 				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));
