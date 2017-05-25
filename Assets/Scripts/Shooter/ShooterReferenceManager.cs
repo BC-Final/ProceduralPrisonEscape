@@ -32,4 +32,5 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 
 	[Header("User Interface")]
 	public GameObject DamageIndicator;
+	public GameObject KeycardHudIcon;
 }

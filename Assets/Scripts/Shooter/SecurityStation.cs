@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Gamelogic.Extensions;
 
 [SelectionBase]
 public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
@@ -18,7 +19,12 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 	private bool _sCanPress = true, _hCanPress = true;
 
 	private Light _light;
+	[SerializeField]
+	private Transform _capsule;
+	private Material _material;
 
+	public enum StationState { Passive, Triggerd, HalfDeactivated, Deactivated };
+	private ObservedValue<StationState> _stationState = new ObservedValue<StationState>(StationState.Passive); 
 
 
 	private ShooterNetworkId _id = new ShooterNetworkId();
@@ -39,9 +45,10 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 	private void Start() {
 		_light = GetComponentInChildren<Light>(true);
 		ShooterAlarmManager.Instance.OnAlarmChange += onAlarmChange;
+		_stationState.OnValueChange += OnStateChange;
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.SecurityStation pPacket) {
+	public static void ProcessPacket(NetworkPacket.Update.SecurityStationHackerInteract pPacket) {
 		SecurityStation station = ShooterPackageSender.GetNetworkedObject<SecurityStation>(pPacket.Id);
 
 		if (station != null) {
@@ -53,32 +60,30 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 		if (_hCanPress) {
 			if (_sPressed) {
 				ShooterAlarmManager.Instance.AlarmIsOn = false;
+				_stationState.Value = StationState.Deactivated;
+				TimerManager.CreateTimer("Security return to passive", true).SetDuration(3f).AddCallback(() => _stationState.Value = StationState.Passive).Start();
 			} else {
-				_hPressed = true;
-				_hCanPress = false;
-				TimerManager.CreateTimer("Security Station Threshold H", true).SetDuration(_interactThreshold).AddCallback(() => _hPressed = false).Start();
-				TimerManager.CreateTimer("Security Station Cooldown H", true).SetDuration(_interactCooldown).AddCallback(() => _hCanPress = true).Start();
+				//_hPressed = true;
+				//_hCanPress = false;
+				//TimerManager.CreateTimer("Security Station Cooldown H", true).SetDuration(_interactCooldown).AddCallback(() => _hCanPress = true).Start();
 			}
 		}
 	}
 
 	public void Interact() {
 		if (_sCanPress) {
-			if (_hPressed) {
-				ShooterAlarmManager.Instance.AlarmIsOn = false;
-			} else {
 				_sPressed = true;
 				_sCanPress = false;
-				TimerManager.CreateTimer("Security Station Threshold S", true).SetDuration(_interactThreshold).AddCallback(() => _sPressed = false).Start();
-				TimerManager.CreateTimer("Security Station Cooldown S", true).SetDuration(_interactCooldown).AddCallback(() => _sCanPress = true).Start();
-			}
+				_stationState.Value = StationState.HalfDeactivated;
+			//TimerManager.CreateTimer("Security Station Threshold S", true).SetDuration(_interactThreshold).AddCallback(() => _sPressed = false).Start();
+			//TimerManager.CreateTimer("Security Station Cooldown S", true).SetDuration(_interactCooldown).AddCallback(() => _sCanPress = true).Start();
 		}
 	}
 
 	private void onAlarmChange() {
 		if (ShooterAlarmManager.Instance.AlarmIsOn) {
 			_light.enabled = true;
-
+			_stationState.Value = StationState.Triggerd;
 			DOTween.Sequence()
 			.Append(_light.DOIntensity(_light.intensity + _addedIntesity, 0.3f))
 			.Append(_light.DOIntensity(_light.intensity, 0.3f))
@@ -88,5 +93,33 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 			_light.DOKill();
 			_light.enabled = false;
 		}
+	}
+
+	private void OnStateChange()
+	{
+		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SecurityStation(Id, (int)_stationState.Value));
+		switch (_stationState.Value)
+		{
+			case SecurityStation.StationState.Passive: ChangeColor(Color.white); break;
+			case SecurityStation.StationState.Triggerd: ChangeColor(Color.red); break;
+			case SecurityStation.StationState.HalfDeactivated: ChangeColor(Color.yellow); break;
+			case SecurityStation.StationState.Deactivated: ChangeColor(Color.green); break;
+		}
+
+	}
+
+	private void ChangeColor(Color color)
+	{
+		if (!_material)
+		{
+			_material = _capsule.GetComponent<Renderer>().material;
+		}
+		_material.color = color;
+		ChangeLightColor(color);
+	}
+
+	private void ChangeLightColor(Color color)
+	{
+		_light.color = color;
 	}
 }
