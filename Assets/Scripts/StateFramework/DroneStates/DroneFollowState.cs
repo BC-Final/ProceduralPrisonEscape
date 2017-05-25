@@ -4,6 +4,8 @@ using System.Collections;
 namespace StateFramework {
 	public class DroneFollowState : AbstractDroneState {
 		private float _seeTimer;
+		private float _looseTimer;
+		private float _nextPathTick;
 
 		public DroneFollowState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
@@ -12,6 +14,8 @@ namespace StateFramework {
 			_drone.Agent.SetDestination(_drone.LastTarget.transform.position);
 			_drone.SeesTarget = true;
 			_seeTimer = 0.0f;
+			_looseTimer = 0.0f;
+			_nextPathTick = 0.0f;
 		}
 
 		public override void Step() {
@@ -23,12 +27,22 @@ namespace StateFramework {
 				if (_seeTimer > _drone.Parameters.AlertReactionTime) {
 					_fsm.SetState<DroneEngangeState>();
 				}
+			} else if (_drone.LastTarget != null) {
+				_looseTimer += Time.deltaTime;
+
+				if (_nextPathTick - Time.time <= 0.0f) {
+					_nextPathTick = Time.time + 1.0f / _drone.Parameters.PathTickRate;
+					_drone.Agent.SetDestination(_drone.LastTarget.transform.position);
+				}
+
+				if (_looseTimer > _drone.Parameters.FollowTime) {
+					_drone.LastTarget = null;
+				}
 			} else {
 				_seeTimer = 0.0f;
 			}
 
-			//TODO Make the following a bit smarter
-			if (_drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance) {
+			if (_drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance && _drone.LastTarget == null) {
 				_fsm.SetState<DroneSearchState>();
 			}
 		}

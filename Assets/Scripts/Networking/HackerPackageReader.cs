@@ -64,11 +64,15 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
 		if (pPacket is NetworkPacket.Create.DecodeAddon) { readPacket(pPacket as NetworkPacket.Create.DecodeAddon); }
 		if (pPacket is NetworkPacket.Create.CodeLockAddon) { readPacket(pPacket as NetworkPacket.Create.CodeLockAddon); }
-		if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
+        if (pPacket is NetworkPacket.Create.DuoButtonAddon) { readPacket(pPacket as NetworkPacket.Create.DuoButtonAddon); }
+        if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
 		if (pPacket is NetworkPacket.Create.PushButton) { readPacket(pPacket as NetworkPacket.Create.PushButton); }
+
+
+		if (pPacket is NetworkPacket.Create.SecurityStation) { readPacket(pPacket as NetworkPacket.Create.SecurityStation); }
 
 		//Update
 		if (pPacket is NetworkPacket.Update.ButtonFeedback) { readPacket(pPacket as NetworkPacket.Update.ButtonFeedback); }
@@ -86,6 +90,8 @@ public class HackerPackageReader : MonoBehaviour {
 
 		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
 		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
+
+		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
 
 		//State
 		if (pPacket is NetworkPacket.States.AlarmState) { readPacket(pPacket as NetworkPacket.States.AlarmState); }
@@ -110,6 +116,13 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
 		SectorDoorMapIcon.ProcessPacket(pPacket);
 	}
+
+	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
+		GrenadeMapIcon.ProcessPacket(pPacket);
+	}
+
+
+
 
 	private void readPacket(NetworkPacket.Update.ButtonFeedback pPacket) {
 		PushButtonMapIcon.ProcessPacket(pPacket);
@@ -143,6 +156,9 @@ public class HackerPackageReader : MonoBehaviour {
 		ObjectiveMapIcon.ProcessPacket(pPacket);
 	}
 
+	private void readPacket(NetworkPacket.Create.SecurityStation pPacket) {
+		SecuritystationMapIcon.ProcessPacket(pPacket);
+	}
 
 
 
@@ -164,7 +180,20 @@ public class HackerPackageReader : MonoBehaviour {
 			AddLatePackage(pPacket);
 		}
 	}
-	private void readPacket(NetworkPacket.Create.PhaserAmmoIcon pPacket) {
+    private void readPacket(NetworkPacket.Create.DuoButtonAddon pPacket)
+    {
+        Debug.Log("Packet Received");
+        if (loadingFinished)
+        {
+
+            DoorMapIcon.AddAddon(pPacket);
+        }
+        else
+        {
+            AddLatePackage(pPacket);
+        }
+    }
+    private void readPacket(NetworkPacket.Create.PhaserAmmoIcon pPacket) {
 		PickUpMapIcon.ProcessPacket(pPacket);
 	}
 	private void readPacket(NetworkPacket.Create.MachineGunAmmoIcon pPacket) {

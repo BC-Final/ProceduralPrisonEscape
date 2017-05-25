@@ -30,7 +30,7 @@ namespace StateFramework {
 				_alarmTimer += Time.deltaTime;
 
 				if (_alarmTimer >= _camera.Parameters.TriggerDelay) {
-					//TODO Trigger alarm right here
+					ShooterAlarmManager.Instance.AlarmIsOn = true;
 				}
 			} else {
 				_fsm.SetState<CameraGuardState>();

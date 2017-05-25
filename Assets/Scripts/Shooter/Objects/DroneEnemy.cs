@@ -37,10 +37,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	[SerializeField]
 	private SphereCollider _viewTrigger;
 
-	[SerializeField]
-	private GameObject _explodingDrone;
-	public GameObject ExplodingDrone { get { return _explodingDrone; } }
-
 
 
 	[Header("Debug")]
@@ -51,11 +47,18 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	private bool _visualizeHits;
 
 
+	private bool _alarmResponder;
+	public bool AlarmResponder {
+		get { return _alarmResponder; }
+		set { _alarmResponder = value; }
+	}
+
+
 
 	private float _currentHealth;
 
 	private bool _seesTarget;
-	public bool SeesTarget { set { _seesTarget = value; } }
+	public bool SeesTarget { get { return _seesTarget; } set { _seesTarget = value; } }
 
 	private StateFramework.StateMachine<AbstractDroneState> _fsm;
 
@@ -78,11 +81,11 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 	private System.Action<GameObject> _destroyEvent;
 
-	public void AddToDestroyEvent (System.Action<GameObject> pObject) {
+	public void AddToDestroyEvent(System.Action<GameObject> pObject) {
 		_destroyEvent += pObject;
 	}
 
-	public void RemoveFromDestroyEvent (System.Action<GameObject> pObject) {
+	public void RemoveFromDestroyEvent(System.Action<GameObject> pObject) {
 		_destroyEvent -= pObject;
 	}
 
@@ -113,24 +116,38 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	}
 
 
-	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
+	public static void ProcessPacket(NetworkPacket.Update.Drone pPacket) {
 		//TODO Implement
 	}
 
 
-	public void Initialize () {
+	public void SetFollowPlayer() {
+		_lastTarget = FindObjectOfType<PlayerHealth>().GameObject;
+
+		if (_fsm.GetState() is DroneAlarmSearchState) {
+			_fsm.SetState<DroneAlarmFollowState>();
+		}
+	}
+
+	public void SetSearchPlayer() {
+		_fsm.SetState<DroneAlarmSearchState>();
+	}
+
+
+
+	public void Initialize() {
 		_networkUpdateTimer = TimerManager.CreateTimer("Drone Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 	}
 
 
 
-	private void Awake () {
+	private void Awake() {
 		ShooterPackageSender.RegisterNetworkObject(this);
 	}
 
 
 
-	private void OnDestroy () {
+	private void OnDestroy() {
 		if (_networkUpdateTimer != null) {
 			_networkUpdateTimer.Stop();
 			sendUpdate();
@@ -141,7 +158,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	private void Start () {
+	private void Start() {
 		_fsm = new StateMachine<AbstractDroneState>();
 
 		_fsm.AddState(new DroneGuardState(this, _fsm));
@@ -154,20 +171,25 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		_fsm.AddState(new DroneAttackState(this, _fsm));
 		_fsm.AddState(new DroneStunnedState(this, _fsm));
 
+		_fsm.AddState(new DroneAlarmFollowState(this, _fsm));
+		_fsm.AddState(new DroneAlarmSearchState(this, _fsm));
+		_fsm.AddState(new DroneAlarmReturnState(this, _fsm));
+
 		_agent = GetComponent<NavMeshAgent>();
 
 		_currentHealth = _parameters.MaximumHealth;
 
 		_viewTrigger.radius = _parameters.ViewRange;
 
-		//_hoverSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_drone/PE_drone_engine");
-		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_hoverSound, transform, GetComponent<Rigidbody>());
-		//_hoverSound.start();
-
-		if (_route != null) {
-			_fsm.SetState<DronePatrolState>();
+		if (!_alarmResponder) {
+			if (_route != null) {
+				_fsm.SetState<DronePatrolState>();
+			} else {
+				_fsm.SetState<DroneGuardState>();
+			}
 		} else {
-			_fsm.SetState<DroneGuardState>();
+			_lastTarget = FindObjectOfType<PlayerHealth>().GameObject;
+			_fsm.SetState<DroneAlarmFollowState>();
 		}
 
 		//if (_chase) {
@@ -179,16 +201,15 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	private void sendUpdate () {
+	private void sendUpdate() {
 		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is DroneStunnedState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
-
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
 	}
 
 	[SerializeField]
 	private string CurrentState;
 
-	private void Update () {
+	private void Update() {
 		CurrentState = _fsm.GetState().GetType().Name;
 
 		//		if (_agent.velocity.magnitude > 0.3f) {
@@ -204,7 +225,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	private void OnTriggerEnter (Collider other) {
+	private void OnTriggerEnter(Collider other) {
 		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
@@ -215,7 +236,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	private void OnTriggerExit (Collider other) {
+	private void OnTriggerExit(Collider other) {
 		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
@@ -224,7 +245,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		}
 	}
 
-	private void onTargetDestroyed (GameObject pObject) {
+	private void onTargetDestroyed(GameObject pObject) {
 		if (pObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
 			_possibleTargets.RemoveAll(x => x.GameObject == pObject);
 		}
@@ -232,17 +253,15 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 
-	public void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
-        if (_currentHealth > 0.0f) {
+	public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+		if (_currentHealth > 0.0f) {
 			_currentHealth -= pDamage;
 
 			//_lastTarget = pSender.GameObject;
 
 			if (_currentHealth <= 0.0f) {
 				//_hoverSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-				if (_destroyEvent != null) {
-					_destroyEvent.Invoke(gameObject);
-				}
+				DestroyEvent();
 
 				_fsm.SetState<DroneDeadState>();
 			}
@@ -253,6 +272,12 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 			//#if UNITY_EDITOR
 			//			_hitInfo.Add(new HitInfo(transform.InverseTransformPoint(pPoint), transform.InverseTransformDirection(pDirection)));
 			//#endif
+		}
+	}
+
+	public void DestroyEvent() {
+		if (_destroyEvent != null) {
+			_destroyEvent.Invoke(gameObject);
 		}
 	}
 

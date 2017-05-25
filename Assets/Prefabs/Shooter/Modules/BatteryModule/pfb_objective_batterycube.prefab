@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 54447702036589522}
   - component: {fileID: 114398647946963128}
   - component: {fileID: 208329192328722116}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: pfb_objective_batterycube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33945733543979038}
   - component: {fileID: 65314864412571666}
   - component: {fileID: 23563924130921906}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: mdl_objective_batterycube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1484898736840698}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 20
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1

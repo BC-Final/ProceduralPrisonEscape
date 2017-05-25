@@ -23,6 +23,7 @@ public abstract class Weapon : MonoBehaviour {
 
 	[SerializeField]
 	private float _spreadConeLength;
+	public float SpreadConeLength { get { return _spreadConeLength; } }
 
 	[SerializeField]
 	private float _aimedSpreadConeRadius;
@@ -140,8 +141,10 @@ public abstract class Weapon : MonoBehaviour {
 
 	//Set base ammo for debug purposes
 	protected virtual void Awake () {
-		_magazineContent = _magazineCapacity;
-		_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
+		//_magazineContent = _magazineCapacity;
+		//_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
+		_magazineContent = 0;
+		_reserveAmmo = 0;
 	}
 
 
@@ -285,7 +288,7 @@ public abstract class Weapon : MonoBehaviour {
 	}
 
 
-	private float CalcFinalSpreadConeRadius () {
+	public float CalcFinalSpreadConeRadius () {
 		return (_holder.IsAiming ? _aimedSpreadConeRadius : _spreadConeRadius) + _velocitySpreadRadiusCurve.Evaluate(_controller.velocity.magnitude);
 	}
 
@@ -296,12 +299,6 @@ public abstract class Weapon : MonoBehaviour {
 	protected abstract void spawnBullet(Vector3 pHitPoint);
 	protected abstract void spawnDecal(Vector3 pHitPoint, Vector3 pHitNormal, Transform pHitTransform);
 
-
-	private void OnGUI() {
-		if (_currentState != WeaponState.Hidden) {
-			FindObjectOfType<CrosshairControllerShooterUI>().SetDistance(CalcFinalSpreadConeRadius(), _spreadConeLength);
-		}
-	}
 
 #if UNITY_EDITOR
 	private void OnDrawGizmos() {

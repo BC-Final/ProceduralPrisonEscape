@@ -72,7 +72,7 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void SetVisible (bool pVisible) {
-		if (_active) {
+		if (_active && _networkUpdateTimer != null) {
 			if (pVisible) {
 				_networkUpdateTimer.Start();
 			} else {

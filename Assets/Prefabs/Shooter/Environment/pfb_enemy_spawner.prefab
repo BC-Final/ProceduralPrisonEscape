@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33911367994620720}
   - component: {fileID: 65245962235797062}
   - component: {fileID: 23716616447998682}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 33798393796486704}
   - component: {fileID: 65076093459376782}
   - component: {fileID: 23470353766162512}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4491051415117672}
   - component: {fileID: 114261299702618244}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: pfb_enemy_spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 33242547323469478}
   - component: {fileID: 65235289058191150}
   - component: {fileID: 23867456306116226}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 33440056822420542}
   - component: {fileID: 65912070074627568}
   - component: {fileID: 23805666397040530}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4222196303714776}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: mdl_enemy_spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 33005006654012758}
   - component: {fileID: 65353226650534302}
   - component: {fileID: 23128049802769310}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -170,7 +170,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1364825874442948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.97, y: 0, z: 23.41}
+  m_LocalPosition: {x: -2.21, y: 0, z: 22.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4222196303714776}
@@ -495,4 +495,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b48a41269441849949563070d58a4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnDelay: 4
+  _spawnDelay: 3

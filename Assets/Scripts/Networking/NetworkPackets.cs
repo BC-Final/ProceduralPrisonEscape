@@ -8,6 +8,14 @@ namespace NetworkPacket {
 
 	namespace Create {
 		[System.Serializable]
+		public class SecurityStation : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+
+			public SecurityStation(int pId, float pPosX, float pPosY) { Id = pId; PosX = pPosX; PosY = pPosY; }
+		}
+
+		[System.Serializable]
 		public class PhaserAmmoIcon : AbstractPacket {
 			public int Id;
 			public float posX;
@@ -106,7 +114,18 @@ namespace NetworkPacket {
 			}
 		}
 
-		[System.Serializable]
+        [System.Serializable]
+        public class DuoButtonAddon : AbstractPacket
+        {
+            public int DoorId;
+
+            public DuoButtonAddon(int pDoorId)
+            {
+                DoorId = pDoorId;
+            }
+        }
+
+        [System.Serializable]
 		public class CodeLockAddon : AbstractPacket {
 			public int Id;
 			public int DoorId;
@@ -204,6 +223,16 @@ namespace NetworkPacket {
 
 			public Player(int pId, float pPosX, float pPosY, float pRot, float pHealth) {
 				Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Health = pHealth;
+			}
+		}
+
+		[System.Serializable]
+		public class Grenade : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+
+			public Grenade(int pId, float pPosX, float pPosY) {
+				Id = pId; PosX = pPosX; PosY = pPosY;
 			}
 		}
 
@@ -348,6 +377,13 @@ namespace NetworkPacket {
 				IsOn = pIsOn;
 			}
 		}
+
+		[System.Serializable]
+		public class SecurityStation : AbstractPacket {
+			public int Id;
+
+			public SecurityStation(int pId) { Id = pId; }
+		}
 	}
 
 	namespace States {
@@ -362,9 +398,6 @@ namespace NetworkPacket {
 	}
 
 	namespace Messages {
-		[System.Serializable]
-		public class SecurityStationPressed : AbstractPacket { }
-
 		[System.Serializable]
 		public class DisconnectRequest : AbstractPacket { }
 
