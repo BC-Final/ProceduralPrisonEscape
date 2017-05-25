@@ -12,7 +12,7 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
 
     virtual public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce)
     {
-        if(_canBeTriggered)
+        if(CanBeTriggered)
         {
             TriggerTimer();
         }
@@ -28,7 +28,8 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
     protected float _timer;
 
     public ObservedValue<bool> Triggered = new ObservedValue<bool>(false);
-    protected bool _canBeTriggered;
+    public bool CanBeTriggered;
+	public ButtonTerminal Terminal;
 
     [Header("Colors")]
     [SerializeField]
@@ -39,12 +40,12 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
     protected Color activeColor;
     [SerializeField]
     protected Color solvedColor;
-    protected Color _currentColor;
+    public Color CurrentColor;
 
 
     virtual public void Interact()
     {
-        if (_canBeTriggered)
+        if (CanBeTriggered)
         {
             TriggerTimer();
         }
@@ -67,7 +68,7 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
         }
         if (_timer == 0)
         {
-            _canBeTriggered = true;
+            CanBeTriggered = true;
             SetColor(notActiveColor);
         }
 
@@ -75,24 +76,25 @@ public class ShooterButton : MonoBehaviour, IInteractable, IDamageable{
 
     virtual public void SetColor(Color color)
     {
-        if(color != _currentColor)
+        if(color != CurrentColor)
         {
-            _currentColor = color;
-            GetComponent<Renderer>().material.color = _currentColor;
+            CurrentColor = color;
+            GetComponent<Renderer>().material.color = CurrentColor;
+			Terminal.OnShooterButtonColorChanged();
         }
 
     }
 
     public void OnSolved()
     {
-        _canBeTriggered = false;
+        CanBeTriggered = false;
         SetColor(solvedColor);
         this.enabled = false;
     }
 
-    protected void TriggerTimer()
+    public void TriggerTimer()
     {
-        _canBeTriggered = false;
+        CanBeTriggered = false;
         _timer = _triggeredDuration + _delayBetweenTriggering;
         SetColor(activeColor);
         Triggered.Value = true;

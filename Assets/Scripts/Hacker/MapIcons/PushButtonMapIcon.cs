@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class PushButtonMapIcon : AbstractMapIcon
 {
-    public static void ProcessPacket(NetworkPacket.Create.PushButton pPacket)
+	[SerializeField]
+	SpriteRenderer _hackerButton;
+	[SerializeField]
+	SpriteRenderer _shooterButton;
+
+	public static void ProcessPacket(NetworkPacket.Create.PushButton pPacket)
     {
         createInstance(pPacket);
     }
 
     public static void ProcessPacket(NetworkPacket.Update.ButtonFeedback pPacket)
     {
-        PushButtonMapIcon icon = HackerPackageSender.GetNetworkedObject<PushButtonMapIcon>(pPacket.Id);
-        icon.changeColor(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
+		PushButtonMapIcon icon = HackerPackageSender.GetNetworkedObject<PushButtonMapIcon>(pPacket.Id);
+		SpriteRenderer button = null;
+		if(pPacket.buttonNumber == 0)
+		{
+			button = icon._hackerButton;
+		}
+		else
+		{
+			button = icon._shooterButton;
+		}
+        button.color = (new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
     }
 
     private static void createInstance(NetworkPacket.Create.PushButton pPacket)

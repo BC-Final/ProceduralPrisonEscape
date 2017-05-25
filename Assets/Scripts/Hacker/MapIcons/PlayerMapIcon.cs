@@ -55,7 +55,7 @@ public class PlayerMapIcon : AbstractMapIcon {
 	private float _lastUpdateTime = 0.0f;
 
 	private float _currentLerpTime = 0.0f;
-	private float _lerpTime = 0.5f;
+	private float _lerpTime = 0.1f;
 
 
 	private void Update () {
@@ -65,7 +65,7 @@ public class PlayerMapIcon : AbstractMapIcon {
 		}
 
 		if (_lerpTime == 0.0f) {
-			_lerpTime = 0.5f;
+			_lerpTime = 0.1f;
 		}
 
 		float perc = _currentLerpTime / _lerpTime;

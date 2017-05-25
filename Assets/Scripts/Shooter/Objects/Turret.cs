@@ -73,16 +73,8 @@ public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 		set { _lastTarget = value; }
 	}
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	public static void ProcessPacket (NetworkPacket.Update.Turret pPacket) {
 		Turret tur = ShooterPackageSender.GetNetworkedObject<Turret>(pPacket.Id);

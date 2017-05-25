@@ -9,30 +9,13 @@ using UnityEngine.AI;
 
 [SelectionBase]
 public class ShooterDoor : MonoBehaviour, IShooterNetworked {
-	/// <summary>
-	/// Network Identification
-	/// </summary>
-	private int _id;
-
-
-
-	/// <summary>
-	/// Accessor for Network Id
-	/// </summary>
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
-
-			return _id;
-		}
-	}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
 	//A hack to test keypads when no one is connected
 	private void Start() {
 		_portal = GetComponent<OcclusionPortal>();
-		_open.OnValueChange += OnDoorStateChange;
+		//_open.OnValueChange += OnDoorStateChange;
 		if (_keypad) {
 			_keypad.Doors.Add(this);
 		}
@@ -117,14 +100,13 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 		sendStateUpdate();
 	}
 
-	private void OnDoorStateChange() {
-		if (_open.Value) {
-			_portal.open = _open.Value;
-		} else {
-			TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => _portal.open = _open.Value).Start();
-		}
-
-	}
+	//private void OnDoorStateChange() {
+	//	if (_open.Value) {
+	//		_portal.open = _open.Value;
+	//	} else {
+	//		TimerManager.CreateTimer("Portal Change", true).SetDuration(1.0f).AddCallback(() => _portal.open = _open.Value).Start();
+	//	}
+	//}
 
 	public void SetRequireKeyCard(Color keyColor) {
 		if (_keyLocked) {
@@ -163,22 +145,28 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void stateChanged() {
 		//TODO Also change nav mesh obstacle
+		transform.DOKill();
 
 		if (_open.Value) {
 			//--------temp--------
-			_rightDoor.DOLocalMove(new Vector3(1.25f, 1.25f, 0.0f), 1.0f);
-			_leftDoor.DOLocalMove(new Vector3(-1.25f, 1.25f, 0.0f), 1.0f);
+			_portal.open = true;
 
-			_rightDoor.DOScale(new Vector3(0.1f, 2.5f, 0.5f), 1.0f);
-			_leftDoor.DOScale(new Vector3(0.1f, 2.5f, 0.5f), 1.0f);
+			DOTween.Sequence()
+			.Append(_rightDoor.DOLocalMove(new Vector3(1.25f, 1.25f, 0.0f), 1.0f))
+			.Join(_leftDoor.DOLocalMove(new Vector3(-1.25f, 1.25f, 0.0f), 1.0f))
+			.Join(_rightDoor.DOScale(new Vector3(0.1f, 2.5f, 0.5f), 1.0f))
+			.Join(_leftDoor.DOScale(new Vector3(0.1f, 2.5f, 0.5f), 1.0f))
+			.SetTarget(this.transform);
 			//--------temp end--------
 		} else {
 			//--------temp--------
-			_rightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f);
-			_leftDoor.DOLocalMove(new Vector3(-0.625f, 1.25f, 0.0f), 1.0f);
-
-			_rightDoor.DOScale(new Vector3(1.25f, 2.5f, 0.5f), 1.0f);
-			_leftDoor.DOScale(new Vector3(1.25f, 2.5f, 0.5f), 1.0f);
+			DOTween.Sequence()
+			.Append(_rightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f))
+			.Join(_leftDoor.DOLocalMove(new Vector3(-0.625f, 1.25f, 0.0f), 1.0f))
+			.Join(_rightDoor.DOScale(new Vector3(1.25f, 2.5f, 0.5f), 1.0f))
+			.Join(_leftDoor.DOScale(new Vector3(1.25f, 2.5f, 0.5f), 1.0f))
+			.AppendCallback(() => _portal.open = false)
+			.SetTarget(this.transform);
 			//--------temp end--------
 		}
 	}
@@ -190,6 +178,12 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	private void sendStateUpdate() {
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
+		if (_open.Value && _hasDuoButton)
+		{
+			Debug.Log("Sending Move request: " + transform.position);
+			ShooterPackageSender.SendPackage(new NetworkPacket.Messages.MoveCameraTowardsLocation(transform.position));
+		}
+
 	}
 
 
@@ -238,7 +232,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 
 	/// <summary>
-	/// Computes a Door Update Packet to update a corrresponding door
+	/// Computes a Door Update Packet to update a corresponding door
 	/// </summary>
 	/// <param name="pPacket">The received packet</param>
 	public static void ProcessPacket(NetworkPacket.Update.Door pPacket) {

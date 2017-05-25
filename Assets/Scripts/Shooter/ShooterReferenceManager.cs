@@ -17,6 +17,7 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 	public GameObject LaserShot;
 	public GameObject BulletTracer;
 	public GameObject GrenadeExplosion;
+	public GameObject Lightning;
 
 	[Header("Drones")]
 	public GameObject Drone;
@@ -31,4 +32,5 @@ public class ShooterReferenceManager : Singleton<ShooterReferenceManager> {
 
 	[Header("User Interface")]
 	public GameObject DamageIndicator;
+	public GameObject KeycardHudIcon;
 }

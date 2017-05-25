@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 4857312837793268}
   - component: {fileID: 114650866784862974}
   - component: {fileID: 54223649442800396}
+  - component: {fileID: 41123004206305878}
   m_Layer: 0
   m_Name: pfb_environment_door_dan_slim
   m_TagString: Untagged
@@ -369,9 +370,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1908399095671602}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 11.17, y: 0, z: 20.14}
-  m_LocalScale: {x: 1.4225005, y: 1.47705, z: 0.96000046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.74, y: 0, z: 22.3}
+  m_LocalScale: {x: 1.4225, y: 1.47705, z: 0.48}
   m_Children:
   - {fileID: 4517275443705786}
   - {fileID: 4475021034108098}
@@ -379,7 +380,7 @@ Transform:
   - {fileID: 4732269647405650}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23035027276305072
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -575,6 +576,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1803970773227148}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!41 &41123004206305878
+OcclusionPortal:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1908399095671602}
+  m_Open: 0
+  m_Center: {x: -0.024331927, y: 1.281828, z: 0}
+  m_Size: {x: 2.8816116, y: 2.75, z: 1}
 --- !u!54 &54223649442800396
 Rigidbody:
   m_ObjectHideFlags: 1

@@ -8,6 +8,17 @@ namespace NetworkPacket {
 
 	namespace Create {
 		[System.Serializable]
+		public class Fusebox : AbstractPacket {
+			public int Id;
+			public float PosX, PosY;
+			public bool Charged, Used;
+
+			public Fusebox(int pId, float pPosX, float pPosY, bool pUsed, bool pPrimed) {
+				Id = pId; PosX = pPosX; PosY = pPosY; Used = pUsed; Charged = pPrimed;
+			}
+		}
+
+		[System.Serializable]
 		public class SecurityStation : AbstractPacket {
 			public int Id;
 			public float PosX, PosY;
@@ -168,12 +179,15 @@ namespace NetworkPacket {
 			public float colorR;
 			public float colorG;
 			public float colorB;
+			public int buttonNumber;
 
-			public ButtonFeedback(int pID, Color pColor) {
+
+			public ButtonFeedback(int pID, Color pColor, int pButtonNumber = 0) {
 				Id = pID;
 				colorR = pColor.r;
 				colorG = pColor.g;
 				colorB = pColor.b;
+				buttonNumber = pButtonNumber;
 			}
 		}
 
@@ -197,6 +211,31 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
+		public class Fusebox : AbstractPacket {
+			public int Id;
+			public bool Charged;
+
+			public Fusebox(int pId, bool pCharged) {
+				Id = pId; Charged = pCharged;
+			}
+		}
+
+		[System.Serializable]
+		public class KeyCardCollected : AbstractPacket
+		{
+			public float colorR;
+			public float colorG;
+			public float colorB;
+
+			public KeyCardCollected(Color pColor)
+			{
+				colorR = pColor.r;
+				colorG = pColor.g;
+				colorB = pColor.b;
+			}
+		}
+
+		[System.Serializable]
 		public class SectorDoor : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
@@ -212,6 +251,18 @@ namespace NetworkPacket {
 
 			public SectorDoor(int pId, bool pOpen) {
 				Id = pId; Open = pOpen;
+			}
+		}
+
+		[System.Serializable]
+		public class SecurityStation : AbstractPacket
+		{
+			public int Id, state;
+
+			public SecurityStation(int pID, int pState)
+			{
+				Id = pID;
+				state = pState;
 			}
 		}
 
@@ -379,10 +430,10 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
-		public class SecurityStation : AbstractPacket {
+		public class SecurityStationHackerInteract : AbstractPacket {
 			public int Id;
 
-			public SecurityStation(int pId) { Id = pId; }
+			public SecurityStationHackerInteract(int pId) { Id = pId; }
 		}
 	}
 
@@ -403,5 +454,17 @@ namespace NetworkPacket {
 
 		[System.Serializable]
 		public class CreationEnd : AbstractPacket { }
+
+		[System.Serializable]
+		public class MoveCameraTowardsLocation : AbstractPacket
+		{
+			public float posX, posY;
+
+			public MoveCameraTowardsLocation(Vector3 pPos)
+			{
+				posX = pPos.x;
+				posY = pPos.z;
+			}
+		}
 	}
 }

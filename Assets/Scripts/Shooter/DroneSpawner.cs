@@ -1,46 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [SelectionBase]
 public class DroneSpawner : MonoBehaviour {
 	[SerializeField]
-	private float _spawnDelay;
+	private float _alarmSpawnDelay;
 
-	private int _queuedDrones = 0;
-	private Coroutine _spawnCoroutine;
+	[SerializeField]
+	private float _reinforcementSpawnDelay;
 
+	private int _queuedAlarmDrones = 0;
+	private Coroutine _alarmSpawnCoroutine;
 
-	public void QueueDroneSpawn(int pAmount) {
-		if (_spawnCoroutine == null) {
-			_queuedDrones = pAmount;
-			_spawnCoroutine = StartCoroutine(spawnQueuedDrones());
-			ShooterAlarmManager.Instance.OnAlarmChange += abortSpawns;
+	private List<DronePoint> _queuedReinforcementDrones = new List<DronePoint>();
+	private Coroutine _reinforcementSpawnCoroutine;
+
+	private void Start() {
+		ShooterAlarmManager.Instance.OnAlarmChange += abortAlarmSpawns;
+	}
+
+	public void QueueAlarmDroneSpawn(int pAmount) {
+		if (_alarmSpawnCoroutine == null) {
+			_queuedAlarmDrones = pAmount;
+			_alarmSpawnCoroutine = StartCoroutine(spawnQueuedAlarmDrones());
 		} else {
-			_queuedDrones += pAmount;
+			_queuedAlarmDrones += pAmount;
 		}
 	}
 
-	private void abortSpawns() {
-		_queuedDrones = 0;
-		StopCoroutine(_spawnCoroutine);
-		_spawnCoroutine = null;
-		ShooterAlarmManager.Instance.OnAlarmChange -= abortSpawns;
+	public void QueueReinforcementDroneSpawn(DronePoint pPoint) {
+		_queuedReinforcementDrones.Add(pPoint);
+
+		if (_reinforcementSpawnCoroutine == null) {
+			_reinforcementSpawnCoroutine = StartCoroutine(spawnQueuedReinforcementDrones());
+		}
 	}
 
-	private IEnumerator spawnQueuedDrones() {
-		while (_queuedDrones > 0) {
-			_queuedDrones--;
+	private void abortAlarmSpawns() {
+		_queuedAlarmDrones = 0;
+
+		if (_alarmSpawnCoroutine != null) {
+			StopCoroutine(_alarmSpawnCoroutine);
+			_alarmSpawnCoroutine = null;
+		}
+	}
+
+	private IEnumerator spawnQueuedAlarmDrones() {
+		while (_queuedAlarmDrones > 0) {
+			_queuedAlarmDrones--;
 
 			GameObject drone = Instantiate(ShooterReferenceManager.Instance.Drone, transform.position, transform.rotation);
 			drone.GetComponent<DroneEnemy>().AlarmResponder = true;
 			DroneSpawnManager.Instance.RegisterAlarmDrone(drone);
-
-			if (_queuedDrones > 0) {
-				yield return new WaitForSeconds(_spawnDelay);
-			}
+			yield return new WaitForSeconds(_alarmSpawnDelay);
 		}
 
-		ShooterAlarmManager.Instance.OnAlarmChange -= abortSpawns;
+		_alarmSpawnCoroutine = null;
+	}
+
+	private IEnumerator spawnQueuedReinforcementDrones() {
+		while (_queuedReinforcementDrones.Count > 0) {
+			GameObject drone = Instantiate(ShooterReferenceManager.Instance.Drone, transform.position, transform.rotation);
+			_queuedReinforcementDrones.First().SetOccupant(drone.GetComponent<DroneEnemy>());
+			_queuedReinforcementDrones.RemoveAt(0);
+			yield return new WaitForSeconds(_reinforcementSpawnDelay);
+		}
+
+		_reinforcementSpawnCoroutine = null;
 	}
 }

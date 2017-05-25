@@ -62,7 +62,7 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 		FindObjectOfType<DamageIndicatorControllerShooterUI>().ShowHitMarker(pSource);
 		
 		if (_currentHealth.Value == 0.0f) {
-			_destroyEvent.Invoke(gameObject);
+			//_destroyEvent.Invoke(gameObject);
 			//TODO Add death event
 		}
 	}

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4000013825880102}
   - component: {fileID: 120000011250577678}
   - component: {fileID: 114000011948741740}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: pfb_effect_pistol_bullettracer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

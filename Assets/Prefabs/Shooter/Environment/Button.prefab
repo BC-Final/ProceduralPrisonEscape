@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1269057376704238
 GameObject:
@@ -44,7 +44,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1332058872736720
 GameObject:
@@ -62,7 +62,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1343950970417406
 GameObject:
@@ -80,7 +80,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1422788649391194
 GameObject:
@@ -101,7 +101,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1456826308290964
 GameObject:
@@ -117,7 +117,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1682336453779026
 GameObject:
@@ -135,7 +135,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1746415480776194
 GameObject:
@@ -152,7 +152,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1864514788645418
 GameObject:
@@ -173,7 +173,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1976584755454518
 GameObject:
@@ -191,7 +191,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4102263883968756
 Transform:
@@ -635,12 +635,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5916353ee433934ea86ad5157fb9ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggeredDuration: 0.5
+  _triggeredDuration: 3
   _delayBetweenTriggering: 2
+  CanBeTriggered: 0
   offColor: {r: 0.11764705, g: 0.11764705, b: 0.11764705, a: 0}
   notActiveColor: {r: 0.33823532, g: 0, b: 0, a: 0}
   activeColor: {r: 1, g: 1, b: 0, a: 0}
   solvedColor: {r: 0, g: 1, b: 0, a: 0}
+  CurrentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114443332292144380
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -653,8 +655,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _door: {fileID: 0}
-  _leftButton: {fileID: 114704762371233342}
-  _rightButton: {fileID: 114348331643610858}
+  _shooterButton: {fileID: 114704762371233342}
+  _hackerButton: {fileID: 114348331643610858}
 --- !u!114 &114455144444107184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -734,10 +736,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _triggeredDuration: 0.5
   _delayBetweenTriggering: 2
+  CanBeTriggered: 0
   offColor: {r: 0, g: 0, b: 0, a: 0}
   notActiveColor: {r: 0.33823532, g: 0, b: 0, a: 0}
   activeColor: {r: 1, g: 1, b: 0, a: 0}
   solvedColor: {r: 0, g: 1, b: 0, a: 0}
+  CurrentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114880324566572960
 MonoBehaviour:
   m_ObjectHideFlags: 1

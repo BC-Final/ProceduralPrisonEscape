@@ -4,21 +4,16 @@ using DG.Tweening;
 
 namespace StateFramework {
 	public class DroneReturnState : AbstractDroneState {
-		private Vector3 _startPosition;
-		private Vector3 _startRotation;
 		private float _startStoppingDistance;
 		private float _seeTimer;
 
-		public DroneReturnState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) {
-			_startPosition = _drone.transform.position;
-			_startRotation = _drone.transform.rotation.eulerAngles;
-		}
+		public DroneReturnState(DroneEnemy pDrone, StateMachine<AbstractDroneState> pFsm) : base(pDrone, pFsm) { }
 
 		public override void Enter() {
 			_startStoppingDistance = _drone.Agent.stoppingDistance;
 
 			_drone.Agent.stoppingDistance = 0.0f;
-			_drone.Agent.SetDestination(_startPosition);
+			_drone.Agent.SetDestination(_drone.StartPoint.transform.position);
 			_seeTimer = 0.0f;
 
 			_drone.SeesTarget = false;
@@ -38,11 +33,18 @@ namespace StateFramework {
 				_seeTimer = 0.0f;
 			}
 
+			if (!_drone.Agent.pathPending) {
+				if (_drone.Agent.remainingDistance <= _drone.Agent.stoppingDistance) {
+					if (!_drone.Agent.hasPath || _drone.Agent.velocity.sqrMagnitude == 0f) {
+						_drone.transform.DORotate(_drone.StartPoint.transform.rotation.eulerAngles, _drone.Parameters.RotationSpeed).SetSpeedBased();
 
-			//TODO Setting the rotation like this might be buggy
-			if (_drone.Agent.velocity.magnitude == 0.0f) {
-				_drone.transform.DORotate(_startRotation, 0.25f);
-				_fsm.SetState<DroneGuardState>();
+						if (_drone.Route == null) {
+							_fsm.SetState<DroneGuardState>();
+						} else {
+							_fsm.SetState<DronePatrolState>();
+						}
+					}
+				}
 			}
 		}
 
@@ -50,7 +52,7 @@ namespace StateFramework {
 			_drone.Agent.stoppingDistance = _startStoppingDistance;
 		}
 
-		public override void ReceiveDamage (Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+		public override void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 			IDamageable src = pSource.GetComponent<IDamageable>();
 
 			if (src != null && Utilities.AI.FactionIsEnemy(_drone.Faction, src.Faction)) {

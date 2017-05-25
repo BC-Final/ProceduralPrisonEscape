@@ -18,6 +18,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 
 		icon.Id = pPacket.Id;
 		icon.fitCollider();
+		HackerAbilityCaster.AddGrenade(icon);
 	}
 
 	private void updateInstance(NetworkPacket.Update.Grenade pPacket) {
@@ -63,5 +64,6 @@ public class GrenadeMapIcon : AbstractMapIcon {
 		HackerPackageSender.SendPackage(new NetworkPacket.Update.Grenade(Id, 0.0f, 0.0f));
 		gameObject.SetActive(false);
 		Destroy(this.gameObject, 2.0f);
+		HackerAbilityCaster.RemoveGrenade(this);
 	}
 }

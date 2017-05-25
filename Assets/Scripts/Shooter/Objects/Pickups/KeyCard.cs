@@ -11,18 +11,10 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 	[SerializeField]
 	private List<ShooterDoor> _doors;
 
-	private int _id;
-	public int Id {
-		get {
-			if (_id == 0) {
-				_id = IdManager.RequestId();
-			}
+	private ShooterNetworkId _id = new ShooterNetworkId();
+	public ShooterNetworkId Id { get { return _id; } }
 
-			return _id;
-		}
-	}
-
-    [SerializeField]
+	[SerializeField]
     public Color keyColor;
 
 	public void Initialize () {
@@ -56,7 +48,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 	}
 
 	public void Interact() {
-		FindObjectOfType<Inventory>().AddKeyCard(_doors);
+		FindObjectOfType<Inventory>().AddKeyCard(_doors, keyColor);
 
 		//FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickkeycard");
 		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
