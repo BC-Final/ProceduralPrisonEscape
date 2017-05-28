@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Gamelogic.Extensions;
 
 public class CameraDragAndDrop : MonoBehaviour {
 	private bool _dragging = false;
 	private Camera _camera;
-	private bool _followPlayer = true;
+	private ObservedValue<bool> _followPlayer = new ObservedValue<bool>(true);
+	public ObservedValue<bool> FollowPlayer { get { return _followPlayer; } }
+	public void SetFollowPlayer(bool pValue) { _followPlayer.Value = pValue; }
 	private Transform _player;
 
 	private Vector3 _targetPos;
@@ -32,7 +35,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 			if (_player == null) {
 				_player = GameObject.FindObjectOfType<PlayerMapIcon>().transform;
 			}
-			_followPlayer = !_followPlayer;
+			_followPlayer.Value = !_followPlayer.Value;
 			_currentLerpTime = 0f;
 		}
 
@@ -51,7 +54,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 		}
 		if (_dragging) {
 			//stop following player
-			_followPlayer = false;
+			_followPlayer.Value = false;
 
 			_currentLerpTime = 0f;
 			_newPos = _startPos - Input.mousePosition;
@@ -59,7 +62,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 		}
 
 		//if camera is following play target position is always the player
-		if (_followPlayer) {
+		if (_followPlayer.Value) {
 			if (_player == null) {
 				PlayerMapIcon icon = GameObject.FindObjectOfType<PlayerMapIcon>();
 
@@ -79,7 +82,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 		float perc = _currentLerpTime / _lerpTime;
 
 		//Set target position to 1 else camer might be buggy
-		_targetPos.z = -10;
+		_targetPos.z = -15;
 		this.transform.position = Vector3.Lerp(this.transform.position, _targetPos, perc);
 
 
@@ -90,7 +93,7 @@ public class CameraDragAndDrop : MonoBehaviour {
 	}
 
 	public void SetTargetPos(Vector3 targetPosition) {
-		_followPlayer = false;
+		_followPlayer.Value = false;
 		_targetPos = targetPosition;
 		_currentLerpTime = 0f;
 	}

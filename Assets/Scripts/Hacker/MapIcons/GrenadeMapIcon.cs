@@ -14,7 +14,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 	}
 
 	private static void createInstance(NetworkPacket.Update.Grenade pPacket) {
-		GrenadeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GrenadeIcon, new Vector3(pPacket.PosX, pPacket.PosY, 0) / MinimapManager.scale, Quaternion.identity).GetComponent<GrenadeMapIcon>();
+		GrenadeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GrenadeIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, - 5.0f), Quaternion.identity).GetComponent<GrenadeMapIcon>();
 
 		icon.Id = pPacket.Id;
 		icon.fitCollider();
@@ -27,7 +27,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 		_currentLerpTime = 0f;
 
 		_oldPos = transform.position;
-		_newPos = new Vector3(pPacket.PosX, pPacket.PosY, 0.0f) / MinimapManager.scale;
+		_newPos = new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, -10.0f);
 	}
 
 	private Vector3 _oldPos;

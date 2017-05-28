@@ -16,7 +16,7 @@ public class SectorDoorMapIcon : AbstractMapIcon {
 	}
 
 	private static void createInstance (NetworkPacket.Update.SectorDoor pPacket) {
-		SectorDoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.SectorDoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<SectorDoorMapIcon>();
+		SectorDoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.SectorDoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, -10.0f), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<SectorDoorMapIcon>();
 
 		icon.Id = pPacket.Id;
 		icon._open.Value = pPacket.Open;

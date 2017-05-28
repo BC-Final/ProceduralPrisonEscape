@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4887828390741132}
   - component: {fileID: 114561226974164832}
-  - component: {fileID: 114003526411673912}
   - component: {fileID: 114239643658093782}
+  - component: {fileID: 114365539096000930}
+  - component: {fileID: 114883544721508046}
   m_Layer: 0
   m_Name: pfb_Hacker_GameManager
   m_TagString: Untagged
@@ -42,23 +43,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114003526411673912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1013017682968972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadEvent: 0
-  UnloadEvent: 0
-  Banks:
-  - PE_sfx_hacker
-  CollisionTag: 
-  PreloadSamples: 0
 --- !u!114 &114239643658093782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,7 +54,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30a7b1b6241b2e94bb473f28049d831f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hackerPoints: 0
+  _hackerPoints: 100
+  _maxPoints: 5000
+  _regenerationPerSec: 10
+--- !u!114 &114365539096000930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013017682968972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5510c9758928d6b4ab37b51276b80430, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114561226974164832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -83,3 +80,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSuspicion: 4
+--- !u!114 &114883544721508046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013017682968972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1319f7cd97156074082c141b4c115c91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

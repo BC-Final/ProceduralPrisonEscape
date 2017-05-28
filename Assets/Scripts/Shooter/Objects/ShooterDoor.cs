@@ -60,6 +60,8 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	private Transform _rightDoor;
 	//--------temp end--------
 
+	[SerializeField]
+	private float _unlockTime = 5.0f;
 
 
 	/// <summary>
@@ -202,8 +204,11 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 		}
 
 		if (pOther.GetComponentInParent<DroneEnemy>() != null && !_locked && !_open.Value && !_lockedForDrones) {
-			_open.Value = true;
-			sendStateUpdate();
+			if(!_locked) {
+				_open.Value = true;
+				sendStateUpdate();
+			}
+
 			//Debug.Log("Drone opened door");
 		}
 	}

@@ -5,11 +5,21 @@ using Gamelogic.Extensions;
 
 public class HackerResourceManager : Singleton<HackerResourceManager> {
 	[SerializeField]
-	private int _hackerPoints = 0;
+	private float _hackerPoints = 0;
+
+	[SerializeField]
+	private float _maxPoints = 5000;
+
+	[SerializeField]
+	private float _regenerationPerSec = 5.0f;
+
+	private void Update() {
+		_hackerPoints += _regenerationPerSec * Time.deltaTime;
+	}
 
 	public int HackerPoints {
 		get {
-			return _hackerPoints;
+			return (int)_hackerPoints;
 		}
 	}
 
