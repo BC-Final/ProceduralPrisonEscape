@@ -75,5 +75,6 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
         _shooterButton.OnSolved();
         _hackerButton.OnSolved();
         _door.ForceOpen();
-    }
+		ShooterPackageSender.SendPackage(new NetworkPacket.Messages.MoveCameraTowardsLocation(_door.transform.position));
+	}
 }
