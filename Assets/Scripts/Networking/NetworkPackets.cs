@@ -221,6 +221,21 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
+		public class KeyCardCollected : AbstractPacket
+		{
+			public float colorR;
+			public float colorG;
+			public float colorB;
+
+			public KeyCardCollected(Color pColor)
+			{
+				colorR = pColor.r;
+				colorG = pColor.g;
+				colorB = pColor.b;
+			}
+		}
+
+		[System.Serializable]
 		public class SectorDoor : AbstractPacket {
 			public int Id;
 			public float PosX, PosY, Rot;
@@ -236,6 +251,18 @@ namespace NetworkPacket {
 
 			public SectorDoor(int pId, bool pOpen) {
 				Id = pId; Open = pOpen;
+			}
+		}
+
+		[System.Serializable]
+		public class SecurityStation : AbstractPacket
+		{
+			public int Id, state;
+
+			public SecurityStation(int pID, int pState)
+			{
+				Id = pID;
+				state = pState;
 			}
 		}
 
@@ -403,10 +430,10 @@ namespace NetworkPacket {
 		}
 
 		[System.Serializable]
-		public class SecurityStation : AbstractPacket {
+		public class SecurityStationHackerInteract : AbstractPacket {
 			public int Id;
 
-			public SecurityStation(int pId) { Id = pId; }
+			public SecurityStationHackerInteract(int pId) { Id = pId; }
 		}
 	}
 

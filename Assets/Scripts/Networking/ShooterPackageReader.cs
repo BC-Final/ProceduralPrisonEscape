@@ -63,7 +63,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
 		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
 
-		if (pPacket is NetworkPacket.Update.SecurityStation) { readPacket(pPacket as NetworkPacket.Update.SecurityStation); }
+		if (pPacket is NetworkPacket.Update.SecurityStationHackerInteract) { readPacket(pPacket as NetworkPacket.Update.SecurityStationHackerInteract); }
 
 		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
 		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
@@ -108,7 +108,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		ButtonTerminal.ProccessPacket(pPacket);
 	}
 
-	private void readPacket(NetworkPacket.Update.SecurityStation pPacket) {
+	private void readPacket(NetworkPacket.Update.SecurityStationHackerInteract pPacket) {
 		SecurityStation.ProcessPacket(pPacket);
 	}
 

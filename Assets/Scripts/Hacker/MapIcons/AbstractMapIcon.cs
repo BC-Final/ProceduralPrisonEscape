@@ -28,6 +28,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 
 	[System.Serializable]
 	public struct ActionData {
+		public bool Disabled;
 		public string DisplayName;
 		public int HackerPointsCost;
 		public UnityEvent Action;
@@ -40,7 +41,6 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 			if (_spriteRenderer == null) {
 				_spriteRenderer = GetComponent<SpriteRenderer>();
 			}
-
 			return _spriteRenderer;
 		}
 	}

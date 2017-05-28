@@ -101,3 +101,5 @@ MonoBehaviour:
   ContextMenuOption: {fileID: 1852725370102472, guid: 18838462c89699e4780f619f074bb8b7,
     type: 2}
   Decoder: {fileID: 1412022988581402, guid: 4e1b7ebf6a9a5ec49aadd796cb14ad11, type: 2}
+  KeycardHolderKeyIcon: {fileID: 1514763679343634, guid: 13fa01920893cce40be6ce9c4645cb34,
+    type: 2}

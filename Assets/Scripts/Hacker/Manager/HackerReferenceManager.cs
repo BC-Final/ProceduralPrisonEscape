@@ -46,4 +46,5 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject ContextMenu;
     public GameObject ContextMenuOption;
     public GameObject Decoder;
+	public GameObject KeycardHolderKeyIcon;
 }

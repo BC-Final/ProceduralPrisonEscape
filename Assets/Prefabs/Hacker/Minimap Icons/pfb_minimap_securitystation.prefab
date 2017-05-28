@@ -66,7 +66,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions:
-  - DisplayName: Disable Alarm
+  - Disabled: 1
+    DisplayName: Disable Alarm
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:
