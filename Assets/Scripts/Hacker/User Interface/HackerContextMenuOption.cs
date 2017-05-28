@@ -26,7 +26,7 @@ public class HackerContextMenuOption : MonoBehaviour {
 	private void Start () {
 		_button = GetComponent<Button>();
 		_button.onClick.AddListener(() => _actionData.Action.Invoke());
-		_button.onClick.AddListener(() => HackerResourceManager.Instance.RemoveHackerPoints(_actionData.HackerPointsCost));
+		_button.onClick.AddListener(() => HackerResourceManager.Instance.RemoveHackerPoints(_actionData.HackerPointsCost));	
 	}
 
 
@@ -51,7 +51,7 @@ public class HackerContextMenuOption : MonoBehaviour {
 		}
 
 		GetComponentInChildren<Text>().text = pActionData.DisplayName + hpCost;
-
+		GetComponent<Button>().interactable = !pActionData.Disabled;
 		//This was for spacing around button
 		//(transform as RectTransform).anchoredPosition3D = new Vector3(pSpacing, -((pPos + 1) * pSpacing + pPos * contentHeight), -5.0f);
 		//(transform as RectTransform).sizeDelta = new Vector2(contentHeight, (transform as RectTransform).sizeDelta.y);
@@ -89,9 +89,9 @@ public class HackerContextMenuOption : MonoBehaviour {
 	/// Determines if a option should be displayed as clickable based on hackerpoints cost
 	/// </summary>
 	private void OnGUI () {
-		if (HackerResourceManager.Instance.HackerPoints < _actionData.HackerPointsCost && _button.interactable) {
+		if (HackerResourceManager.Instance.HackerPoints < _actionData.HackerPointsCost) {
 			_button.interactable = false;
-		} else if (HackerResourceManager.Instance.HackerPoints >= _actionData.HackerPointsCost && !_button.interactable) {
+		} else if (HackerResourceManager.Instance.HackerPoints >= _actionData.HackerPointsCost && _button.interactable) {
 			_button.interactable = true;
 		}
 	}

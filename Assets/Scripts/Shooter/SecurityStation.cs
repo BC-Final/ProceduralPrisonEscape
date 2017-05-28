@@ -82,6 +82,7 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 
 	private void onAlarmChange() {
 		if (ShooterAlarmManager.Instance.AlarmIsOn) {
+			_sCanPress = true;
 			_light.enabled = true;
 			_stationState.Value = StationState.Triggerd;
 			DOTween.Sequence()
@@ -92,6 +93,7 @@ public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 		} else {
 			_light.DOKill();
 			_light.enabled = false;
+			//_sCanPress = true;
 		}
 	}
 
