@@ -17,7 +17,21 @@ namespace NetworkPacket {
 				Id = pId; PosX = pPosX; PosY = pPosY; Used = pUsed; Charged = pPrimed;
 			}
 		}
+		[System.Serializable]
+		public class Firewall : AbstractPacket
+		{
+			public int Id;
+			public float PosX, PosY;
+			public bool Active;
 
+			public Firewall(int pId, float pPosX, float pPosY, bool active)
+			{
+				Id = pId;
+				PosX = pPosX;
+				PosY = pPosY;
+				Active = active;
+			}
+		}
 		[System.Serializable]
 		public class SecurityStation : AbstractPacket {
 			public int Id;
@@ -25,7 +39,6 @@ namespace NetworkPacket {
 
 			public SecurityStation(int pId, float pPosX, float pPosY) { Id = pId; PosX = pPosX; PosY = pPosY; }
 		}
-
 		[System.Serializable]
 		public class PhaserAmmoIcon : AbstractPacket {
 			public int Id;
@@ -38,7 +51,6 @@ namespace NetworkPacket {
 				posY = pPos.z;
 			}
 		}
-
 		[System.Serializable]
 		public class MachineGunAmmoIcon : AbstractPacket {
 			public int Id;
@@ -51,7 +63,6 @@ namespace NetworkPacket {
 				posY = pPos.z;
 			}
 		}
-
 		[System.Serializable]
 		public class ShotgunAmmoIcon : AbstractPacket {
 			public int Id;
@@ -64,7 +75,6 @@ namespace NetworkPacket {
 				posY = pPos.z;
 			}
 		}
-
 		[System.Serializable]
 		public class HealthKitIcon : AbstractPacket {
 			public int Id;
@@ -77,7 +87,6 @@ namespace NetworkPacket {
 				posY = pPos.z;
 			}
 		}
-
 		[System.Serializable]
 		public class LaserShot : AbstractPacket {
 			public float startX;
@@ -209,6 +218,19 @@ namespace NetworkPacket {
 				Id = pId; Open = pOpen;
 			}
 		}
+
+		[System.Serializable]
+		public class Firewall : AbstractPacket
+		{
+			public int Id;
+			public bool Active;
+
+			public Firewall(int pId, bool pActive)
+			{
+				Id = pId; Active = pActive;
+			}
+		}
+
 
 		[System.Serializable]
 		public class Fusebox : AbstractPacket {
@@ -409,11 +431,37 @@ namespace NetworkPacket {
 				codeString = pCodeString;
 			}
 		}
+
+		/// <summary>
+		/// Deactivates the door permanently.
+		/// </summary>
 		[System.Serializable]
-		public class DisableDoor : AbstractPacket {
+		public class DeactivateDoor : AbstractPacket {
 			public int Id;
 
-			public DisableDoor(int pID) {
+			public DeactivateDoor(int pID) {
+				Id = pID;
+			}
+		}
+
+		[System.Serializable]
+		public class DisableDoorOptions : AbstractPacket
+		{
+			public int Id;
+
+			public DisableDoorOptions(int pID)
+			{
+				Id = pID;
+			}
+		}
+
+		[System.Serializable]
+		public class EnableDoorOptions : AbstractPacket
+		{
+			public int Id;
+
+			public EnableDoorOptions(int pID)
+			{
 				Id = pID;
 			}
 		}

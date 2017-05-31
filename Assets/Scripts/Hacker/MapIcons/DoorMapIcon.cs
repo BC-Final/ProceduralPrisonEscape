@@ -17,6 +17,26 @@ public class DoorMapIcon : AbstractMapIcon {
 		}
 	}
 
+	public static void ProcessPacket(NetworkPacket.Update.EnableDoorOptions pPacket)
+	{
+		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+		if (icon)
+		{
+			icon.SetDoorActionsState(true);
+			icon.changeColor(Color.white);
+		}
+	}
+
+	public static void ProcessPacket(NetworkPacket.Update.DisableDoorOptions pPacket)
+	{
+		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+		if (icon)
+		{
+			icon.SetDoorActionsState(false);
+			icon.changeColor(Color.gray);
+		}
+	}
+
 	private string _codeSolution;
 
 	public static void AddAddon(NetworkPacket.Create.DecodeAddon pPacket) {
@@ -65,12 +85,14 @@ public class DoorMapIcon : AbstractMapIcon {
         Array.Clear(icon.actions, 0, icon.actions.Length);
     }
 
-	public static void AddAddon(NetworkPacket.Update.DisableDoor pPacket) {
+	public static void AddAddon(NetworkPacket.Update.DeactivateDoor pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		icon.actions = new ActionData[0];
 
 		icon.changeColor(Color.gray);
 	}
+
+
 
 	private static void createInstance(NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DoorMapIcon>();
@@ -82,6 +104,14 @@ public class DoorMapIcon : AbstractMapIcon {
 
 		//TODO Research why onValueChanged is not called
 		icon.stateChanged();
+	}
+
+	private void SetDoorActionsState(bool active)
+	{
+		for(int i = 0; i<actions.Length; i++)
+		{
+			actions[i].Disabled = !active;
+		}
 	}
 
 	private void updateInstance(NetworkPacket.Update.Door pPacket) {

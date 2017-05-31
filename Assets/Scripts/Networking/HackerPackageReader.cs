@@ -72,8 +72,9 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
 		if (pPacket is NetworkPacket.Create.DecodeAddon) { readPacket(pPacket as NetworkPacket.Create.DecodeAddon); }
 		if (pPacket is NetworkPacket.Create.CodeLockAddon) { readPacket(pPacket as NetworkPacket.Create.CodeLockAddon); }
-        if (pPacket is NetworkPacket.Create.DuoButtonAddon) { readPacket(pPacket as NetworkPacket.Create.DuoButtonAddon); }
-        if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
+		if (pPacket is NetworkPacket.Create.DuoButtonAddon) { readPacket(pPacket as NetworkPacket.Create.DuoButtonAddon); }
+		if (pPacket is NetworkPacket.Create.Firewall) { readPacket(pPacket as NetworkPacket.Create.Firewall); }
+		if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { readPacket(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
 		if (pPacket is NetworkPacket.Create.HealthKitIcon) { readPacket(pPacket as NetworkPacket.Create.HealthKitIcon); }
@@ -84,9 +85,12 @@ public class HackerPackageReader : MonoBehaviour {
 		//Update
 		if (pPacket is NetworkPacket.Update.ButtonFeedback) { readPacket(pPacket as NetworkPacket.Update.ButtonFeedback); }
 		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
-		if (pPacket is NetworkPacket.Update.DisableDoor) { readPacket(pPacket as NetworkPacket.Update.DisableDoor); }
+		if (pPacket is NetworkPacket.Update.DeactivateDoor) { readPacket(pPacket as NetworkPacket.Update.DeactivateDoor); }
+		if (pPacket is NetworkPacket.Update.DisableDoorOptions) { readPacket(pPacket as NetworkPacket.Update.DisableDoorOptions); }
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
+		if (pPacket is NetworkPacket.Update.EnableDoorOptions) { readPacket(pPacket as NetworkPacket.Update.EnableDoorOptions); }
+		if (pPacket is NetworkPacket.Update.Firewall) { readPacket(pPacket as NetworkPacket.Update.Firewall); }
 		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
 		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
 		if (pPacket is NetworkPacket.Update.Icon) { readPacket(pPacket as NetworkPacket.Update.Icon); }
@@ -119,11 +123,46 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.Camera pPacket) {
 		CameraMapIcon.ProcessPacket(pPacket);
 	}
+	private void readPacket(NetworkPacket.Update.DeactivateDoor pPacket) {
+		if (loadingFinished)
+		{
+			DoorMapIcon.AddAddon(pPacket);
+		} else {
+			AddLatePackage(pPacket);
+		}
+	}
+	private void readPacket(NetworkPacket.Update.DisableDoorOptions pPacket)
+	{
+		if (loadingFinished)
+		{
+			DoorMapIcon.ProcessPacket(pPacket);
+		}
+		else
+		{
+			AddLatePackage(pPacket);
+		}
+	}
 	private void readPacket(NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon.ProcessPacket(pPacket);
 	}
 	private void readPacket(NetworkPacket.Update.Drone pPacket) {
 		DroneMapIcon.ProcessPacket(pPacket);
+	}
+	private void readPacket(NetworkPacket.Update.EnableDoorOptions pPacket)
+	{
+		if (loadingFinished)
+		{
+			DoorMapIcon.ProcessPacket(pPacket);
+		}
+		else
+		{
+			AddLatePackage(pPacket);
+		}
+	}
+	private void readPacket(NetworkPacket.Update.Firewall pPacket)
+	{
+		Debug.Log("I got something");
+		FirewallMapIcon.ProcessPacket(pPacket);
 	}
 	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
 		FuseboxMapIcon.ProcessPacket(pPacket);
@@ -187,14 +226,6 @@ public class HackerPackageReader : MonoBehaviour {
 			AddLatePackage(pPacket);
 		}
 	}
-	private void readPacket(NetworkPacket.Update.DisableDoor pPacket) {
-		if (loadingFinished) {
-
-			DoorMapIcon.AddAddon(pPacket);
-		} else {
-			AddLatePackage(pPacket);
-		}
-	}
     private void readPacket(NetworkPacket.Create.DuoButtonAddon pPacket)
     {
         if (loadingFinished)
@@ -207,6 +238,10 @@ public class HackerPackageReader : MonoBehaviour {
             AddLatePackage(pPacket);
         }
     }
+	private void readPacket(NetworkPacket.Create.Firewall pPacket)
+	{
+		FirewallMapIcon.ProcessPacket(pPacket);
+	}
 	private void readPacket(NetworkPacket.Create.Fusebox pPacket) {
 		FuseboxMapIcon.ProcessPacket(pPacket);
 	}
