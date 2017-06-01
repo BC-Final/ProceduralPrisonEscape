@@ -4,6 +4,7 @@ using UnityEngine;
 using StateFramework;
 using System.Linq;
 
+//TODO Remove IDamageable
 [SelectionBase]
 public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 	[SerializeField]

@@ -13,6 +13,8 @@ public class DronePoint : MonoBehaviour {
 
 	public bool Occupied { get { return _occupant != null; } }
 
+	public DroneEnemy Occupant { get { return _occupant; } }
+
 	private void Start() {
 		_patrolRoute = GetComponentInParent<PatrolRoute>();
 
