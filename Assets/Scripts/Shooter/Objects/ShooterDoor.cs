@@ -36,7 +36,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 			ShooterPackageSender.SendPackage(new NetworkPacket.Create.DecodeAddon(Id, _keypad.keyCode));
 		}
 		if (IsDisabled) {
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.DisableDoor(Id));
+			ShooterPackageSender.SendPackage(new NetworkPacket.Update.DeactivateDoor(Id));
 		}
 		if (_hasDuoButton) {
 			ShooterPackageSender.SendPackage(new NetworkPacket.Create.DuoButtonAddon(Id));
