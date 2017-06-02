@@ -69,7 +69,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
 		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
 		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
-
+		if (pPacket is NetworkPacket.GameObjects.Lasergate.hUpdate) {(pPacket as NetworkPacket.GameObjects.Lasergate.hUpdate).Invoke(); }
 	}
 
 	private void readPacket(NetworkPacket.Update.Door pPacket) {

@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 140550}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1606904, y: -0.3407943, z: 10.798426}
+  m_LocalPosition: {x: -59.583866, y: -0.5458356, z: -27.048172}
   m_LocalScale: {x: 1.6, y: 1.6, z: 1}
   m_Children:
   - {fileID: 4407952264827830}
@@ -96,7 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions:
-  - DisplayName: Open / Close
+  - Disabled: 0
+    DisplayName: Open / Close
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:
@@ -114,7 +115,8 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - DisplayName: Lock
+  - Disabled: 0
+    DisplayName: Lock
     HackerPointsCost: 100
     Action:
       m_PersistentCalls:

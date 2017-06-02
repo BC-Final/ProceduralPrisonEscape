@@ -71,6 +71,7 @@ MonoBehaviour:
     type: 2}
   KeyCardIcon: {fileID: 1023680634724982, guid: d28ae669a429f134a8fafcf75237446a,
     type: 2}
+  Lasergate: {fileID: 1100670792543162, guid: ed154e78b76696249b17e97cb0912f2c, type: 2}
   LightIcon: {fileID: 0}
   PlayerIcon: {fileID: 150788, guid: 4526ac653de4c5e43a2d0e26cd79a604, type: 2}
   PushButton: {fileID: 1110354250276072, guid: fb03e028d6cb9f54bba5536626ea7428, type: 2}

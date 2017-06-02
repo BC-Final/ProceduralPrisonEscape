@@ -66,7 +66,8 @@ public class HackerPackageReader : MonoBehaviour {
 	/// Then they get transmitted to another method that is made for their specific package.
 	/// </summary>
 	/// <param name="response"></param>
-	private void readPacket(NetworkPacket.AbstractPacket pPacket) {
+	private void readPacket(NetworkPacket.AbstractPacket pPacket)
+	{
 		//Creation
 		if (pPacket is NetworkPacket.Create.KeyCard) { readPacket(pPacket as NetworkPacket.Create.KeyCard); }
 		if (pPacket is NetworkPacket.Create.LaserShot) { readPacket(pPacket as NetworkPacket.Create.LaserShot); }
@@ -112,6 +113,9 @@ public class HackerPackageReader : MonoBehaviour {
 		if (pPacket is NetworkPacket.Messages.CreationEnd) { readPacket(pPacket as NetworkPacket.Messages.CreationEnd); }
 		if (pPacket is NetworkPacket.Messages.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Messages.DisconnectRequest); }
 		if (pPacket is NetworkPacket.Messages.MoveCameraTowardsLocation) { readPacket(pPacket as NetworkPacket.Messages.MoveCameraTowardsLocation); }
+
+		if(pPacket is NetworkPacket.GameObjects.Lasergate.Creation) { (pPacket as NetworkPacket.GameObjects.Lasergate.Creation).Invoke(); }
+		if (pPacket is NetworkPacket.GameObjects.Lasergate.sUpdate) { (pPacket as NetworkPacket.GameObjects.Lasergate.sUpdate).Invoke(); }
 	}
 
 	/// <summary>

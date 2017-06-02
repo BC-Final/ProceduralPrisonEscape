@@ -6,6 +6,64 @@ namespace NetworkPacket {
 	[System.Serializable]
 	public abstract class AbstractPacket { }
 
+	namespace GameObjects
+	{
+		namespace Lasergate
+		{
+			[System.Serializable]
+			public class Creation : AbstractPacket
+			{
+				public int Id;
+				public float PosX, PosY, Rot;
+				public bool Active;
+
+				public Creation(int pId, float pPosX, float pPosY, float pRot, bool pActive)
+				{
+					Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Active = pActive;
+				}
+
+				public void Invoke()
+				{
+					LasergateMapIcon.ProcessPacket(this);
+				}
+			}
+			[System.Serializable]
+			public class hUpdate : AbstractPacket
+			{
+				public int Id;
+				public bool Active;
+
+				public hUpdate(int pId, bool pActive)
+				{
+					Id = pId; Active = pActive;
+				}
+
+				public void Invoke()
+				{
+					ShooterLasergate.ProcessPacket(this);
+				}
+			}
+
+			[System.Serializable]
+			public class sUpdate : AbstractPacket
+			{
+				public int Id;
+				public bool Active;
+
+				public sUpdate(int pId, bool pActive)
+				{
+					Id = pId; Active = pActive;
+				}
+
+				public void Invoke()
+				{
+					LasergateMapIcon.ProcessPacket(this);
+				}
+			}
+		}
+	}
+
+
 	namespace Create {
 		[System.Serializable]
 		public class Fusebox : AbstractPacket {
