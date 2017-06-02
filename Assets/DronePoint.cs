@@ -51,6 +51,6 @@ public class DronePoint : MonoBehaviour {
 
 		Gizmos.DrawSphere(transform.position + Vector3.up, 0.5f);
 		Gizmos.color = Color.white;
-		Gizmos.DrawLine(transform.position + Vector3.up, transform.position + Vector3.up + transform.forward);
+		Gizmos.DrawLine(transform.position + Vector3.up + transform.forward * 0.5f, transform.position + Vector3.up + transform.forward);
 	}
 }
