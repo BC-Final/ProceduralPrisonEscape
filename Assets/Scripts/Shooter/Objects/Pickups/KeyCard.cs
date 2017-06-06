@@ -17,6 +17,9 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 	[SerializeField]
     public Color keyColor;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onInteract;
+
 	public void Initialize () {
         int[] intArray;
         List<int> tempArray = new List<int>();
@@ -50,6 +53,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
 	public void Interact() {
 		FindObjectOfType<Inventory>().AddKeyCard(_doors, keyColor);
 		gameObject.SetActive(false);
+		_onInteract.Invoke();
 
 		//FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickkeycard");
 		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());

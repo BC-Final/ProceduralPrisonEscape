@@ -153,6 +153,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		_fsm.AddState(new DroneReturnState(this, _fsm));
 		_fsm.AddState(new DroneAttackState(this, _fsm));
 		_fsm.AddState(new DroneStunnedState(this, _fsm));
+		_fsm.AddState(new DroneAmbushState(this, _fsm));
 
 		_fsm.AddState(new DroneAlarmFollowState(this, _fsm));
 		_fsm.AddState(new DroneAlarmSearchState(this, _fsm));
@@ -218,7 +219,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		}
 	}
 
-
+	public void StartAmbush() {
+		_lastTarget = FindObjectOfType<PlayerHealth>().gameObject;
+		_fsm.SetState<DroneAmbushState>();
+	}
 
 	public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 		if (_currentHealth > 0.0f) {
