@@ -95,8 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c04fb01eef99624b9be28e54ad3f4a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteractable: 0
   actions:
-  - DisplayName: Disable
+  - Disabled: 0
+    DisplayName: Disable
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:
@@ -114,7 +116,8 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - DisplayName: Control
+  - Disabled: 0
+    DisplayName: Control
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:
@@ -166,11 +169,16 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a857a57b6f367ff42af198c83632c808, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
 --- !u!212 &212877323511974164
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -201,8 +209,13 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f599a20fc6a882c4893b279178339af2, type: 3}
   m_Color: {r: 0, g: 1, b: 0.42068958, a: 0.353}
   m_FlipX: 0
   m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0

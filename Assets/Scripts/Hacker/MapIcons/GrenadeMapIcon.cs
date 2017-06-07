@@ -65,5 +65,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 		gameObject.SetActive(false);
 		Destroy(this.gameObject, 2.0f);
 		HackerAbilityCaster.RemoveGrenade(this);
+		GameObject go = Instantiate(HackerReferenceManager.Instance.Explosion, transform.position, Quaternion.identity).gameObject;
+		Destroy(go, 2f);
 	}
 }

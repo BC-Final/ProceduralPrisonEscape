@@ -41,7 +41,7 @@ public class DoorMapIcon : AbstractMapIcon {
 
 	public static void AddAddon(NetworkPacket.Create.DecodeAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
-		Array.Clear(icon.actions, 0, icon.actions.Length);
+		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
 		action.DisplayName = "Decode";
 		action.HackerPointsCost = 0;
@@ -65,7 +65,7 @@ public class DoorMapIcon : AbstractMapIcon {
 
 	public static void AddAddon(NetworkPacket.Create.CodeLockAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
-		Array.Clear(icon.actions, 0, icon.actions.Length);
+		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
 		action.DisplayName = "Input Code";
 		action.HackerPointsCost = 0;
@@ -82,14 +82,17 @@ public class DoorMapIcon : AbstractMapIcon {
     {
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDuobutton;
-        Array.Clear(icon.actions, 0, icon.actions.Length);
-    }
+		icon.actions = new ActionData[0];
+
+		icon.IsInteractable = false;
+	}
 
 	public static void AddAddon(NetworkPacket.Update.DeactivateDoor pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		icon.actions = new ActionData[0];
-
 		icon.changeColor(Color.gray);
+
+		icon.IsInteractable = false;
 	}
 
 

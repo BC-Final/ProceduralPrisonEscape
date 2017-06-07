@@ -95,6 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c13554c9b94a64aa8099322f1a6821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteractable: 1
   actions:
   - Disabled: 0
     DisplayName: Open / Close
