@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 54430530825207408}
   - component: {fileID: 41165050978758820}
   m_Layer: 0
-  m_Name: pfb_environment_door_dan
+  m_Name: pfb_environment_door_dan_thicc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -685,6 +685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftDoor: {fileID: 4000014183410348}
   _rightDoor: {fileID: 4000011949382656}
+  _unlockTime: 5
   IsDisabled: 0
   _keypad: {fileID: 0}
 --- !u!208 &208543551695627232

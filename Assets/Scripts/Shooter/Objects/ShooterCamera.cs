@@ -10,6 +10,14 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 	private CameraParameters _parameters;
 	public CameraParameters Parameters { get { return _parameters; } }
 
+	[SerializeField]
+	private float _rotationSpeed;
+	public float RotationSpeed { get { return _rotationSpeed; } }
+
+	[SerializeField]
+	private float _rotationAngle;
+	public float RotationAngle { get { return _rotationAngle; } }
+
 	[Header("References")]
 	[SerializeField]
 	private Transform _base;
@@ -161,10 +169,15 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 			Gizmos.color = Color.white;
 			UnityEditor.Handles.color = Color.white;
 
-			//UnityEditor.Handles.DrawWireArc(transform.position, -Vector3.up, transform.TransformDirection(Quaternion.Euler(0.0f, _parameters.RotationAngle / 2.0f, 0.0f) * (Vector3.forward * 1.0f).normalized), _parameters.RotationAngle, 1.0f);
-			UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0.0f, (_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)).normalized, _parameters.RotationAngle + _parameters.ViewAngle, _parameters.ViewRange);
-			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, (_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
-			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, -((_parameters.RotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f)), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
+			UnityEditor.Handles.DrawWireDisc(new Vector3(_base.position.x, _lookPoint.position.y, _base.position.z), transform.up, (new Vector3(_base.position.x, _lookPoint.position.y, _base.position.z) - _lookPoint.position).magnitude);
+
+			//float baseHandleRadius = (new Vector3(_base.position.x, _lookPoint.position.y, _base.position.z) - _lookPoint.position).magnitude;
+			//UnityEditor.Handles.DrawWireArc(new Vector3(_base.position.x, _lookPoint.position.y, _base.position.z), transform.up, _base.TransformDirection(Quaternion.Euler(0.0f, _rotationAngle / 2.0f, 0.0f) * (Vector3.forward * baseHandleRadius)).normalized, _rotationAngle, baseHandleRadius);
+			
+			
+			//UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)).normalized, _rotationAngle + _parameters.ViewAngle, _parameters.ViewRange);
+			//Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
+			//Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, -((_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f)), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
 
 			if (_parameters.ViewAngle < 360.0f) {
 				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));

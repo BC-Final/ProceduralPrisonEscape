@@ -25,8 +25,8 @@ namespace StateFramework {
 		public CameraGuardState (ShooterCamera pCamera, StateMachine<AbstractCameraState> pFsm) : base(pCamera, pFsm) {
 			_startRotation = _camera.Base.rotation.eulerAngles;
 
-			_leftPos = _startRotation + new Vector3(0f, _camera.Parameters.RotationAngle / 2f, 0f);
-			_rightPos = _startRotation + new Vector3(0f,  - _camera.Parameters.RotationAngle / 2f, 0f);
+			_leftPos = _startRotation + new Vector3(0f, _camera.RotationAngle / 2f, 0f);
+			_rightPos = _startRotation + new Vector3(0f,  - _camera.RotationAngle / 2f, 0f);
 		}
 
 		public override void Enter () {
@@ -37,7 +37,7 @@ namespace StateFramework {
 
 			_currentDirection = 1;
 
-			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _camera.Parameters.RotationSpeed;
+			_lerpTime = Quaternion.Angle(Quaternion.Euler(_start), Quaternion.Euler(_end)) / _camera.RotationSpeed;
 
 			_camera.GetComponentInChildren<Light>().color = Color.green;
 
@@ -73,7 +73,7 @@ namespace StateFramework {
 
 				_currentDirection = -_currentDirection;
 
-				_lerpTime = _camera.Parameters.RotationAngle / _camera.Parameters.RotationSpeed;
+				_lerpTime = _camera.RotationAngle / _camera.RotationSpeed;
 
 				if (_currentDirection == -1) {
 					_end = _rightPos;

@@ -213,7 +213,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707038382612290}
   m_LocalRotation: {x: -0.24091353, y: -0, z: -0, w: 0.9705466}
-  m_LocalPosition: {x: 0.021, y: -0.077, z: 0.314}
+  m_LocalPosition: {x: 0, y: -0.077, z: 0.314}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4984451609698928}
@@ -226,7 +226,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1280249839419804}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.038, y: -0.0825, z: 0.212}
+  m_LocalPosition: {x: 0, y: -0.0825, z: 0.212}
   m_LocalScale: {x: 0.1, y: 0.10000006, z: 0.10000006}
   m_Children: []
   m_Father: {fileID: 4984451609698928}
@@ -239,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1398956417256262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.4, y: 4.38, z: 0}
+  m_LocalPosition: {x: 7.74, y: 3.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4714567359238054}
@@ -267,7 +267,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662965433237260}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.037, y: -0.082, z: 0.318}
+  m_LocalPosition: {x: 0, y: -0.082, z: 0.318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4984451609698928}
@@ -321,7 +321,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1645042991322654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0697, y: -0.0553, z: 0.261}
+  m_LocalPosition: {x: 0, y: -0.0553, z: 0.261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4984451609698928}
@@ -333,7 +333,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1358016690976348}
-  m_LocalRotation: {x: 0.24091353, y: -0, z: -0, w: 0.9705466}
+  m_LocalRotation: {x: 0.24091417, y: 0, z: 0, w: 0.9705464}
   m_LocalPosition: {x: 0, y: -0.5323, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -538,7 +538,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 0
-  m_Color: {r: 0, g: 1, b: 0.46206903, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_Intensity: 1.35
   m_Range: 40
   m_SpotAngle: 55
@@ -577,12 +577,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parameters: {fileID: 11400000, guid: 6633de7456fac764cb60cfdf88f64cc4, type: 2}
+  _rotationSpeed: 10
+  _rotationAngle: 60
   _base: {fileID: 4984451609698928}
   _lookPoint: {fileID: 4645122979192898}
   _viewTrigger: {fileID: 135755753703571924}
   _visualizeView: 1
   _faction: 1
-  CurrentState: 
+  CurrentState: CameraGuardState
 --- !u!135 &135096171314957852
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -605,7 +607,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 11
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135839893509278108
 SphereCollider:

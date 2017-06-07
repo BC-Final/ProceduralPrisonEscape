@@ -62,7 +62,7 @@ public class PatrolRoute : MonoBehaviour {
 				}
 			}
 
-			Gizmos.DrawLine(t.position, transList[count].position);
+			Gizmos.DrawLine(t.position + t.up * 0.1f, transList[count].position+ transList[count].up * 0.1f);
 		}
 	}
 }
