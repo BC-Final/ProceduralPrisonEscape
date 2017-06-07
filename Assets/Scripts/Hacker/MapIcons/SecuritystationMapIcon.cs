@@ -25,10 +25,10 @@ public class SecuritystationMapIcon : AbstractMapIcon {
 	{
 		switch (state)
 		{
-			case SecurityStation.StationState.Passive: actions[0].Disabled = true; changeColor(Color.white); break;
-			case SecurityStation.StationState.Triggerd: actions[0].Disabled = true; changeColor(Color.red); break;
-			case SecurityStation.StationState.HalfDeactivated: actions[0].Disabled = false; changeColor(Color.yellow); break;
-			case SecurityStation.StationState.Deactivated: actions[0].Disabled = true; changeColor(Color.green); break;
+			case SecurityStation.StationState.Passive: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.white); break;
+			case SecurityStation.StationState.Triggerd: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.red); break;
+			case SecurityStation.StationState.HalfDeactivated: actions[0].Disabled = false; IsInteractable = true; changeColor(Color.yellow); break;
+			case SecurityStation.StationState.Deactivated: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.green); break;
 		}
 	}
 

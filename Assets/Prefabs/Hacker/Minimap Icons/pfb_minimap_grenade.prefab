@@ -65,8 +65,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6988c2c56c82954a8e4b9d8119690af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteractable: 1
   actions:
-  - DisplayName: Explode
+  - Disabled: 0
+    DisplayName: Explode
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:

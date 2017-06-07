@@ -18,6 +18,7 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
 	public GameObject FuseBoxIcon;
 	public GameObject GasPipeIcon;
     public GameObject KeyCardIcon;
+	public GameObject Lasergate;
 	public GameObject LightIcon;
     public GameObject PlayerIcon;
     public GameObject PushButton;

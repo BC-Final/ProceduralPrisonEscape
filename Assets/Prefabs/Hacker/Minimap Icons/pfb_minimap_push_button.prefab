@@ -125,8 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e813ee5ec5c1d84f9a5db37377cdef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInteractable: 1
   actions:
-  - DisplayName: Push
+  - Disabled: 0
+    DisplayName: Push
     HackerPointsCost: 0
     Action:
       m_PersistentCalls:

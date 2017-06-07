@@ -25,7 +25,8 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 	private void OnDestroy() {
 		HackerPackageSender.UnregisterNetworkedObject(this);
 	}
-
+	[SerializeField]
+	public bool IsInteractable;
 	[System.Serializable]
 	public struct ActionData {
 		public bool Disabled;
@@ -94,13 +95,16 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 	/// <summary>
 	/// Gives feedback when an Icon is interactable
 	/// </summary>
-	public void OnMouseEnter() {
-		mySequence = DOTween.Sequence();
-		mySequence.Append(transform.DOPunchScale(Vector3.one * 0.25f, 1f, 1, 0).SetLoops(1000,LoopType.Restart)).OnComplete(() => {
-		});
+	virtual public void OnMouseEnter() {
+		if (IsInteractable)
+		{
+			mySequence = DOTween.Sequence();
+			mySequence.Append(transform.DOPunchScale(Vector3.one * 0.25f, 1f, 1, 0).SetLoops(1000, LoopType.Restart)).OnComplete(() => {
+			});
+		}		
 	}
 
-	public void OnMouseExit() {
+	virtual public void OnMouseExit() {
 		mySequence.Kill(true);
 		
 	}
