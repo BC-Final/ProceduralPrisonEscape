@@ -7,8 +7,6 @@ public class CameraParameters : ScriptableObject {
 	public float ViewRange;
 	public float ViewAngle;
 
-	public float RotationSpeed;
-	public float RotationAngle;
 	public float FollowRotationSpeed;
 
 	public float TriggerDelay;
