@@ -9,7 +9,7 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
 
 	public void Initialize()
 	{
-		ShooterPackageSender.SendPackage(new NetworkPacket.Create.PushButton(Id, this.transform.position));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.Creation(Id, this.transform.position));
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _hackerButton.CurrentColor));
 		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _shooterButton.CurrentColor, 1));
 	}
@@ -28,7 +28,7 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
     [SerializeField]
     ShooterButton _hackerButton;
 
-	public static void ProccessPacket(NetworkPacket.Update.ButtonPush pPacket)
+	public static void ProccessPacket(NetworkPacket.GameObjects.Button.hUpdate pPacket)
 	{
 		ButtonTerminal terminal = ShooterPackageSender.GetNetworkedObject<ButtonTerminal>(pPacket.Id);
 		if (terminal._hackerButton.CanBeTriggered)
@@ -62,12 +62,12 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
 
 	public void OnShooterButtonColorChanged()
 	{
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _shooterButton.CurrentColor, 1));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.sUpdate(Id, _shooterButton.CurrentColor, 1));
 	}
 
 	public void OnHackerButtonColorChanged()
 	{
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _hackerButton.CurrentColor));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.sUpdate(Id, _hackerButton.CurrentColor));
 	}
 
 	private void OnSolved()

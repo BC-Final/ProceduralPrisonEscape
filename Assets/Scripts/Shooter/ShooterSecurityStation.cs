@@ -5,7 +5,7 @@ using DG.Tweening;
 using Gamelogic.Extensions;
 
 [SelectionBase]
-public class SecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
+public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInteractable {
 	[SerializeField]
 	private float _addedIntesity;
 

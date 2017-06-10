@@ -7,17 +7,39 @@ using System;
 
 public class DoorMapIcon : AbstractMapIcon {
 
-	public static void ProcessPacket(NetworkPacket.Update.Door pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Creation pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 
 		if (icon == null) {
 			createInstance(pPacket);
 		} else {
+			Debug.Log("DOOR INSTANCE ALREADY EXISTS!!!");
+		}
+	}
+
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Update pPacket)
+	{
+		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+
+		if (icon == null)
+		{
+			Debug.Log("DOOR INSTANCE DOES NOT EXISTS!!!");
+		}
+		else
+		{		
 			icon.updateInstance(pPacket);
 		}
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.EnableDoorOptions pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Other.DeactivateDoor pPacket)
+	{
+		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
+		if (icon)
+		{
+			icon.DisableDoor();
+		}
+	}
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.EnableDoorOptions pPacket)
 	{
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		if (icon)
@@ -26,8 +48,7 @@ public class DoorMapIcon : AbstractMapIcon {
 			icon.changeColor(Color.white);
 		}
 	}
-
-	public static void ProcessPacket(NetworkPacket.Update.DisableDoorOptions pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.DisableDoorOptions pPacket)
 	{
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		if (icon)
@@ -39,7 +60,7 @@ public class DoorMapIcon : AbstractMapIcon {
 
 	private string _codeSolution;
 
-	public static void AddAddon(NetworkPacket.Create.DecodeAddon pPacket) {
+	public static void AddAddon(NetworkPacket.GameObjects.Door.AddDecodeAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
 		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
@@ -63,7 +84,7 @@ public class DoorMapIcon : AbstractMapIcon {
         }
 	}
 
-	public static void AddAddon(NetworkPacket.Create.CodeLockAddon pPacket) {
+	public static void AddAddon(NetworkPacket.GameObjects.Door.AddCodeLockAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
 		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
@@ -78,7 +99,7 @@ public class DoorMapIcon : AbstractMapIcon {
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonCodeinput;
     }
 
-    public static void AddAddon(NetworkPacket.Create.DuoButtonAddon pPacket)
+    public static void AddAddon(NetworkPacket.GameObjects.Door.AddDuoButtonAddon pPacket)
     {
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDuobutton;
@@ -87,17 +108,16 @@ public class DoorMapIcon : AbstractMapIcon {
 		icon.IsInteractable = false;
 	}
 
-	public static void AddAddon(NetworkPacket.Update.DeactivateDoor pPacket) {
-		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
-		icon.actions = new ActionData[0];
-		icon.changeColor(Color.gray);
+	private void DisableDoor() {
+		actions = new ActionData[0];
+		changeColor(Color.gray);
 
-		icon.IsInteractable = false;
+		IsInteractable = false;
 	}
 
 
 
-	private static void createInstance(NetworkPacket.Update.Door pPacket) {
+	private static void createInstance(NetworkPacket.GameObjects.Door.Creation pPacket) {
 		DoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.DoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DoorMapIcon>();
 
 		icon.Id = pPacket.Id;
@@ -117,7 +137,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private void updateInstance(NetworkPacket.Update.Door pPacket) {
+	private void updateInstance(NetworkPacket.GameObjects.Door.sUpdate pPacket) {
 		_open.Value = pPacket.Open;
 		_locked.Value = pPacket.Locked;
 	}
@@ -193,7 +213,7 @@ public class DoorMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate() {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value, _locked.Value));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.hUpdate(Id, _open.Value, _locked.Value));
 	}
 
 	private void stateChanged() {
