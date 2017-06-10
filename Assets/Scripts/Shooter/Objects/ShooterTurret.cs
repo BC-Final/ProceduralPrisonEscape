@@ -6,7 +6,7 @@ using System.Linq;
 
 //TODO Remove IDamageable
 [SelectionBase]
-public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
+public class ShooterTurret : MonoBehaviour, IShooterNetworked, IDamageable {
 	[SerializeField]
 	private TurretParameters _parameters;
 	public TurretParameters Parameters { get { return _parameters; } }
@@ -77,8 +77,8 @@ public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 	private ShooterNetworkId _id = new ShooterNetworkId();
 	public ShooterNetworkId Id { get { return _id; } }
 
-	public static void ProcessPacket (NetworkPacket.Update.Turret pPacket) {
-		Turret tur = ShooterPackageSender.GetNetworkedObject<Turret>(pPacket.Id);
+	public static void ProcessPacket (NetworkPacket.GameObjects.Turret.hUpdate pPacket) {
+		ShooterTurret tur = ShooterPackageSender.GetNetworkedObject<ShooterTurret>(pPacket.Id);
 
 		if (tur != null) {
 			switch (pPacket.State) {
@@ -90,7 +90,7 @@ public class Turret : MonoBehaviour, IShooterNetworked, IDamageable {
 					break;
 			}
 		} else {
-			Debug.LogError("Trying to access non existent networked object with id " + pPacket.Id);
+			Debug.LogError("Turret with Id " + pPacket.Id + " does not exist");
 		}
 	}
 

@@ -15,17 +15,27 @@ public class GaspipeMapIcon : AbstractMapIcon {
 	private Sprite _explodedSprite;
 	#endregion
 
-	public static void ProcessPacket (NetworkPacket.Update.Pipe pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Gaspipe.Creation pPacket) {
 		GaspipeMapIcon icon = HackerPackageSender.GetNetworkedObject<GaspipeMapIcon>(pPacket.Id);
 
 		if (icon == null) {
 			createInstance(pPacket);
 		} else {
-			icon.updateInstance(pPacket);
+			Debug.LogError("Module with Id " + pPacket.Id + " already exists.");
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.Pipe pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.Gaspipe.sUpdate pPacket) {
+		GaspipeMapIcon icon = HackerPackageSender.GetNetworkedObject<GaspipeMapIcon>(pPacket.Id);
+
+		if (icon != null) {
+			icon.updateInstance(pPacket);
+		} else {
+			Debug.LogError("Module with Id " + pPacket.Id + " does not exist");
+		}
+	}
+
+	private static void createInstance (NetworkPacket.GameObjects.Gaspipe.Creation pPacket) {
 		GaspipeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GasPipeIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<GaspipeMapIcon>();
 
 		icon._used.OnValueChange += icon.changedState;
@@ -34,7 +44,7 @@ public class GaspipeMapIcon : AbstractMapIcon {
 		icon._used.Value = pPacket.Exploded;
 	}
 
-	private void updateInstance (NetworkPacket.Update.Pipe pPacket) {
+	private void updateInstance (NetworkPacket.GameObjects.Gaspipe.sUpdate pPacket) {
 		_used.Value = pPacket.Exploded;
         GaspipeMapIcon icon = HackerPackageSender.GetNetworkedObject<GaspipeMapIcon>(pPacket.Id);
         Array.Clear(icon.actions, 0, icon.actions.Length);

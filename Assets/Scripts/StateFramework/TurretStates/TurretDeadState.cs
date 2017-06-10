@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateFramework {
 	public class TurretDeadState : AbstractTurretState {
-		public TurretDeadState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) {
+		public TurretDeadState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) {
 			
 		}
 

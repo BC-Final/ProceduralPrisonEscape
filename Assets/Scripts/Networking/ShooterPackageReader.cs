@@ -55,9 +55,6 @@ public class ShooterPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.AbstractPacket pPacket) {
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
 		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
-		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
-		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
-		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
 		if (pPacket is NetworkPacket.Update.CodeLockCode) { readPacket(pPacket as NetworkPacket.Update.CodeLockCode); }
 		if (pPacket is NetworkPacket.Update.ButtonPush) { readPacket(pPacket as NetworkPacket.Update.ButtonPush); }
 		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
@@ -86,18 +83,6 @@ public class ShooterPackageReader : MonoBehaviour {
 
 	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
 		ShooterSectorDoor.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.Turret pPacket) {
-		Turret.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.Camera pPacket) {
-		ShooterCamera.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.Pipe pPacket) {
-		ShooterPipe.ProcessPacket(pPacket);
 	}
 
 	private void readPacket(NetworkPacket.Update.CodeLockCode pPacket) {

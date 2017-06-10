@@ -5,7 +5,7 @@ namespace StateFramework {
 	public class TurretIdleState : AbstractTurretState {
 		//private GameObject _player;
 
-		public TurretIdleState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) {
+		public TurretIdleState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) {
 			//_player = GameObject.FindGameObjectWithTag("Player");
 		}
 

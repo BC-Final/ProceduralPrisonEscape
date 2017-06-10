@@ -7,7 +7,7 @@ namespace StateFramework {
 	public class TurretHideState : AbstractTurretState {
 		private Sequence _sequence;
 
-		public TurretHideState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretHideState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_turret.GetComponentInChildren<Light>().intensity = 0.0f;

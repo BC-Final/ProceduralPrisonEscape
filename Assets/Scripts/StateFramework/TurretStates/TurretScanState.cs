@@ -18,7 +18,7 @@ namespace StateFramework {
 		private Vector3 _start;
 		private Vector3 _end;
 
-		public TurretScanState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretScanState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_currentDirection = 1;

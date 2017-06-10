@@ -9,7 +9,7 @@ namespace StateFramework {
 		private float _disableTimer;
 		private Sequence _sequence;
 
-		public TurretDisabledState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretDisabledState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_turret.GetComponentInChildren<Light>().intensity = 0.0f;

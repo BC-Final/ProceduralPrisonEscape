@@ -99,11 +99,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	public ShooterNetworkId Id { get { return _id; } }
 
 
-	public static void ProcessPacket(NetworkPacket.Update.Drone pPacket) {
-		//TODO Implement
-	}
-
-
 	public void SetFollowPlayer() {
 		_lastTarget = FindObjectOfType<PlayerHealth>().GameObject;
 

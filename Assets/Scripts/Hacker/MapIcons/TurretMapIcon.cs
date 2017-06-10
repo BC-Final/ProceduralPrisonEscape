@@ -16,17 +16,27 @@ public class TurretMapIcon : AbstractMapIcon {
 	[SerializeField]
 	private Sprite _seesPlayerSprite;
 
-	public static void ProcessPacket (NetworkPacket.Update.Turret pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Turret.Creation pPacket) {
 		TurretMapIcon icon = HackerPackageSender.GetNetworkedObject<TurretMapIcon>(pPacket.Id);
 
 		if (icon == null) {
 			createInstance(pPacket);
 		} else {
-			icon.updateInstance(pPacket);
+			Debug.LogError("Module with Id " + pPacket.Id + " already exists.");
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.Turret pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.Turret.sUpdate pPacket) {
+		TurretMapIcon icon = HackerPackageSender.GetNetworkedObject<TurretMapIcon>(pPacket.Id);
+
+		if (icon != null) {
+			icon.updateInstance(pPacket);
+		} else {
+			Debug.LogError("Module with Id " + pPacket.Id + " does not exist");
+		}
+	}
+
+	private static void createInstance (NetworkPacket.GameObjects.Turret.Creation pPacket) {
 		TurretMapIcon icon = Instantiate(HackerReferenceManager.Instance.TurretIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<TurretMapIcon>();
 
 		icon.Id = pPacket.Id;
@@ -34,7 +44,7 @@ public class TurretMapIcon : AbstractMapIcon {
 		icon.determineSprite(pPacket.State);
 	}
 
-	private void updateInstance (NetworkPacket.Update.Turret pPacket) {
+	private void updateInstance (NetworkPacket.GameObjects.Turret.sUpdate pPacket) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;

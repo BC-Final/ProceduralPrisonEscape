@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateFramework {
 	public class TurretEngageState : AbstractTurretState {
-		public TurretEngageState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretEngageState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_turret.GetComponentInChildren<Light>().intensity = 1.5f;

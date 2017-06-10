@@ -7,7 +7,7 @@ namespace StateFramework {
 	public class TurretDeployState : AbstractTurretState{
 		private Sequence _sequence;
 
-		public TurretDeployState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretDeployState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_sequence = DOTween.Sequence();

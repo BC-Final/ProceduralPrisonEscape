@@ -23,7 +23,7 @@ public class DroneMapIcon : AbstractMapIcon {
 	[SerializeField]
 	private Sprite _shieldSprite;
 
-	public static void ProcessPacket (NetworkPacket.Update.Drone pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.Drone.sUpdate pPacket) {
 		DroneMapIcon icon = HackerPackageSender.GetNetworkedObject<DroneMapIcon>(pPacket.Id);
 
 		if (icon == null) {
@@ -33,7 +33,7 @@ public class DroneMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.Drone pPacket) {
+	private static void createInstance (NetworkPacket.GameObjects.Drone.sUpdate pPacket) {
 		DroneMapIcon icon = Instantiate(HackerReferenceManager.Instance.DroneIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<DroneMapIcon>();
 
 		icon._health.Value = pPacket.Health;
@@ -42,7 +42,7 @@ public class DroneMapIcon : AbstractMapIcon {
 		icon.determineSprite(pPacket.State);
 	}
 
-	private void updateInstance (NetworkPacket.Update.Drone pPacket) {
+	private void updateInstance (NetworkPacket.GameObjects.Drone.sUpdate pPacket) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;

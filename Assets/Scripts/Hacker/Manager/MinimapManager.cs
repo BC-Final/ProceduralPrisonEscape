@@ -109,7 +109,7 @@ public class MinimapManager : Singleton<MinimapManager> {
 		shot.SetTargetPos(endPos / scale);
 	}
 
-	public void ProcessPacket(NetworkPacket.Messages.MoveCameraTowardsLocation pPacket)
+	public void ProcessPacket(NetworkPacket.GameObjects.HackerMinimapCamera.MoveCameraTowardsLocation pPacket)
 	{
 		Vector3 targetPos = (new Vector3(pPacket.posX, pPacket.posY, 0) / scale);
 		Debug.Log("packet pos	: " + "x" + pPacket.posX + "/Y" + pPacket.posY);

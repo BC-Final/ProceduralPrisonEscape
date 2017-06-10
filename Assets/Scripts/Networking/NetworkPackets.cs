@@ -695,6 +695,7 @@ namespace NetworkPacket {
 				}
 			}
 		}
+
 		namespace Module
 		{
 			[System.Serializable]
@@ -711,9 +712,10 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ModuleMapIcon.ProcessPacket(this);
 				}
 			}
+
 			[System.Serializable]
 			public class sUpdate : AbstractPacket
 			{
@@ -728,24 +730,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
-				}
-			}
-			[System.Serializable]
-			public class hUpdate : AbstractPacket
-			{
-				public int Id;
-				public float PosX, PosY, Rot;
-				public bool Solved;
-
-				public hUpdate(int pId, bool pSolved)
-				{
-					Id = pId; Solved = pSolved;
-				}
-
-				public override void Invoke()
-				{
-					throw new NotImplementedException();
+					ModuleMapIcon.ProcessPacket(this);
 				}
 			}
 		}
@@ -765,9 +750,10 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ObjectiveMapIcon.ProcessPacket(this);
 				}
 			}
+
 			[System.Serializable]
 			public class sUpdate : AbstractPacket
 			{
@@ -782,24 +768,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
-				}
-			}
-			[System.Serializable]
-			public class hUpdate : AbstractPacket
-			{
-				public int Id;
-				public float PosX, PosY;
-				public bool Finished;
-
-				public hUpdate(int pId, bool pFinished)
-				{
-					Id = pId; Finished = pFinished;
-				}
-
-				public override void Invoke()
-				{
-					throw new NotImplementedException();
+					ObjectiveMapIcon.ProcessPacket(this);
 				}
 			}
 		}
@@ -822,27 +791,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
-				}
-			}
-			[System.Serializable]
-			public class sUpdateShort : AbstractPacket
-			{
-				public int Id;
-				public float PosX, PosY, Rot;
-				public float Health;
-				public EnemyState State;
-				//public bool Shielded;
-				//TODO Include info like weapon and armor and stuff
-
-				public sUpdateShort(int pId, EnemyState pState)
-				{
-					Id = pId; State = pState;
-				}
-
-				public override void Invoke()
-				{
-					throw new NotImplementedException();
+					DroneMapIcon.ProcessPacket(this);
 				}
 			}
 		}
@@ -862,7 +811,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					TurretMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -879,7 +828,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					TurretMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -896,7 +845,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ShooterTurret.ProcessPacket(this);
 				}
 			}
 
@@ -917,7 +866,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					CameraMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -934,7 +883,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					CameraMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -951,11 +900,11 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ShooterCamera.ProcessPacket(this);
 				}
 			}
 		}
-		namespace Pipe
+		namespace Gaspipe
 		{
 			[System.Serializable]
 			public class Creation : AbstractPacket
@@ -970,16 +919,12 @@ namespace NetworkPacket {
 					Id = pId; PosX = pPosX; PosY = pPosY; Rot = pRot; Exploded = pExploded;
 				}
 
-				public Pipe(int pId, bool pChargedExplosion)
-				{
-					Id = pId; ChargedExplosion = pChargedExplosion;
-				}
-
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					GaspipeMapIcon.ProcessPacket(this);
 				}
 			}
+
 			[System.Serializable]
 			public class sUpdate : AbstractPacket
 			{
@@ -996,9 +941,10 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					GaspipeMapIcon.ProcessPacket(this);
 				}
 			}
+
 			[System.Serializable]
 			public class hUpdate : AbstractPacket
 			{
@@ -1015,29 +961,31 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ShooterGaspipe.ProcessPacket(this);
 				}
 			}
 
 		}
+
 		namespace Minimap
 		{
 			[System.Serializable]
-			public class Minimap : AbstractPacket
+			public class Creation : AbstractPacket
 			{
 				public byte[] bytes;
-				public Minimap(byte[] nBytes)
+				public Creation(byte[] nBytes)
 				{
 					bytes = nBytes;
 				}
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					HackerMinimap.ProcessPacket(this);
 				}
 			}
 
 		}
+
 		namespace Light
 		{
 			[System.Serializable]
@@ -1045,6 +993,7 @@ namespace NetworkPacket {
 			{
 				public int Id;
 				public bool IsOn;
+				//TODO Add position
 
 				public sUpdate(int pId, bool pIsOn)
 				{
@@ -1057,13 +1006,14 @@ namespace NetworkPacket {
 					throw new NotImplementedException();
 				}
 			}
+
 			[System.Serializable]
-			public class pUpdate : AbstractPacket
+			public class hUpdate : AbstractPacket
 			{
 				public int Id;
 				public bool IsOn;
 
-				public pUpdate(int pId, bool pIsOn)
+				public hUpdate(int pId, bool pIsOn)
 				{
 					Id = pId;
 					IsOn = pIsOn;
@@ -1074,8 +1024,8 @@ namespace NetworkPacket {
 					throw new NotImplementedException();
 				}
 			}
-
 		}
+
 		namespace HackerMinimapCamera
 		{
 			[System.Serializable]
@@ -1091,7 +1041,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					MinimapManager.Instance.ProcessPacket(this);
 				}
 			}
 		}

@@ -7,9 +7,9 @@ using DG.Tweening;
 namespace StateFramework {
 	public class AbstractTurretState : AbstractState {
 		protected StateMachine<AbstractTurretState> _fsm = null;
-		protected Turret _turret;
+		protected ShooterTurret _turret;
 
-		public AbstractTurretState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) {
+		public AbstractTurretState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) {
 			_turret = pTurret;
 			_fsm = pFsm;
 		}

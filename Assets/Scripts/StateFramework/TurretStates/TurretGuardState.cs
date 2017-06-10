@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StateFramework {
 	public class TurretGuardState : AbstractTurretState {
-		public TurretGuardState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretGuardState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_turret.SeesTarget = false;

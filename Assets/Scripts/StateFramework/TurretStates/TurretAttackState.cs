@@ -7,7 +7,7 @@ namespace StateFramework {
 		private float _nextAttackTime;
 
 
-		public TurretAttackState (Turret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
+		public TurretAttackState (ShooterTurret pTurret, StateMachine<AbstractTurretState> pFsm) : base(pTurret, pFsm) { }
 
 		public override void Enter () {
 			_nextAttackTime = 0.0f;

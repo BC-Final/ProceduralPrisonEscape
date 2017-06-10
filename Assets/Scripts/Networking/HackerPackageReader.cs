@@ -85,25 +85,18 @@ public class HackerPackageReader : MonoBehaviour {
 
 		//Update
 		if (pPacket is NetworkPacket.Update.ButtonFeedback) { readPacket(pPacket as NetworkPacket.Update.ButtonFeedback); }
-		if (pPacket is NetworkPacket.Update.Camera) { readPacket(pPacket as NetworkPacket.Update.Camera); }
 		if (pPacket is NetworkPacket.Update.DeactivateDoor) { readPacket(pPacket as NetworkPacket.Update.DeactivateDoor); }
 		if (pPacket is NetworkPacket.Update.DisableDoorOptions) { readPacket(pPacket as NetworkPacket.Update.DisableDoorOptions); }
 		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
-		if (pPacket is NetworkPacket.Update.Drone) { readPacket(pPacket as NetworkPacket.Update.Drone); }
 		if (pPacket is NetworkPacket.Update.EnableDoorOptions) { readPacket(pPacket as NetworkPacket.Update.EnableDoorOptions); }
 		if (pPacket is NetworkPacket.Update.Firewall) { readPacket(pPacket as NetworkPacket.Update.Firewall); }
 		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
 		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
 		if (pPacket is NetworkPacket.Update.Icon) { readPacket(pPacket as NetworkPacket.Update.Icon); }
 		if (pPacket is NetworkPacket.Update.KeyCardCollected) { readPacket(pPacket as NetworkPacket.Update.KeyCardCollected); }
-		if (pPacket is NetworkPacket.Update.Minimap) { readPacket(pPacket as NetworkPacket.Update.Minimap); }
-		if (pPacket is NetworkPacket.Update.Module) { readPacket(pPacket as NetworkPacket.Update.Module); }
-		if (pPacket is NetworkPacket.Update.Objective) { readPacket(pPacket as NetworkPacket.Update.Objective); }
-		if (pPacket is NetworkPacket.Update.Pipe) { readPacket(pPacket as NetworkPacket.Update.Pipe); }
 		if (pPacket is NetworkPacket.Update.Player) { readPacket(pPacket as NetworkPacket.Update.Player); }
 		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
 		if (pPacket is NetworkPacket.Update.SecurityStation) { readPacket(pPacket as NetworkPacket.Update.SecurityStation); }
-		if (pPacket is NetworkPacket.Update.Turret) { readPacket(pPacket as NetworkPacket.Update.Turret); }
 
 
 		//State
@@ -112,7 +105,6 @@ public class HackerPackageReader : MonoBehaviour {
 		//Other
 		if (pPacket is NetworkPacket.Messages.CreationEnd) { readPacket(pPacket as NetworkPacket.Messages.CreationEnd); }
 		if (pPacket is NetworkPacket.Messages.DisconnectRequest) { readPacket(pPacket as NetworkPacket.Messages.DisconnectRequest); }
-		if (pPacket is NetworkPacket.Messages.MoveCameraTowardsLocation) { readPacket(pPacket as NetworkPacket.Messages.MoveCameraTowardsLocation); }
 
 		if(pPacket is NetworkPacket.GameObjects.Lasergate.Creation) { (pPacket as NetworkPacket.GameObjects.Lasergate.Creation).Invoke(); }
 		if (pPacket is NetworkPacket.GameObjects.Lasergate.sUpdate) { (pPacket as NetworkPacket.GameObjects.Lasergate.sUpdate).Invoke(); }
@@ -124,9 +116,7 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.ButtonFeedback pPacket) {
 		PushButtonMapIcon.ProcessPacket(pPacket);
 	}
-	private void readPacket(NetworkPacket.Update.Camera pPacket) {
-		CameraMapIcon.ProcessPacket(pPacket);
-	}
+
 	private void readPacket(NetworkPacket.Update.DeactivateDoor pPacket) {
 		if (loadingFinished)
 		{
@@ -149,9 +139,7 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.Door pPacket) {
 		DoorMapIcon.ProcessPacket(pPacket);
 	}
-	private void readPacket(NetworkPacket.Update.Drone pPacket) {
-		DroneMapIcon.ProcessPacket(pPacket);
-	}
+
 	private void readPacket(NetworkPacket.Update.EnableDoorOptions pPacket)
 	{
 		if (loadingFinished)
@@ -178,20 +166,7 @@ public class HackerPackageReader : MonoBehaviour {
 	{
 		if (_cardHolder) { _cardHolder.AddCard(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB, 1)); } else { _cardHolder = GameObject.FindObjectOfType<HUDCardHolder>(); _cardHolder.AddCard(new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB, 1)); }
 	}
-	private void readPacket(NetworkPacket.Update.Minimap package) {
-		Texture2D tex = new Texture2D(2, 2);
-		tex.LoadImage(package.bytes);
-		FindObjectOfType<Minimap>().GetComponent<Renderer>().material.mainTexture = tex;
-	}
-	private void readPacket(NetworkPacket.Update.Module pPacket) {
-		ModuleMapIcon.ProcessPacket(pPacket);
-	}
-	private void readPacket(NetworkPacket.Update.Objective pPacket) {
-		ObjectiveMapIcon.ProcessPacket(pPacket);
-	}
-	private void readPacket(NetworkPacket.Update.Pipe pPacket) {
-		GaspipeMapIcon.ProcessPacket(pPacket);
-	}
+
 	private void readPacket(NetworkPacket.Update.Player pPacket) {
 		PlayerMapIcon.ProcessPacket(pPacket);
 	}
@@ -201,9 +176,6 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Update.SecurityStation pPacket)
 	{
 		SecuritystationMapIcon.ProcessPacket(pPacket);
-	}
-	private void readPacket(NetworkPacket.Update.Turret pPacket) {
-		TurretMapIcon.ProcessPacket(pPacket);
 	}
 
 	/// <summary>

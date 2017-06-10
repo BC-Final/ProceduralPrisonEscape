@@ -4,7 +4,7 @@ using UnityEngine;
 using Gamelogic.Extensions;
 
 [SelectionBase]
-public class ShooterPipe : MonoBehaviour, IShooterNetworked {
+public class ShooterGaspipe : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private GameObject _normalModel;
 
@@ -34,8 +34,8 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 
 	private ObservedValue<bool> _broken = new ObservedValue<bool>(false);
 
-	public static void ProcessPacket (NetworkPacket.Update.Pipe pPacket) {
-		ShooterPipe pipe = ShooterPackageSender.GetNetworkedObject<ShooterPipe>(pPacket.Id);
+	public static void ProcessPacket (NetworkPacket.GameObjects.Gaspipe.hUpdate pPacket) {
+		ShooterGaspipe pipe = ShooterPackageSender.GetNetworkedObject<ShooterGaspipe>(pPacket.Id);
 
 		if (pipe != null) {
 			if (pPacket.ChargedExplosion) {
@@ -44,7 +44,7 @@ public class ShooterPipe : MonoBehaviour, IShooterNetworked {
 				pipe.explode(pPacket.ChargedExplosion);
 			}
 		} else {
-			Debug.LogError("Trying to access non existent networked object with id " + pPacket.Id);
+			Debug.LogError("Gaspipe with Id " + pPacket.Id + " does not exist");
 		}
 	}
 

@@ -67,7 +67,7 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 	private ShooterNetworkId _id = new ShooterNetworkId();
 	public ShooterNetworkId Id { get { return _id; } }
 
-	public static void ProcessPacket (NetworkPacket.Update.Camera pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.Camera.hUpdate pPacket) {
 		ShooterCamera cam = ShooterPackageSender.GetNetworkedObject<ShooterCamera>(pPacket.Id);
 
 		if (cam != null) {
@@ -76,7 +76,7 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 				case EnemyState.Controlled: cam.control(); break;
 			}
 		} else {
-			Debug.LogError("Trying to access non existent networked object with id " + pPacket.Id);
+			Debug.LogError("Camera with Id " + pPacket.Id + " does not exist");
 		}
 	}
 
