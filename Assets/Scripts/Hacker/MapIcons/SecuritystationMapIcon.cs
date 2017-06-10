@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SecuritystationMapIcon : AbstractMapIcon {
 
-	public static void ProcessPacket(NetworkPacket.Create.SecurityStation pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.SecurityStation.Creation pPacket) {
 		SecuritystationMapIcon icon = HackerPackageSender.GetNetworkedObject<SecuritystationMapIcon>(pPacket.Id);
 
 		if (icon == null) {
@@ -12,27 +12,27 @@ public class SecuritystationMapIcon : AbstractMapIcon {
 		}
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.SecurityStation pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.SecurityStation.sUpdate pPacket)
 	{
 		SecuritystationMapIcon icon = HackerPackageSender.GetNetworkedObject<SecuritystationMapIcon>(pPacket.Id);
 		if (icon != null)
 		{
-			icon.ChangeState((SecurityStation.StationState)pPacket.state);
+			icon.ChangeState((ShooterSecurityStation.StationState)pPacket.state);
 		}
 	}
 
-	public void ChangeState(SecurityStation.StationState state)
+	public void ChangeState(ShooterSecurityStation.StationState state)
 	{
 		switch (state)
 		{
-			case SecurityStation.StationState.Passive: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.white); break;
-			case SecurityStation.StationState.Triggerd: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.red); break;
-			case SecurityStation.StationState.HalfDeactivated: actions[0].Disabled = false; IsInteractable = true; changeColor(Color.yellow); break;
-			case SecurityStation.StationState.Deactivated: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.green); break;
+			case ShooterSecurityStation.StationState.Passive: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.white); break;
+			case ShooterSecurityStation.StationState.Triggerd: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.red); break;
+			case ShooterSecurityStation.StationState.HalfDeactivated: actions[0].Disabled = false; IsInteractable = true; changeColor(Color.yellow); break;
+			case ShooterSecurityStation.StationState.Deactivated: actions[0].Disabled = true; IsInteractable = false; changeColor(Color.green); break;
 		}
 	}
 
-	private static void createInstance(NetworkPacket.Create.SecurityStation pPacket) {
+	private static void createInstance(NetworkPacket.GameObjects.SecurityStation.Creation pPacket) {
 		SecuritystationMapIcon icon = Instantiate(HackerReferenceManager.Instance.SecurityStationIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.identity).GetComponent<SecuritystationMapIcon>();
 		icon.Id = pPacket.Id;
 	}
@@ -40,6 +40,6 @@ public class SecuritystationMapIcon : AbstractMapIcon {
 
 
 	public void Interaction() {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.SecurityStationHackerInteract(Id));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.SecurityStation.hUpdate(Id));
 	}
 }

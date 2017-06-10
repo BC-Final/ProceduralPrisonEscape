@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Grenade : MonoBehaviour, IShooterNetworked {
+public class ShooterGrenade : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private float _maxRange;
 
@@ -37,7 +37,7 @@ public class Grenade : MonoBehaviour, IShooterNetworked {
 		_updateTimer = TimerManager.CreateTimer("Player Update", false)
 			.SetDuration(_updateInterval)
 			.SetLoops(-1)
-			.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Grenade(Id, transform.position.x, transform.position.z)))
+			.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Grenade.sUpdate(Id, transform.position.x, transform.position.z)))
 			.Start();
 	}
 
@@ -56,8 +56,8 @@ public class Grenade : MonoBehaviour, IShooterNetworked {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.Grenade pPacket) {
-		Grenade grenade = ShooterPackageSender.GetNetworkedObject<Grenade>(pPacket.Id);
+	public static void ProcessPacket(NetworkPacket.GameObjects.Grenade.hUpdate pPacket) {
+		ShooterGrenade grenade = ShooterPackageSender.GetNetworkedObject<ShooterGrenade>(pPacket.Id);
 
 		if (grenade != null) {
 			grenade.explode();

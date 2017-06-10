@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMapIcon : AbstractMapIcon {
-	public static void ProcessPacket (NetworkPacket.Update.Player pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.Player.sUpdate pPacket) {
 		PlayerMapIcon icon = HackerPackageSender.GetNetworkedObject<PlayerMapIcon>(pPacket.Id);
 
 		if (icon == null) {
@@ -13,14 +13,14 @@ public class PlayerMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.Player pPacket) {
+	private static void createInstance (NetworkPacket.GameObjects.Player.sUpdate pPacket) {
 		PlayerMapIcon icon = Instantiate(HackerReferenceManager.Instance.PlayerIcon, new Vector3(pPacket.PosX, pPacket.PosY, 0) / MinimapManager.scale, Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<PlayerMapIcon>();
 
 		icon._health = pPacket.Health;
 		icon.Id = pPacket.Id;
 	}
 
-	private void updateInstance (NetworkPacket.Update.Player pPacket) {
+	private void updateInstance (NetworkPacket.GameObjects.Player.sUpdate pPacket) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;

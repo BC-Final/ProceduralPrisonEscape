@@ -4,6 +4,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HUDCardHolder : MonoBehaviour {
+	private static HUDCardHolder _instance;
+	public static HUDCardHolder GetInstance()
+	{
+		if (!_instance)
+		{
+			_instance = GameObject.FindObjectOfType<HUDCardHolder>();
+		}
+			return _instance; 
+	}
+
+
 	[SerializeField]
 	bool ShooterHUD = true;
 	public void AddCard(Color color)

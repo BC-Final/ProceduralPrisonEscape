@@ -30,16 +30,16 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// </summary>
 	public void Initialize() {
 		//TODO Only initialze when shooter saw object or database
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Creation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, _locked));
 		if (_keypad) {
 			//_keypad.Doors.Add(this);
-			ShooterPackageSender.SendPackage(new NetworkPacket.Create.DecodeAddon(Id, _keypad.keyCode));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Addons.AddDecodeAddon(Id, _keypad.keyCode));
 		}
 		if (IsDisabled) {
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.DeactivateDoor(Id));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.DeactivateDoor(Id));
 		}
 		if (_hasDuoButton) {
-			ShooterPackageSender.SendPackage(new NetworkPacket.Create.DuoButtonAddon(Id));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Addons.AddDuoButtonAddon(Id));
 		}
 		//Keycard should also be managed in the door class for consistency
 	}
@@ -240,7 +240,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// Computes a Door Update Packet to update a corresponding door
 	/// </summary>
 	/// <param name="pPacket">The received packet</param>
-	public static void ProcessPacket(NetworkPacket.Update.Door pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.hUpdate pPacket) {
 		ShooterDoor door = ShooterPackageSender.GetNetworkedObject<ShooterDoor>(pPacket.Id);
 
 		if (door != null) {

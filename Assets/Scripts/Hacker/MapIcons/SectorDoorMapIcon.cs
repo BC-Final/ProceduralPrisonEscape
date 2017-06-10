@@ -5,17 +5,32 @@ using Gamelogic.Extensions;
 
 public class SectorDoorMapIcon : AbstractMapIcon {
 
-	public static void ProcessPacket (NetworkPacket.Update.SectorDoor pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.SectorDoor.Creation pPacket) {
 		SectorDoorMapIcon icon = HackerPackageSender.GetNetworkedObject<SectorDoorMapIcon>(pPacket.Id);
 
 		if (icon == null) {
 			createInstance(pPacket);
 		} else {
+			Debug.Log("DOOR INSTANCE ALREADY EXISTS!!!");
+		}
+	}
+
+	public static void ProcessPacket(NetworkPacket.GameObjects.SectorDoor.sUpdate pPacket)
+	{
+		SectorDoorMapIcon icon = HackerPackageSender.GetNetworkedObject<SectorDoorMapIcon>(pPacket.Id);
+
+		if (icon == null)
+		{
+			Debug.Log("DOOR INSTANCE DOES NOT EXISTS!!!");
+		}
+		else
+		{
 			icon.updateInstance(pPacket);
 		}
 	}
 
-	private static void createInstance (NetworkPacket.Update.SectorDoor pPacket) {
+
+	private static void createInstance (NetworkPacket.GameObjects.SectorDoor.Creation pPacket) {
 		SectorDoorMapIcon icon = Instantiate(HackerReferenceManager.Instance.SectorDoorIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, -10.0f), Quaternion.Euler(0, 0, -pPacket.Rot)).GetComponent<SectorDoorMapIcon>();
 
 		icon.Id = pPacket.Id;
@@ -26,7 +41,7 @@ public class SectorDoorMapIcon : AbstractMapIcon {
 		icon.stateChanged();
 	}
 
-	private void updateInstance (NetworkPacket.Update.SectorDoor pPacket) {
+	private void updateInstance (NetworkPacket.GameObjects.SectorDoor.sUpdate pPacket) {
 		_open.Value = pPacket.Open;
 		_locked.Value = pPacket.Locked;
 	}
@@ -60,7 +75,7 @@ public class SectorDoorMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate () {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, _open.Value));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.SectorDoor.hUpdate(Id, _open.Value, _locked.Value));
 	}
 
 	private void stateChanged () {

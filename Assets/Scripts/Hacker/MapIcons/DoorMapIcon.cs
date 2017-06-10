@@ -17,7 +17,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		}
 	}
 
-	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Update pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.sUpdate pPacket)
 	{
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 
@@ -39,7 +39,7 @@ public class DoorMapIcon : AbstractMapIcon {
 			icon.DisableDoor();
 		}
 	}
-	public static void ProcessPacket(NetworkPacket.GameObjects.Door.EnableDoorOptions pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Other.EnableDoorOptions pPacket)
 	{
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		if (icon)
@@ -48,7 +48,7 @@ public class DoorMapIcon : AbstractMapIcon {
 			icon.changeColor(Color.white);
 		}
 	}
-	public static void ProcessPacket(NetworkPacket.GameObjects.Door.DisableDoorOptions pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Other.DisableDoorOptions pPacket)
 	{
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.Id);
 		if (icon)
@@ -60,7 +60,7 @@ public class DoorMapIcon : AbstractMapIcon {
 
 	private string _codeSolution;
 
-	public static void AddAddon(NetworkPacket.GameObjects.Door.AddDecodeAddon pPacket) {
+	public static void AddAddon(NetworkPacket.GameObjects.Door.Addons.AddDecodeAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
 		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
@@ -84,7 +84,7 @@ public class DoorMapIcon : AbstractMapIcon {
         }
 	}
 
-	public static void AddAddon(NetworkPacket.GameObjects.Door.AddCodeLockAddon pPacket) {
+	public static void AddAddon(NetworkPacket.GameObjects.Door.Addons.AddCodeLockAddon pPacket) {
 		DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
 		icon.actions = new ActionData[1];
 		AbstractMapIcon.ActionData action = new AbstractMapIcon.ActionData();
@@ -99,7 +99,7 @@ public class DoorMapIcon : AbstractMapIcon {
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonCodeinput;
     }
 
-    public static void AddAddon(NetworkPacket.GameObjects.Door.AddDuoButtonAddon pPacket)
+    public static void AddAddon(NetworkPacket.GameObjects.Door.Addons.AddDuoButtonAddon pPacket)
     {
         DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.DoorId);
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDuobutton;

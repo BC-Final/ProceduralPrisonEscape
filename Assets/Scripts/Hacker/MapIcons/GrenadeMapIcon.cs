@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GrenadeMapIcon : AbstractMapIcon {
-	public static void ProcessPacket(NetworkPacket.Update.Grenade pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Grenade.sUpdate pPacket) {
 		GrenadeMapIcon icon = HackerPackageSender.GetNetworkedObject<GrenadeMapIcon>(pPacket.Id);
 
 		if (icon == null) {
@@ -13,7 +13,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private static void createInstance(NetworkPacket.Update.Grenade pPacket) {
+	private static void createInstance(NetworkPacket.GameObjects.Grenade.sUpdate pPacket) {
 		GrenadeMapIcon icon = Instantiate(HackerReferenceManager.Instance.GrenadeIcon, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, - 5.0f), Quaternion.identity).GetComponent<GrenadeMapIcon>();
 
 		icon.Id = pPacket.Id;
@@ -21,7 +21,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 		HackerAbilityCaster.AddGrenade(icon);
 	}
 
-	private void updateInstance(NetworkPacket.Update.Grenade pPacket) {
+	private void updateInstance(NetworkPacket.GameObjects.Grenade.sUpdate pPacket) {
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;
@@ -61,7 +61,7 @@ public class GrenadeMapIcon : AbstractMapIcon {
 	}
 
 	public void Explosion() {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Grenade(Id, 0.0f, 0.0f));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Grenade.hUpdate(Id, 0.0f, 0.0f));
 		gameObject.SetActive(false);
 		Destroy(this.gameObject, 2.0f);
 		HackerAbilityCaster.RemoveGrenade(this);
