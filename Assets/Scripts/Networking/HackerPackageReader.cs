@@ -168,9 +168,6 @@ public class HackerPackageReader : MonoBehaviour {
 		Debug.Log("I got something");
 		FirewallMapIcon.ProcessPacket(pPacket);
 	}
-	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
-		FuseboxMapIcon.ProcessPacket(pPacket);
-	}
 	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
 		GrenadeMapIcon.ProcessPacket(pPacket);
 	}
@@ -245,9 +242,6 @@ public class HackerPackageReader : MonoBehaviour {
 	private void readPacket(NetworkPacket.Create.Firewall pPacket)
 	{
 		FirewallMapIcon.ProcessPacket(pPacket);
-	}
-	private void readPacket(NetworkPacket.Create.Fusebox pPacket) {
-		FuseboxMapIcon.ProcessPacket(pPacket);
 	}
 	private void readPacket(NetworkPacket.Create.HealthKitIcon pPacket) {
 		PickUpMapIcon.ProcessPacket(pPacket);

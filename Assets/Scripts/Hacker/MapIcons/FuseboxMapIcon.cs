@@ -14,11 +14,11 @@ public class FuseboxMapIcon : AbstractMapIcon {
 
 	private bool _used;
 
-	public static void ProcessPacket(NetworkPacket.Create.Fusebox pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.Creation pPacket) {
 		createInstance(pPacket);
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.Fusebox pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.Update pPacket) {
 		FuseboxMapIcon icon = HackerPackageSender.GetNetworkedObject<FuseboxMapIcon>(pPacket.Id);
 
 		if (icon == null) {
@@ -28,7 +28,7 @@ public class FuseboxMapIcon : AbstractMapIcon {
 		}
 	}
 
-	private static void createInstance(NetworkPacket.Create.Fusebox pPacket) {
+	private static void createInstance(NetworkPacket.GameObjects.Fusebox.Creation pPacket) {
 		FuseboxMapIcon icon = Instantiate(HackerReferenceManager.Instance.FuseBoxIcon, new Vector3(pPacket.PosX, pPacket.PosY) / MinimapManager.scale, Quaternion.identity).GetComponent<FuseboxMapIcon>();
 
 		icon.Id = pPacket.Id;
@@ -36,7 +36,7 @@ public class FuseboxMapIcon : AbstractMapIcon {
 		icon.determineSprite(pPacket.Charged);
 	}
 
-	private void updateInstance(NetworkPacket.Update.Fusebox pPacket) {
+	private void updateInstance(NetworkPacket.GameObjects.Fusebox.Update pPacket) {
 		_used = pPacket.Charged;
 		determineSprite(false);
 	}
@@ -64,6 +64,6 @@ public class FuseboxMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate(bool pCharged) {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Fusebox(Id, pCharged));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Fusebox.Update(Id, pCharged));
 	}
 }
