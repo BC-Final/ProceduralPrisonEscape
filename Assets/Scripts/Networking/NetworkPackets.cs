@@ -81,22 +81,37 @@ namespace NetworkPacket {
 					FuseboxMapIcon.ProcessPacket(this);
 				}
 			}
+
 			[System.Serializable]
-			public class Update : AbstractPacket
+			public class hUpdate : AbstractPacket
 			{
 				public int Id;
 				public bool Charged;
 
-				public Update(int pId, bool pCharged)
+				public hUpdate(int pId, bool pCharged)
 				{
 					Id = pId; Charged = pCharged;
 				}
 				override public void Invoke()
 				{
-					FuseboxMapIcon.ProcessPacket(this);
+					ShooterFusebox.ProcessPacket(this);
 				}
 			}
 
+			[System.Serializable]
+			public class sUpdate : AbstractPacket {
+				public int Id;
+				public int TargetId;
+				public bool Used;
+
+				public sUpdate(int pId, int pTargetId, bool pUsed) {
+					Id = pId; TargetId = pTargetId; Used = pUsed;
+				}
+
+				override public void Invoke() {
+					FuseboxMapIcon.ProcessPacket(this);
+				}
+			}
 		}
 		namespace Button
 		{

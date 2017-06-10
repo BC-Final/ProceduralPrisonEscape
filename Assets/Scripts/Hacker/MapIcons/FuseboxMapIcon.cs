@@ -15,16 +15,24 @@ public class FuseboxMapIcon : AbstractMapIcon {
 	private bool _used;
 
 	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.Creation pPacket) {
-		createInstance(pPacket);
-	}
-
-	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.Update pPacket) {
 		FuseboxMapIcon icon = HackerPackageSender.GetNetworkedObject<FuseboxMapIcon>(pPacket.Id);
 
 		if (icon == null) {
-			Debug.LogError("No Fusebox with id " + pPacket.Id + " found!");
+			createInstance(pPacket);
 		} else {
+			Debug.LogError("Fusebox with Id " + pPacket.Id + " already exists.");
+		}
+
+		
+	}
+
+	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.sUpdate pPacket) {
+		FuseboxMapIcon icon = HackerPackageSender.GetNetworkedObject<FuseboxMapIcon>(pPacket.Id);
+
+		if (icon != null) {
 			icon.updateInstance(pPacket);
+		} else {
+			Debug.LogError("Fusebox with Id " + pPacket.Id + " does not exist");
 		}
 	}
 
@@ -36,9 +44,10 @@ public class FuseboxMapIcon : AbstractMapIcon {
 		icon.determineSprite(pPacket.Charged);
 	}
 
-	private void updateInstance(NetworkPacket.GameObjects.Fusebox.Update pPacket) {
-		_used = pPacket.Charged;
-		determineSprite(false);
+	private void updateInstance(NetworkPacket.GameObjects.Fusebox.sUpdate pPacket) {
+		_used = pPacket.Used;
+		//TODO Display effect effect with Target ID
+		determineSprite(!_used);
 	}
 
 	private void determineSprite(bool pPrimed) {
@@ -64,6 +73,6 @@ public class FuseboxMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate(bool pCharged) {
-		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Fusebox.Update(Id, pCharged));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Fusebox.hUpdate(Id, pCharged));
 	}
 }

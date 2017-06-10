@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fusebox : MonoBehaviour, IShooterNetworked {
+public class ShooterFusebox : MonoBehaviour, IShooterNetworked {
 	private ShooterNetworkId _id = new ShooterNetworkId();
 	public ShooterNetworkId Id { get { return _id; } }
 
 	public void Initialize() {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Create.Fusebox(Id, transform.position.x, transform.position.z, _used, _energy > 0));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Fusebox.Creation(Id, transform.position.x, transform.position.z, _used, _energy > 0));
 	}
 
 	private void Awake() {
@@ -18,8 +18,8 @@ public class Fusebox : MonoBehaviour, IShooterNetworked {
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.Fusebox pPacket) {
-		Fusebox fuse = ShooterPackageSender.GetNetworkedObject<Fusebox>(pPacket.Id);
+	public static void ProcessPacket(NetworkPacket.GameObjects.Fusebox.hUpdate pPacket) {
+		ShooterFusebox fuse = ShooterPackageSender.GetNetworkedObject<ShooterFusebox>(pPacket.Id);
 
 		if (fuse != null) {
 			if (!fuse._used) {
@@ -30,12 +30,12 @@ public class Fusebox : MonoBehaviour, IShooterNetworked {
 				}
 			}
 		} else {
-			//Debug.LogError("Could not find Door with Id " + pPacket.Id);
+			Debug.LogError("Fusebox with Id " + pPacket.Id + " does not exist");
 		}
 	}
 
 	private void sendUpdate() {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Fusebox(Id, _used));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Fusebox.sUpdate(Id, _used));
 	}
 
 

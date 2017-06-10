@@ -78,7 +78,7 @@ public class ShooterPackageReader : MonoBehaviour {
 	}
 
 	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
-		Fusebox.ProcessPacket(pPacket);
+		ShooterFusebox.ProcessPacket(pPacket);
 	}
 
 	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
