@@ -219,6 +219,8 @@ namespace NetworkPacket {
 					{
 						DoorId = pDoorId;
 						CodeString = pCodeString;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
@@ -235,6 +237,8 @@ namespace NetworkPacket {
 					public AddDuoButtonAddon(int pDoorId)
 					{
 						DoorId = pDoorId;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
@@ -255,6 +259,8 @@ namespace NetworkPacket {
 						Id = pId;
 						DoorId = pDoorId;
 						CodeString = pCodeString;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
@@ -446,7 +452,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					PickUpMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -465,7 +471,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					PickUpMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -484,7 +490,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					PickUpMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -503,7 +509,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					PickUpMapIcon.ProcessPacket(this);
 				}
 			}
 			[System.Serializable]
@@ -519,7 +525,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					AbstractMapIcon.ProcessPacket(this);
 				}
 			}
 		}
@@ -543,7 +549,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					MinimapManager.Instance.CreateShot(this);
 				}
 			}
 		}
@@ -575,7 +581,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					KeycardMapIcon.ProcessPacket(this);
 				}
 			}
 
@@ -595,7 +601,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					HUDCardHolder.GetInstance().AddCard(new Color(colorR, colorG, colorB));
 				}
 			}
 		}
@@ -615,7 +621,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					SectorDoorMapIcon.ProcessPacket(this);
 				}
 			}
 
@@ -633,7 +639,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					SectorDoorMapIcon.ProcessPacket(this);
 				}
 			}
 
@@ -651,7 +657,7 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					ShooterSectorDoor.ProcessPacket(this);
 				}
 			}
 
@@ -672,29 +678,46 @@ namespace NetworkPacket {
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					PlayerMapIcon.ProcessPacket(this);
 				}
 			}
 		}
 		namespace Grenade
 		{
 			[System.Serializable]
-			public class Update : AbstractPacket
+			public class sUpdate : AbstractPacket
 			{
 				public int Id;
 				public float PosX, PosY;
 
-				public Update(int pId, float pPosX, float pPosY)
+				public sUpdate(int pId, float pPosX, float pPosY)
 				{
 					Id = pId; PosX = pPosX; PosY = pPosY;
 				}
 
 				public override void Invoke()
 				{
-					throw new NotImplementedException();
+					GrenadeMapIcon.ProcessPacket(this);
+				}
+			}
+			[System.Serializable]
+			public class hUpdate : AbstractPacket
+			{
+				public int Id;
+				public float PosX, PosY;
+
+				public hUpdate(int pId, float pPosX, float pPosY)
+				{
+					Id = pId; PosX = pPosX; PosY = pPosY;
+				}
+
+				public override void Invoke()
+				{
+					ShooterGrenade.ProcessPacket(this);
 				}
 			}
 		}
+
 		namespace Module
 		{
 			[System.Serializable]

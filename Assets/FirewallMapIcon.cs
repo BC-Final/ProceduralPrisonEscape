@@ -7,7 +7,7 @@ public class FirewallMapIcon : AbstractMapIcon {
 
 	private ObservedValue<bool> _active = new ObservedValue<bool>(false);
 
-	public static void ProcessPacket(NetworkPacket.Create.Firewall pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Firewall.Creation pPacket)
 	{
 		FirewallMapIcon icon = HackerPackageSender.GetNetworkedObject<FirewallMapIcon>(pPacket.Id);
 
@@ -17,11 +17,11 @@ public class FirewallMapIcon : AbstractMapIcon {
 		}
 		else
 		{
-			icon.updateInstance(pPacket);
+			Debug.Log("ICON INSTANCE ALREADY EXISTS!!!");
 		}
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.Firewall pPacket)
+	public static void ProcessPacket(NetworkPacket.GameObjects.Firewall.sUpdate pPacket)
 	{
 		FirewallMapIcon icon = HackerPackageSender.GetNetworkedObject<FirewallMapIcon>(pPacket.Id);
 		Debug.Log("I'm reading the packet!");
@@ -29,9 +29,13 @@ public class FirewallMapIcon : AbstractMapIcon {
 		{
 			icon.updateInstance(pPacket);
 		}
+		else
+		{
+			Debug.Log("ICON INSTANCE DOES NOT EXISTS!!!");
+		}
 	}
 
-	private static void createInstance(NetworkPacket.Create.Firewall pPacket)
+	private static void createInstance(NetworkPacket.GameObjects.Firewall.Creation pPacket)
 	{
 		FirewallMapIcon icon = Instantiate(HackerReferenceManager.Instance.Firewall, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), 
 																								Quaternion.Euler(0, 0, 0)).GetComponent<FirewallMapIcon>();
@@ -43,11 +47,7 @@ public class FirewallMapIcon : AbstractMapIcon {
 		icon.changeSprite();
 	}
 
-	private void updateInstance(NetworkPacket.Create.Firewall pPacket)
-	{
-		_active.Value = pPacket.Active;
-	}
-	private void updateInstance(NetworkPacket.Update.Firewall pPacket)
+	private void updateInstance(NetworkPacket.GameObjects.Firewall.sUpdate pPacket)
 	{
 		_active.Value = pPacket.Active;
 	}

@@ -39,7 +39,7 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 	}
 
 	public void Initialize() {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Create.SecurityStation(Id, transform.position.x, transform.position.z));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.SecurityStation.Creation(Id, transform.position.x, transform.position.z));
 	}
 
 	private void Start() {
@@ -48,8 +48,8 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 		_stationState.OnValueChange += OnStateChange;
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.SecurityStationHackerInteract pPacket) {
-		SecurityStation station = ShooterPackageSender.GetNetworkedObject<SecurityStation>(pPacket.Id);
+	public static void ProcessPacket(NetworkPacket.GameObjects.SecurityStation.hUpdate pPacket) {
+		ShooterSecurityStation station = ShooterPackageSender.GetNetworkedObject<ShooterSecurityStation>(pPacket.Id);
 
 		if (station != null) {
 			station.hackerInteract();
@@ -99,13 +99,13 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 
 	private void OnStateChange()
 	{
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SecurityStation(Id, (int)_stationState.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.SecurityStation.sUpdate(Id, (int)_stationState.Value));
 		switch (_stationState.Value)
 		{
-			case SecurityStation.StationState.Passive: ChangeColor(Color.white); break;
-			case SecurityStation.StationState.Triggerd: ChangeColor(Color.red); break;
-			case SecurityStation.StationState.HalfDeactivated: ChangeColor(Color.yellow); break;
-			case SecurityStation.StationState.Deactivated: ChangeColor(Color.green); break;
+			case ShooterSecurityStation.StationState.Passive: ChangeColor(Color.white); break;
+			case ShooterSecurityStation.StationState.Triggerd: ChangeColor(Color.red); break;
+			case ShooterSecurityStation.StationState.HalfDeactivated: ChangeColor(Color.yellow); break;
+			case ShooterSecurityStation.StationState.Deactivated: ChangeColor(Color.green); break;
 		}
 
 	}

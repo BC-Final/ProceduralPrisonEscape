@@ -83,7 +83,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		spriteRenderer.color = pColor;
 	}
 
-	public static void ProcessPacket(NetworkPacket.Update.Icon pPacket) {
+	public static void ProcessPacket(NetworkPacket.GameObjects.PickUpIcon.sIconUpdate pPacket) {
 		AbstractMapIcon icon = HackerPackageSender.GetNetworkedObject<AbstractMapIcon>(pPacket.Id);
 
 		if (icon != null) {
@@ -109,7 +109,7 @@ public abstract class AbstractMapIcon : MonoBehaviour, IHackerNetworked {
 		
 	}
 
-	public void updateInstance(NetworkPacket.Update.Icon pPacket) {
+	public void updateInstance(NetworkPacket.GameObjects.PickUpIcon.sIconUpdate pPacket) {
 		spriteRenderer.enabled = !pPacket.used;
 	}
 }

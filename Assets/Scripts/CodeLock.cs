@@ -8,7 +8,7 @@ public class CodeLock : MonoBehaviour, IShooterNetworked
     private string _codeString;
     private ShooterDoor _door;
 
-    public static void ProcessPacket(NetworkPacket.Update.CodeLockCode pPacket)
+    public static void ProcessPacket(NetworkPacket.GameObjects.Door.Addons.hCodeLockUpdate pPacket)
     {
         ShooterPackageSender.GetNetworkedObject<CodeLock>(pPacket.Id).UseCode(pPacket.codeString);
     }

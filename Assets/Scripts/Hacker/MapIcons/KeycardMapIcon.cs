@@ -9,7 +9,7 @@ public class KeycardMapIcon : AbstractMapIcon {
     private Color _keyColor;
     private List<DoorMapIcon> _doorList;
 
-    public static void ProcessPacket(NetworkPacket.Create.KeyCard pPacket)
+    public static void ProcessPacket(NetworkPacket.GameObjects.Keycard.Creation pPacket)
     {
         KeycardMapIcon icon = HackerPackageSender.GetNetworkedObject<KeycardMapIcon>(pPacket.Id);
 
@@ -19,7 +19,7 @@ public class KeycardMapIcon : AbstractMapIcon {
         }
     }
 
-    private static void createInstance(NetworkPacket.Create.KeyCard pPacket)
+    private static void createInstance(NetworkPacket.GameObjects.Keycard.Creation pPacket)
     {
         KeycardMapIcon icon = Instantiate(HackerReferenceManager.Instance.KeyCardIcon, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<KeycardMapIcon>();
 

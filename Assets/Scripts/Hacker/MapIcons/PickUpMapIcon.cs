@@ -10,28 +10,28 @@ public class PickUpMapIcon : AbstractMapIcon
 
     public static void ProcessPacket(NetworkPacket.AbstractPacket pPacket)
     {
-        if (pPacket is NetworkPacket.Create.PhaserAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.PhaserAmmoIcon); }
-        if (pPacket is NetworkPacket.Create.MachineGunAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.MachineGunAmmoIcon); }
-        if (pPacket is NetworkPacket.Create.ShotgunAmmoIcon) { createInstance(pPacket as NetworkPacket.Create.ShotgunAmmoIcon); }
-        if (pPacket is NetworkPacket.Create.HealthKitIcon) { createInstance(pPacket as NetworkPacket.Create.HealthKitIcon); }
+        if (pPacket is NetworkPacket.GameObjects.PickUpIcon.PhaserAmmoCreation) { createInstance(pPacket as NetworkPacket.GameObjects.PickUpIcon.PhaserAmmoCreation); }
+        if (pPacket is NetworkPacket.GameObjects.PickUpIcon.MachineGunAmmoCreation) { createInstance(pPacket as NetworkPacket.GameObjects.PickUpIcon.MachineGunAmmoCreation); }
+        if (pPacket is NetworkPacket.GameObjects.PickUpIcon.ShotgunAmmoCreation) { createInstance(pPacket as NetworkPacket.GameObjects.PickUpIcon.ShotgunAmmoCreation); }
+        if (pPacket is NetworkPacket.GameObjects.PickUpIcon.HealthKitCreation) { createInstance(pPacket as NetworkPacket.GameObjects.PickUpIcon.HealthKitCreation); }
     }
 
-    private static void createInstance(NetworkPacket.Create.PhaserAmmoIcon pPacket)
+    private static void createInstance(NetworkPacket.GameObjects.PickUpIcon.PhaserAmmoCreation pPacket)
     {
         PickUpMapIcon icon = Instantiate(HackerReferenceManager.Instance.AmmoPhaser, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PickUpMapIcon>();
         icon.Id = pPacket.Id;
     }
-    private static void createInstance(NetworkPacket.Create.MachineGunAmmoIcon pPacket)
+    private static void createInstance(NetworkPacket.GameObjects.PickUpIcon.MachineGunAmmoCreation pPacket)
     {
         PickUpMapIcon icon = Instantiate(HackerReferenceManager.Instance.AmmoMachineGun, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PickUpMapIcon>();
         icon.Id = pPacket.Id;
     }
-    private static void createInstance(NetworkPacket.Create.ShotgunAmmoIcon pPacket)
+    private static void createInstance(NetworkPacket.GameObjects.PickUpIcon.ShotgunAmmoCreation pPacket)
     {
         PickUpMapIcon icon = Instantiate(HackerReferenceManager.Instance.AmmoShotgun, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PickUpMapIcon>();
         icon.Id = pPacket.Id;
     }
-    private static void createInstance(NetworkPacket.Create.HealthKitIcon pPacket)
+    private static void createInstance(NetworkPacket.GameObjects.PickUpIcon.HealthKitCreation pPacket)
     {
         PickUpMapIcon icon = Instantiate(HackerReferenceManager.Instance.HealthKit, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PickUpMapIcon>();
         icon.Id = pPacket.Id;

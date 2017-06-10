@@ -30,7 +30,7 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 	}
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, !allModulesSolved()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.SectorDoor.Creation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _open.Value, !allModulesSolved()));
 	}
 
 	private void Awake () {
@@ -42,10 +42,10 @@ public class ShooterSectorDoor : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void sendStateUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.SectorDoor(Id, _open.Value, !allModulesSolved()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.SectorDoor.sUpdate(Id, _open.Value, !allModulesSolved()));
 	}
 
-	public static void ProcessPacket (NetworkPacket.Update.SectorDoor pPacket) {
+	public static void ProcessPacket (NetworkPacket.GameObjects.SectorDoor.hUpdate pPacket) {
 		ShooterSectorDoor door = ShooterPackageSender.GetNetworkedObject<ShooterSectorDoor>(pPacket.Id);
 
 		if (door != null) {
