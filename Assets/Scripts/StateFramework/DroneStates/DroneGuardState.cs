@@ -11,6 +11,7 @@ namespace StateFramework {
 			_seeTimer = 0.0f;
 			_drone.SeesTarget = false;
 			_drone.LastTarget = null;
+			_drone.SendUpdates(false);
 		}
 
 		public override void Step() {
@@ -27,7 +28,9 @@ namespace StateFramework {
 			}
 		}
 
-		public override void Exit() { }
+		public override void Exit() {
+			_drone.SendUpdates(true);
+		}
 
 		public override void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
 			IDamageable src = pSource.GetComponent<IDamageable>();

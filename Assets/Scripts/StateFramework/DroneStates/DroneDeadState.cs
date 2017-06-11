@@ -33,7 +33,7 @@ namespace StateFramework {
 
 			go.GetComponent<ExplodeDrone>().SetAnimationPercentage(stateInfo.normalizedTime % 1);
 			go.GetComponent<ExplodeDrone>().SetImpact(pHitPoint, -(pSource.position - _drone.transform.position).normalized, pForce);
-			GameObject.Destroy(_drone.gameObject, 0.25f);
+			GameObject.Destroy(_drone.gameObject, 0.1f);
 		}
 	}
 }
