@@ -179,7 +179,7 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	/// Sends the current state to the hacker
 	/// </summary>
 	private void sendStateUpdate() {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Door(Id, _open.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.sUpdate(Id, _open.Value, _locked));
 		//if (_open.Value && _hasDuoButton)
 		//{
 		//	Debug.Log("Sending Move request: " + transform.position);

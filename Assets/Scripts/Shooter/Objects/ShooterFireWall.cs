@@ -20,8 +20,8 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked
 	{
 		foreach(ShooterDoor door in _doors)
 		{
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.DisableDoorOptions(door.Id));
-			ShooterPackageSender.SendPackage(new NetworkPacket.Create.Firewall(Id, this.transform.position.x, this.transform.position.z, _active));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.DisableDoorOptions(door.Id));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Firewall.Creation(Id, this.transform.position.x, this.transform.position.z, _active));
 		}
 	}
 
@@ -56,11 +56,11 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked
 	{
 		Debug.Log("BOOM");
 		_active = false;
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Firewall(_id, _active));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Firewall.sUpdate(_id, _active));
 		_particleSystem.SetActive(true);
 		foreach (ShooterDoor door in _doors)
 		{
-			ShooterPackageSender.SendPackage(new NetworkPacket.Update.EnableDoorOptions(door.Id));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.EnableDoorOptions(door.Id));
 		}
 	}
 }

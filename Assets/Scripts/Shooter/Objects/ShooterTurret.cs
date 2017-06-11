@@ -95,6 +95,9 @@ public class ShooterTurret : MonoBehaviour, IShooterNetworked, IDamageable {
 	}
 
 	public void Initialize () {
+		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Turret.Creation(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, state));
 		_networkUpdateTimer = TimerManager.CreateTimer("Turret Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 	}
 
@@ -145,7 +148,7 @@ public class ShooterTurret : MonoBehaviour, IShooterNetworked, IDamageable {
 	private void sendUpdate () {
 		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is TurretDisabledState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, transform.position.x, transform.position.z, _rotaryBase.rotation.eulerAngles.y, state));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Turret.sUpdate(Id, _rotaryBase.rotation.eulerAngles.y, state));
 	}
 
 	[SerializeField]

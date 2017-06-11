@@ -11,7 +11,7 @@ public class ShooterMinimapCamera : MonoBehaviour {
 	}
 
 	public void SendUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Minimap(getMinimapData()));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Minimap.Creation(getMinimapData()));
 	}
 
 	private byte[] getMinimapData () {

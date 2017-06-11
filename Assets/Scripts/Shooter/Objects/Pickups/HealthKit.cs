@@ -9,7 +9,7 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 	public ShooterNetworkId Id { get { return _id; } }
 
 	public void Initialize () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Create.HealthKitIcon(Id, transform.position));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.HealthKitCreation(Id, transform.position));
 	}
 
 	public void Interact() {
@@ -18,13 +18,13 @@ public class HealthKit : MonoBehaviour, IInteractable, IShooterNetworked {
 		//FMOD.Studio.EventInstance ins = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_pickhealth");
 		//FMODUnity.RuntimeManager.AttachInstanceToGameObject(ins, transform, GetComponent<Rigidbody>());
 		//ins.start();
-        ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.sIconUpdate(Id, true));
         Destroy(gameObject);
 	}
 
 	private void Awake () {
 		ShooterPackageSender.RegisterNetworkObject(this);
-        ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.sIconUpdate(Id, true));
     }
 
 	private void OnDestroy () {

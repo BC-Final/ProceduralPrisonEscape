@@ -35,7 +35,7 @@ public class NetworkPlayer : MonoBehaviour, IShooterNetworked {
 		_updateTimer = TimerManager.CreateTimer("Player Update", false)
 		.SetDuration(_transformUpdateInterval)
 		.SetLoops(-1)
-		.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.Update.Player(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
+		.AddCallback(() => ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Player.sUpdate(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, PlayerHealth.Instance.CurrentHealth.Value / PlayerHealth.Instance.MaxHealth)))
 		.Start();
 	}
 

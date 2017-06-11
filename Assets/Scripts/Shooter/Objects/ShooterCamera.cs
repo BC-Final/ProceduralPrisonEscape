@@ -81,13 +81,16 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 	}
 
 	public void Initialize () {
+		EnemyState state = _faction == Faction.Neutral ? EnemyState.Controlled : _fsm.GetState() is CameraDisabledState ? EnemyState.Stunned : _fsm.GetState() is CameraDetectState ? EnemyState.SeesPlayer : EnemyState.None;
+
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Camera.Creation(Id, transform.position.x, transform.position.z, _base.rotation.eulerAngles.y, state));
 		_networkUpdateTimer = TimerManager.CreateTimer("Camera Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate()).Start();
 	}
 
 	private void sendUpdate () {
 		EnemyState state = _faction == Faction.Neutral ? EnemyState.Controlled : _fsm.GetState() is CameraDisabledState ? EnemyState.Stunned : _fsm.GetState() is CameraDetectState ? EnemyState.SeesPlayer : EnemyState.None;
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, transform.position.x, transform.position.z, _base.rotation.eulerAngles.y, state));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Camera.sUpdate(Id, _base.rotation.eulerAngles.y, state));
 	}
 
 	private void Awake () {

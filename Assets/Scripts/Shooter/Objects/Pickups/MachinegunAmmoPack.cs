@@ -9,7 +9,7 @@ public class MachinegunAmmoPack : AmmoPack {
 
     public override void Initialize()
     {
-        ShooterPackageSender.SendPackage(new NetworkPacket.Create.MachineGunAmmoIcon(Id, this.transform.position));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.MachineGunAmmoCreation(Id, this.transform.position));
         base.Initialize();
     }
 }

@@ -24,13 +24,13 @@ public class CameraMapIcon : AbstractMapIcon {
 		if (icon == null) {
 			createInstance(pPacket);
 		} else {
-			Debug.LogError("Camera with Id " + pPacket.Id + " already exists.");
+			Debug.Log("CAMERA ALREADY EXISTS!!! ID: " + pPacket.Id);
 		}
 	}
 
 	public static void ProcessPacket(NetworkPacket.GameObjects.Camera.sUpdate pPacket) {
 		CameraMapIcon icon = HackerPackageSender.GetNetworkedObject<CameraMapIcon>(pPacket.Id);
-
+	
 		if (icon != null) {
 			icon.updateInstance(pPacket);
 		} else {
@@ -47,6 +47,7 @@ public class CameraMapIcon : AbstractMapIcon {
 	}
 
 	private void updateInstance(NetworkPacket.GameObjects.Camera.sUpdate pPacket) {
+		Debug.Log("Updating!!! Rot: " +  pPacket.Rot);
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;
@@ -98,7 +99,7 @@ public class CameraMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate(EnemyState pState) {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Camera(Id, pState));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Camera.hUpdate(Id, pState));
 	}
 
 	private void determineSprite(EnemyState pState) {

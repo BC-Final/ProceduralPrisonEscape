@@ -40,7 +40,7 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void sendUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, transform.position.x, transform.position.z));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Objective.Creation(Id, transform.position.x, transform.position.z));
 	}
 
 
@@ -49,7 +49,7 @@ public abstract class AbstractObjective : MonoBehaviour, IShooterNetworked {
 		SetActive(false);
 		_solved.Value = true;
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Objective(Id, true));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Objective.sUpdate(Id, true));
 	}
 
 	public void SetActive (bool pActive) {

@@ -19,7 +19,7 @@ public class CodeLock : MonoBehaviour, IShooterNetworked
 
 	public void Initialize()
     {
-        ShooterPackageSender.SendPackage(new NetworkPacket.Create.CodeLockAddon(Id, GetComponent<ShooterDoor>().Id, _codeString));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Addons.AddCodeLockAddon(Id, GetComponent<ShooterDoor>().Id, _codeString));
     }
     
     public void UseCode(string codeString)

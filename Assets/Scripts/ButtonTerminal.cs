@@ -10,8 +10,8 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
 	public void Initialize()
 	{
 		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.Creation(Id, this.transform.position));
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _hackerButton.CurrentColor));
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.ButtonFeedback(Id, _shooterButton.CurrentColor, 1));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.sUpdate(Id, _hackerButton.CurrentColor));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Button.sUpdate(Id, _shooterButton.CurrentColor, 1));
 	}
 
 	private void Awake()
@@ -75,6 +75,6 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
         _shooterButton.OnSolved();
         _hackerButton.OnSolved();
         _door.ForceOpen();
-		ShooterPackageSender.SendPackage(new NetworkPacket.Messages.MoveCameraTowardsLocation(_door.transform.position));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.HackerMinimapCamera.MoveCameraTowardsLocation(_door.transform.position));
 	}
 }

@@ -53,49 +53,51 @@ public class ShooterPackageReader : MonoBehaviour {
 	/// </summary>
 	/// <param name="pPacket"></param>
 	private void readPacket(NetworkPacket.AbstractPacket pPacket) {
-		if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
-		if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
-		if (pPacket is NetworkPacket.Update.CodeLockCode) { readPacket(pPacket as NetworkPacket.Update.CodeLockCode); }
-		if (pPacket is NetworkPacket.Update.ButtonPush) { readPacket(pPacket as NetworkPacket.Update.ButtonPush); }
-		if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
-		if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
+		//if (pPacket is NetworkPacket.Update.Door) { readPacket(pPacket as NetworkPacket.Update.Door); }
+		//if (pPacket is NetworkPacket.Update.SectorDoor) { readPacket(pPacket as NetworkPacket.Update.SectorDoor); }
+		//if (pPacket is NetworkPacket.Update.CodeLockCode) { readPacket(pPacket as NetworkPacket.Update.CodeLockCode); }
+		//if (pPacket is NetworkPacket.Update.ButtonPush) { readPacket(pPacket as NetworkPacket.Update.ButtonPush); }
+		//if (pPacket is NetworkPacket.Update.Grenade) { readPacket(pPacket as NetworkPacket.Update.Grenade); }
+		//if (pPacket is NetworkPacket.Update.Fusebox) { readPacket(pPacket as NetworkPacket.Update.Fusebox); }
+		//
+		//if (pPacket is NetworkPacket.Update.SecurityStationHackerInteract) { readPacket(pPacket as NetworkPacket.Update.SecurityStationHackerInteract); }
+		//
+		////if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
+		////if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
+		////if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
+		////if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
+		//if (pPacket is NetworkPacket.GameObjects.Lasergate.hUpdate) {(pPacket as NetworkPacket.GameObjects.Lasergate.hUpdate).Invoke(); }
 
-		if (pPacket is NetworkPacket.Update.SecurityStationHackerInteract) { readPacket(pPacket as NetworkPacket.Update.SecurityStationHackerInteract); }
-
-		//if (package is CustomCommands.Update.DoorUpdate) { debugMessage = "Package Received : DoorUpdate"; ReadPackage(package as CustomCommands.Update.DoorUpdate); return; }
-		//if (package is CustomCommands.Update.DisableCamera) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableCamera); return; }
-		//if (package is CustomCommands.Update.DisableTurret) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.DisableTurret); return; }
-		//if (package is CustomCommands.Update.AlarmUpdate) { debugMessage = "Package Received : CameraState"; ReadPackage(package as CustomCommands.Update.AlarmUpdate); return; }
-		if (pPacket is NetworkPacket.GameObjects.Lasergate.hUpdate) {(pPacket as NetworkPacket.GameObjects.Lasergate.hUpdate).Invoke(); }
+		pPacket.Invoke();
 	}
 
-	private void readPacket(NetworkPacket.Update.Door pPacket) {
-		ShooterDoor.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.Grenade pPacket) {
-		ShooterGrenade.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
-		ShooterFusebox.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
-		ShooterSectorDoor.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.CodeLockCode pPacket) {
-		CodeLock.ProcessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.ButtonPush pPacket) {
-		ButtonTerminal.ProccessPacket(pPacket);
-	}
-
-	private void readPacket(NetworkPacket.Update.SecurityStationHackerInteract pPacket) {
-		SecurityStation.ProcessPacket(pPacket);
-	}
+	//private void readPacket(NetworkPacket.Update.Door pPacket) {
+	//	ShooterDoor.ProcessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.Grenade pPacket) {
+	//	ShooterGrenade.ProcessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.Fusebox pPacket) {
+	//	ShooterFusebox.ProcessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.SectorDoor pPacket) {
+	//	ShooterSectorDoor.ProcessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.CodeLockCode pPacket) {
+	//	CodeLock.ProcessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.ButtonPush pPacket) {
+	//	ButtonTerminal.ProccessPacket(pPacket);
+	//}
+	//
+	//private void readPacket(NetworkPacket.Update.SecurityStationHackerInteract pPacket) {
+	//	SecurityStation.ProcessPacket(pPacket);
+	//}
 
 
 

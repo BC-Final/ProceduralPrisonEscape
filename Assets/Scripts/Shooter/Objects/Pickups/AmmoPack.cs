@@ -13,7 +13,7 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked
 	}
 
 	public virtual void Interact() {
-        ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(Id, true));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.sIconUpdate(Id, true));
 		Destroy(gameObject);
 	}
 

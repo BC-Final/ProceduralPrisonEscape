@@ -28,7 +28,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
             tempArray.Add(door.Id);
         }
         intArray = tempArray.ToArray();
-        ShooterPackageSender.SendPackage(new NetworkPacket.Create.KeyCard(Id, intArray, transform.position, keyColor.r, keyColor.g, keyColor.b));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Keycard.Creation(Id, intArray, transform.position, keyColor.r, keyColor.g, keyColor.b));
 	}
 
 	private void Awake() {
@@ -39,7 +39,7 @@ public class KeyCard : MonoBehaviour, IInteractable, IShooterNetworked{
     }
 
 	private void OnDestroy() {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Icon(_id, true));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.sIconUpdate(_id, true));
 		_keyCards.Remove(this);
 		ShooterPackageSender.UnregisterNetworkedObject(this);
 	}

@@ -95,7 +95,7 @@ namespace Utilities {
 			tracer.GetComponentInChildren<ParticleSystem>().Play();
 			GameObject.Destroy(tracer, 1.0f);
 
-			ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(pStartPoint, pEndPoint));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Lasershot.Creation(pStartPoint, pEndPoint));
 		}
 
 		public static void DisplayLaser (Vector3 pStartPoint, Vector3 pDirection, float pRange) {
@@ -108,7 +108,7 @@ namespace Utilities {
 			laser.GetComponent<LineRenderer>().SetPosition(1, pEndPoint);
 			GameObject.Destroy(laser, 0.05f);
 
-			ShooterPackageSender.SendPackage(new NetworkPacket.Create.LaserShot(pStartPoint, pEndPoint));
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Lasershot.Creation(pStartPoint, pEndPoint));
 		}
 
 		public static void DisplayDecal (Vector3 pPoint, Vector3 pNormal, Transform pParent) {

@@ -113,6 +113,6 @@ public class TurretMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate (EnemyState pState) {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Turret(Id, pState));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Turret.hUpdate(Id, pState));
 	}
 }

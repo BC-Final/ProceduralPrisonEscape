@@ -66,6 +66,7 @@ namespace NetworkPacket {
 		}
 		namespace Fusebox
 		{
+			[System.Serializable]
 			public class Creation : AbstractPacket
 			{
 				public int Id;
@@ -104,8 +105,8 @@ namespace NetworkPacket {
 				public int TargetId;
 				public bool Used;
 
-				public sUpdate(int pId, int pTargetId, bool pUsed) {
-					Id = pId; TargetId = pTargetId; Used = pUsed;
+				public sUpdate(int pId, bool pUsed) {
+					Id = pId; Used = pUsed;
 				}
 
 				override public void Invoke() {
@@ -133,6 +134,7 @@ namespace NetworkPacket {
 					PushButtonMapIcon.ProcessPacket(this);
 				}
 			}
+			[System.Serializable]
 			public class hUpdate : AbstractPacket
 			{
 				public int Id;
@@ -189,7 +191,7 @@ namespace NetworkPacket {
 					DoorMapIcon.ProcessPacket(this);
 				}
 			}
-
+			[System.Serializable]
 			public class hUpdate : AbstractPacket
 			{
 				public int Id;
@@ -205,7 +207,7 @@ namespace NetworkPacket {
 					ShooterDoor.ProcessPacket(this);
 				}
 			}
-
+			[System.Serializable]
 			public class sUpdate : AbstractPacket
 			{
 				public int Id;
@@ -597,6 +599,7 @@ namespace NetworkPacket {
 				public override void Invoke()
 				{
 					KeycardMapIcon.ProcessPacket(this);
+					DoorMapIcon.AddAddon(this);
 				}
 			}
 
@@ -855,12 +858,12 @@ namespace NetworkPacket {
 			public class sUpdate : AbstractPacket
 			{
 				public int Id;
-				public float PosX, PosY, Rot;
+				public float Rot;
 				public EnemyState State;
 
-				public sUpdate(int pId, EnemyState pState)
+				public sUpdate(int pId, float pRot, EnemyState pState)
 				{
-					Id = pId; State = pState;
+					Id = pId; Rot = pRot; State = pState;
 				}
 
 				public override void Invoke()
@@ -910,12 +913,12 @@ namespace NetworkPacket {
 			public class sUpdate : AbstractPacket
 			{
 				public int Id;
-				public float PosX, PosY, Rot;
+				public float Rot;
 				public EnemyState State;
 
-				public sUpdate(int pId, EnemyState pState)
+				public sUpdate(int pId, float pRot, EnemyState pState)
 				{
-					Id = pId; State = pState;
+					Id = pId; Rot = pRot; State = pState;
 				}
 
 				public override void Invoke()
@@ -1003,7 +1006,6 @@ namespace NetworkPacket {
 			}
 
 		}
-
 		namespace Minimap
 		{
 			[System.Serializable]
@@ -1022,7 +1024,6 @@ namespace NetworkPacket {
 			}
 
 		}
-
 		namespace Light
 		{
 			[System.Serializable]
@@ -1062,7 +1063,6 @@ namespace NetworkPacket {
 				}
 			}
 		}
-
 		namespace HackerMinimapCamera
 		{
 			[System.Serializable]
@@ -1094,7 +1094,7 @@ namespace NetworkPacket {
 			}
 			public override void Invoke()
 			{
-				throw new NotImplementedException();
+				HackerAlarmManager.Instance.ProcessPacket(this);
 			}
 		}
 
@@ -1105,7 +1105,7 @@ namespace NetworkPacket {
 		public class DisconnectRequest : AbstractPacket {
 			public override void Invoke()
 			{
-				throw new NotImplementedException();
+				HackerPackageSender.SilentlyDisconnect();
 			}
 		}
 
@@ -1113,7 +1113,7 @@ namespace NetworkPacket {
 		public class CreationEnd : AbstractPacket {
 			public override void Invoke()
 			{
-				throw new NotImplementedException();
+				HackerPackageReader.GetInstance().OnCreationEnd();
 			}
 		}
 

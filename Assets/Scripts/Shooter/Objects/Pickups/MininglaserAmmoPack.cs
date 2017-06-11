@@ -9,7 +9,7 @@ public class MininglaserAmmoPack : AmmoPack {
 
     public override void Initialize()
     {
-        ShooterPackageSender.SendPackage(new NetworkPacket.Create.ShotgunAmmoIcon(Id, this.transform.position));
+        ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.ShotgunAmmoCreation(Id, this.transform.position));
         base.Initialize();
     }
 }

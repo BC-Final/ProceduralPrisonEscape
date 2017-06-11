@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour {
 	public void AddKeyCard(List<ShooterDoor> pDoors, Color color) {
 		_accessibleDoors.AddRange(pDoors);
 		if (_cardHolder) { _cardHolder.AddCard(color); } else { _cardHolder = GameObject.FindObjectOfType<HUDCardHolder>(); _cardHolder.AddCard(color); }
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.KeyCardCollected(color));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Keycard.sCollected(color));
 	}
 
 	public bool Contains(ShooterDoor pDoor) {

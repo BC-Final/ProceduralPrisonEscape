@@ -97,7 +97,7 @@ public class ShooterGaspipe : MonoBehaviour, IShooterNetworked {
 	}
 
 	private void sendUpdate () {
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _broken.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Gaspipe.Creation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _broken.Value));
 	}
 
 	private void OnDrawGizmosSelected () {

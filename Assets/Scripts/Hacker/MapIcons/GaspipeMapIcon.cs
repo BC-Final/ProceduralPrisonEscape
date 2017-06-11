@@ -67,7 +67,7 @@ public class GaspipeMapIcon : AbstractMapIcon {
 	}
 
 	private void sendUpdate (bool pChargedExplosion) {
-		HackerPackageSender.SendPackage(new NetworkPacket.Update.Pipe(Id, pChargedExplosion));
+		HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Gaspipe.hUpdate(Id, pChargedExplosion));
 	}
 
 	private void changedState () {

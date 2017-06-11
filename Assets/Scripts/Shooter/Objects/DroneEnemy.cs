@@ -172,7 +172,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 	private void sendUpdate() {
 		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is DroneStunnedState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Drone(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Drone.sUpdate(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
 	}
 
 	[SerializeField]

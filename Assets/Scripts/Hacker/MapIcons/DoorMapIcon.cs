@@ -74,7 +74,7 @@ public class DoorMapIcon : AbstractMapIcon {
         icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonDecoder;
     }
 
-	public static void AddAddon(NetworkPacket.Create.KeyCard pPacket) {
+	public static void AddAddon(NetworkPacket.GameObjects.Keycard.Creation pPacket) {
 		for (int i = 0; i < pPacket.intArray.Length; i++) {
             DoorMapIcon icon = HackerPackageSender.GetNetworkedObject<DoorMapIcon>(pPacket.intArray[i]);
             icon.SetKeyColor(new Color(1,1,1));
@@ -198,7 +198,7 @@ public class DoorMapIcon : AbstractMapIcon {
 	public void UseKeycode(string codeString) {
 		Debug.Log("Code: " + codeString + "/" + "Solution: " + _codeSolution);
 		if (codeString.ToUpper() == _codeSolution.ToUpper()) {
-			HackerPackageSender.SendPackage(new NetworkPacket.Update.CodeLockCode(_addonId, codeString));
+			HackerPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Addons.hCodeLockUpdate(_addonId, codeString));
 			//FMODUnity.RuntimeManager.CreateInstance("event:/PE_weapon/ep/PE_weapon_ep_reload").start();
 		} else {
 			//FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_door_denied").start();

@@ -36,7 +36,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 	public void Initialize() {
 		_objective.OnSolved(checkSolved);
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _solved.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Module.Creation(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _solved.Value));
 	}
 
 
@@ -48,7 +48,7 @@ public abstract class AbstractModule : MonoBehaviour, IShooterNetworked, IIntera
 
 		_solved.Value = true;
 
-		ShooterPackageSender.SendPackage(new NetworkPacket.Update.Module(Id, _solved.Value));
+		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Module.sUpdate(Id, _solved.Value));
 	}
 
 	public virtual void Interact() {
