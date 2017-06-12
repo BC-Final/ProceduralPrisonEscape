@@ -7,83 +7,109 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour {
 	private const string IPV4REGEX = "((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
 
+	[Header("Container")]
 	[SerializeField]
-	private InputField _ipInputField;
+	private GameObject _mainMenuContainer;
+
 	[SerializeField]
-	private InputField _portInputField;
+	private GameObject _shooterMenuContainer;
+
 	[SerializeField]
-	private InputField _hostPortInputField;
+	private GameObject _hackerMenuContainer;
+
+
+	[Header("Play Buttons")]
+	[SerializeField]
+	private Button _playShooterButton;
+	[SerializeField]
+	private Button _playHackerButton;
+
+	[Header("Start Buttons")]
+	[SerializeField]
+	private Button _startShooterLevel0;
+	[SerializeField]
+	private Button _startShooterLevel1;
+	[SerializeField]
+	private Button _startHacker;
+
+
+	[Header("Input Fields")]
+	[SerializeField]
+	private InputField _hostPortInput;
+	[SerializeField]
+	private InputField _clientIpInput;
+	[SerializeField]
+	private InputField _clientPortInput;
+
+
+	[Header("Back Buttons")]
+	[SerializeField]
+	private Button _shooterMenuBackButton;
+
+	[SerializeField]
+	private Button _hackerMenuBackButton;
+
 
 	//FMOD.Studio.EventInstance evnt;
 
 	private void Start () {
-		_ipInputField.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
+		_clientIpInput.text = PlayerPrefs.GetString("ConnectionIP", "127.0.0.1");
 
-		if (!new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
-			_ipInputField.text = "127.0.0.1";
+		if (!new Regex(IPV4REGEX).IsMatch(_clientIpInput.text)) {
+			_clientIpInput.text = "127.0.0.1";
 			PlayerPrefs.SetString("ConnectionIP", "127.0.0.1");
 		}
 
-		_portInputField.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
-		_hostPortInputField.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
+		_clientPortInput.text = PlayerPrefs.GetInt("ConnectionPort", 55556).ToString();
+		_hostPortInput.text = PlayerPrefs.GetInt("HostPort", 55556).ToString();
 
 
-		//FMOD.Studio.EventDescription desc = FMODUnity.RuntimeManager.GetEventDescription("snapshot:/snapkilltobi");
-		//desc.createInstance(out evnt);
+		_playHackerButton.onClick.AddListener(OnPlayHacker_Click);
+		_playShooterButton.onClick.AddListener(OnPlayShooter_Click);
+
+		_startShooterLevel0.onClick.AddListener(delegate { OnStartShooter_Click(1); });
+		_startShooterLevel1.onClick.AddListener(delegate { OnStartShooter_Click(2); });
+		_startHacker.onClick.AddListener(OnStartHacker_Click);
+
+		_hackerMenuBackButton.onClick.AddListener(OnBack_Click);
+		_shooterMenuBackButton.onClick.AddListener(OnBack_Click);
 	}
 
-	public void UIOnPlayShooter () {
-		int port = 55556;
-
-		//FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
-
-		if (!int.TryParse(_hostPortInputField.text, out port)) {
-			Debug.LogWarning("Invalid Host Port.");
-		} else {
-			PlayerPrefs.SetInt("HostPort", port);
-			SceneManager.LoadScene("Proto_Level");
-		}
+	private void OnPlayShooter_Click() {
+		_mainMenuContainer.SetActive(false);
+		_shooterMenuContainer.SetActive(true);
 	}
-    public void UIOnplayLevel1()
-    {
-        int port = 55556;
 
-        //FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+	private void OnPlayHacker_Click() {
+		_mainMenuContainer.SetActive(false);
+		_hackerMenuContainer.SetActive(true);
+	}
 
-        if (!int.TryParse(_hostPortInputField.text, out port))
-        {
-            Debug.LogWarning("Invalid Host Port.");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("HostPort", port);
-            SceneManager.LoadScene("Level2");
-        }
-    }
-	public void UIOnPlayHacker () {
-		//FMODUnity.RuntimeManager.CreateInstance("event:/PE_menu/PE_menu_buttonclick").start();
+	private void OnBack_Click() {
+		_hackerMenuContainer.SetActive(false);
+		_shooterMenuContainer.SetActive(false);
+		_mainMenuContainer.SetActive(true);
+	}
 
-		if (new Regex(IPV4REGEX).IsMatch(_ipInputField.text)) {
-			PlayerPrefs.SetString("ConnectionIP", _ipInputField.text);
+	private void OnStartHacker_Click() {
+		if (new Regex(IPV4REGEX).IsMatch(_clientIpInput.text)) {
+			PlayerPrefs.SetString("ConnectionIP", _clientIpInput.text);
 
 			int port = 55556;
 
-			if (!int.TryParse(_hostPortInputField.text, out port)) {
-				Debug.LogWarning("Invalid Connection Port.");
-			} else {
+			if (int.TryParse(_clientPortInput.text, out port)) {
 				PlayerPrefs.SetInt("ConnectionPort", port);
 				SceneManager.LoadScene("HackerSceneNew");
 			}
-		} else {
-			Debug.LogWarning("Invalid Connection IP-Adress.");
 		}
 	}
 
-	public void SetTobias (bool pState) {
-		if (pState) {
-			//evnt.start();
-		} else {
-			//evnt.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+	private void OnStartShooter_Click(int pLevelId) {
+		int port = 55556;
+
+		if (int.TryParse(_hostPortInput.text, out port)) {
+			PlayerPrefs.SetInt("HostPort", port);
+			SceneManager.LoadScene(pLevelId);
 		}
 	}
 }
