@@ -17,10 +17,10 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	private static List<IHackerNetworked> _networkObjects = new List<IHackerNetworked>();
 
 	private static TcpClient _host;
-	private static BinaryFormatter _formatter = new BinaryFormatter();
+	//private static BinaryFormatter _formatter = new BinaryFormatter();
 
 	public static TcpClient Host { get { return _host; } }
-	public static BinaryFormatter Formatter { get { return _formatter; } }
+	//public static BinaryFormatter Formatter { get { return _formatter; } }
 
 	public static T GetNetworkedObject<T> (int pId) where T : class, IHackerNetworked {
 		IHackerNetworked temp = _networkObjects.Find(x => x.Id == pId);
@@ -63,8 +63,9 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	public static void SendPackage (NetworkPacket.AbstractPacket pPacket) {
 		if (_host != null) {
 			try {
-				_formatter.Serialize(_host.GetStream(), pPacket);
-			} catch (SerializationException e) {
+				//_formatter.Serialize(_host.GetStream(), pPacket);
+				MessagePack.MessagePackSerializer.Serialize<NetworkPacket.AbstractPacket>(_host.GetStream(), pPacket);
+			} catch (Exception e) {
 				Debug.LogError("Failed to serialize. Reason: " + e.Message);
 				throw;
 			}

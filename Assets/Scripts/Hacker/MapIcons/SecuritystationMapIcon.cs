@@ -17,7 +17,7 @@ public class SecuritystationMapIcon : AbstractMapIcon {
 		SecuritystationMapIcon icon = HackerPackageSender.GetNetworkedObject<SecuritystationMapIcon>(pPacket.Id);
 		if (icon != null)
 		{
-			icon.ChangeState((ShooterSecurityStation.StationState)pPacket.state);
+			icon.ChangeState((ShooterSecurityStation.StationState)pPacket.State);
 		}
 	}
 

@@ -36,8 +36,12 @@ public class ShooterPackageReader : MonoBehaviour {
 			if (ShooterPackageSender.Client != null) {
 				try {
 					if (ShooterPackageSender.Client.Available != 0) {
-						NetworkPacket.AbstractPacket response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as NetworkPacket.AbstractPacket;
+						Debug.Log("Reading");
+						NetworkPacket.AbstractPacket response = MessagePack.MessagePackSerializer.Deserialize<NetworkPacket.AbstractPacket>(ShooterPackageSender.Client.GetStream());
+						Debug.Log("Processing");
+						//NetworkPacket.AbstractPacket response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as NetworkPacket.AbstractPacket;
 						readPacket(response);
+						Debug.Log("Done");
 					}
 				} catch (SocketException e) {
 					Debug.LogError("Error" + e.ToString());

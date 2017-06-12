@@ -22,7 +22,6 @@ public class HackerPackageReader : MonoBehaviour {
 
 	private Vector2 _minimapScale;
 	private MinimapManager _minimapManager;
-	private HackerPackageSender _networkManager;
 	private Texture _minimapTexture;
 
 	//Replace once hacker has a real HUD
@@ -35,20 +34,44 @@ public class HackerPackageReader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-		_networkManager = FindObjectOfType<HackerPackageSender>();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
 		_minimapManager.SetScale(2);
+		MessagePack.MessagePackSerializer.SetDefaultResolver(MessagePack.MessagePackSerializer.DefaultResolver);
+		StartCoroutine(readNetwork());
 	}
 
-	void Update() {
-		//try {
-		while (HackerPackageSender.Host.Available > 0) {
-			NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
-			readPacket(response);
+	//void Update() {
+	//	//try {
+	//	while (HackerPackageSender.Host.Available > 0) {
+	//		NetworkPacket.AbstractPacket response = MessagePack.MessagePackSerializer.Deserialize<NetworkPacket.AbstractPacket>(HackerPackageSender.Host.GetStream());
+	//		//NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
+	//		readPacket(response);
+	//	}
+	//	//} catch (Exception e) {
+	//	//Debug.LogError("Error" + e.ToString());
+	//	//}
+	//}
+
+	private IEnumerator readNetwork() {
+		while (true) {
+			if (HackerPackageSender.Host != null) {
+				try {
+					if (HackerPackageSender.Host.Available != 0) {
+						bool test = MessagePack.MessagePackSerializer.IsInitialized;
+						Debug.Log(test);
+						NetworkPacket.AbstractPacket response = MessagePack.MessagePackSerializer.Deserialize<NetworkPacket.AbstractPacket>(HackerPackageSender.Host.GetStream());
+						
+						//NetworkPacket.AbstractPacket response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as NetworkPacket.AbstractPacket;
+
+						readPacket(response);
+					}
+				} catch (SocketException e) {
+					Debug.LogError("Error" + e.ToString());
+				}
+			}
+
+			yield return null;
 		}
-		//} catch (Exception e) {
-		//Debug.LogError("Error" + e.ToString());
-		//}
 	}
 
 	///Late Package handling

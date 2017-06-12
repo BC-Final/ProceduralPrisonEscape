@@ -18,7 +18,7 @@ public class PushButtonMapIcon : AbstractMapIcon
     {
 		PushButtonMapIcon icon = HackerPackageSender.GetNetworkedObject<PushButtonMapIcon>(pPacket.Id);
 		SpriteRenderer button = null;
-		if(pPacket.buttonNumber == 0)
+		if(pPacket.ButtonNumber == 0)
 		{
 			button = icon._hackerButton;
 		}
@@ -26,12 +26,12 @@ public class PushButtonMapIcon : AbstractMapIcon
 		{
 			button = icon._shooterButton;
 		}
-        button.color = (new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB));
+        button.color = (new Color(pPacket.ColorR, pPacket.ColorG, pPacket.ColorB));
     }
 
     private static void createInstance(NetworkPacket.GameObjects.Button.Creation pPacket)
     {
-        PushButtonMapIcon icon = Instantiate(HackerReferenceManager.Instance.PushButton, new Vector3(pPacket.posX / MinimapManager.scale, pPacket.posY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PushButtonMapIcon>();
+        PushButtonMapIcon icon = Instantiate(HackerReferenceManager.Instance.PushButton, new Vector3(pPacket.PosX / MinimapManager.scale, pPacket.PosY / MinimapManager.scale, 0), Quaternion.Euler(0, 0, 0)).GetComponent<PushButtonMapIcon>();
 
         icon.Id = pPacket.Id;
     }

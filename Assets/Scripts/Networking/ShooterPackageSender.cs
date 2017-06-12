@@ -14,15 +14,15 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private static List<IShooterNetworked> _networkObjects = new List<IShooterNetworked>();
 
 	private static TcpClient _client;
-	private static BinaryFormatter _formatter = new BinaryFormatter();
+	//private static BinaryFormatter _formatter = new BinaryFormatter();
 
 	public static TcpClient Client {
 		get { return _client; }
 	}
 
-	public static BinaryFormatter Formatter {
-		get { return _formatter; }
-	}
+	//public static BinaryFormatter Formatter {
+	//	get { return _formatter; }
+	//}
 
 	private TcpListener _listener;
 	private static bool _clientInitialized = false;
@@ -124,7 +124,8 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private static void sendPackage (NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
 		if (pClient != null && pClient.Connected) {
 			try {
-				_formatter.Serialize(pClient.GetStream(), pPacket);
+				//_formatter.Serialize(pClient.GetStream(), pPacket);
+				MessagePack.MessagePackSerializer.Serialize<NetworkPacket.AbstractPacket>(pClient.GetStream(), pPacket);
 			} catch (Exception e) {
 				Debug.LogError("Failed to serialize. Reason: " + e.Message);
 			}
