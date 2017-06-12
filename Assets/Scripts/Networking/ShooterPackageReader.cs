@@ -35,7 +35,7 @@ public class ShooterPackageReader : MonoBehaviour {
 		while (true) {
 			if (ShooterPackageSender.Client != null) {
 				try {
-					if (ShooterPackageSender.Client.Available != 0) {
+					while (ShooterPackageSender.Client.Available != 0) {
 						NetworkPacket.AbstractPacket response = ShooterPackageSender.Formatter.Deserialize(ShooterPackageSender.Client.GetStream()) as NetworkPacket.AbstractPacket;
 						readPacket(response);
 					}

@@ -38,17 +38,35 @@ public class HackerPackageReader : MonoBehaviour {
 		_networkManager = FindObjectOfType<HackerPackageSender>();
 		_minimapManager = GameObject.FindObjectOfType<MinimapManager>();
 		_minimapManager.SetScale(2);
+		StartCoroutine(readNetwork());
 	}
 
-	void Update() {
-		//try {
-		while (HackerPackageSender.Host.Available > 0) {
-			NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
-			readPacket(response);
+	//void Update() {
+	//	//try {
+	//	while (HackerPackageSender.Host.Available > 0) {
+	//		NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
+	//		readPacket(response);
+	//	}
+	//	//} catch (Exception e) {
+	//	//Debug.LogError("Error" + e.ToString());
+	//	//}
+	//}
+
+	private IEnumerator readNetwork() {
+		while (true) {
+			if (HackerPackageSender.Host != null) {
+				try {
+					while (HackerPackageSender.Host.Available != 0) {
+						NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
+						readPacket(response);
+					}
+				} catch (SocketException e) {
+					Debug.LogError("Error" + e.ToString());
+				}
+			}
+
+			yield return null;
 		}
-		//} catch (Exception e) {
-		//Debug.LogError("Error" + e.ToString());
-		//}
 	}
 
 	///Late Package handling
