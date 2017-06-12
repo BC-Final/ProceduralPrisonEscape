@@ -31,7 +31,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Adds a networked object to the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void RegisterNetworkObject (IShooterNetworked pObject) {
+	public static void RegisterNetworkObject(IShooterNetworked pObject) {
 		_networkObjects.Add(pObject);
 
 		//FIX Hacky fix for a initializing rtuntime objects over the network
@@ -39,19 +39,19 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 			pObject.Initialize();
 		}
 	}
-	
+
 	/// <summary>
 	/// Removes a networked object from the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void UnregisterNetworkedObject (IShooterNetworked pObject) {
+	public static void UnregisterNetworkedObject(IShooterNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
 	/// <summary>
 	/// Initializes the server
 	/// </summary>
-	public void Awake () {
+	public void Awake() {
 		int port = PlayerPrefs.GetInt("HostPort", 55556);
 		Debug.Log("Hosted on port : " + port);
 		_listener = new TcpListener(IPAddress.Any, port);
@@ -61,14 +61,14 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// <summary>
 	/// Checks for connecting clients and deletes bad ones
 	/// </summary>
-	public void Update () {
+	public void Update() {
 		CheckForNewClients();
 	}
 
 	/// <summary>
 	/// 
 	/// </summary>
-	private void CheckForNewClients () {
+	private void CheckForNewClients() {
 		if (_listener.Pending()) {
 			TcpClient connectingClient = _listener.AcceptTcpClient();
 
@@ -89,7 +89,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// 
 	/// </summary>
 	/// <param name="pClient"></param>
-	private void ClientInitialize (TcpClient pClient) {
+	private void ClientInitialize(TcpClient pClient) {
 		//ShooterNetworkWindow.Instance.gameObject.SetActive(true);
 		FindObjectOfType<ShooterMinimapCamera>().SendUpdate();
 
@@ -104,7 +104,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 		SendPackage(new NetworkPacket.Messages.CreationEnd());
 	}
 
-	public static T GetNetworkedObject<T> (int pId) where T : class, IShooterNetworked {
+	public static T GetNetworkedObject<T>(int pId) where T : class, IShooterNetworked {
 		IShooterNetworked temp = _networkObjects.Find(x => x.Id == pId);
 		return temp is T ? temp as T : default(T);
 	}
@@ -113,7 +113,7 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Sends a package to all known clients
 	/// </summary>
 	/// <param name="package">Sendable data</param>
-	public static void SendPackage (NetworkPacket.AbstractPacket pPacket) {
+	public static void SendPackage(NetworkPacket.AbstractPacket pPacket) {
 		sendPackage(pPacket, _client);
 	}
 
@@ -121,14 +121,20 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	/// Sends a package to all known clients
 	/// </summary>
 	/// <param name="package">Sendable data</param>
-	private static void sendPackage (NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
+	private static void sendPackage(NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
 		if (pClient != null && pClient.Connected) {
-			try {
-				_formatter.Serialize(pClient.GetStream(), pPacket);
-			} catch (Exception e) {
-				Debug.LogError("Failed to serialize. Reason: " + e.Message);
-			}
+			Instance.StartCoroutine(Instance.sendPacketAsync(pPacket, pClient));
 		}
+	}
+
+	private IEnumerator sendPacketAsync(NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
+		try {
+			_formatter.Serialize(pClient.GetStream(), pPacket);
+		} catch (Exception e) {
+			Debug.LogError("Failed to serialize. Reason: " + e.Message);
+		}
+
+		yield return null;
 	}
 
 	private void OnApplicationQuit () {

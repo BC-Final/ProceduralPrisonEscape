@@ -22,7 +22,7 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	public static TcpClient Host { get { return _host; } }
 	public static BinaryFormatter Formatter { get { return _formatter; } }
 
-	public static T GetNetworkedObject<T> (int pId) where T : class, IHackerNetworked {
+	public static T GetNetworkedObject<T>(int pId) where T : class, IHackerNetworked {
 		IHackerNetworked temp = _networkObjects.Find(x => x.Id == pId);
 		return temp is T ? temp as T : default(T);
 	}
@@ -31,7 +31,7 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	/// Adds a networked object to the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void RegisterNetworkObject (IHackerNetworked pObject) {
+	public static void RegisterNetworkObject(IHackerNetworked pObject) {
 		_networkObjects.Add(pObject);
 	}
 
@@ -39,12 +39,12 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 	/// Removes a networked object from the reference list
 	/// </summary>
 	/// <param name="pObject"></param>
-	public static void UnregisterNetworkedObject (IHackerNetworked pObject) {
+	public static void UnregisterNetworkedObject(IHackerNetworked pObject) {
 		_networkObjects.Remove(pObject);
 	}
 
 	// Use this for initialization
-	private void Awake () {
+	private void Awake() {
 		try {
 			Debug.Log("Connecting to : " + PlayerPrefs.GetString("ConnectionIP") + ":" + PlayerPrefs.GetInt("ConnectionPort"));
 			int port = PlayerPrefs.GetInt("ConnectionPort");
@@ -60,15 +60,21 @@ public class HackerPackageSender : Singleton<HackerPackageSender> {
 		}
 	}
 
-	public static void SendPackage (NetworkPacket.AbstractPacket pPacket) {
+	public static void SendPackage(NetworkPacket.AbstractPacket pPacket) {
 		if (_host != null) {
-			try {
-				_formatter.Serialize(_host.GetStream(), pPacket);
-			} catch (SerializationException e) {
-				Debug.LogError("Failed to serialize. Reason: " + e.Message);
-				throw;
-			}
+			Instance.StartCoroutine(Instance.sendPacketAsync(pPacket));
 		}
+	}
+
+	private IEnumerator sendPacketAsync(NetworkPacket.AbstractPacket pPacket) {
+		try {
+			_formatter.Serialize(_host.GetStream(), pPacket);
+		} catch (SerializationException e) {
+			Debug.LogError("Failed to serialize. Reason: " + e.Message);
+			throw;
+		}
+
+		yield return null;
 	}
 
 	public static void SilentlyDisconnect () {
