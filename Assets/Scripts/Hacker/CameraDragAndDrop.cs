@@ -34,10 +34,11 @@ public class CameraDragAndDrop : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Z)) {
 			if (_player == null) {
 				_player = GameObject.FindObjectOfType<PlayerMapIcon>().transform;
-			}
-
-			_followPlayer.Value = !_followPlayer.Value;
-			_currentLerpTime = 0f;
+			}else
+			{
+				_followPlayer.Value = !_followPlayer.Value;
+				_currentLerpTime = 0f;
+			}	
 		}
 
 		float scrollPos = _camera.orthographicSize;

@@ -47,7 +47,6 @@ public class CameraMapIcon : AbstractMapIcon {
 	}
 
 	private void updateInstance(NetworkPacket.GameObjects.Camera.sUpdate pPacket) {
-		Debug.Log("Updating!!! Rot: " +  pPacket.Rot);
 		_lerpTime = Time.time - _lastUpdateTime;
 		_lastUpdateTime = Time.time;
 		_currentLerpTime = 0f;

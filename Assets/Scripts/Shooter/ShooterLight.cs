@@ -15,7 +15,8 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 
 	//FIX One light might have multiple light sources???
 	private Light _light;
-
+	[SerializeField]
+	private Renderer _renderer;
 	//TODO Add Packet processing
 
 	private void Start() {
@@ -23,6 +24,7 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 
 		_light = GetComponentInChildren<Light>(true);
 		_defaultColor = _light.color;
+		//_renderer = GetComponent<Renderer>();
 	}
 
 	public void SetState(bool pTurnedOn) {
@@ -62,12 +64,15 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 			//ADD Make this modifiable
 			Sequence alarmSequence = DOTween.Sequence()
 				.Append(_light.DOColor(Color.red, 0.75f))
+				.Join(_renderer.material.DOColor(Color.red, 0.75f))
 				.Append(_light.DOColor(_defaultColor, 0.75f))
+				.Join(_renderer.material.DOColor(_defaultColor, 0.75f))
 				.SetLoops(-1)
 				.SetTarget(_light);
 		} else {
 			_light.DOKill();
 			_light.DOColor(_defaultColor, 0.5f);
+			_renderer.material.DOColor(_defaultColor, 0.50f);
 		}
 	}
 
