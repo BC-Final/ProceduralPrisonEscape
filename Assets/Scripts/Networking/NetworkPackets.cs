@@ -1082,6 +1082,24 @@ namespace NetworkPacket {
 				}
 			}
 		}
+
+		namespace Terminal {
+			[System.Serializable]
+			public class RevealArea : AbstractPacket {
+				public float posX, posZ, sizeX, sizeZ;
+
+				public RevealArea(Vector2 pPos, Vector2 pSize) {
+					posX = pPos.x;
+					posZ = pPos.y;
+					sizeX = pSize.x;
+					sizeZ = pSize.y;
+				}
+
+				public override void Invoke() {
+					HackerFOW.Instance.RevealArea(new Vector2(posX, posZ), new Vector2(sizeX, sizeZ));
+				}
+			}
+		}
 	}
 
 	namespace States {
@@ -1116,7 +1134,5 @@ namespace NetworkPacket {
 				HackerPackageReader.GetInstance().OnCreationEnd();
 			}
 		}
-
-		
 	}
 }
