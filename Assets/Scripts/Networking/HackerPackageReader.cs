@@ -143,12 +143,10 @@ public class HackerPackageReader : MonoBehaviour {
 		//if (pPacket is NetworkPacket.GameObjects.Lasergate.sUpdate) { (pPacket as NetworkPacket.GameObjects.Lasergate.sUpdate).Invoke(); }
 		if(pPacket.isLatePacket && !loadingFinished)
 		{
-			Debug.Log("Adding Late Packet");
 			AddLatePackage(pPacket);
 		}
 		else
 		{
-			Debug.Log("Invoking Packet");
 			pPacket.Invoke();
 		}
 	}

@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 33486681471063246}
   - component: {fileID: 23118527535519228}
   - component: {fileID: 114910672010967924}
-  - component: {fileID: 54228559162562592}
   - component: {fileID: 64292772452335968}
   m_Layer: 20
   m_Name: FOW
@@ -254,21 +253,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1195564585456422}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54228559162562592
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1195564585456422}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &64292772452335968
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -338,8 +322,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seenColor: {r: 0.047413856, g: 0.625, b: 0, a: 0}
-  _frameDelay: 2
-  _seeRadius: 60
+  _frameDelay: 1
+  _seeRadius: 120
   _textureSize: 2048
 --- !u!114 &114951423181502154
 MonoBehaviour:

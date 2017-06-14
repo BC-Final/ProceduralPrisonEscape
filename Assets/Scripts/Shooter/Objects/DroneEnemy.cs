@@ -129,7 +129,7 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		_networkUpdateTimer = TimerManager.CreateTimer("Drone Network Update", false).SetDuration(_parameters.NetworkUpdateRate).SetLoops(-1).AddCallback(() => sendUpdate());
 
 		//TODO This is super hacky. When the hacker connects all "network idle" states keep sending because they tried to pause before the hacker joined (maybe create an "idle" state until hacker joins)
-		if (!(_fsm.GetState() is DroneGuardState)) {
+		if (_fsm == null || !(_fsm.GetState() is DroneGuardState)) {
 			_networkUpdateTimer.Start();
 		}
 	}
@@ -188,7 +188,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 
 	private void sendUpdate() {
-		EnemyState state = _faction != Faction.Prison ? EnemyState.Controlled : _fsm.GetState() is DroneStunnedState ? EnemyState.Stunned : (_seesTarget ? EnemyState.SeesPlayer : EnemyState.None);
+		EnemyState state = ((_fsm == null || _faction != Faction.Prison) ? EnemyState.Controlled : ((_fsm.GetState() is DroneStunnedState) ? EnemyState.Stunned : ((_seesTarget) ? EnemyState.SeesPlayer : EnemyState.None)));
+		
 		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Drone.sUpdate(Id, transform.position.x, transform.position.z, transform.rotation.eulerAngles.y, _currentHealth / _parameters.MaximumHealth, state));
 	}
 
