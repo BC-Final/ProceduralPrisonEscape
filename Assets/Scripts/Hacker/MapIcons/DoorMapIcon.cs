@@ -46,6 +46,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		{
 			icon.SetDoorActionsState(true);
 			icon.changeColor(Color.white);
+			icon.IsInteractable = true;
 			Debug.Log(icon.ToString() + " Enabled");
 		}
 	}
@@ -56,6 +57,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		{
 			icon.SetDoorActionsState(false);
 			icon.changeColor(Color.gray);
+			icon.IsInteractable = false;
 			Debug.Log(icon.ToString() + " Disabled");
 		}
 	}
@@ -83,7 +85,9 @@ public class DoorMapIcon : AbstractMapIcon {
             icon._addonSprite.sprite = HackerReferenceManager.Instance.DoorAddonKeycard;
             icon._addonSprite.color = new Color(pPacket.colorR, pPacket.colorG, pPacket.colorB);
             icon.changeColor(Color.gray);
-        }
+			icon.actions = new ActionData[0];
+			icon.IsInteractable = false;
+		}
 	}
 
 	public static void AddAddon(NetworkPacket.GameObjects.Door.Addons.AddCodeLockAddon pPacket) {
