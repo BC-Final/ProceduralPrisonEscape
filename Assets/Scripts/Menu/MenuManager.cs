@@ -30,6 +30,8 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField]
 	private Button _startShooterLevel1;
 	[SerializeField]
+	private Button _startShooterLevel2;
+	[SerializeField]
 	private Button _startHacker;
 
 
@@ -69,6 +71,7 @@ public class MenuManager : MonoBehaviour {
 
 		_startShooterLevel0.onClick.AddListener(delegate { OnStartShooter_Click(1); });
 		_startShooterLevel1.onClick.AddListener(delegate { OnStartShooter_Click(2); });
+		_startShooterLevel2.onClick.AddListener(delegate { OnStartShooter_Click(4); });
 		_startHacker.onClick.AddListener(OnStartHacker_Click);
 
 		_hackerMenuBackButton.onClick.AddListener(OnBack_Click);

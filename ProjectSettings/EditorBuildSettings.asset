@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HackerSceneNew.unity
     guid: b18c5dc9da584dc4e81d841f7d8b58eb
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 00000000000000000000000000000000
