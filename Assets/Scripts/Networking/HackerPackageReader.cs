@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using UnityEngine;
+using System.IO;
 
 public class HackerPackageReader : MonoBehaviour {
 	private static HackerPackageReader _instance;
@@ -27,6 +28,8 @@ public class HackerPackageReader : MonoBehaviour {
 
 	//Replace once hacker has a real HUD
 	private HUDCardHolder _cardHolder;
+	public bool LoggerOn;
+	private float _bytesRead;
 
 	//private MinimapPlayer _player;
 
@@ -57,7 +60,9 @@ public class HackerPackageReader : MonoBehaviour {
 			if (HackerPackageSender.Host != null) {
 				try {
 					while (HackerPackageSender.Host.Available != 0) {
-						NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(HackerPackageSender.Host.GetStream()) as NetworkPacket.AbstractPacket;
+						NetworkStream stream = HackerPackageSender.Host.GetStream();
+
+						NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(stream) as NetworkPacket.AbstractPacket;
 						readPacket(response);
 					}
 				} catch (SocketException e) {

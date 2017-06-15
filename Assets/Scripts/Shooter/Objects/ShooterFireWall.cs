@@ -11,6 +11,8 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked
 	private GameObject _particleSystem;
 	private bool _active = true;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onDestroy;
 	//IShooterNetworked implementation
 
 	private ShooterNetworkId _id = new ShooterNetworkId();
@@ -18,11 +20,15 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked
 
 	public void Initialize()
 	{
-		foreach(ShooterDoor door in _doors)
+		if (_active)
 		{
-			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.DisableDoorOptions(door.Id));
-			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Firewall.Creation(Id, this.transform.position.x, this.transform.position.z, _active));
+			foreach (ShooterDoor door in _doors)
+			{
+				ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.DisableDoorOptions(door.Id));
+			}
 		}
+			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Firewall.Creation(Id, this.transform.position.x, this.transform.position.z, _active));
+		
 	}
 
 	//IDamageable implementation
@@ -62,6 +68,7 @@ public class ShooterFireWall : MonoBehaviour, IDamageable, IShooterNetworked
 		{
 			ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Door.Other.EnableDoorOptions(door.Id));
 		}
+		_onDestroy.Invoke();
 	}
 }
 

@@ -46,6 +46,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		{
 			icon.SetDoorActionsState(true);
 			icon.changeColor(Color.white);
+			Debug.Log(icon.ToString() + " Enabled");
 		}
 	}
 	public static void ProcessPacket(NetworkPacket.GameObjects.Door.Other.DisableDoorOptions pPacket)
@@ -55,6 +56,7 @@ public class DoorMapIcon : AbstractMapIcon {
 		{
 			icon.SetDoorActionsState(false);
 			icon.changeColor(Color.gray);
+			Debug.Log(icon.ToString() + " Disabled");
 		}
 	}
 

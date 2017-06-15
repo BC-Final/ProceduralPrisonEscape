@@ -59,7 +59,6 @@ public class LasergateMapIcon : AbstractMapIcon {
 
 	private void OnIsActiveChange()
 	{
-		Debug.Log("Im being called");
 		if (_isActive.Value)
 		{
 			changeSprite(ActiveSprite);
