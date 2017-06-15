@@ -1158,7 +1158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5904b3559c908c409fea0019ba9ea79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootDamage: 25
+  _shootDamage: 50
   _shootRange: 100
   _shootDelay: 0.5
   _shootForce: 700

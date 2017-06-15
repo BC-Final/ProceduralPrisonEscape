@@ -317,6 +317,8 @@ namespace NetworkPacket {
 					public DeactivateDoor(int pID)
 					{
 						Id = pID;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
@@ -335,6 +337,8 @@ namespace NetworkPacket {
 					public DisableDoorOptions(int pID)
 					{
 						Id = pID;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
@@ -353,6 +357,8 @@ namespace NetworkPacket {
 					public EnableDoorOptions(int pID)
 					{
 						Id = pID;
+
+						isLatePacket = true;
 					}
 
 					public override void Invoke()
