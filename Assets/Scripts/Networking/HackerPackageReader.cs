@@ -59,18 +59,36 @@ public class HackerPackageReader : MonoBehaviour {
 		while (true) {
 			if (HackerPackageSender.Host != null) {
 				try {
+					NetworkStream stream = HackerPackageSender.Host.GetStream();
+					//long byteCount = stream.Position;
+
 					while (HackerPackageSender.Host.Available != 0) {
-						NetworkStream stream = HackerPackageSender.Host.GetStream();
+						
 
 						NetworkPacket.AbstractPacket response = HackerPackageSender.Formatter.Deserialize(stream) as NetworkPacket.AbstractPacket;
+						_bytesRead = ToByteArray(response).Length;
+						Debug.Log("bytes received : " + _bytesRead);
 						readPacket(response);
 					}
+
+					//Debug.Log("bytecount :" + byteCount);
 				} catch (SocketException e) {
 					Debug.LogError("Error" + e.ToString());
 				}
 			}
 
 			yield return null;
+		}
+	}
+
+	// Convert an object to a byte array
+	private static byte[] ToByteArray(NetworkPacket.AbstractPacket obj)
+	{
+		BinaryFormatter bf = new BinaryFormatter();
+		using (var ms = new MemoryStream())
+		{
+			bf.Serialize(ms, obj);
+			return ms.ToArray();
 		}
 	}
 

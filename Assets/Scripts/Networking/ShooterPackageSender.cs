@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Sockets;
 using System.Net;
 using System.Collections;
@@ -124,17 +125,53 @@ public class ShooterPackageSender : Singleton<ShooterPackageSender> {
 	private static void sendPackage(NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
 		if (pClient != null && pClient.Connected) {
 			Instance.StartCoroutine(Instance.sendPacketAsync(pPacket, pClient));
+			//Instance.StartCoroutine(Instance.SerializePacket(pPacket, CopyStream(pClient.GetStream())));
+			
 		}
 	}
 
 	private IEnumerator sendPacketAsync(NetworkPacket.AbstractPacket pPacket, TcpClient pClient) {
 		try {
-			_formatter.Serialize(pClient.GetStream(), pPacket);
+			Stream stream = pClient.GetStream();
+			
+
+			_formatter.Serialize(stream, pPacket);
+
+			
 		} catch (Exception e) {
 			Debug.LogError("Failed to serialize. Reason: " + e.Message);
 		}
 
 		yield return null;
+	}
+	private IEnumerator SerializePacket(NetworkPacket.AbstractPacket pPacket, Stream stream)
+	{
+		try
+		{
+			Stream tempStream = CopyStream(stream);
+			tempStream.Position = 0;
+			_formatter.Serialize(tempStream, pPacket);
+			long byteCount = tempStream.Position;
+			Debug.Log("bytecount : " + byteCount);
+		}
+		catch (Exception e)
+		{
+			Debug.LogError("Failed to serialize. Reason: " + e.Message);
+		}
+
+		yield return null;
+	}
+
+	private static Stream CopyStream(Stream inputStream)
+	{
+		Stream outputStream = new MemoryStream();
+		byte[] buffer = new byte[4096];
+		int read;
+		while ((read = inputStream.Read(buffer, 0, buffer.Length)) > 0)
+		{
+			outputStream.Write(buffer, 0, read);
+		}
+		return outputStream;
 	}
 
 	private void OnApplicationQuit () {
