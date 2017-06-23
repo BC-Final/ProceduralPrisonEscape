@@ -78,6 +78,8 @@ MonoBehaviour:
   SecurityStationIcon: {fileID: 1052873656887114, guid: fc1bce5d864e86b418f73612283b698b,
     type: 2}
   SpeakerIcon: {fileID: 0}
+  TerminalIcon: {fileID: 1160825406060596, guid: b80a700606266024382b546c606408cc,
+    type: 2}
   TurretIcon: {fileID: 1989081568637798, guid: 268d29a229841aa4b8adc90949b2ceaf, type: 2}
   VendingMachineIcon: {fileID: 0}
   ModuleIcon: {fileID: 1446864411539688, guid: 79fa0caa14db30c4b84d7fd1a011a26b, type: 2}

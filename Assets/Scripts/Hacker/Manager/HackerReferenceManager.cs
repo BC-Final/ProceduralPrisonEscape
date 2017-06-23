@@ -24,6 +24,7 @@ public class HackerReferenceManager : Singleton<HackerReferenceManager> {
     public GameObject PushButton;
 	public GameObject SecurityStationIcon;
 	public GameObject SpeakerIcon;
+	public GameObject TerminalIcon;
     public GameObject TurretIcon;
 	public GameObject VendingMachineIcon;
 	public GameObject ModuleIcon;

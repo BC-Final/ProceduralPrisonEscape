@@ -1091,6 +1091,23 @@ namespace NetworkPacket {
 
 		namespace Terminal {
 			[System.Serializable]
+			public class Creation : AbstractPacket
+			{
+				public int Id;
+				public float PosX, PosY;
+				public Creation(int pId, Vector3 pPos)
+				{
+					Id = pId;
+					PosX = pPos.x;
+					PosY = pPos.z;
+				}
+
+				public override void Invoke()
+				{
+					TerminalMapIcon.ProcessPacket(this);
+				}
+			}
+			[System.Serializable]
 			public class RevealArea : AbstractPacket {
 				public float posX, posZ, sizeX, sizeZ;
 
@@ -1105,6 +1122,7 @@ namespace NetworkPacket {
 					HackerFOW.Instance.RevealArea(new Vector2(posX, posZ), new Vector2(sizeX, sizeZ));
 				}
 			}
+
 		}
 	}
 
