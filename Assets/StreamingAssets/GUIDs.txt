@@ -1,9 +1,17 @@
-{7bafd9a7-1e3b-49d4-a0d4-09164b4f9f8d} event:/envi/envi_door_open_alert
-{01e17d98-4a06-40b7-8cc4-165a1b80f2a9} event:/envi/envi_exit_unlock
-{4cf580fc-7c52-4cde-b1de-7395ddd7c571} event:/envi/envi_light_toggle
-{b25650aa-3a17-4933-9f45-59982d207180} event:/shooter/shooter_keypress
-{8d2d6dd0-64b0-4de5-90e1-d449d5aed340} event:/weapon/_grenade/weapon_grenade_alert
-{187b0939-18a0-49e6-8bff-b39d26f30c4c} event:/weapon/_mg/weapon_mg_empty
+{7bafd9a7-1e3b-49d4-a0d4-09164b4f9f8d} event:/Sound Design/envi/envi_door_open_alert
+{01e17d98-4a06-40b7-8cc4-165a1b80f2a9} event:/Sound Design/envi/envi_exit_unlock
+{4cf580fc-7c52-4cde-b1de-7395ddd7c571} event:/Sound Design/envi/envi_light_toggle
+{93cc2fbc-e9c3-4e15-9c3c-634665982752} event:/Sound Design/envi/envi_alarm
+{bb5ff806-75c0-4bee-8936-f074d1171179} event:/Sound Design/envi/envi_door_open_mechanic
+{91d0d5ae-dcba-4561-96d1-aca27297457a} event:/Sound Design/envi/envi_door_close_mechanic
+{c29eaad5-7658-48a2-a3bd-aada4c6d1776} event:/Sound Design/shooter/shooter_footstep
+{8d2d6dd0-64b0-4de5-90e1-d449d5aed340} event:/Sound Design/weapon/_grenade/weapon_grenade_alert
+{187b0939-18a0-49e6-8bff-b39d26f30c4c} event:/Sound Design/weapon/_mg/weapon_mg_empty
+{9f30eea4-fcc1-4bff-9b9d-8c23ae4276cc} event:/Sound Design/weapon/_mg/weapon_mg_laser_shot
+{276512db-90b9-463d-b7ca-604fbb89111f} event:/Sound Design/weapon/_mg/weapon_mg_bullet_shot
+{f196f5b9-9a3d-4120-876d-f3d1b9e523b1} event:/Sound Design/weapon/_ammo/weapon_ammo_mg_collect
+{28ab1389-89bf-4664-9b27-534fc1f98cac} event:/Sound Design/weapon/_laser/weapon_laser_shot
+{b25650aa-3a17-4933-9f45-59982d207180} event:/Sound Design/module/module_keypad_keypress
 {aa168d68-3ce9-46ca-9c4c-365e62c454ad} bus:/
-{60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
 {0c5318aa-0837-4f8f-9cc0-43ca0edaf7f9} bank:/Hacker
+{60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
