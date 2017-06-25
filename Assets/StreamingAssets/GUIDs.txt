@@ -1,0 +1,9 @@
+{7bafd9a7-1e3b-49d4-a0d4-09164b4f9f8d} event:/envi/envi_door_open_alert
+{01e17d98-4a06-40b7-8cc4-165a1b80f2a9} event:/envi/envi_exit_unlock
+{4cf580fc-7c52-4cde-b1de-7395ddd7c571} event:/envi/envi_light_toggle
+{b25650aa-3a17-4933-9f45-59982d207180} event:/shooter/shooter_keypress
+{8d2d6dd0-64b0-4de5-90e1-d449d5aed340} event:/weapon/_grenade/weapon_grenade_alert
+{187b0939-18a0-49e6-8bff-b39d26f30c4c} event:/weapon/_mg/weapon_mg_empty
+{aa168d68-3ce9-46ca-9c4c-365e62c454ad} bus:/
+{60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
+{0c5318aa-0837-4f8f-9cc0-43ca0edaf7f9} bank:/Hacker
