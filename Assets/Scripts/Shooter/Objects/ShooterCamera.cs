@@ -166,6 +166,28 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 		}
 	}
 
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onDetect;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onLoose;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onEnable;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onDisable;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onSwitchDirection;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onStartMove;
+
+	[SerializeField]
+	public UnityEngine.Events.UnityEvent _onStopMove;
+
+
 #if UNITY_EDITOR
 	private void OnDrawGizmos () {
 		if (_visualizeView) {
@@ -178,9 +200,9 @@ public class ShooterCamera : MonoBehaviour, IShooterNetworked, IDamageable {
 			//UnityEditor.Handles.DrawWireArc(new Vector3(_base.position.x, _lookPoint.position.y, _base.position.z), transform.up, _base.TransformDirection(Quaternion.Euler(0.0f, _rotationAngle / 2.0f, 0.0f) * (Vector3.forward * baseHandleRadius)).normalized, _rotationAngle, baseHandleRadius);
 			
 			
-			//UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)).normalized, _rotationAngle + _parameters.ViewAngle, _parameters.ViewRange);
-			//Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
-			//Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, -((_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f)), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
+			UnityEditor.Handles.DrawWireArc(_lookPoint.position, -_lookPoint.up, _lookPoint.TransformDirection(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)).normalized, _rotationAngle + _parameters.ViewAngle, _parameters.ViewRange);
+			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, (_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
+			Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0.0f, -((_rotationAngle / 2.0f) + (_parameters.ViewAngle / 2.0f)), 0.0f) * (Vector3.forward * _parameters.ViewRange)));
 
 			if (_parameters.ViewAngle < 360.0f) {
 				Gizmos.DrawLine(_lookPoint.position, _lookPoint.TransformPoint(Quaternion.Euler(0f, _parameters.ViewAngle / 2f, 0f) * (Vector3.forward * _parameters.ViewRange)));

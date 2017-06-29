@@ -112,6 +112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4712724900948766}
   - component: {fileID: 114443332292144380}
+  - component: {fileID: 114854004522135166}
   m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
@@ -638,6 +639,7 @@ MonoBehaviour:
   _triggeredDuration: 3
   _delayBetweenTriggering: 2
   CanBeTriggered: 0
+  Terminal: {fileID: 0}
   offColor: {r: 0.11764705, g: 0.11764705, b: 0.11764705, a: 0}
   notActiveColor: {r: 0.33823532, g: 0, b: 0, a: 0}
   activeColor: {r: 1, g: 1, b: 0, a: 0}
@@ -657,6 +659,38 @@ MonoBehaviour:
   _door: {fileID: 0}
   _shooterButton: {fileID: 114704762371233342}
   _hackerButton: {fileID: 114348331643610858}
+  _onPress:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114854004522135166}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onSuccess:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114854004522135166}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114455144444107184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -737,11 +771,26 @@ MonoBehaviour:
   _triggeredDuration: 0.5
   _delayBetweenTriggering: 2
   CanBeTriggered: 0
+  Terminal: {fileID: 0}
   offColor: {r: 0, g: 0, b: 0, a: 0}
   notActiveColor: {r: 0.33823532, g: 0, b: 0, a: 0}
   activeColor: {r: 1, g: 1, b: 0, a: 0}
   solvedColor: {r: 0, g: 1, b: 0, a: 0}
   CurrentColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &114854004522135166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456826308290964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _events:
+  - event:/Sound Design/module/module_keypad_keypress
+  - event:/Sound Design/envi/_security/envi_security_activate
 --- !u!114 &114880324566572960
 MonoBehaviour:
   m_ObjectHideFlags: 1

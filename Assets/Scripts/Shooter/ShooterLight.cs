@@ -9,6 +9,9 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 	[SerializeField]
 	private float _distractRange;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onDamaged;
+
 	private bool _broken = false;
 
 	private Color _defaultColor;
@@ -78,6 +81,10 @@ public class ShooterLight : MonoBehaviour, IDamageable {
 
 
 	public void ReceiveDamage(Transform pSource, Vector3 pHitPoint, float pDamage, float pForce) {
+		if (_onDamaged != null && !_broken) {
+			_onDamaged.Invoke();
+		}
+
 		blowOut(false);
 	}
 

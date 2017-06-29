@@ -89,6 +89,18 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private UnityEngine.Events.UnityEvent _onClose;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onLock;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onUnlock;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onGranted;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onDenied;
+
 	/// <summary>
 	/// HACK! To be changed!
 	/// </summary>
@@ -202,7 +214,19 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 
 	}
 
-
+	private void OnTriggerEnter(Collider other) {
+		if (other.GetComponentInParent<Inventory>()) {
+			if (other.GetComponentInParent<Inventory>().Contains(this)) {
+				if (_onGranted != null) {
+					_onGranted.Invoke();
+				}
+			} else if(!_open.Value) {
+				if (_onDenied != null) {
+					_onDenied.Invoke();
+				}
+			}
+		}
+	}
 
 	/// <summary>
 	/// Checks if Drone is trying to pass door and opens it if not locked or already open
@@ -221,6 +245,10 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 			if(!_locked) {
 				_open.Value = true;
 				sendStateUpdate();
+
+				if (_onGranted != null) {
+					_onGranted.Invoke();
+				}
 			}
 
 			//Debug.Log("Drone opened door");

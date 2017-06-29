@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011701894808}
   - component: {fileID: 114000012833240536}
-  - component: {fileID: 114982491217264482}
+  - component: {fileID: 114256898734459662}
   m_Layer: 9
   m_Name: pfb_weapon_phaser
   m_TagString: Untagged
@@ -438,7 +438,7 @@ MonoBehaviour:
   _reloadTime: 1
   _meleeTime: 0.5
   _aimTime: 0.2
-  _drawTime: 0.3
+  _drawTime: 0.6
   _cameraRecoilForce: {x: 3, y: 1.5}
   _weaponRotationRecoilForce: {x: 3, y: 1.5}
   _weaponMoveRecoilForce: 0.15
@@ -450,15 +450,26 @@ MonoBehaviour:
   _model: {fileID: 1377034395631064}
   _onSwitch:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114256898734459662}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _onShoot:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114982491217264482}
+      - m_Target: {fileID: 114256898734459662}
         m_MethodName: Play
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -471,11 +482,22 @@ MonoBehaviour:
       PublicKeyToken=null
   _onReload:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114256898734459662}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _currentState: 4
---- !u!114 &114982491217264482
+--- !u!114 &114256898734459662
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -483,20 +505,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011604793794}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Event: event:/Sound Design/weapon/_pistol/weapon_pistol_laser_shot
-  PlayEvent: 0
-  StopEvent: 0
-  CollisionTag: 
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
+  _events:
+  - event:/Sound Design/weapon/_pistol/weapon_pistol_laser_shot
+  - event:/Sound Design/shooter/weaponchange/shooter_weaponchange_pistol
+  - event:/Sound Design/weapon/_ep/weapon_ep_reload
 --- !u!198 &198331663058906196
 ParticleSystem:
   m_ObjectHideFlags: 1

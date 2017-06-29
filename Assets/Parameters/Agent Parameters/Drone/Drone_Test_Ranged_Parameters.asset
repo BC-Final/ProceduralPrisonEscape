@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Name: Drone_Test_Ranged_Parameters
   m_EditorClassIdentifier: 
   AttackType: 0
-  AttackDamage: 10
+  AttackDamage: 15
   AttackRange: 10
-  AttackRate: 0.2
+  AttackRate: 0.4
   AttackAngle: 90
   AttackForce: 0
   SpreadConeLength: 10

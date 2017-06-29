@@ -850,7 +850,7 @@ MonoBehaviour:
   _reloadTime: 1.5
   _meleeTime: 0.5
   _aimTime: 0.2
-  _drawTime: 0.3
+  _drawTime: 0.6
   _cameraRecoilForce: {x: 1, y: 1}
   _weaponRotationRecoilForce: {x: 1, y: 1}
   _weaponMoveRecoilForce: 0.08
@@ -862,7 +862,18 @@ MonoBehaviour:
   _model: {fileID: 1952811220345244}
   _onSwitch:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114229457089157368}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _onShoot:
@@ -913,6 +924,7 @@ MonoBehaviour:
   - event:/Sound Design/weapon/_mg/weapon_mg_bullet_shot
   - event:/Sound Design/weapon/_mg/weapon_mg_reload
   - event:/Sound Design/weapon/_mg/weapon_mg_empty
+  - event:/Sound Design/shooter/weaponchange/shooter_weaponchange_mg
 --- !u!198 &198000010891647004
 ParticleSystem:
   m_ObjectHideFlags: 1

@@ -8,6 +8,9 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 	[Tooltip("The maximum amount of health")]
 	private float _maxHealth;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onHit;
+
 	public GameObject GameObject { get { return gameObject; } }
 	public Faction Faction { get { return Faction.Player; } }
 
@@ -60,9 +63,14 @@ public class PlayerHealth : Singleton<PlayerHealth>, IDamageable, ITargetable {
 		_currentHealth.Value = Mathf.Max(0.0f, _currentHealth.Value - pDamage);
 
 		FindObjectOfType<DamageIndicatorControllerShooterUI>().ShowHitMarker(pSource);
-		
+
+		if (_onHit != null) {
+			_onHit.Invoke();
+		}
+
 		if (_currentHealth.Value == 0.0f) {
-			//_destroyEvent.Invoke(gameObject);
+			_destroyEvent.Invoke(gameObject);
+			UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
 			//TODO Add death event
 		}
 	}

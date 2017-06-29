@@ -19,6 +19,10 @@ namespace StateFramework {
 			_camera.GetComponentInChildren<Light>().color = Color.yellow;
 
 			_alarmTimer = 0.0f;
+
+			if (_camera._onDetect != null) {
+				_camera._onDetect.Invoke();
+			}
 		}
 
 		public override void Step () {
@@ -41,6 +45,10 @@ namespace StateFramework {
 			//_loseSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_shooter/PE_shooter_camlost");
 			//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_loseSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 			//_loseSound.start();
+
+			if (_camera._onLoose != null) {
+				_camera._onLoose.Invoke();
+			}
 		}
 	}
 }

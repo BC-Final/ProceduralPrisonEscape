@@ -9,6 +9,12 @@ namespace StateFramework {
 			_drone.SeesTarget = false;
 			_drone.Agent.enabled = false;
 			_drone.LastTarget = null;
+
+			_drone.SendUpdates(false);
+
+			if (_drone._onDie != null) {
+				_drone._onDie.Invoke();
+			}
 			//_drone.gameObject.SetActive(false);
 
 			//Collider[] coll = _drone.GetComponentsInChildren<Collider>();
@@ -33,7 +39,7 @@ namespace StateFramework {
 
 			go.GetComponent<ExplodeDrone>().SetAnimationPercentage(stateInfo.normalizedTime % 1);
 			go.GetComponent<ExplodeDrone>().SetImpact(pHitPoint, -(pSource.position - _drone.transform.position).normalized, pForce);
-			GameObject.Destroy(_drone.gameObject, 0.1f);
+			GameObject.Destroy(_drone.gameObject, 5f);
 		}
 	}
 }

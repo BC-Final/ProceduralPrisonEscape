@@ -23,6 +23,12 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 	private Transform _capsule;
 	private Material _material;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onInteract;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onSuccess;
+
 	public enum StationState { Passive, Triggerd, HalfDeactivated, Deactivated };
 	private ObservedValue<StationState> _stationState = new ObservedValue<StationState>(StationState.Passive); 
 
@@ -62,6 +68,11 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 				ShooterAlarmManager.Instance.AlarmIsOn = false;
 				_stationState.Value = StationState.Deactivated;
 				TimerManager.CreateTimer("Security return to passive", true).SetDuration(3f).AddCallback(() => _stationState.Value = StationState.Passive).Start();
+
+				if (_onSuccess != null) {
+					_onSuccess.Invoke();
+				}
+
 			} else {
 				//_hPressed = true;
 				//_hCanPress = false;
@@ -72,9 +83,13 @@ public class ShooterSecurityStation : MonoBehaviour, IShooterNetworked, IInterac
 
 	public void Interact() {
 		if (_sCanPress) {
-				_sPressed = true;
-				_sCanPress = false;
-				_stationState.Value = StationState.HalfDeactivated;
+			if (_onInteract != null) {
+				_onInteract.Invoke();
+			}
+
+			_sPressed = true;
+			_sCanPress = false;
+			_stationState.Value = StationState.HalfDeactivated;
 			//TimerManager.CreateTimer("Security Station Threshold S", true).SetDuration(_interactThreshold).AddCallback(() => _sPressed = false).Start();
 			//TimerManager.CreateTimer("Security Station Cooldown S", true).SetDuration(_interactCooldown).AddCallback(() => _sCanPress = true).Start();
 		}

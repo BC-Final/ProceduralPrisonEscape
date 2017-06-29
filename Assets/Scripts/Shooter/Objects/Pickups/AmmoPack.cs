@@ -5,6 +5,9 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked
 	[SerializeField]
 	protected int _amount;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onPickup;
+
 	private ShooterNetworkId _id = new ShooterNetworkId();
 	public ShooterNetworkId Id { get { return _id; } }
 
@@ -14,6 +17,11 @@ public abstract class AmmoPack : MonoBehaviour, IInteractable, IShooterNetworked
 
 	public virtual void Interact() {
         ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.PickUpIcon.sIconUpdate(Id, true));
+
+		if (_onPickup != null) {
+			_onPickup.Invoke();
+		}
+
 		Destroy(gameObject);
 	}
 

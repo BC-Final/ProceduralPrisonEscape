@@ -12,12 +12,19 @@ namespace StateFramework {
 			_prevIntensity = _camera.GetComponentInChildren<Light>().intensity;
 			_camera.GetComponentInChildren<Light>().intensity = 0.0f;
 			TimerManager.CreateTimer("Camera disable", true).SetDuration(_camera.Parameters.DisableDuration).AddCallback(() => _fsm.SetState<CameraGuardState>()).Start();
+
+			if (_camera._onDisable != null) {
+				_camera._onDisable.Invoke();
+			}
 		}
 
 		public override void Step () { }
 
 		public override void Exit () {
 			_camera.GetComponentInChildren<Light>().intensity = _prevIntensity;
+			if (_camera._onEnable != null) {
+				_camera._onEnable.Invoke();
+			}
 		}
 	}
 }

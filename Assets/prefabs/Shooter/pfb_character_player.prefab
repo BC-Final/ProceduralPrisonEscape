@@ -65,10 +65,11 @@ GameObject:
   - component: {fileID: 114620289074889480}
   - component: {fileID: 114035285378071916}
   - component: {fileID: 114172184549205488}
+  - component: {fileID: 114046564022967424}
   m_Layer: 11
   m_Name: pfb_character_player
   m_TagString: Player
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -100,7 +101,7 @@ GameObject:
   - component: {fileID: 20639257882984512}
   - component: {fileID: 92449981147219178}
   - component: {fileID: 124334320356990218}
-  - component: {fileID: 81240045484269360}
+  - component: {fileID: 114342685236537682}
   m_Layer: 11
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -189,8 +190,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1258300489362204}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -24.28, y: 1, z: -27.56}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -54.92, y: 1.68, z: 29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4541232810458116}
@@ -327,7 +328,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294966783
+    m_Bits: 4294966527
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -432,13 +433,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!81 &81240045484269360
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1523784544650138}
-  m_Enabled: 1
 --- !u!92 &92023292536019038
 Behaviour:
   m_ObjectHideFlags: 1
@@ -464,6 +458,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1996ac9833d0e4eacb93ffa045939d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114046564022967424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1258300489362204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _events:
+  - event:/Sound Design/shooter/shooter_footstep
+  - event:/Sound Design/shooter/shooter_gethit_laser
 --- !u!114 &114172184549205488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,6 +497,18 @@ MonoBehaviour:
   _maxGrenades: 4
   _cooldown: 0.5
   _cameraDistance: 0.4
+--- !u!114 &114342685236537682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523784544650138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!114 &114461225773333846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,7 +533,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07352ca23b8b40741a453d9abe915660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 1000
+  _maxHealth: 200
+  _onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114046564022967424}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114620289074889480
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,6 +626,23 @@ MonoBehaviour:
   airControl: 1
   antiBumpFactor: 0.75
   antiBunnyHopFactor: 1
+  _footstepDelay: 0.75
+  _onStep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114046564022967424}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
 --- !u!114 &114903583165209304
 MonoBehaviour:
   m_ObjectHideFlags: 1

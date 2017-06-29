@@ -37,7 +37,6 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	private SphereCollider _viewTrigger;
 
 
-
 	[Header("Debug")]
 	[SerializeField]
 	private bool _visualizeView;
@@ -47,7 +46,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 
 	public UnityEngine.Events.UnityEvent _onShoot;
 	public UnityEngine.Events.UnityEvent _onDie;
-
+	public UnityEngine.Events.UnityEvent _onDamaged;
+	public UnityEngine.Events.UnityEvent _onPlayerEnter;
+	public UnityEngine.Events.UnityEvent _onPlayerExit;
 
 	private bool _alarmResponder;
 	public bool AlarmResponder { get { return _alarmResponder; } set { _alarmResponder = value; } }
@@ -186,6 +187,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 			_lastTarget = FindObjectOfType<PlayerHealth>().GameObject;
 			_fsm.SetState<DroneAlarmFollowState>();
 		}
+
+		if (_onPlayerEnter != null) {
+			_onPlayerEnter.Invoke();
+		}
 	}
 
 
@@ -205,6 +210,8 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		_possibleTargets.OrderBy(x => Vector3.Distance(x.GameObject.transform.position, transform.position));
 
 		_fsm.Step();
+
+		GetComponent<FMODEventCollection>().SetParameter(4, "P_drone_speed", _agent.velocity.magnitude / _agent.speed);
 	}
 
 
@@ -213,6 +220,12 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			if (d.GameObject.tag == "Player") {
+				//if (_onPlayerEnter != null) {
+				//	_onPlayerEnter.Invoke();
+				//}
+			}
+
 			d.AddToDestroyEvent(g => onTargetDestroyed(g));
 			_possibleTargets.Add(d);
 		}
@@ -224,6 +237,10 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 		ITargetable d = other.GetComponentInParent<ITargetable>();
 
 		if (d != null && other.gameObject.layer != LayerMask.NameToLayer("RangeTrigger")) {
+			//if (_onPlayerExit != null) {
+			//	_onPlayerExit.Invoke();
+			//}
+
 			d.RemoveFromDestroyEvent(g => onTargetDestroyed(g));
 			_possibleTargets.RemoveAll(x => x.GameObject == d.GameObject);
 		}
@@ -245,6 +262,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 			_currentHealth -= pDamage;
 
 			//_lastTarget = pSender.GameObject;
+			if (_onDamaged != null) {
+				_onDamaged.Invoke();
+			}
 
 			if (_currentHealth <= 0.0f) {
 				DestroyEvent();

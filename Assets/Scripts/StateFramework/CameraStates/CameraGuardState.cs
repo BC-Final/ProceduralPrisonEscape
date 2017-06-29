@@ -41,6 +41,10 @@ namespace StateFramework {
 
 			_camera.GetComponentInChildren<Light>().color = Color.green;
 
+			if (_camera._onStartMove != null) {
+				_camera._onStartMove.Invoke();
+			}
+
 			//_moveSound = FMODUnity.RuntimeManager.CreateInstance("event:/PE_hacker/PE_hacker_cameramove_start");
 			//FMODUnity.RuntimeManager.AttachInstanceToGameObject(_moveSound, _camera.transform, _camera.GetComponent<Rigidbody>());
 
@@ -56,7 +60,6 @@ namespace StateFramework {
 				} else if (_camera.Faction == Faction.Neutral) {
 					//TODO Send Hacker Update info about enemies in view
 				}
-				
 			}
 
 			_currentLerpTime += Time.deltaTime;
@@ -68,6 +71,10 @@ namespace StateFramework {
 			_camera.Base.rotation = Quaternion.Slerp(Quaternion.Euler(_start), Quaternion.Euler(_end), perc);
 
 			if (_currentLerpTime == _lerpTime) {
+				if (_camera._onSwitchDirection != null) {
+					_camera._onSwitchDirection.Invoke();
+				}
+
 				_currentLerpTime = 0.0f;
 				_start = _end;
 
@@ -89,6 +96,10 @@ namespace StateFramework {
 
 		public override void Exit () {
 			//_moveSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+			if (_camera._onStartMove != null) {
+				_camera._onStopMove.Invoke();
+			}
 		}
 	}
 }

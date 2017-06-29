@@ -23,4 +23,8 @@ public class FMODEventCollection : MonoBehaviour {
 	public void Stop(int pIndex) {
 		_instances[_events[pIndex]].stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 	}
+
+	public void SetParameter(int pIndex, string pName, float pValue) {
+		_instances[_events[pIndex]].setParameterValue(pName, pValue);
+	}
 }

@@ -50,6 +50,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000011564071450}
   - component: {fileID: 114000012703303026}
+  - component: {fileID: 114870697572044176}
   m_Layer: 9
   m_Name: pfb_weapon_mininglaser
   m_TagString: Untagged
@@ -1190,7 +1191,7 @@ MonoBehaviour:
   _reloadTime: 2.5
   _meleeTime: 0.5
   _aimTime: 0.2
-  _drawTime: 0.3
+  _drawTime: 0.6
   _cameraRecoilForce: {x: 8, y: 4}
   _weaponRotationRecoilForce: {x: 4, y: 2}
   _weaponMoveRecoilForce: 0.5
@@ -1202,12 +1203,34 @@ MonoBehaviour:
   _model: {fileID: 1128740038223598}
   _onSwitch:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114870697572044176}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _onShoot:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114870697572044176}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _onReload:
@@ -1216,6 +1239,38 @@ MonoBehaviour:
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   _currentState: 4
+  _onStartCharge:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114870697572044176}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onStopCharge:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114870697572044176}
+        m_MethodName: Stop
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   _chargeTime: 1.75
   _minDamage: 100
   _maxDamage: 400
@@ -1223,6 +1278,21 @@ MonoBehaviour:
   _maxBeams: 20
   _minAmmoUse: 1
   _maxAmmoUse: 4
+--- !u!114 &114870697572044176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014200418934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _events:
+  - event:/Sound Design/weapon/_laser/weapon_laser_shot
+  - event:/Sound Design/weapon/_laser/weapon_laser_charge
+  - event:/Sound Design/shooter/weaponchange/shooter_weaponchange_laser
 --- !u!198 &198038601078346480
 ParticleSystem:
   m_ObjectHideFlags: 1

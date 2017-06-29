@@ -5,9 +5,14 @@ using Gamelogic.Extensions;
 
 public class ShooterLasergate : MonoBehaviour, IShooterNetworked
 {
-
 	private ShooterNetworkId _id = new ShooterNetworkId();
 	public ShooterNetworkId Id { get { return _id; } }
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onEnable;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onDisable;
 
 	public void Initialize()
 	{
@@ -40,6 +45,10 @@ public class ShooterLasergate : MonoBehaviour, IShooterNetworked
 
 	void Start()
 	{
+		if (_onEnable != null) {
+			_onEnable.Invoke();
+		}
+
 		_timer = TimerManager.CreateTimer("LaserResetTimer", false);
 		_timer.SetDuration(0.5f);
 		_lasers = new List<LineRenderer>();
@@ -79,6 +88,16 @@ public class ShooterLasergate : MonoBehaviour, IShooterNetworked
 
 	private void ApplyChange()
 	{
+		if (_isActive.Value) {
+			if (_onEnable != null) {
+				_onEnable.Invoke();
+			}
+		} else {
+			if (_onDisable != null) {
+				_onDisable.Invoke();
+			}
+		}
+
 		SetLight(_isActive.Value);
 		ShooterPackageSender.SendPackage(new NetworkPacket.GameObjects.Lasergate.sUpdate(Id, _isActive.Value));
 	}
@@ -90,5 +109,11 @@ public class ShooterLasergate : MonoBehaviour, IShooterNetworked
 			lr.enabled = state;
 		}
 		_light.enabled = state;
+	}
+
+	private void OnDestroy() {
+		if (_onDisable != null) {
+			_onDisable.Invoke();
+		}
 	}
 }

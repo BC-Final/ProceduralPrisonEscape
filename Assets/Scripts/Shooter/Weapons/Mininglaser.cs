@@ -2,7 +2,14 @@
 using System.Collections;
 
 public class Mininglaser : Weapon {
-	[Header("Weapon Specific")]
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onStartCharge;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onStopCharge;
+
+
+[Header("Weapon Specific")]
 	[SerializeField]
 	private float _chargeTime;
 
@@ -56,6 +63,8 @@ public class Mininglaser : Weapon {
 					_completeAmmoUse -= Mathf.Abs(_magazineContent);
 					_magazineContent = 0;
 					_chargeTimer.Pause(true);
+				} else {
+					GetComponent<FMODEventCollection>().SetParameter(1, "P_laser_charge", _chargeTimer.FinishedPercentage);
 				}
 
 				_lastAmmoUse = currentAmmoUse;
@@ -64,6 +73,10 @@ public class Mininglaser : Weapon {
 			if (Input.GetMouseButtonDown(0) && _magazineContent != 0 && _currentState == WeaponState.Idle && !_chargeTimer.IsPlaying && !_chargeTimer.IsFinished) {
 				_lastAmmoUse = 0;
 				_chargeTimer.Start();
+
+				if (_onStartCharge != null) {
+					_onStartCharge.Invoke();
+				}
 			} else if (Input.GetMouseButtonDown(0) && _magazineContent < _minAmmoUse && _reserveAmmo != 0 && !_chargeTimer.IsFinished && !_chargeTimer.IsPlaying) {
 				reload();
 			}
@@ -73,6 +86,9 @@ public class Mininglaser : Weapon {
 				int noOfBeams = Mathf.RoundToInt(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minBeams, _maxBeams));
 				shoot(Utilities.Math.Remap(_chargeTimer.FinishedPercentage, 0, 1, _minDamage, _maxDamage), noOfBeams, false);
 				_chargeTimer.Reset();
+				if (_onStopCharge != null) {
+					_onStopCharge.Invoke();
+				}
 				_completeAmmoUse = 0;
 			}
 
@@ -87,6 +103,11 @@ public class Mininglaser : Weapon {
 
 		_chargeTimer.Pause();
 		_chargeTimer.Reset();
+
+		if (_onStopCharge != null) {
+			_onStopCharge.Invoke();
+		}
+
 		_magazineContent += _completeAmmoUse;
 		_completeAmmoUse = 0;
 	}

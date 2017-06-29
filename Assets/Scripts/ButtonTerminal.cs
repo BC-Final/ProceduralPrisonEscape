@@ -28,6 +28,12 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
     [SerializeField]
     ShooterButton _hackerButton;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onPress;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onSuccess;
+
 	public static void ProccessPacket(NetworkPacket.GameObjects.Button.hUpdate pPacket)
 	{
 		ButtonTerminal terminal = ShooterPackageSender.GetNetworkedObject<ButtonTerminal>(pPacket.Id);
@@ -39,8 +45,10 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
 
 	void Start () {
         _shooterButton.Triggered.OnValueChange += OnButtonChanged;
+		_shooterButton.Triggered.OnValueChange += () => { if (_onPress != null) _onPress.Invoke(); };
 		_shooterButton.Terminal = this;
         _hackerButton.Triggered.OnValueChange += OnButtonChanged;
+		_hackerButton.Triggered.OnValueChange += () => { if (_onPress != null) _onPress.Invoke(); };
 		_hackerButton.Terminal = this;
 
 		OnButtonChanged();
@@ -72,6 +80,9 @@ public class ButtonTerminal : MonoBehaviour, IShooterNetworked{
 
 	private void OnSolved()
     {
+		if (_onSuccess != null) {
+			_onSuccess.Invoke();
+		}
         _shooterButton.OnSolved();
         _hackerButton.OnSolved();
         _door.ForceOpen();

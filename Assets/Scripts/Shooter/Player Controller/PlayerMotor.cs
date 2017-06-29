@@ -59,6 +59,16 @@ public class PlayerMotor : MonoBehaviour {
 	private bool _canMove = true;
 	private bool _slowMove = false;
 
+	[SerializeField]
+	private float _footstepDelayWalk = .5f;
+	[SerializeField]
+	private float _footstepDelayRun = .3f;
+	private Timer _footstepTimer;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onStep;
+
+
 	//TODO Add Stamina
 	//TODO Add Ducking
 
@@ -81,11 +91,14 @@ public class PlayerMotor : MonoBehaviour {
 		rayDistance = controller.height * .5f + controller.radius;
 		slideLimit = controller.slopeLimit - .1f;
 		jumpTimer = antiBunnyHopFactor;
+		_footstepTimer = TimerManager.CreateTimer("Footstep", false).SetLoops(-1).SetDuration(_footstepDelayWalk).AddCallback(() => { if (_onStep != null) _onStep.Invoke(); });
 	}
 
 	void FixedUpdate () {
 		float inputX = Input.GetAxis("Horizontal");
 		float inputY = Input.GetAxis("Vertical");
+
+
 		// If both horizontal and vertical are used simultaneously, limit speed (if allowed), so the total doesn't exceed normal move speed
 		float inputModifyFactor = (inputX != 0.0f && inputY != 0.0f && limitDiagonalSpeed) ? .7071f : 1.0f;
 
@@ -134,6 +147,23 @@ public class PlayerMotor : MonoBehaviour {
 					moveDirection = myTransform.TransformDirection(moveDirection) * speed;
 					playerControl = true;
 				}
+
+				if (Input.GetKey(KeyCode.LeftShift)) {
+					_footstepTimer.SetDuration(_footstepDelayRun);
+				} else {
+					_footstepTimer.SetDuration(_footstepDelayWalk);
+				}
+
+				//______________________
+				//Debug.Log(new Vector2(moveDirection.x, moveDirection.z).magnitude);
+				if (new Vector2(moveDirection.x, moveDirection.z).magnitude > 0.1f && !_footstepTimer.IsPlaying) {
+					Debug.Log("Walking");
+					_footstepTimer.Start();
+				} else if (new Vector2(moveDirection.x, moveDirection.z).magnitude < 0.1f && _footstepTimer.IsPlaying) {
+					Debug.Log("Standing");
+					_footstepTimer.Stop();
+				}
+				//______________________
 
 				// Jump! But only if the jump button has been released and player has been grounded for a given number of frames
 				if (!Input.GetKey(KeyCode.Space))
