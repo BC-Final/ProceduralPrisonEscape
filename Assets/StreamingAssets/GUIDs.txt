@@ -1,9 +1,10 @@
+{2a9c3e00-2410-488b-b7f4-4ae766070f55} event:/Music/hacker_music
 {74454e42-caee-4f75-8dc7-a1ca25b8d807} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_bullet
 {7b814e47-6265-454a-bcba-59dc68eeed95} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_explosion
 {acb8244a-0fd2-4d23-b0ff-8245f7672c4b} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_laser
-{30f725fe-fedc-403d-9503-7f82d046040f} event:/Sound Design/drone/_noarmor/drone_noarmor_shutdown
-{17430cff-aa43-407d-9ca4-fa62dee66b35} event:/Sound Design/drone/_noarmor/drone_noarmor_explode
 {ae2e65fc-0f4e-4f63-9f4a-4ead6dc64a19} event:/Sound Design/drone/_noarmor/drone_noarmor_drop
+{17430cff-aa43-407d-9ca4-fa62dee66b35} event:/Sound Design/drone/_noarmor/drone_noarmor_explode
+{30f725fe-fedc-403d-9503-7f82d046040f} event:/Sound Design/drone/_noarmor/drone_noarmor_shutdown
 {faaa18c0-2420-4ada-8d3d-850e92e076d0} event:/Sound Design/drone/drone_engine
 {441d14c0-7bf5-4e2c-8097-12bd07626828} event:/Sound Design/envi/_camera/envi_camera_alert
 {6162bf65-0483-476b-9288-d62d96e2efb5} event:/Sound Design/envi/_camera/envi_camera_disable
@@ -39,9 +40,9 @@
 {a28ea743-d8a3-4f26-b475-6f48f8dd4cea} event:/Sound Design/hacker/hacker_button_positive
 {b25650aa-3a17-4933-9f45-59982d207180} event:/Sound Design/module/module_keypad_keypress
 {0d856b83-c6d1-4176-b8b1-cc171171a6dd} event:/Sound Design/module/module_server_destroy
-{43dd9efb-f03b-4826-b057-ff4bcff3fa41} event:/Sound Design/shooter/weaponchange/shooter_weaponchange_mg
 {05a4e9ae-a685-4666-af02-d2e42ec71f06} event:/Sound Design/shooter/weaponchange/shooter_weaponchange_grenade
 {cae73569-d7f5-4c09-83fd-016b5a6d4107} event:/Sound Design/shooter/weaponchange/shooter_weaponchange_laser
+{43dd9efb-f03b-4826-b057-ff4bcff3fa41} event:/Sound Design/shooter/weaponchange/shooter_weaponchange_mg
 {ac803f55-8639-4841-bac6-0c3b373fa83f} event:/Sound Design/shooter/weaponchange/shooter_weaponchange_pistol
 {c29eaad5-7658-48a2-a3bd-aada4c6d1776} event:/Sound Design/shooter/shooter_footstep
 {3dec0a63-e869-4d5c-b6d8-d25a1391fb0f} event:/Sound Design/shooter/shooter_gethit_bullet
@@ -51,14 +52,14 @@
 {6612f5e1-79e4-40cb-9dd8-ea253754e7c9} event:/Sound Design/weapon/_ep/weapon_ep_reload
 {e375cec8-dd04-4b72-bd91-b8f04b8853b1} event:/Sound Design/weapon/_grenade/weapon_granade_explode
 {8d2d6dd0-64b0-4de5-90e1-d449d5aed340} event:/Sound Design/weapon/_grenade/weapon_grenade_alert
-{28ab1389-89bf-4664-9b27-534fc1f98cac} event:/Sound Design/weapon/_laser/weapon_laser_shot
 {7f961ec1-fe66-4442-ac58-0d12e47b7076} event:/Sound Design/weapon/_laser/weapon_laser_charge
+{28ab1389-89bf-4664-9b27-534fc1f98cac} event:/Sound Design/weapon/_laser/weapon_laser_shot
 {276512db-90b9-463d-b7ca-604fbb89111f} event:/Sound Design/weapon/_mg/weapon_mg_bullet_shot
 {187b0939-18a0-49e6-8bff-b39d26f30c4c} event:/Sound Design/weapon/_mg/weapon_mg_empty
 {9f30eea4-fcc1-4bff-9b9d-8c23ae4276cc} event:/Sound Design/weapon/_mg/weapon_mg_laser_shot
 {3ad8e0cb-efde-4b35-a339-02eb45a4f630} event:/Sound Design/weapon/_mg/weapon_mg_reload
 {d221f383-e55e-40e7-8d92-7f5e2f9ffb8b} event:/Sound Design/weapon/_pistol/weapon_pistol_laser_shot
-{2a9c3e00-2410-488b-b7f4-4ae766070f55} event:/Music/hacker_music
+{9ee3f487-0da3-445a-b220-3160ff4ce400} event:/envi_ambience
 {aa168d68-3ce9-46ca-9c4c-365e62c454ad} bus:/
 {0c5318aa-0837-4f8f-9cc0-43ca0edaf7f9} bank:/Hacker
 {60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
