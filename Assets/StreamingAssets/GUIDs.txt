@@ -61,5 +61,7 @@
 {d221f383-e55e-40e7-8d92-7f5e2f9ffb8b} event:/Sound Design/weapon/_pistol/weapon_pistol_laser_shot
 {9ee3f487-0da3-445a-b220-3160ff4ce400} event:/envi_ambience
 {aa168d68-3ce9-46ca-9c4c-365e62c454ad} bus:/
+{c0eb24ce-d2bd-4fab-81aa-b1c795f553b1} bus:/New Group
+{2863da34-4ee5-47ca-bff7-38a15cfc2ca5} bus:/Reverb
 {0c5318aa-0837-4f8f-9cc0-43ca0edaf7f9} bank:/Hacker
 {60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
