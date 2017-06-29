@@ -22,10 +22,12 @@
 {690dabf4-135e-4305-837e-66218cd713fd} event:/Sound Design/envi/_turret/envi_turret_enable
 {dacea39e-ae96-44a4-b131-17f884eaaa33} event:/Sound Design/envi/_turret/envi_turret_rotate
 {e4baecdd-9e80-498c-abd2-ec6a6b5f23fa} event:/Sound Design/envi/_turret/envi_turret_tilt
+{51a52b87-03f9-4179-8c07-fe629e97c0a8} event:/Sound Design/envi/_fusebox/envi_fusebox_discharge
 {93cc2fbc-e9c3-4e15-9c3c-634665982752} event:/Sound Design/envi/envi_alarm
 {01e17d98-4a06-40b7-8cc4-165a1b80f2a9} event:/Sound Design/envi/envi_exit_unlock
 {5cf41160-7c1b-4c16-bbee-8db19f0051d6} event:/Sound Design/envi/envi_lasergate_idle
 {b25650aa-3a17-4933-9f45-59982d207180} event:/Sound Design/module/module_keypad_keypress
+{0d856b83-c6d1-4176-b8b1-cc171171a6dd} event:/Sound Design/module/module_server_destroy
 {c29eaad5-7658-48a2-a3bd-aada4c6d1776} event:/Sound Design/shooter/shooter_footstep
 {3dec0a63-e869-4d5c-b6d8-d25a1391fb0f} event:/Sound Design/shooter/shooter_gethit_bullet
 {70479da0-8cf2-4664-97fa-32eb4d9fd205} event:/Sound Design/shooter/shooter_gethit_laser
@@ -38,6 +40,15 @@
 {9f30eea4-fcc1-4bff-9b9d-8c23ae4276cc} event:/Sound Design/weapon/_mg/weapon_mg_laser_shot
 {3ad8e0cb-efde-4b35-a339-02eb45a4f630} event:/Sound Design/weapon/_mg/weapon_mg_reload
 {d221f383-e55e-40e7-8d92-7f5e2f9ffb8b} event:/Sound Design/weapon/_pistol/weapon_pistol_laser_shot
+{6612f5e1-79e4-40cb-9dd8-ea253754e7c9} event:/Sound Design/weapon/_ep/weapon_ep_reload
+{45939148-c8ec-4b59-bc0d-ffa1dbdae719} event:/Sound Design/weapon/_ep/weapon_ep_empty
+{56e99902-c2ca-49a2-ba4e-54dd3c4d629b} event:/Sound Design/hacker/hacker_button_negative
+{96bd0900-9a5f-427b-b7da-4f64ce4264d6} event:/Sound Design/hacker/hacker_button_neutral
+{a28ea743-d8a3-4f26-b475-6f48f8dd4cea} event:/Sound Design/hacker/hacker_button_positive
+{74454e42-caee-4f75-8dc7-a1ca25b8d807} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_bullet
+{acb8244a-0fd2-4d23-b0ff-8245f7672c4b} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_laser
+{7b814e47-6265-454a-bcba-59dc68eeed95} event:/Sound Design/drone/_noarmor/_hit/drone_noarmor_hit_explosion
+{faaa18c0-2420-4ada-8d3d-850e92e076d0} event:/Sound Design/drone/drone_engine
 {aa168d68-3ce9-46ca-9c4c-365e62c454ad} bus:/
 {0c5318aa-0837-4f8f-9cc0-43ca0edaf7f9} bank:/Hacker
 {60e70753-bd9f-477e-afce-53912b59402d} bank:/Shooter
