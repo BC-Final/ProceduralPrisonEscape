@@ -45,6 +45,9 @@ public class DroneEnemy : MonoBehaviour, IDamageable, ITargetable, IShooterNetwo
 	[SerializeField]
 	private bool _visualizeHits;
 
+	public UnityEngine.Events.UnityEvent _onShoot;
+	public UnityEngine.Events.UnityEvent _onDie;
+
 
 	private bool _alarmResponder;
 	public bool AlarmResponder { get { return _alarmResponder; } set { _alarmResponder = value; } }

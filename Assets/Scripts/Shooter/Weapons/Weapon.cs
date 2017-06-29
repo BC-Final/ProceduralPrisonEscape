@@ -91,29 +91,23 @@ public abstract class Weapon : MonoBehaviour {
 	[SerializeField]
 	private GameObject _model;
 
+	[Header("Events")]
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onSwitch;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onShoot;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onReload;
+
+	[Space]
 
 	protected int _magazineContent;
 	public int MagazineContent { get { return _magazineContent; } set { _magazineContent = value; } }
 
 	protected int _reserveAmmo;
 	public int ReserveAmmo { get { return _reserveAmmo; } set { _reserveAmmo = value; } }
-
-
-
-	//protected bool _canShoot = true;
-	//public bool CanShoot { get { return _canShoot; } }
-
-	//protected bool _reloading = false;
-	//public bool Reloading { get { return _reloading; } }
-
-	//protected bool _moving = false;
-	//public bool Moving { set { _moving = value; } }
-
-	//protected bool _aiming = false;
-	//public bool Aiming { set { _aiming = value; } }
-
-	//protected bool _active;
 
 
 
@@ -139,10 +133,7 @@ public abstract class Weapon : MonoBehaviour {
 		Hidden
 	}
 
-	//Set base ammo for debug purposes
 	protected virtual void Awake () {
-		//_magazineContent = _magazineCapacity;
-		//_reserveAmmo = Mathf.Min(_magazineCapacity, _maxReserveAmmo);
 		_magazineContent = 0;
 		_reserveAmmo = 0;
 	}
@@ -178,6 +169,10 @@ public abstract class Weapon : MonoBehaviour {
 			 .Append(_model.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _drawTime))
 			 .Join(_model.transform.DOLocalMove(Vector3.zero, _drawTime))
 			 .OnComplete(() => _currentState = WeaponState.Idle);
+
+			if (_onSwitch != null) {
+				_onSwitch.Invoke();
+			}
 		} else {
 			if (_currentState == WeaponState.Reloading) {
 				abortReload();
@@ -224,6 +219,10 @@ public abstract class Weapon : MonoBehaviour {
 
 		RaycastHit hit;
 
+		if (_onShoot != null) {
+			_onShoot.Invoke();
+		}
+
 		for (int i = 0; i < pNumberOfShots; ++i) {
 			if (Utilities.Weapons.CastShot(CalcFinalSpreadConeRadius(), _spreadConeLength, Camera.main.transform, out hit)) {
 				spawnBullet(hit.point);
@@ -263,6 +262,10 @@ public abstract class Weapon : MonoBehaviour {
 			.Append(_model.transform.DOLocalRotate(new Vector3(0.0f, 0.0f, 0.0f), _reloadMoveTime))
 			.Join(_model.transform.DOLocalMove(_model.transform.localPosition, _reloadMoveTime))
 			.OnComplete(() =>  finishReload());
+
+			if (_onReload != null) {
+				_onReload.Invoke();
+			}
 
 			_reloadQueued = false;
 		} else if(_currentState != WeaponState.Reloading) {

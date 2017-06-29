@@ -28,6 +28,12 @@ public class ShooterGrenade : MonoBehaviour, IShooterNetworked {
 	[SerializeField]
 	private float _updateInterval = 0.1f;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onThrow;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onExplode;
+
 	private Timer _updateTimer;
 
 	private ShooterNetworkId _id = new ShooterNetworkId();
@@ -77,6 +83,10 @@ public class ShooterGrenade : MonoBehaviour, IShooterNetworked {
 
 		GetComponent<Rigidbody>().AddForce(transform.forward * _throwForce);
 		GetComponent<Rigidbody>().AddTorque(Random.onUnitSphere * _throwRotation);
+
+		if (_onThrow != null) {
+			_onThrow.Invoke();
+		}
 	}
 
 	private void explode() {
@@ -84,7 +94,11 @@ public class ShooterGrenade : MonoBehaviour, IShooterNetworked {
 
 		List<Rigidbody> rigidbodies = new List<Rigidbody>();
 
-		foreach(Collider coll in colls) {
+		if (_onExplode != null) {
+			_onExplode.Invoke();
+		}
+
+		foreach (Collider coll in colls) {
 			IDamageable dam = coll.GetComponentInParent<IDamageable>();
 
 			if (dam != null) {
@@ -109,7 +123,10 @@ public class ShooterGrenade : MonoBehaviour, IShooterNetworked {
 		}
 
 		Instantiate(ShooterReferenceManager.Instance.GrenadeExplosion, transform.position, Quaternion.Euler(0.0f, Random.Range(0.0f, 359.0f), 0.0f));
-		Destroy(this.gameObject);
+
+		_updateTimer.Stop();
+		gameObject.SetActive(false);
+		Destroy(this.gameObject, 5);
 	}
 
 	private void OnDrawGizmos() {

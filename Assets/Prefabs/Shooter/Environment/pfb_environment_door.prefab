@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 114000011899917216}
   - component: {fileID: 54430530825207408}
   - component: {fileID: 41905075802496834}
+  - component: {fileID: 114788574232522712}
   m_Layer: 0
   m_Name: pfb_environment_door
   m_TagString: Untagged
@@ -685,8 +686,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftDoor: {fileID: 4000014183410348}
   _rightDoor: {fileID: 4000011949382656}
+  _unlockTime: 5
   IsDisabled: 0
   _keypad: {fileID: 0}
+  _onOpen:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114788574232522712}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onClose:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114788574232522712}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+--- !u!114 &114788574232522712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010915261142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _events:
+  - event:/Sound Design/envi/_door/envi_door_open_mechanic
+  - event:/Sound Design/envi/_door/envi_door_close_mechanic
 --- !u!208 &208543551695627232
 NavMeshObstacle:
   m_ObjectHideFlags: 1
@@ -757,6 +805,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
 --- !u!212 &212880567726566012
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -797,3 +846,4 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0

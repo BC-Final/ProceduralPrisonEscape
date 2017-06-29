@@ -29,6 +29,10 @@ namespace StateFramework {
 					} else if (_drone.Parameters.AttackType == DroneParameters.DroneAttackType.Ranged) {
 						RaycastHit hit;
 
+						if (_drone._onShoot != null) {
+							_drone._onShoot.Invoke();
+						}
+
 						if (Utilities.Weapons.CastShot(_drone.Parameters.SpreadConeRadius, _drone.Parameters.SpreadConeLength, _drone.ShotTransform, out hit)) {
 							Utilities.Weapons.DisplayLaser(_drone.ShotTransform.position, hit.point);
 

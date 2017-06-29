@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 195000012272795248}
   - component: {fileID: 54000013166176776}
   - component: {fileID: 114000011423508484}
+  - component: {fileID: 114178543107243588}
   m_Layer: 0
   m_Name: pfb_enemy_drone
   m_TagString: Untagged
@@ -1705,8 +1706,42 @@ MonoBehaviour:
   _viewTrigger: {fileID: 135283696087368858}
   _visualizeView: 0
   _visualizeHits: 0
+  _onShoot:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114178543107243588}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  _onDie:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
   _lastTarget: {fileID: 0}
   CurrentState: 
+--- !u!114 &114178543107243588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012459772106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6acd39d930b938648972eac61821639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _events:
+  - event:/Sound Design/weapon/_mg/weapon_mg_laser_shot
 --- !u!135 &135185793629756712
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -83,6 +83,12 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 	private Keypad _keypad;
 	private OcclusionPortal _portal;
 
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onOpen;
+
+	[SerializeField]
+	private UnityEngine.Events.UnityEvent _onClose;
+
 	/// <summary>
 	/// HACK! To be changed!
 	/// </summary>
@@ -153,6 +159,10 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 			//--------temp--------
 			_portal.open = true;
 
+			if (_onOpen != null) {
+				_onOpen.Invoke();
+			}
+
 			DOTween.Sequence()
 			.Append(_rightDoor.DOLocalMove(new Vector3(1.25f, 1.25f, 0.0f), 1.0f))
 			.Join(_leftDoor.DOLocalMove(new Vector3(-1.25f, 1.25f, 0.0f), 1.0f))
@@ -161,6 +171,10 @@ public class ShooterDoor : MonoBehaviour, IShooterNetworked {
 			.SetTarget(this.transform);
 			//--------temp end--------
 		} else {
+			if (_onClose != null) {
+				_onClose.Invoke();
+			}
+
 			//--------temp--------
 			DOTween.Sequence()
 			.Append(_rightDoor.DOLocalMove(new Vector3(0.625f, 1.25f, 0.0f), 1.0f))
