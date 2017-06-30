@@ -1,0 +1,232 @@
+fileFormatVersion: 2
+guid: 6973c785e25d98e41baf4d2d47dcd478
+timeCreated: 1498678616
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: mdl_enemy_drone_armor
+    100004: mdl_enemy_drone_eye
+    100006: mdl_enemy_drone_gripmain
+    100008: mdl_enemy_drone_gripsub
+    100010: mdl_enemy_drone_gripsub2
+    100012: mdl_enemy_drone_gun_left
+    100014: mdl_enemy_drone_gun_left_muzzle
+    100016: mdl_enemy_drone_gun_right
+    100018: mdl_enemy_drone_gun_right_muzzle
+    100020: mdl_enemy_drone_shieldgenerator_right
+    100022: mdl_enemy_drone_shieldgenerator_right1
+    100024: mdl_enemy_drone_shotgun_left
+    100026: mdl_enemy_drone_shotgun_right
+    100028: mdl_enemy_drone_smg_left
+    100030: mdl_enemy_drone_smg_muzzle_left
+    100032: mdl_enemy_drone_smg_muzzle_right
+    100034: mdl_enemy_drone_smg_right
+    100036: mdl_enemy_drone_turbine_left
+    100038: mdl_enemy_drone_turbine_leftarmor
+    100040: mdl_enemy_drone_turbine_right
+    100042: mdl_enemy_drone_turbine_rightarmor
+    100044: mdl_enemy_drone_weapon_holder
+    100046: mdl_enemy_drone_weapon_wire01
+    100048: mdl_enemy_drone_weapon_wire01 1
+    100050: mdl_enemy_drone_weapon_wire02
+    100052: mdl_enemy_drone_weapon_wire02 1
+    100054: mdl_repairtool_canister01
+    100056: mdl_repairtool_canister02
+    100058: mdl_repairtool_grip
+    100060: mdl_repairtool_grip_Welder
+    400000: //RootNode
+    400002: mdl_enemy_drone_armor
+    400004: mdl_enemy_drone_eye
+    400006: mdl_enemy_drone_gripmain
+    400008: mdl_enemy_drone_gripsub
+    400010: mdl_enemy_drone_gripsub2
+    400012: mdl_enemy_drone_gun_left
+    400014: mdl_enemy_drone_gun_left_muzzle
+    400016: mdl_enemy_drone_gun_right
+    400018: mdl_enemy_drone_gun_right_muzzle
+    400020: mdl_enemy_drone_shieldgenerator_right
+    400022: mdl_enemy_drone_shieldgenerator_right1
+    400024: mdl_enemy_drone_shotgun_left
+    400026: mdl_enemy_drone_shotgun_right
+    400028: mdl_enemy_drone_smg_left
+    400030: mdl_enemy_drone_smg_muzzle_left
+    400032: mdl_enemy_drone_smg_muzzle_right
+    400034: mdl_enemy_drone_smg_right
+    400036: mdl_enemy_drone_turbine_left
+    400038: mdl_enemy_drone_turbine_leftarmor
+    400040: mdl_enemy_drone_turbine_right
+    400042: mdl_enemy_drone_turbine_rightarmor
+    400044: mdl_enemy_drone_weapon_holder
+    400046: mdl_enemy_drone_weapon_wire01
+    400048: mdl_enemy_drone_weapon_wire01 1
+    400050: mdl_enemy_drone_weapon_wire02
+    400052: mdl_enemy_drone_weapon_wire02 1
+    400054: mdl_repairtool_canister01
+    400056: mdl_repairtool_canister02
+    400058: mdl_repairtool_grip
+    400060: mdl_repairtool_grip_Welder
+    2300000: //RootNode
+    2300002: mdl_enemy_drone_armor
+    2300004: mdl_enemy_drone_eye
+    2300006: mdl_enemy_drone_gripmain
+    2300008: mdl_enemy_drone_gripsub
+    2300010: mdl_enemy_drone_gripsub2
+    2300012: mdl_enemy_drone_gun_left
+    2300014: mdl_enemy_drone_gun_left_muzzle
+    2300016: mdl_enemy_drone_gun_right
+    2300018: mdl_enemy_drone_gun_right_muzzle
+    2300020: mdl_enemy_drone_shieldgenerator_right
+    2300022: mdl_enemy_drone_shieldgenerator_right1
+    2300024: mdl_enemy_drone_shotgun_left
+    2300026: mdl_enemy_drone_shotgun_right
+    2300028: mdl_enemy_drone_smg_left
+    2300030: mdl_enemy_drone_smg_muzzle_left
+    2300032: mdl_enemy_drone_smg_muzzle_right
+    2300034: mdl_enemy_drone_smg_right
+    2300036: mdl_enemy_drone_turbine_left
+    2300038: mdl_enemy_drone_turbine_leftarmor
+    2300040: mdl_enemy_drone_turbine_right
+    2300042: mdl_enemy_drone_turbine_rightarmor
+    2300044: mdl_enemy_drone_weapon_holder
+    2300046: mdl_enemy_drone_weapon_wire01
+    2300048: mdl_enemy_drone_weapon_wire01 1
+    2300050: mdl_enemy_drone_weapon_wire02
+    2300052: mdl_enemy_drone_weapon_wire02 1
+    2300054: mdl_repairtool_canister01
+    2300056: mdl_repairtool_canister02
+    2300058: mdl_repairtool_grip
+    2300060: mdl_repairtool_grip_Welder
+    3300000: //RootNode
+    3300002: mdl_enemy_drone_armor
+    3300004: mdl_enemy_drone_eye
+    3300006: mdl_enemy_drone_gripmain
+    3300008: mdl_enemy_drone_gripsub
+    3300010: mdl_enemy_drone_gripsub2
+    3300012: mdl_enemy_drone_gun_left
+    3300014: mdl_enemy_drone_gun_left_muzzle
+    3300016: mdl_enemy_drone_gun_right
+    3300018: mdl_enemy_drone_gun_right_muzzle
+    3300020: mdl_enemy_drone_shieldgenerator_right
+    3300022: mdl_enemy_drone_shieldgenerator_right1
+    3300024: mdl_enemy_drone_shotgun_left
+    3300026: mdl_enemy_drone_shotgun_right
+    3300028: mdl_enemy_drone_smg_left
+    3300030: mdl_enemy_drone_smg_muzzle_left
+    3300032: mdl_enemy_drone_smg_muzzle_right
+    3300034: mdl_enemy_drone_smg_right
+    3300036: mdl_enemy_drone_turbine_left
+    3300038: mdl_enemy_drone_turbine_leftarmor
+    3300040: mdl_enemy_drone_turbine_right
+    3300042: mdl_enemy_drone_turbine_rightarmor
+    3300044: mdl_enemy_drone_weapon_holder
+    3300046: mdl_enemy_drone_weapon_wire01
+    3300048: mdl_enemy_drone_weapon_wire01 1
+    3300050: mdl_enemy_drone_weapon_wire02
+    3300052: mdl_enemy_drone_weapon_wire02 1
+    3300054: mdl_repairtool_canister01
+    3300056: mdl_repairtool_canister02
+    3300058: mdl_repairtool_grip
+    3300060: mdl_repairtool_grip_Welder
+    4300000: mdl_enemy_drone_base
+    4300002: mdl_enemy_drone_turbine_right
+    4300004: mdl_enemy_drone_turbine_rightarmor
+    4300006: mdl_enemy_drone_turbine_left
+    4300008: mdl_enemy_drone_turbine_leftarmor
+    4300010: mdl_enemy_drone_armor
+    4300012: mdl_enemy_drone_gripmain
+    4300014: mdl_enemy_drone_gripsub
+    4300016: mdl_enemy_drone_gripsub2
+    4300018: mdl_enemy_drone_shieldgenerator_right
+    4300020: mdl_enemy_drone_weapon_holder
+    4300022: mdl_enemy_drone_shotgun_right
+    4300024: mdl_enemy_drone_weapon_wire01
+    4300026: mdl_enemy_drone_weapon_wire02
+    4300028: mdl_enemy_drone_shotgun_left
+    4300030: mdl_enemy_drone_weapon_wire01
+    4300032: mdl_enemy_drone_weapon_wire02
+    4300034: mdl_enemy_drone_gun_right
+    4300036: mdl_enemy_drone_gun_right_muzzle
+    4300038: mdl_enemy_drone_gun_left
+    4300040: mdl_enemy_drone_gun_left_muzzle
+    4300042: mdl_enemy_drone_smg_right
+    4300044: mdl_enemy_drone_smg_muzzle_right
+    4300046: mdl_enemy_drone_smg_left
+    4300048: mdl_enemy_drone_smg_muzzle_left
+    4300050: mdl_repairtool_grip
+    4300052: mdl_repairtool_grip_Welder
+    4300054: mdl_repairtool_canister01
+    4300056: mdl_repairtool_canister02
+    4300058: mdl_enemy_drone_shieldgenerator_right1
+    4300060: mdl_enemy_drone_eye
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 10
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
